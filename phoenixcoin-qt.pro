@@ -1,10 +1,11 @@
 TEMPLATE = app
-TARGET = bitcoin-qt
-VERSION = 0.7.2
+TARGET = phoenixcoin-qt
+VERSION = 0.7.0
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
+QMAKE_CFLAGS += -DNEOSCRYPT_SHA256 -DNEOSCRYPT_ASM -DNEOSCRYPT_OPT
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -20,26 +21,44 @@ OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
 
-# use: qmake "RELEASE=1"
-contains(RELEASE, 1) {
-    # Mac: compile for maximum compatibility (10.5, 32-bit)
-    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -arch i386 -isysroot /Developer/SDKs/MacOSX10.5.sdk
-
-    !windows:!macx {
-        # Linux: static link
-        LIBS += -Wl,-Bstatic
-    }
+# use: qmake RELEASE_I386=1
+contains(RELEASE_I386, 1) {
+    # Mac: optimised 32-bit x86
+    macx:QMAKE_CFLAGS += -arch i386 -fomit-frame-pointer -msse2 -mdynamic-no-pic -I/usr/local/i386/include
+    macx:QMAKE_CXXFLAGS += -arch i386 -fomit-frame-pointer -msse2 -mdynamic-no-pic -I/usr/local/i386/include
+    macx:QMAKE_LFLAGS += -arch i386 -L/usr/local/i386/lib
+    # Mac: 10.5+ compatibility; Qt with Cocoa is broken on 10.4
+    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+    macx:QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
+    # Windows: optimised 32-bit x86
+    win32:QMAKE_CFLAGS += -march=i686 -fomit-frame-pointer
+    win32:QMAKE_CXXFLAGS += -march=i686 -fomit-frame-pointer
 }
 
-!win32 {
-# for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
-QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
-QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
-# We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
-# This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
+# use: qmake RELEASE_AMD64=1
+contains(RELEASE_AMD64, 1) {
+    # Mac: optimised 64-bit x86
+    macx:QMAKE_CFLAGS += -DNEOSCRYPT_MOVQ_FIX -arch x86_64 -fomit-frame-pointer -mdynamic-no-pic -I/usr/local/amd64/include
+    macx:QMAKE_CXXFLAGS += -arch x86_64 -fomit-frame-pointer -mdynamic-no-pic -I/usr/local/amd64/include
+    macx:QMAKE_LFLAGS += -arch x86_64 -L/usr/local/amd64/lib
+    # Mac: 10.8+ compatibility
+    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.8 -isysroot /Developer/SDKs/MacOSX10.8.sdk
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.8 -isysroot /Developer/SDKs/MacOSX10.8.sdk
+    macx:QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.8
 }
+
+# strip symbols
+!macx:QMAKE_LFLAGS += -Wl,-s
+macx:QMAKE_LFLAGS += -dead_strip
+# disable debug builds on Windows
+win32:CONFIG -= debug_and_release debug_and_release_target
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
 win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
+# on Windows: enable GCC large address aware linker flag; breaks MinGW-w64
+#win32:QMAKE_LFLAGS *= -Wl,--large-address-aware
+# i686-w64-mingw32
+win32:QMAKE_LFLAGS *=  -static -static-libgcc -static-libstdc++
 
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
@@ -54,9 +73,9 @@ contains(USE_QRCODE, 1) {
 #  or: qmake "USE_UPNP=-" (not supported)
 # miniupnpc (http://miniupnp.free.fr/files/) must be installed for support
 contains(USE_UPNP, -) {
-    message(Building without UPNP support)
+    message("Building without UPnP support$$escape_expand(\\n)")
 } else {
-    message(Building with UPNP support)
+    message("Building with the UPnP support$$escape_expand(\\n)")
     count(USE_UPNP, 0) {
         USE_UPNP=1
     }
@@ -175,7 +194,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/rpcconsole.h \
     src/version.h \
     src/netbase.h \
-    src/clientversion.h
+    src/clientversion.h \
+    src/neoscrypt.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -235,7 +255,9 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/notificator.cpp \
     src/qt/qtipcserver.cpp \
     src/qt/rpcconsole.cpp \
-    src/noui.cpp
+    src/noui.cpp \
+    src/neoscrypt.c \
+    src/neoscrypt_asm.S
 
 RESOURCES += \
     src/qt/bitcoin.qrc
@@ -265,7 +287,7 @@ SOURCES += src/qt/test/test_main.cpp \
 HEADERS += src/qt/test/uritests.h
 DEPENDPATH += src/qt/test
 QT += testlib
-TARGET = bitcoin-qt_test
+TARGET = phoenixcoin-qt_test
 DEFINES += BITCOIN_QT_TEST
 }
 
@@ -346,7 +368,7 @@ macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/bitcoin.icns
-macx:TARGET = "Bitcoin-Qt"
+macx:TARGET = "Phoenixcoin-Qt"
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread
@@ -358,13 +380,5 @@ LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
 LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
-windows:LIBS += -lboost_chrono$$BOOST_LIB_SUFFIX
-
-contains(RELEASE, 1) {
-    !windows:!macx {
-        # Linux: turn dynamic linking back on for c/c++ runtime libraries
-        LIBS += -Wl,-Bdynamic
-    }
-}
 
 system($$QMAKE_LRELEASE -silent $$_PRO_FILE_)

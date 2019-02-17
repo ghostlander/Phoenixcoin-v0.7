@@ -189,7 +189,7 @@ bool GetIPFromIRC(SOCKET hSocket, string strMyName, CNetAddr& ipRet)
 void ThreadIRCSeed(void* parg)
 {
     // Make this thread recognisable as the IRC seeding thread
-    RenameThread("bitcoin-ircseed");
+    RenameThread("pxc-ircseed");
 
     try
     {
@@ -222,23 +222,22 @@ void ThreadIRCSeed2(void* parg)
     int nRetryWait = 10;
     int nNameRetry = 0;
 
-    while (!fShutdown)
-    {
-        CService addrConnect("92.243.23.21", 6667); // irc.lfnet.org
-
-        CService addrIRC("irc.lfnet.org", 6667, true);
-        if (addrIRC.IsValid())
-            addrConnect = addrIRC;
+    while(!fShutdown) {
 
         SOCKET hSocket;
-        if (!ConnectSocket(addrConnect, hSocket))
-        {
-            printf("IRC connect failed\n");
-            nErrorWait = nErrorWait * 11 / 10;
-            if (Wait(nErrorWait += 60))
-                continue;
-            else
-                return;
+        CService addrConnect("irc.lfnet.org", 6667, true);
+
+        if(!ConnectSocket(addrConnect, hSocket)) {
+            addrConnect = CService("pelican.heliacal.net", 6667, true);
+            if(!ConnectSocket(addrConnect, hSocket)) {
+                addrConnect = CService("giraffe.heliacal.net", 6667, true);
+                if(!ConnectSocket(addrConnect, hSocket)) {
+                    printf("IRC connect failed!\n");
+                    nErrorWait = nErrorWait * 11 / 10;
+                    if(Wait(nErrorWait += 60)) continue;
+                    else return;
+                }
+            }
         }
 
         if (!RecvUntil(hSocket, "Found your hostname", "using your IP address instead", "Couldn't look up your hostname", "ignoring hostname"))
@@ -259,8 +258,8 @@ void ThreadIRCSeed2(void* parg)
         // or if it keeps failing because the nick is already in use.
         if (!fNoListen && GetLocal(addrLocal, &addrIPv4) && nNameRetry<3)
             strMyName = EncodeAddress(GetLocalAddress(&addrConnect));
-        if (strMyName == "")
-            strMyName = strprintf("x%"PRI64u"", GetRand(1000000000));
+        if(strMyName == "")
+          strMyName = strprintf("x%" PRI64u "", GetRand(1000000000));
 
         Send(hSocket, strprintf("NICK %s\r", strMyName.c_str()).c_str());
         Send(hSocket, strprintf("USER %s 8 * : %s\r", strMyName.c_str(), strMyName.c_str()).c_str());
@@ -302,13 +301,14 @@ void ThreadIRCSeed2(void* parg)
         }
 
         if (fTestNet) {
-            Send(hSocket, "JOIN #bitcoinTEST3\r");
-            Send(hSocket, "WHO #bitcoinTEST3\r");
+            Send(hSocket, "JOIN #phoenixcoinTEST\r");
+            Send(hSocket, "WHO #phoenixcoinTEST\r");
         } else {
-            // randomly join #bitcoin00-#bitcoin99
-            int channel_number = GetRandInt(100);
-            Send(hSocket, strprintf("JOIN #bitcoin%02d\r", channel_number).c_str());
-            Send(hSocket, strprintf("WHO #bitcoin%02d\r", channel_number).c_str());
+            // randomly join #phoenixcoin00-#phoenixcoin99
+//            int channel_number = GetRandInt(100);
+            int channel_number = 0;
+            Send(hSocket, strprintf("JOIN #phoenixcoin%02d\r", channel_number).c_str());
+            Send(hSocket, strprintf("WHO #phoenixcoin%02d\r", channel_number).c_str());
         }
 
         int64 nStart = GetTime();

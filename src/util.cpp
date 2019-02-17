@@ -75,6 +75,10 @@ bool fLogTimestamps = false;
 CMedianFilter<int64> vTimeOffsets(200,0);
 bool fReopenDebugLog = false;
 
+/* NeoScrypt related */
+bool fNeoScrypt = false;
+uint nNeoScryptOptions = 0;
+
 // Init OpenSSL library multithreading support
 static CCriticalSection** ppmutexOpenSSL;
 void locking_callback(int mode, int i, const char* file, int line)
@@ -120,16 +124,8 @@ public:
 instance_of_cinit;
 
 
-
-
-
-
-
-
-void RandAddSeed()
-{
-    // Seed with CPU performance counter
-    int64 nCounter = GetPerformanceCounter();
+void RandAddSeed() {
+    int64 nCounter = GetTimeMicros();
     RAND_add(&nCounter, sizeof(nCounter), 1.5);
     memset(&nCounter, 0, sizeof(nCounter));
 }
@@ -238,8 +234,8 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
             }
 
             // Debug print useful for profiling
-            if (fLogTimestamps && fStartedNewLine)
-                fprintf(fileout, "%s ", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
+            if(fLogTimestamps && fStartedNewLine)
+              fprintf(fileout, "%s ", DateTimeStrFormat(GetTime()).c_str());
             if (pszFormat[strlen(pszFormat) - 1] == '\n')
                 fStartedNewLine = true;
             else
@@ -989,33 +985,23 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
     strMiscWarning = message;
 }
 
-boost::filesystem::path GetDefaultDataDir()
-{
+boost::filesystem::path GetDefaultDataDir() {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Bitcoin
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Bitcoin
-    // Mac: ~/Library/Application Support/Bitcoin
-    // Unix: ~/.bitcoin
-#ifdef WIN32
-    // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Bitcoin";
+    fs::path path;
+
+#ifdef WINDOWS
+    /* Windows: current directory \ data for livenet */
+    path = boost::filesystem::current_path() / "data";
 #else
-    fs::path pathRet;
+    /* Linux, Mac OS X, *BSD and so on: ~/.phoenixcoin */
     char* pszHome = getenv("HOME");
-    if (pszHome == NULL || strlen(pszHome) == 0)
-        pathRet = fs::path("/");
+    if((pszHome == NULL) || (strlen(pszHome) == 0))
+      path = fs::path("/.phoenixcoin");
     else
-        pathRet = fs::path(pszHome);
-#ifdef MAC_OSX
-    // Mac
-    pathRet /= "Library/Application Support";
-    fs::create_directory(pathRet);
-    return pathRet / "Bitcoin";
-#else
-    // Unix
-    return pathRet / ".bitcoin";
+      path = fs::path(pszHome) / ".phoenixcoin";
 #endif
-#endif
+
+    return(path);
 }
 
 const boost::filesystem::path &GetDataDir(bool fNetSpecific)
@@ -1044,8 +1030,9 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
     } else {
         path = GetDefaultDataDir();
     }
-    if (fNetSpecific && GetBoolArg("-testnet", false))
-        path /= "testnet3";
+
+    if(fNetSpecific && GetBoolArg("-testnet", false))
+      path /= "testnet";
 
     fs::create_directory(path);
 
@@ -1053,11 +1040,19 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
     return path;
 }
 
-boost::filesystem::path GetConfigFile()
-{
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "bitcoin.conf"));
-    if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
-    return pathConfigFile;
+boost::filesystem::path GetConfigFile() {
+    namespace fs = boost::filesystem;
+
+    fs::path pathConfigFile;
+    if(mapArgs.count("-conf")) pathConfigFile = fs::path(mapArgs["-conf"]);
+    else pathConfigFile = fs::path("phoenixcoin.conf");
+    if(!pathConfigFile.is_absolute()) {
+        if(!GetBoolArg("-testnet", false)) 
+          pathConfigFile = GetDataDir(false) / pathConfigFile;
+        else
+          pathConfigFile = GetDataDir(false) / "testnet" / pathConfigFile;
+    }
+    return(pathConfigFile);
 }
 
 void ReadConfigFile(map<string, string>& mapSettingsRet,
@@ -1112,14 +1107,30 @@ bool RenameOver(boost::filesystem::path src, boost::filesystem::path dest)
 #endif /* WIN32 */
 }
 
-void FileCommit(FILE *fileout)
-{
-    fflush(fileout);                // harmless if redundantly called
-#ifdef WIN32
-    _commit(_fileno(fileout));
+/* Returns zero on success and -1 on failure */
+int FileCommit(FILE *fileout) {
+    int ret, fd;
+
+    /* fflush() is a caller's responsibility */
+
+    /* Get a file descriptor and perform the synchronisation */
+#if defined WINDOWS
+    fd = _fileno(fileout);
+    ret = _commit(fd);
 #else
-    fsync(fileno(fileout));
+    fd = fileno(fileout);
+#if defined __linux__
+    ret = fdatasync(fd);
+#elif defined __APPLE__ && defined F_FULLFSYNC
+    /* F_FULLFSYNC means fsync with device flush to medium;
+     * works with HFS only as of 10.4, so fail over to fsync */
+    ret = fcntl(fd, F_FULLFSYNC, 0);
+    if(!ret) ret = fsync(fd);
+#else
+    ret = fsync(fd);
 #endif
+#endif /* WINDOWS */
+    return(ret);
 }
 
 int GetFilesize(FILE* file)
@@ -1249,12 +1260,9 @@ void AddTimeData(const CNetAddr& ip, int64 nTime)
 
 
 
-string FormatVersion(int nVersion)
-{
-    if (nVersion%100 == 0)
-        return strprintf("%d.%d.%d", nVersion/1000000, (nVersion/10000)%100, (nVersion/100)%100);
-    else
-        return strprintf("%d.%d.%d.%d", nVersion/1000000, (nVersion/10000)%100, (nVersion/100)%100, nVersion%100);
+string FormatVersion(int nVersion) {
+    return(strprintf("%d.%d.%d.%d", nVersion / 1000000,
+      (nVersion / 10000) % 100, (nVersion / 100) % 100, nVersion % 100));
 }
 
 string FormatFullVersion()
@@ -1298,23 +1306,22 @@ void runCommand(std::string strCommand)
         printf("runCommand error: system(%s) returned %d\n", strCommand.c_str(), nErr);
 }
 
-void RenameThread(const char* name)
-{
-#if defined(PR_SET_NAME)
-    // Only the first 15 characters are used (16 - NUL terminator)
-    ::prctl(PR_SET_NAME, name, 0, 0, 0);
-#elif 0 && (defined(__FreeBSD__) || defined(__OpenBSD__))
-    // TODO: This is currently disabled because it needs to be verified to work
-    //       on FreeBSD or OpenBSD first. When verified the '0 &&' part can be
-    //       removed.
+void RenameThread(const char *name) {
+    /* Thread name can be up to 16 bytes (characters) including NULL terminator */
+#if defined(__linux__) && defined(PR_SET_NAME)
+    /* Available since kernel 2.6.9; pthread_setname_np() also uses prctl() in GLIBC */
+    prctl(PR_SET_NAME, name, 0, 0, 0);
+#elif defined(__NetBSD__)
+    pthread_setname_np(pthread_self(), "%s", name);
+#elif defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
     pthread_set_name_np(pthread_self(), name);
-
-// This is XCode 10.6-and-later; bring back if we drop 10.5 support:
-// #elif defined(MAC_OSX)
-//    pthread_setname_np(name);
-
+#elif defined(__APPLE__)
+#if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1060)
+    /* MacOS X 10.6+ only */
+    pthread_setname_np(name);
+#endif
 #else
-    // Prevent warnings for unused parameters...
+    /* Threads on Windows have no names */
     (void)name;
 #endif
 }

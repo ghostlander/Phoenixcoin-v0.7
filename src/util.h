@@ -31,6 +31,9 @@ typedef int pid_t; /* define for Windows compatibility */
 
 typedef long long  int64;
 typedef unsigned long long  uint64;
+typedef unsigned int  uint;
+typedef unsigned short  ushort;
+typedef unsigned char  uchar;
 
 static const int64 COIN = 100000000;
 static const int64 CENT = 1000000;
@@ -143,6 +146,9 @@ extern bool fNoListen;
 extern bool fLogTimestamps;
 extern bool fReopenDebugLog;
 
+extern bool fNeoScrypt;
+extern uint nNeoScryptOptions;
+
 void RandAddSeed();
 void RandAddSeedPerfmon();
 int ATTR_WARN_PRINTF(1,2) OutputDebugStringF(const char* pszFormat, ...);
@@ -194,7 +200,7 @@ std::string EncodeBase32(const std::string& str);
 void ParseParameters(int argc, const char*const argv[]);
 bool WildcardMatch(const char* psz, const char* mask);
 bool WildcardMatch(const std::string& str, const std::string& mask);
-void FileCommit(FILE *fileout);
+int FileCommit(FILE *fileout);
 int GetFilesize(FILE* file);
 bool RenameOver(boost::filesystem::path src, boost::filesystem::path dest);
 boost::filesystem::path GetDefaultDataDir();
@@ -309,23 +315,33 @@ inline void PrintHex(const std::vector<unsigned char>& vch, const char* pszForma
     printf(pszFormat, HexStr(vch, fSpaces).c_str());
 }
 
-inline int64 GetPerformanceCounter()
-{
-    int64 nCounter = 0;
+/* Returns system time in microseconds since the Epoch */
+inline int64 GetTimeMicros() {
+    uint64 nTime = 0;
+
 #ifdef WIN32
-    QueryPerformanceCounter((LARGE_INTEGER*)&nCounter);
+    /* Number of 100ns intervals from 12:00 01-Jan-1601 to 00:00 01-Jan-1970 */
+    const uint64 EPOCH = 116444736000000000ULL;
+
+    FILETIME nFileTime;
+
+    GetSystemTimeAsFileTime(&nFileTime);
+    nTime |= (uint64)nFileTime.dwHighDateTime;
+    nTime <<= 32;
+    nTime |= (uint64)nFileTime.dwLowDateTime;
+    nTime -= EPOCH;
+    nTime /= 10;
 #else
     timeval t;
     gettimeofday(&t, NULL);
-    nCounter = (int64) t.tv_sec * 1000000 + t.tv_usec;
+    nTime = (((uint64)t.tv_sec) * 1000000) + (uint64)t.tv_usec;
 #endif
-    return nCounter;
+
+    return((int64)nTime);
 }
 
-inline int64 GetTimeMillis()
-{
-    return (boost::posix_time::ptime(boost::posix_time::microsec_clock::universal_time()) -
-            boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_milliseconds();
+inline int64 GetTimeMillis() {
+    return(GetTimeMicros() / 1000);
 }
 
 inline std::string DateTimeStrFormat(const char* pszFormat, int64 nTime)
@@ -335,6 +351,11 @@ inline std::string DateTimeStrFormat(const char* pszFormat, int64 nTime)
     char pszTime[200];
     strftime(pszTime, sizeof(pszTime), pszFormat, ptmTime);
     return pszTime;
+}
+
+static const std::string strTimestampFormat = "%d-%b-%Y %H:%M:%S UTC";
+inline std::string DateTimeStrFormat(int64 nTime) {
+    return(DateTimeStrFormat(strTimestampFormat.c_str(), nTime));
 }
 
 template<typename T>

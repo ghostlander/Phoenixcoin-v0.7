@@ -16,11 +16,10 @@
 #include "uint256.h"
 
 extern bool fTestNet;
-static inline unsigned short GetDefaultPort(const bool testnet = fTestNet)
-{
-    return testnet ? 18333 : 8333;
-}
 
+static inline unsigned short GetDefaultPort(const bool testnet = fTestNet) {
+    return(testnet ? 19555 : 9555);
+}
 
 extern unsigned char pchMessageStart[4];
 
@@ -50,13 +49,13 @@ class CMessageHeader
     // TODO: make private (improves encapsulation)
     public:
         enum {
-            MESSAGE_START_SIZE=sizeof(::pchMessageStart),
-            COMMAND_SIZE=12,
-            MESSAGE_SIZE_SIZE=sizeof(int),
-            CHECKSUM_SIZE=sizeof(int),
+            MESSAGE_START_SIZE = 4,
+            COMMAND_SIZE = 12,
+            MESSAGE_SIZE_SIZE = 4,
+            CHECKSUM_SIZE = 4,
 
-            MESSAGE_SIZE_OFFSET=MESSAGE_START_SIZE+COMMAND_SIZE,
-            CHECKSUM_OFFSET=MESSAGE_SIZE_OFFSET+MESSAGE_SIZE_SIZE
+            MESSAGE_SIZE_OFFSET = MESSAGE_START_SIZE + COMMAND_SIZE,
+            CHECKSUM_OFFSET = MESSAGE_SIZE_OFFSET + MESSAGE_SIZE_SIZE
         };
         char pchMessageStart[MESSAGE_START_SIZE];
         char pchCommand[COMMAND_SIZE];
@@ -85,11 +84,10 @@ class CAddress : public CService
              CService* pip = (CService*)pthis;
              if (fRead)
                  pthis->Init();
-             if (nType & SER_DISK)
+             if(nType & SER_DISK) {
                  READWRITE(nVersion);
-             if ((nType & SER_DISK) ||
-                 (nVersion >= CADDR_TIME_VERSION && !(nType & SER_GETHASH)))
                  READWRITE(nTime);
+             }
              READWRITE(nServices);
              READWRITE(*pip);
             )

@@ -935,7 +935,8 @@ public:
         {
             if (nReadPosNext > vch.size())
             {
-                setstate(std::ios::failbit, "CDataStream::read() : end of data");
+                /* Don't trigger an exception here with setstate(std::ios::failbit) */
+                printf("ERROR: CDataStream::read() : end of data\n");
                 memset(pch, 0, nSize);
                 nSize = vch.size() - nReadPos;
             }
@@ -958,7 +959,8 @@ public:
         {
             if (nReadPosNext > vch.size())
             {
-                setstate(std::ios::failbit, "CDataStream::ignore() : end of data");
+                /* Don't trigger an exception here with setstate(std::ios::failbit) */
+                printf("ERROR: CDataStream::ignore() : end of data\n");
                 nSize = vch.size() - nReadPos;
             }
             nReadPos = 0;

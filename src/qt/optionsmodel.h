@@ -26,7 +26,7 @@ public:
         ProxyPort,         // int
         ProxySocksVersion, // int
         Fee,               // qint64
-        DisplayUnit,       // BitcoinUnits::Unit
+        DisplayUnit,       // CoinUnits::Unit
         DisplayAddresses,  // bool
         DetachDatabases,   // bool
         Language,          // QString

@@ -9,6 +9,7 @@
 #include "sync.h"
 #include "net.h"
 #include "script.h"
+#include "neoscrypt.h"
 
 #include <list>
 
@@ -23,23 +24,76 @@ class CInv;
 class CRequestTracker;
 class CNode;
 
-static const unsigned int MAX_BLOCK_SIZE = 1000000;
-static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
-static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
-static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
+/* Maturity threshold for PoW base transactions, in blocks (confirmations) */
+extern int nBaseMaturity;
+static const int BASE_MATURITY = 100;
+static const int BASE_MATURITY_TESTNET = 100;
+/* Offset for the above to allow safe network propagation, in blocks (confirmations) */
+static const int BASE_MATURITY_OFFSET = 1;
+/* Maturity threshold for regular transactions, in blocks (confirmations) */
+static const int TX_MATURITY = 6;
+
+/* The max. allowed size for a serialised block, in bytes */
+static const uint MAX_BLOCK_SIZE = 524288;
+/* The max. allowed size for a mined block, in bytes */
+static const uint MAX_BLOCK_SIZE_GEN = (MAX_BLOCK_SIZE >> 1);
+/* The max. allowed number of signature check operations per block */
+static const uint MAX_BLOCK_SIGOPS = (MAX_BLOCK_SIZE >> 6);
+/* The max. number of orphan transactions kept in memory */
+static const uint MAX_ORPHAN_TRANSACTIONS = (MAX_BLOCK_SIZE >> 8);
+/* The maximum number of entries in an 'inv' protocol message */
 static const unsigned int MAX_INV_SZ = 50000;
-static const int64 MIN_TX_FEE = 50000;
-static const int64 MIN_RELAY_TX_FEE = 10000;
-static const int64 MAX_MONEY = 21000000 * COIN;
+/* The current time frame of block limiter */
+static const int64 BLOCK_LIMITER_TIME = 120;
+/* The min. transaction fee if required */
+static const int64 MIN_TX_FEE = 10000000;
+/* Fees below this value are considered absent while relaying */
+static const int64 MIN_RELAY_TX_FEE = 5000000;
+/* The dust threshold */
+static const int64 TX_DUST = 1000000;
+/* The max. amount for a single transaction */
+static const int64 MAX_MONEY = 10000000 * COIN;
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
-static const int COINBASE_MATURITY = 100;
+
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
+
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
 #else
 static const int fHaveUPnP = false;
 #endif
+
+/* Hard & soft fork related data */
+static const int nForkOne   = 46500;   /* the 1st hard fork */
+static const int nForkTwo   = 69444;   /* the 2nd hard fork */
+static const int nForkThree = 74100;   /* the 3rd hard fork */
+static const int nForkFour  = 154000;  /* the 4th hard fork */
+static const int nForkFive  = 400000;  /* the 5th hard fork */
+
+static const int nSoftForkOne   = 270000;
+static const int nSoftForkTwo   = 340000;
+
+static const int nTestnetForkOne   = 600;
+static const int nTestnetForkTwo   = 3600;
+
+static const int nTestnetSoftForkOne   = 3400;
+static const int nTestnetSoftForkTwo   = 3500;
+
+static const uint nSwitchV2            = 1406851200;   /* 01 Aug 2014 00:00:00 GMT */
+static const uint nTestnetSwitchV2     = 1404777600;   /* 08 Jul 2014 00:00:00 GMT */
+
+static const int nTargetSpacingZero    = 90;  /* 1.5 minutes */
+static const int nTargetSpacingOne     = nTargetSpacingZero;
+static const int nTargetSpacingTwo     = 50;  /* 50 seconds */
+static const int nTargetSpacingThree   = 45;  /* 45 seconds */
+static const int nTargetSpacingFour    = 90;  /* 1.5 minutes */
+
+static const int nTargetTimespanZero   = 2400 * nTargetSpacingZero;  /* 60 hours */
+static const int nTargetTimespanOne    = 600  * nTargetSpacingOne;   /* 15 hours */
+static const int nTargetTimespanTwo    = 108  * nTargetSpacingTwo;   /* 1.5 hours */
+static const int nTargetTimespanThree  = 126  * nTargetSpacingThree; /* 1.575 hours */
+static const int nTargetTimespanFour   = 20   * nTargetSpacingFour;  /* 0.5 hours */
 
 
 extern CScript COINBASE_FLAGS;
@@ -837,6 +891,58 @@ public:
         return Hash(BEGIN(nVersion), END(nNonce));
     }
 
+    /* Calculates block proof-of-work hash using either NeoScrypt or Scrypt */
+    uint256 GetHashPoW() const {
+        uint profile = 0x0;
+        uint256 hash;
+
+        /* All blocks generated up to this time point are Scrypt only */
+        if((fTestNet && (nTime < nTestnetSwitchV2)) ||
+          (!fTestNet && (nTime < nSwitchV2))) {
+            profile = 0x3;
+        } else {
+            /* All these blocks must be v2+ with valid nHeight */
+            int nHeight = GetBlockHeight();
+            if(fTestNet) {
+                if(nHeight < nTestnetForkTwo)
+                  profile = 0x3;
+            } else {
+                if(nHeight < nForkFive)
+                  profile = 0x3;
+            }
+        }
+
+        profile |= nNeoScryptOptions;
+
+        neoscrypt((uchar *) &nVersion, (uchar *) &hash, profile);
+
+        return(hash);
+    }
+
+    /* Extracts block height from v2+ coin base;
+     * ignores nVersion because it's unrealiable */
+    int GetBlockHeight() const {
+        /* Prevents a crash if called on a block header alone */
+        if(vtx.size()) {
+            /* Serialised CScript */
+            std::vector<uchar>::const_iterator scriptsig = vtx[0].vin[0].scriptSig.begin();
+            uchar i, scount = scriptsig[0];
+            /* Optimise: nTime is 4 bytes always,
+             * nHeight must be less for a long time;
+             * check against a threshold when the time comes */
+            if(scount < 4) {
+                int height = 0;
+                uchar *pheight = (uchar *) &height;
+                for(i = 0; i < scount; i++)
+                  pheight[i] = scriptsig[i + 1];
+                /* v2+ block with nHeight in coin base */
+                return(height);
+            }
+        }
+        /* Not found */
+        return(-1);
+    }
+
     int64 GetBlockTime() const
     {
         return (int64)nTime;
@@ -900,8 +1006,8 @@ public:
     {
         // Open history file to append
         CAutoFile fileout = CAutoFile(AppendBlockFile(nFileRet), SER_DISK, CLIENT_VERSION);
-        if (!fileout)
-            return error("CBlock::WriteToDisk() : AppendBlockFile failed");
+        if(!fileout)
+          return(error("CBlock::WriteToDisk() : AppendBlockFile() failed"));
 
         // Write index header
         unsigned int nSize = fileout.GetSerializeSize(*this);
@@ -909,17 +1015,19 @@ public:
 
         // Write block
         long fileOutPos = ftell(fileout);
-        if (fileOutPos < 0)
-            return error("CBlock::WriteToDisk() : ftell failed");
+        if(fileOutPos < 0)
+          return(error("CBlock::WriteToDisk() : ftell() failed"));
         nBlockPosRet = fileOutPos;
         fileout << *this;
 
         // Flush stdio buffers and commit to disk before returning
         fflush(fileout);
-        if (!IsInitialBlockDownload() || (nBestHeight+1) % 500 == 0)
-            FileCommit(fileout);
+        if(!IsInitialBlockDownload() || !((nBestHeight + 1) % 100)) {
+            if(FileCommit(fileout))
+              return(error("CBlock::WriteToDisk() : FileCommit() failed"));
+        }
 
-        return true;
+        return(true);
     }
 
     bool ReadFromDisk(unsigned int nFile, unsigned int nBlockPos, bool fReadTransactions=true)
@@ -928,8 +1036,8 @@ public:
 
         // Open history file to read
         CAutoFile filein = CAutoFile(OpenBlockFile(nFile, nBlockPos, "rb"), SER_DISK, CLIENT_VERSION);
-        if (!filein)
-            return error("CBlock::ReadFromDisk() : OpenBlockFile failed");
+        if(!filein)
+          return(error("CBlock::ReadFromDisk() : OpenBlockFile() failed"));
         if (!fReadTransactions)
             filein.nType |= SER_BLOCKHEADERONLY;
 
@@ -937,15 +1045,11 @@ public:
         try {
             filein >> *this;
         }
-        catch (std::exception &e) {
-            return error("%s() : deserialize or I/O error", __PRETTY_FUNCTION__);
+        catch(std::exception &e) {
+            return(error("CBlock::ReadFromDisk() : I/O error"));
         }
 
-        // Check the header
-        if (!CheckProofOfWork(GetHash(), nBits))
-            return error("CBlock::ReadFromDisk() : errors in block header");
-
-        return true;
+        return(true);
     }
 
 
@@ -1085,11 +1189,6 @@ public:
         return (pnext || this == pindexBest);
     }
 
-    bool CheckIndex() const
-    {
-        return CheckProofOfWork(GetBlockHash(), nBits);
-    }
-
     enum { nMedianTimeSpan=11 };
 
     int64 GetMedianTimePast() const
@@ -1125,6 +1224,43 @@ public:
     static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,
                                 unsigned int nRequired, unsigned int nToCheck);
 
+    /* Advanced average block time calculator */
+    uint GetAverageTimePast(uint nAvgTimeSpan, uint nMinDelay) const {
+        uint avg[nAvgTimeSpan];
+        uint nTempTime, i;
+        uint64 nAvgAccum;
+        const CBlockIndex *pindex = this;
+
+        /* Keep it fail safe */
+        if(!nAvgTimeSpan) return(0);
+
+        /* Initialise the elements to zero */
+        for(i = 0; i < nAvgTimeSpan; i++)
+          avg[i] = 0;
+
+        /* Fill with the time stamps */
+        for(i = nAvgTimeSpan; i && pindex; i--, pindex = pindex->pprev)
+          avg[i - 1] = pindex->nTime;
+
+        /* Not enough input blocks */
+        if(!avg[0]) return(0);
+
+        /* Time travel aware accumulator */
+        nTempTime = avg[0];
+        for(i = 1, nAvgAccum = nTempTime; i < nAvgTimeSpan; i++) { 
+            /* Update the accumulator either with an actual or minimal
+             * delay supplied to prevent extremely fast blocks */
+            if(avg[i] < (nTempTime + nMinDelay))
+              nTempTime += nMinDelay;
+            else
+              nTempTime  = avg[i];
+            nAvgAccum += nTempTime;
+        }
+
+        nTempTime = (uint)(nAvgAccum / (uint64)nAvgTimeSpan);
+
+        return(nTempTime);
+    }
 
     std::string ToString() const
     {

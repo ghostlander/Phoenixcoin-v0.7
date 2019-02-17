@@ -810,9 +810,6 @@ bool CTxDB::LoadBlockIndexGuts()
             // Watch for genesis block
             if (pindexGenesisBlock == NULL && diskindex.GetBlockHash() == hashGenesisBlock)
                 pindexGenesisBlock = pindexNew;
-
-            if (!pindexNew->CheckIndex())
-                return error("LoadBlockIndex() : CheckIndex failed at %d", pindexNew->nHeight);
         }
         else
         {
@@ -860,24 +857,26 @@ bool CAddrDB::Write(const CAddrMan& addr)
     boost::filesystem::path pathTmp = GetDataDir() / tmpfn;
     FILE *file = fopen(pathTmp.string().c_str(), "wb");
     CAutoFile fileout = CAutoFile(file, SER_DISK, CLIENT_VERSION);
-    if (!fileout)
-        return error("CAddrman::Write() : open failed");
+    if(!fileout)
+      return(error("CAddrDB::Write() : fopen(%s) failed", pathTmp.string().c_str()));
 
     // Write and commit header, data
     try {
         fileout << ssPeers;
     }
     catch (std::exception &e) {
-        return error("CAddrman::Write() : I/O error");
+        return(error("CAddrDB::Write() : I/O error"));
     }
-    FileCommit(fileout);
+    fflush(fileout);
+    if(FileCommit(fileout))
+      return(error("CAddrDB::Write() : FileCommit() failed"));
     fileout.fclose();
 
     // replace existing peers.dat, if any, with new peers.dat.XXXX
-    if (!RenameOver(pathTmp, pathAddr))
-        return error("CAddrman::Write() : Rename-into-place failed");
+    if(!RenameOver(pathTmp, pathAddr))
+      return(error("CAddrDB::Write() : RenameOver() failed"));
 
-    return true;
+    return(true);
 }
 
 bool CAddrDB::Read(CAddrMan& addr)

@@ -25,7 +25,9 @@
 using namespace std;
 using namespace boost;
 
-static const int MAX_OUTBOUND_CONNECTIONS = 8;
+static const int MAX_OUTBOUND_CONNECTIONS = 32;
+
+extern uint nMsgSleep;
 
 void ThreadMessageHandler2(void* parg);
 void ThreadSocketHandler2(void* parg);
@@ -86,15 +88,19 @@ unsigned short GetListenPort()
     return (unsigned short)(GetArg("-port", GetDefaultPort()));
 }
 
-void CNode::PushGetBlocks(CBlockIndex* pindexBegin, uint256 hashEnd)
-{
-    // Filter out duplicate requests
-    if (pindexBegin == pindexLastGetBlocksBegin && hashEnd == hashLastGetBlocksEnd)
-        return;
-    pindexLastGetBlocksBegin = pindexBegin;
-    hashLastGetBlocksEnd = hashEnd;
+void CNode::PushGetBlocks(CBlockIndex *pindexBegin, uint256 hashEnd) {
+    uint nCurrentTime = (uint)GetTime();
+
+    /* Time limit for asking a particular peer */
+    if((nCurrentTime - 5U) < nGetblocksAskTime)
+      return;
+    else
+      nGetblocksAskTime = nCurrentTime;
 
     PushMessage("getblocks", CBlockLocator(pindexBegin), hashEnd);
+
+    printf("getblocks height %d sent to peer %s\n",
+      pindexBegin->nHeight, addr.ToString().c_str());
 }
 
 // find 'best' local address for a particular peer
@@ -408,7 +414,7 @@ bool GetMyExternalIP(CNetAddr& ipRet)
 void ThreadGetMyExternalIP(void* parg)
 {
     // Make this thread recognisable as the external IP detection thread
-    RenameThread("bitcoin-ext-ip");
+    RenameThread("pxc-ext-ip");
 
     CNetAddr addrLocalHost;
     if (GetMyExternalIP(addrLocalHost))
@@ -623,6 +629,7 @@ void CNode::copyStats(CNodeStats &stats)
     X(strSubVer);
     X(fInbound);
     X(nReleaseTime);
+    X(nPingTime);
     X(nStartingHeight);
     X(nMisbehavior);
 }
@@ -640,7 +647,7 @@ void CNode::copyStats(CNodeStats &stats)
 void ThreadSocketHandler(void* parg)
 {
     // Make this thread recognisable as the networking thread
-    RenameThread("bitcoin-net");
+    RenameThread("pxc-net");
 
     try
     {
@@ -999,7 +1006,7 @@ void ThreadSocketHandler2(void* parg)
 void ThreadMapPort(void* parg)
 {
     // Make this thread recognisable as the UPnP thread
-    RenameThread("bitcoin-UPnP");
+    RenameThread("pxc-UPnP");
 
     try
     {
@@ -1028,12 +1035,17 @@ void ThreadMapPort2(void* parg)
     char lanaddr[64];
 
 #ifndef UPNPDISCOVER_SUCCESS
-    /* miniupnpc 1.5 */
+    /* miniUPnPc v1.5 */
     devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0);
-#else
-    /* miniupnpc 1.6 */
+#elif (MINIUPNPC_API_VERSION < 14)
+    /* miniUPnPc v1.6 to v1.9 */
     int error = 0;
     devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, &error);
+#else
+    /* miniUPnPc v1.9.20150730 and newer;
+     * CVE-2015-6031 may affect releases prior to v1.9.20150917 */
+    int error = 0;
+    devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 2, &error);
 #endif
 
     struct UPNPUrls urls;
@@ -1060,7 +1072,7 @@ void ThreadMapPort2(void* parg)
             }
         }
 
-        string strDesc = "Bitcoin " + FormatFullVersion();
+        string strDesc = "Phoenixcoin " + FormatFullVersion();
 #ifndef UPNPDISCOVER_SUCCESS
         /* miniupnpc 1.5 */
         r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype,
@@ -1148,16 +1160,15 @@ void MapPort()
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
 static const char *strDNSSeed[][2] = {
-    {"bitcoin.sipa.be", "seed.bitcoin.sipa.be"},
-    {"bluematt.me", "dnsseed.bluematt.me"},
-    {"dashjr.org", "dnsseed.bitcoin.dashjr.org"},
-    {"xf2.org", "bitseed.xf2.org"},
+    {"pxcseed0", "seed0.phoenixcoin.org"},
+    {"pxcseed1", "seed1.phoenixcoin.org"},
+    {"pxcseed2", "seed2.phoenixcoin.org"},
 };
 
 void ThreadDNSAddressSeed(void* parg)
 {
     // Make this thread recognisable as the DNS seeding thread
-    RenameThread("bitcoin-dnsseed");
+    RenameThread("pxc-dnsseed");
 
     try
     {
@@ -1328,7 +1339,7 @@ void ThreadDumpAddress2(void* parg)
 void ThreadDumpAddress(void* parg)
 {
     // Make this thread recognisable as the address dumping thread
-    RenameThread("bitcoin-adrdump");
+    RenameThread("pxc-adrdump");
 
     try
     {
@@ -1343,7 +1354,7 @@ void ThreadDumpAddress(void* parg)
 void ThreadOpenConnections(void* parg)
 {
     // Make this thread recognisable as the connection opening thread
-    RenameThread("bitcoin-opencon");
+    RenameThread("pxc-opencon");
 
     try
     {
@@ -1504,7 +1515,7 @@ void ThreadOpenConnections2(void* parg)
 void ThreadOpenAddedConnections(void* parg)
 {
     // Make this thread recognisable as the connection opening thread
-    RenameThread("bitcoin-opencon");
+    RenameThread("pxc-opencon");
 
     try
     {
@@ -1635,7 +1646,7 @@ bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant *grantOu
 void ThreadMessageHandler(void* parg)
 {
     // Make this thread recognisable as the message handling thread
-    RenameThread("bitcoin-msghand");
+    RenameThread("pxc-msghand");
 
     try
     {
@@ -1667,10 +1678,11 @@ void ThreadMessageHandler2(void* parg)
                 pnode->AddRef();
         }
 
-        // Poll the connected nodes for messages
-        CNode* pnodeTrickle = NULL;
-        if (!vNodesCopy.empty())
-            pnodeTrickle = vNodesCopy[GetRand(vNodesCopy.size())];
+        /* Random peer */
+        CNode *pnodeTrickle = NULL;
+        if(!vNodesCopy.empty())
+          pnodeTrickle = vNodesCopy[GetRand(vNodesCopy.size())];
+
         BOOST_FOREACH(CNode* pnode, vNodesCopy)
         {
             // Receive messages
@@ -1702,7 +1714,7 @@ void ThreadMessageHandler2(void* parg)
         // Reduce vnThreadsRunning so StopNode has permission to exit while
         // we're sleeping, but we must always check fShutdown after doing this.
         vnThreadsRunning[THREAD_MESSAGEHANDLER]--;
-        Sleep(100);
+        Sleep((int64)nMsgSleep);
         if (fRequestShutdown)
             StartShutdown();
         vnThreadsRunning[THREAD_MESSAGEHANDLER]++;
@@ -1882,7 +1894,7 @@ void static Discover()
 void StartNode(void* parg)
 {
     // Make this thread recognisable as the startup thread
-    RenameThread("bitcoin-start");
+    RenameThread("pxc-start");
 
     if (semOutbound == NULL) {
         // initialize semaphore

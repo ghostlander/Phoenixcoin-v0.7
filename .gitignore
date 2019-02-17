@@ -1,7 +1,7 @@
 src/*.exe
-src/bitcoin
-src/bitcoind
-src/test_bitcoin
+src/phoenixcoin
+src/phoenixcoind
+src/test_phoenixcoin
 .*.swp
 *.*~*
 *.bak
@@ -9,11 +9,11 @@ src/test_bitcoin
 *.orig
 *.o
 *.patch
-.bitcoin
+.phoenixcoin
 #compilation and Qt preprocessor part
 *.qm
 Makefile
-bitcoin-qt
+phoenixcoin-qt
 #resources cpp
 qrc_*.cpp
 #qt creator
