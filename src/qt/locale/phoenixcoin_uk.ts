@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="hu">
+<TS version="2.0" language="uk">
 <defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Bitcoin</source>
-        <translation>A Bitcoinról</translation>
+        <source>About Phoenixcoin</source>
+        <translation>Про Фенікскойн</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Bitcoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Bitcoin&lt;/b&gt; verzió</translation>
-    </message>
-    <message>
-        <location line="+41"/>
-        <source>Copyright © 2009-2012 The Bitcoin developers</source>
-        <translation>Szerzői jog © 2009-2012 Bitcoin Developers</translation>
+        <source>&lt;b&gt;Phoenixcoin&lt;/b&gt; version</source>
+        <translation>Версія &lt;b&gt;Phoenixcoin&apos;a&lt;b&gt;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -28,10 +23,11 @@ Distributed under the MIT/X11 software license, see the accompanying file COPYIN
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
         <translation>
-Ez egy kísérleti program.
-MIT/X11 szoftverlicenc alatt kiadva, lásd a mellékelt fájlt COPYING vagy http://www.opensource.org/licenses/mit-license.php.
+Це програмне забезпечення є експериментальним.
 
-Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (http://www.openssl.org/) és kriptográfiai szoftvertben való felhasználásra,  írta Eric Young (eay@cryptsoft.com) és UPnP szoftver, írta Thomas Bernard.</translation>
+Поширюється за ліцензією MIT/X11, додаткова інформація міститься у файлі COPYING, а також за адресою http://www.opensource.org/licenses/mit-license.php.
+
+Цей продукт включає в себе програмне забезпечення, розроблене в рамках проекту OpenSSL (http://www.openssl.org/), криптографічне програмне забезпечення, написане Еріком Янгом (eay@cryptsoft.com), та функції для роботи з UPnP, написані Томасом Бернардом.</translation>
     </message>
 </context>
 <context>
@@ -39,52 +35,52 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
         <source>Address Book</source>
-        <translation>Címjegyzék</translation>
+        <translation>Адресна книга</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Double-click to edit address or label</source>
-        <translation>Dupla-katt a cím vagy a címke szerkesztéséhez</translation>
+        <translation>Двічі клікніть на адресу чи назву для їх зміни</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Create a new address</source>
-        <translation>Új cím létrehozása</translation>
+        <translation>Створити нову адресу</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>A kiválasztott cím másolása a vágólapra</translation>
+        <translation>Копіювати виділену адресу в буфер обміну</translation>
     </message>
     <message>
         <location line="-11"/>
         <source>&amp;New Address</source>
-        <translation>&amp;Új cím</translation>
+        <translation>&amp;Створити адресу</translation>
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your Bitcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Ezekkel a Bitcoin-címekkel fogadhatod kifizetéseket. Érdemes lehet minden egyes kifizető számára külön címet létrehozni, hogy könnyebben nyomon követhesd, kitől kaptál már pénzt.</translation>
+        <source>These are your Phoenixcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Це ваші адреси Фенікскойна для отримання платежів. Ви можете давати різні адреси різним людям, таким чином маючи можливість відслідкувати хто конкретно і скільки вам заплатив. </translation>
     </message>
     <message>
         <location line="+60"/>
         <source>&amp;Copy Address</source>
-        <translation>&amp;Cím másolása</translation>
+        <translation>&amp;Скопіювати адресу</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Show &amp;QR Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати QR-&amp;Код</translation>
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Bitcoin address</source>
-        <translation type="unfinished"></translation>
+        <source>Sign a message to prove you own a Phoenixcoin address</source>
+        <translation>Підпишіть повідомлення щоб довести, що ви є власником цієї адреси Фенікскойна</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sign &amp;Message</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Підписати повідомлення</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -93,7 +89,7 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified Bitcoin address</source>
+        <source>Verify a message to ensure it was signed with a specified Phoenixcoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -104,37 +100,37 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     <message>
         <location line="+14"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Törlés</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
         <source>Copy &amp;Label</source>
-        <translation>Címke &amp;másolása</translation>
+        <translation>Скопіювати &amp;мітку</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Редагувати</translation>
     </message>
     <message>
         <location line="+250"/>
         <source>Export Address Book Data</source>
-        <translation>Címjegyzék adatainak exportálása</translation>
+        <translation>Експортувати адресну книгу</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comma separated file (*.csv)</source>
-        <translation>Vesszővel elválasztott fájl (*. csv)</translation>
+        <translation>Файли відділені комами (*.csv)</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Error exporting</source>
-        <translation>Hiba exportálás közben</translation>
+        <translation>Помилка при експортуванні</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>%1 nevű fájl nem írható.</translation>
+        <translation>Неможливо записати у файл %1.</translation>
     </message>
 </context>
 <context>
@@ -142,17 +138,17 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     <message>
         <location filename="../addresstablemodel.cpp" line="+142"/>
         <source>Label</source>
-        <translation>Címke</translation>
+        <translation>Назва</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Address</source>
-        <translation>Cím</translation>
+        <translation>Адреса</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>(no label)</source>
-        <translation>(nincs címke)</translation>
+        <translation>(немає назви)</translation>
     </message>
 </context>
 <context>
@@ -165,72 +161,72 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     <message>
         <location line="+21"/>
         <source>Enter passphrase</source>
-        <translation>Add meg a jelszót</translation>
+        <translation>Введіть пароль</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>New passphrase</source>
-        <translation>Új jelszó</translation>
+        <translation>Новий пароль</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Repeat new passphrase</source>
-        <translation>Új jelszó újra</translation>
+        <translation>Повторіть пароль</translation>
     </message>
     <message>
         <location filename="../askpassphrasedialog.cpp" line="+33"/>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Írd be az új jelszót a tárcához.&lt;br/&gt;Használj legalább 10&lt;br/&gt;véletlenszerű karaktert&lt;/b&gt; vagy &lt;b&gt;legalább nyolc szót&lt;/b&gt;.</translation>
+        <translation>Введіть новий пароль для гаманця.&lt;br/&gt;Будь ласка, використовуйте паролі що містять &lt;b&gt; як мінімум 10 випадкових символів &lt;/b&gt; або &lt;b&gt; як мінімум 8 слів&lt;/b&gt;.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypt wallet</source>
-        <translation>Tárca kódolása</translation>
+        <translation>Зашифрувати гаманець</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
-        <translation>A tárcád megnyitásához a műveletnek szüksége van a tárcád jelszavára.</translation>
+        <translation>Ця операція потребує пароль для розблокування гаманця.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Unlock wallet</source>
-        <translation>Tárca megnyitása</translation>
+        <translation>Розблокувати гаманець</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This operation needs your wallet passphrase to decrypt the wallet.</source>
-        <translation>A tárcád dekódolásához a műveletnek szüksége van a tárcád jelszavára.</translation>
+        <translation>Ця операція потребує пароль для дешифрування гаманця.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Decrypt wallet</source>
-        <translation>Tárca dekódolása</translation>
+        <translation>Дешифрувати гаманець</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Change passphrase</source>
-        <translation>Jelszó megváltoztatása</translation>
+        <translation>Змінити пароль</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Enter the old and new passphrase to the wallet.</source>
-        <translation>Írd be a tárca régi és új jelszavát.</translation>
+        <translation>Ввести старий та новий паролі для гаманця.</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>Confirm wallet encryption</source>
-        <translation>Biztosan kódolni akarod a tárcát?</translation>
+        <translation>Підтвердити шифрування гаманця</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>Figyelem: Ha kódolod a tárcát, és elveszíted a jelszavad, akkor &lt;b&gt;AZ ÖSSZES BITCOINODAT IS EL FOGOD VESZÍTENI!&lt;/b&gt;</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR PHOENIXCOINS&lt;/b&gt;!</source>
+        <translation>УВАГА: Якщо ви зашифруєте гаманець і забудете пароль, ви &lt;b&gt;ВТРАТИТЕ ВСІ СВОЇ ФЕНІКСКОЙНИ&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Are you sure you wish to encrypt your wallet?</source>
-        <translation>Biztosan kódolni akarod a tárcát?</translation>
+        <translation>Ви дійсно хочете зашифрувати свій гаманець?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -241,18 +237,18 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
         <location line="+100"/>
         <location line="+24"/>
         <source>Warning: The Caps Lock key is on!</source>
-        <translation type="unfinished"></translation>
+        <translation>Увага: Ввімкнено Caps Lock</translation>
     </message>
     <message>
         <location line="-130"/>
         <location line="+58"/>
         <source>Wallet encrypted</source>
-        <translation>Tárca kódolva</translation>
+        <translation>Гаманець зашифровано</translation>
     </message>
     <message>
         <location line="-56"/>
-        <source>Bitcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>Bitcoin will close now to finish the encryption process. Ne feledd, hogy a tárca titkosítása sem nyújt teljes védelmet az adathalász programok fertőzésével szemben.</translation>
+        <source>Phoenixcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>Фенікскойн буде закрито для завершення процесу шифрування. Пам’ятайте, що шифрування гаманця не може повністю захистити ваші монети від кражі, у випадку якщо ваш комп’ютер буде інфіковано шкідливими програмами.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -260,40 +256,40 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
         <location line="+42"/>
         <location line="+6"/>
         <source>Wallet encryption failed</source>
-        <translation>Tárca kódolása sikertelen.</translation>
+        <translation>Не вдалося зашифрувати гаманець</translation>
     </message>
     <message>
         <location line="-54"/>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
-        <translation>Tárca kódolása belső hiba miatt sikertelen. A tárcád nem lett kódolva.</translation>
+        <translation>Виникла помилка під час шифрування гаманця. Ваш гаманець не було зашифровано.</translation>
     </message>
     <message>
         <location line="+7"/>
         <location line="+48"/>
         <source>The supplied passphrases do not match.</source>
-        <translation>A megadott jelszavak nem egyeznek.</translation>
+        <translation>Введені паролі не співпадають.</translation>
     </message>
     <message>
         <location line="-37"/>
         <source>Wallet unlock failed</source>
-        <translation>Tárca megnyitása sikertelen</translation>
+        <translation>Не вдалося розблокувати гаманець</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+11"/>
         <location line="+19"/>
         <source>The passphrase entered for the wallet decryption was incorrect.</source>
-        <translation>Hibás jelszó.</translation>
+        <translation>Введений пароль є невірним.</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>Wallet decryption failed</source>
-        <translation>Dekódolás sikertelen.</translation>
+        <translation>Не вдалося розшифрувати гаманець</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Wallet passphrase was successfully changed.</source>
-        <translation>Jelszó megváltoztatva.</translation>
+        <translation>Пароль було успішно змінено.</translation>
     </message>
 </context>
 <context>
@@ -301,149 +297,151 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     <message>
         <location filename="../bitcoingui.cpp" line="+257"/>
         <source>Sign &amp;message...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Підписати повідомлення...</translation>
     </message>
     <message>
         <location line="+237"/>
         <source>Synchronizing with network...</source>
-        <translation>Szinkronizálás a hálózattal...</translation>
+        <translation>Синхронізація з мережею...</translation>
     </message>
     <message>
         <location line="-299"/>
         <source>&amp;Overview</source>
-        <translation>&amp;Áttekintés</translation>
+        <translation>&amp;Огляд</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show general overview of wallet</source>
-        <translation>Tárca általános áttekintése</translation>
+        <translation>Показати загальний огляд гаманця</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>&amp;Transactions</source>
-        <translation>&amp;Tranzakciók</translation>
+        <translation>Пе&amp;реклади</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Browse transaction history</source>
-        <translation>Tranzakciótörténet megtekintése</translation>
+        <translation>Переглянути історію переказів</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&amp;Address Book</source>
-        <translation>Cím&amp;jegyzék</translation>
+        <translation>&amp;Адресна книга</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit the list of stored addresses and labels</source>
-        <translation>Tárolt címek és címkék listájának szerkesztése</translation>
+        <translation>Редагувати список збережених адрес та міток</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>&amp;Receive coins</source>
-        <translation>Érmék &amp;fogadása</translation>
+        <translation>О&amp;тримати</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show the list of addresses for receiving payments</source>
-        <translation>Kiizetést fogadó címek listája</translation>
+        <translation>Показати список адрес для отримання платежів</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>&amp;Send coins</source>
-        <translation>Érmék &amp;küldése</translation>
+        <translation>В&amp;ідправити</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>E&amp;xit</source>
-        <translation>&amp;Kilépés</translation>
+        <translation>&amp;Вихід</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Quit application</source>
-        <translation>Kilépés</translation>
+        <translation>Вийти</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Bitcoin</source>
-        <translation>Információk a Bitcoinról</translation>
+        <source>Show information about Phoenixcoin</source>
+        <translation>Показати інформацію про Фенікскойн</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>About &amp;Qt</source>
-        <translation>A &amp;Qt-ról</translation>
+        <translation>&amp;Про Qt</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show information about Qt</source>
-        <translation>Információk a Qt ról</translation>
+        <translation>Показати інформацію про Qt</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Options...</source>
-        <translation>&amp;Opciók...</translation>
+        <translation>&amp;Параметри...</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&amp;Encrypt Wallet...</source>
-        <translation>Tárca &amp;kódolása...</translation>
+        <translation>&amp;Шифрування гаманця...</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Backup Wallet...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Резервне копіювання гаманця...</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Change Passphrase...</source>
-        <translation>Jelszó &amp;megváltoztatása...</translation>
+        <translation>Змінити парол&amp;ь...</translation>
     </message>
     <message numerus="yes">
         <location line="+241"/>
         <source>~%n block(s) remaining</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-        <translation>%1 blokk letöltve a tranzakciótörténet %2 blokkjából (%3% done).</translation>
+        <translation>Завантажено %1 з %2 блоків історії переказів (%3% done).</translation>
     </message>
     <message>
         <location line="-242"/>
         <source>&amp;Export...</source>
-        <translation>&amp;Exportálás...</translation>
+        <translation>&amp;Експорт...</translation>
     </message>
     <message>
         <location line="-58"/>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Érmék küldése megadott címre</translation>
+        <source>Send coins to a Phoenixcoin address</source>
+        <translation>Відправити монети на вказану адресу Фенікскойна</translation>
     </message>
     <message>
         <location line="+45"/>
-        <source>Modify configuration options for Bitcoin</source>
-        <translation>Bitcoin konfigurációs opciók</translation>
+        <source>Modify configuration options for Phoenixcoin</source>
+        <translation>Редагувати налаштування Фенікскойна</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Export the data in the current tab to a file</source>
-        <translation>Jelenlegi nézet exportálása fájlba</translation>
+        <translation>Експортувати дані з поточної вкладки в файл</translation>
     </message>
     <message>
         <location line="-10"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation>Tárca kódolása vagy dekódolása</translation>
+        <translation>Зашифрувати чи розшифрувати гаманець</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup wallet to another location</source>
-        <translation type="unfinished"></translation>
+        <translation>Резервне копіювання гаманця в інше місце</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Change the passphrase used for wallet encryption</source>
-        <translation>Tárcakódoló jelszó megváltoztatása</translation>
+        <translation>Змінити пароль, який використовується для шифрування гаманця</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -462,18 +460,18 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     </message>
     <message>
         <location line="-186"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Phoenixcoin</source>
+        <translation>Фенікскойн</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet</source>
-        <translation>Tárca</translation>
+        <translation>Гаманець</translation>
     </message>
     <message>
         <location line="+168"/>
-        <source>&amp;About Bitcoin</source>
-        <translation>&amp;A Bitcoinról</translation>
+        <source>&amp;About Phoenixcoin</source>
+        <translation>&amp;Про Фенікскойн</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -483,99 +481,109 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     <message>
         <location line="+39"/>
         <source>&amp;File</source>
-        <translation>&amp;Fájl</translation>
+        <translation>&amp;Файл</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Beállítások</translation>
+        <translation>&amp;Налаштування</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&amp;Help</source>
-        <translation>&amp;Súgó</translation>
+        <translation>&amp;Довідка</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Tabs toolbar</source>
-        <translation>Fül eszköztár</translation>
+        <translation>Панель вкладок</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Actions toolbar</source>
-        <translation>Parancsok eszköztár</translation>
+        <translation>Панель дій</translation>
     </message>
     <message>
         <location line="+13"/>
         <location line="+9"/>
         <source>[testnet]</source>
-        <translation>[teszthálózat]</translation>
+        <translation>[тестова мережа]</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>Bitcoin client</source>
+        <source>Phoenixcoin client</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <location line="+69"/>
-        <source>%n active connection(s) to Bitcoin network</source>
+        <source>%n active connection(s) to the Phoenixcoin network</source>
         <translation>
-            <numerusform>%n aktív kapcsolat a Bitcoin-hálózattal</numerusform>
+            <numerusform>%n активне з’єднання з мережею Фенікскойна</numerusform>
+            <numerusform>%n активні з’єднання з мережею Фенікскойна</numerusform>
+            <numerusform>%n активних з’єднань з мережею Фенікскойна</numerusform>
         </translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Downloaded %1 blocks of transaction history.</source>
-        <translation>%1 blokk letöltve a tranzakciótörténetből.</translation>
+        <translation>Завантажено %1 блоків історії транзакцій.</translation>
     </message>
     <message numerus="yes">
         <location line="+22"/>
         <source>%n second(s) ago</source>
         <translation>
-            <numerusform>%n másodperccel ezelőtt</numerusform>
+            <numerusform>%n секунду тому</numerusform>
+            <numerusform>%n секунди тому</numerusform>
+            <numerusform>%n секунд тому</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s) ago</source>
         <translation>
-            <numerusform>%n perccel ezelőtt</numerusform>
+            <numerusform>%n хвилину тому</numerusform>
+            <numerusform>%n хвилини тому</numerusform>
+            <numerusform>%n хвилин тому</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s) ago</source>
         <translation>
-            <numerusform>%n órával ezelőtt</numerusform>
+            <numerusform>%n годину тому</numerusform>
+            <numerusform>%n години тому</numerusform>
+            <numerusform>%n годин тому</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s) ago</source>
         <translation>
-            <numerusform>%n nappal ezelőtt</numerusform>
+            <numerusform>%n день тому</numerusform>
+            <numerusform>%n дня тому</numerusform>
+            <numerusform>%n днів тому</numerusform>
         </translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Up to date</source>
-        <translation>Naprakész</translation>
+        <translation>Синхронізовано</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Catching up...</source>
-        <translation>Frissítés...</translation>
+        <translation>Синхронізується...</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Last received block was generated %1.</source>
-        <translation>Az utolsóként kapott blokk generálva: %1.</translation>
+        <translation>Останній отриманий блок було згенеровано %1.</translation>
     </message>
     <message>
         <location line="+59"/>
         <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
-        <translation>Ez a tranzakció túllépi a mérethatárt,  de %1 tranzakciós díj ellenében így is elküldheted. Ezt a plusz összeget a tranzakcióidat feldolgozó csomópontok kapják,  így magát a hálózatot támogatod vele. Hajlandó vagy megfizetni a díjat?</translation>
+        <translation>Цей переказ перевищує максимально допустимий розмір. Проте ви можете здійснити її, додавши комісію в %1, яка відправиться тим вузлам що оброблять ваш переказ, та допоможе підтримати мережу. Ви хочете додати комісію?</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -585,12 +593,12 @@ Ez a termék az OpenSSL Project által lett kifejlesztve az OpenSSL Toolkit (htt
     <message>
         <location line="+27"/>
         <source>Sent transaction</source>
-        <translation>Tranzakció elküldve.</translation>
+        <translation>Надіслані перекази</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Incoming transaction</source>
-        <translation>Beérkező tranzakció</translation>
+        <translation>Отримані перекази</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -599,10 +607,10 @@ Amount: %2
 Type: %3
 Address: %4
 </source>
-        <translation>Dátum: %1
-Összeg: %2
-Típus: %3
-Cím: %4
+        <translation>Дата: %1
+Кількість: %2
+Тип: %3
+Адреса: %4
 </translation>
     </message>
     <message>
@@ -614,42 +622,42 @@ Cím: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid Phoenixcoin address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
-        <translation>Tárca &lt;b&gt;kódolva&lt;/b&gt; és jelenleg &lt;b&gt;nyitva&lt;/b&gt;.</translation>
+        <translation>&lt;b&gt;Зашифрований&lt;/b&gt; гаманець &lt;b&gt;розблоковано&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
-        <translation>Tárca &lt;b&gt;kódolva&lt;/b&gt; és jelenleg &lt;b&gt;zárva&lt;/b&gt;.</translation>
+        <translation>&lt;b&gt;Зашифрований&lt;/b&gt; гаманець &lt;b&gt;заблоковано&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Backup Wallet</source>
-        <translation type="unfinished"></translation>
+        <translation>Резервне копіювання гаманця</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet Data (*.dat)</source>
-        <translation type="unfinished"></translation>
+        <translation>Дані гаманця (*.dat)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Резервне копіювання не вдалося</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>There was an error trying to save the wallet data to the new location.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виникла помилка при спробі зберегти гаманець в новому місці</translation>
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. Bitcoin can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Phoenixcoin can no longer continue safely and will quit.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -666,67 +674,67 @@ Cím: %4
     <message>
         <location filename="../forms/editaddressdialog.ui" line="+14"/>
         <source>Edit Address</source>
-        <translation>Cím szerkesztése</translation>
+        <translation>Редагувати адресу</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>&amp;Label</source>
-        <translation>Cím&amp;ke</translation>
+        <translation>&amp;Мітка</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>The label associated with this address book entry</source>
-        <translation>A címhez tartozó címke</translation>
+        <translation>Мітка, пов’язана з цим записом адресної книги</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Address</source>
-        <translation>&amp;Cím</translation>
+        <translation>&amp;Адреса</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>The address associated with this address book entry. This can only be modified for sending addresses.</source>
-        <translation>Az ehhez a címjegyzék-bejegyzéshez tartozó cím. Ez csak a küldő címeknél módosítható.</translation>
+        <translation>Адреса, пов’язана з цим записом адресної книги.</translation>
     </message>
     <message>
         <location filename="../editaddressdialog.cpp" line="+20"/>
         <source>New receiving address</source>
-        <translation>Új fogadó cím</translation>
+        <translation>Нова адреса для отримання</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>New sending address</source>
-        <translation>Új küldő cím</translation>
+        <translation>Нова адреса для відправлення</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Edit receiving address</source>
-        <translation>Fogadó cím szerkesztése</translation>
+        <translation>Редагувати адресу для отримання</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Edit sending address</source>
-        <translation>Küldő cím szerkesztése</translation>
+        <translation>Редагувати адресу для відправлення</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>The entered address &quot;%1&quot; is already in the address book.</source>
-        <translation>A megadott &quot;%1&quot; cím már szerepel a címjegyzékben.</translation>
+        <translation>Введена адреса «%1» вже присутня в адресній книзі.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Bitcoin address.</source>
-        <translation>A megadott &quot;%1&quot; cím nem egy érvényes Bitcoin-cím.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Phoenixcoin address.</source>
+        <translation>Введена адреса «%1» не є коректною адресою в мережі Фенікскойна.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Could not unlock wallet.</source>
-        <translation>Tárca feloldása sikertelen</translation>
+        <translation>Неможливо розблокувати гаманець.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>New key generation failed.</source>
-        <translation>Új kulcs generálása sikertelen</translation>
+        <translation>Не вдалося згенерувати нові ключі.</translation>
     </message>
 </context>
 <context>
@@ -734,18 +742,18 @@ Cím: %4
     <message>
         <location filename="../guiutil.cpp" line="+419"/>
         <location line="+12"/>
-        <source>Bitcoin-Qt</source>
+        <source>Phoenixcoin-Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-12"/>
         <source>version</source>
-        <translation>verzió</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Usage:</source>
-        <translation>Használat:</translation>
+        <translation>Вкористання:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -755,7 +763,7 @@ Cím: %4
     <message>
         <location line="+4"/>
         <source>UI options</source>
-        <translation>UI opciók</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -765,7 +773,7 @@ Cím: %4
     <message>
         <location line="+1"/>
         <source>Start minimized</source>
-        <translation>Indítás lekicsinyítve
+        <translation>Запускати згорнутим
 </translation>
     </message>
     <message>
@@ -779,32 +787,32 @@ Cím: %4
     <message>
         <location filename="../forms/optionsdialog.ui" line="+14"/>
         <source>Options</source>
-        <translation>Opciók</translation>
+        <translation>Параметри</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>&amp;Main</source>
-        <translation>&amp;Fő</translation>
+        <translation>&amp;Головні</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</source>
-        <translation>Opcionális, kB-onkénti tranzakciós díj a tranzakcióid minél gyorsabb feldolgozásának elősegítésére.  A legtöbb tranzakció 1 kB-os.  0,01 BTC ajánlott.</translation>
+        <translation>Добровільна комісія за кожен Кб переказу, яка дозволяє бути впевненим у тому, що ваш переказ буде оброблено швидко. Розмір більшості переказів рівен 1 Кб. Рекомендована комісія: 0,01.</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Pay transaction &amp;fee</source>
-        <translation>Tranzakciós &amp;díj fizetése</translation>
+        <translation>Заплатити комісі&amp;ю</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Bitcoin after logging in to the system.</source>
-        <translation>Induljon el a Bitcoin a számítógép bekapcsolásakor</translation>
+        <source>Automatically start Phoenixcoin after logging in to the system.</source>
+        <translation>Автоматично запускати Фенікскойн при вмиканні комп’ютера.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Bitcoin on system login</source>
-        <translation>&amp;Induljon el a számítógép bekapcsolásakor</translation>
+        <source>&amp;Start Phoenixcoin on system login</source>
+        <translation>&amp;Запускати Фенікскойн при вході в систему</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -823,43 +831,43 @@ Cím: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>A Bitcoin-kliens portjának automatikus megnyitása a routeren. Ez csak akkor működik, ha a routered támogatja az UPnP-t és az engedélyezve is van rajta.</translation>
+        <source>Automatically open the Phoenixcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Автоматично відкривати порт для клієнта Фенікскойна на роутері. Працює лише якщо ваш роутер підтримує UPnP і ця функція увімкнена.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Map port using &amp;UPnP</source>
-        <translation>&amp;UPnP port-feltérképezés</translation>
+        <translation>Відображення порту через &amp;UPnP</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Bitcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>SOCKS proxyn keresztüli csatlakozás a Bitcoin hálózatához (pl. Tor-on keresztüli csatlakozás esetén)</translation>
+        <source>Connect to the Phoenixcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Підключатись до мережі Фенікскойна через SOCKS-проксі (наприклад при використанні Tor)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Connect through SOCKS proxy:</source>
-        <translation>&amp;Csatlakozás SOCKS proxyn keresztül:</translation>
+        <translation>Підключатись через &amp;SOCKS-проксі:</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Proxy &amp;IP:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;IP проксі:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>IP address of the proxy (e.g. 127.0.0.1)</source>
-        <translation>Proxy IP címe (pl.: 127.0.0.1)</translation>
+        <translation>IP-адреса проксі-сервера (наприклад 127.0.0.1)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Порт:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Port of the proxy (e.g. 9050)</source>
-        <translation>Proxy portja (pl.: 9050)</translation>
+        <translation>Порт проксі-сервера (наприклад 9050)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -879,27 +887,27 @@ Cím: %4
     <message>
         <location line="+6"/>
         <source>Show only a tray icon after minimizing the window.</source>
-        <translation>Kicsinyítés után csak eszköztár-ikont mutass</translation>
+        <translation>Показувати лише іконку в треї після згортання вікна</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Minimize to the tray instead of the taskbar</source>
-        <translation>&amp;Kicsinyítés a tálcára az eszköztár helyett</translation>
+        <translation>Мінімізувати &amp;у трей</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
-        <translation>Az alkalmazásból való kilépés helyett az eszköztárba kicsinyíti az alkalmazást az ablak bezárásakor. Ez esetben az alkalmazás csak a Kilépés menüponttal zárható be.</translation>
+        <translation>Згортати замість закриття. Якщо ця опція включена, програма закриється лише після вибору відповідного пункту в меню.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>M&amp;inimize on close</source>
-        <translation>K&amp;icsinyítés záráskor</translation>
+        <translation>Згортати замість закритт&amp;я</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>&amp;Display</source>
-        <translation>&amp;Megjelenítés</translation>
+        <translation>&amp;Відображення</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -908,28 +916,28 @@ Cím: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Bitcoin.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting Phoenixcoin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+11"/>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>&amp;Mértékegység:</translation>
+        <translation>В&amp;имірювати монети в:</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Válaszd ki az interfészen és érmék küldésekor megjelenítendő alapértelmezett alegységet.</translation>
+        <translation>Виберіть одиницю вимірювання монет, яка буде відображатись в гаманці та при відправленні.</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Bitcoin addresses in the transaction list or not.</source>
+        <source>Whether to show Phoenixcoin addresses in the transaction list or not.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
-        <translation>&amp;Címek megjelenítése a tranzakciólistában</translation>
+        <translation>&amp;Відображати адресу в списку переказів</translation>
     </message>
     <message>
         <location line="+71"/>
@@ -955,12 +963,12 @@ Cím: %4
         <location line="+147"/>
         <location line="+9"/>
         <source>Warning</source>
-        <translation>Figyelem</translation>
+        <translation>Увага</translation>
     </message>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Bitcoin.</source>
+        <source>This setting will take effect after restarting Phoenixcoin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -974,33 +982,33 @@ Cím: %4
     <message>
         <location filename="../forms/overviewpage.ui" line="+14"/>
         <source>Form</source>
-        <translation>Űrlap</translation>
+        <translation>Форма</translation>
     </message>
     <message>
         <location line="+33"/>
         <location line="+183"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Phoenixcoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-141"/>
         <source>Balance:</source>
-        <translation>Egyenleg:</translation>
+        <translation>Баланс:</translation>
     </message>
     <message>
         <location line="+58"/>
         <source>Number of transactions:</source>
-        <translation>Tranzakciók száma:</translation>
+        <translation>Кількість переказів:</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>Unconfirmed:</source>
-        <translation>Megerősítetlen:</translation>
+        <translation>Непідтверджені:</translation>
     </message>
     <message>
         <location line="-78"/>
         <source>Wallet</source>
-        <translation>Tárca</translation>
+        <translation>Гаманець</translation>
     </message>
     <message>
         <location line="+124"/>
@@ -1015,22 +1023,22 @@ Cím: %4
     <message>
         <location line="+46"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Legutóbbi tranzakciók&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Недавні перекази&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="-118"/>
         <source>Your current balance</source>
-        <translation>Aktuális egyenleged</translation>
+        <translation>Ваш поточний баланс</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation>Még megerősítésre váró, a jelenlegi egyenlegbe be nem számított tranzakciók</translation>
+        <translation>Загальна сума всіх переказів, які ще не підтверджені, та до сих пір не враховуються в загальному балансі</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Total number of transactions in wallet</source>
-        <translation>Tárca összes tranzakcióinak száma</translation>
+        <translation>Загальна кількість переказів в гаманці</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+112"/>
@@ -1049,27 +1057,27 @@ Cím: %4
     <message>
         <location line="+59"/>
         <source>Request Payment</source>
-        <translation type="unfinished"></translation>
+        <translation>Запросити Платіж</translation>
     </message>
     <message>
         <location line="+56"/>
         <source>Amount:</source>
-        <translation>Összeg:</translation>
+        <translation>Кількість:</translation>
     </message>
     <message>
         <location line="-44"/>
         <source>Label:</source>
-        <translation>Címke:</translation>
+        <translation>Мітка:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Message:</source>
-        <translation>Üzenet:</translation>
+        <translation>Повідомлення:</translation>
     </message>
     <message>
         <location line="+71"/>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Зберегти як...</translation>
     </message>
     <message>
         <location filename="../qrcodedialog.cpp" line="+62"/>
@@ -1094,7 +1102,7 @@ Cím: %4
     <message>
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG-зображення (*.png)</translation>
     </message>
 </context>
 <context>
@@ -1185,7 +1193,7 @@ Cím: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Bitcoin-Qt help message to get a list with possible Bitcoin command-line options.</source>
+        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1205,12 +1213,12 @@ Cím: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Bitcoin - Debug window</source>
+        <source>Phoenixcoin - Debug window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Bitcoin Core</source>
+        <source>Phoenixcoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1220,7 +1228,7 @@ Cím: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Bitcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the Phoenixcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1230,7 +1238,7 @@ Cím: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the Bitcoin RPC console.</source>
+        <source>Welcome to the Phoenixcoin RPC console.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1256,32 +1264,32 @@ Cím: %4
         <location line="+5"/>
         <location line="+5"/>
         <source>Send Coins</source>
-        <translation>Érmék küldése</translation>
+        <translation>Відправити</translation>
     </message>
     <message>
         <location line="+50"/>
         <source>Send to multiple recipients at once</source>
-        <translation>Küldés több címzettnek egyszerre</translation>
+        <translation>Відправити на декілька адрес</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Add &amp;Recipient</source>
-        <translation>&amp;Címzett hozzáadása</translation>
+        <translation>Дод&amp;ати одержувача</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Remove all transaction fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити всі поля транзакції</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Clear &amp;All</source>
-        <translation>Mindent &amp;töröl</translation>
+        <translation>Очистити &amp;все</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Balance:</source>
-        <translation>Egyenleg:</translation>
+        <translation>Баланс:</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1291,67 +1299,67 @@ Cím: %4
     <message>
         <location line="+31"/>
         <source>Confirm the send action</source>
-        <translation>Küldés megerősítése</translation>
+        <translation>Підтвердити відправлення</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>S&amp;end</source>
-        <translation>&amp;Küldés</translation>
+        <translation>&amp;Відправити</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-59"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; %2-re (%3)</translation>
+        <translation>&lt;b&gt;%1&lt;/b&gt; адресату %2 (%3)</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Confirm send coins</source>
-        <translation>Küldés megerősítése</translation>
+        <translation>Підтвердіть відправлення</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Are you sure you want to send %1?</source>
-        <translation>Valóban el akarsz küldeni %1-t?</translation>
+        <translation>Ви впевнені що хочете відправити %1</translation>
     </message>
     <message>
         <location line="+0"/>
         <source> and </source>
-        <translation> és</translation>
+        <translation> і </translation>
     </message>
     <message>
         <location line="+23"/>
         <source>The recipient address is not valid, please recheck.</source>
-        <translation>A címzett címe érvénytelen, kérlek, ellenőrizd.</translation>
+        <translation>Адреса отримувача невірна, будьласка перепровірте.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The amount to pay must be larger than 0.</source>
-        <translation>A fizetendő összegnek nagyobbnak kell lennie 0-nál.</translation>
+        <translation>Кількість монет для відправлення повинна бути більшою 0.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The amount exceeds your balance.</source>
-        <translation>Nincs ennyi bitcoin az egyenlegeden.</translation>
+        <translation>Кількість монет для відправлення перевищує ваш баланс.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>A küldeni kívánt összeg és a %1 tranzakciós díj együtt meghaladja az egyenlegeden rendelkezésedre álló összeget.</translation>
+        <translation>Сума перевищить ваш баланс, якщо комісія %1 буде додана до вашого переказу.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
-        <translation>Többször szerepel ugyanaz a cím. Egy küldési műveletben egy címre csak egyszer lehet küldeni.</translation>
+        <translation>Знайдено адресу що дублюється. Відправлення на кожну адресу дозволяється лише один раз на кожну операцію переказу.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Error: Transaction creation failed.</source>
-        <translation>Hiba: nem sikerült létrehozni a tranzakciót.</translation>
+        <translation>Помилка: не вдалося створити переказ.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Hiba: a tranzakciót elutasították. Ezt az okozhatja, ha már elköltöttél valamennyi érmét a tárcádból például ha a wallet.dat-od egy másolatát használtad, és így az elköltés csak abban lett jelölve, de itt nem.</translation>
+        <translation>Помилка: переказ було відхилено.  Це може статись, якщо декілька монет з вашого гаманця вже використані, наприклад, якщо ви використовуєте одну копію гаманця (wallet.dat), а монети були використані з іншої копії, але не позначені як використані в цій.</translation>
     </message>
 </context>
 <context>
@@ -1359,39 +1367,38 @@ Cím: %4
     <message>
         <location filename="../forms/sendcoinsentry.ui" line="+14"/>
         <source>Form</source>
-        <translation>Űrlap</translation>
+        <translation>Форма</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>A&amp;mount:</source>
-        <translation>Összeg:</translation>
+        <translation>&amp;Кількість:</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Pay &amp;To:</source>
-        <translation>Címzett:</translation>
+        <translation>&amp;Отримувач:</translation>
     </message>
     <message>
         <location line="+24"/>
         <location filename="../sendcoinsentry.cpp" line="+25"/>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation>Milyen címkével kerüljön be ez a cím a címtáradba?
-</translation>
+        <translation>Введіть мітку для цієї адреси для додавання її в адресну книгу</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>&amp;Label:</source>
-        <translation>Címke:</translation>
+        <translation>&amp;Мітка:</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The address to send the payment to  (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Címzett címe  (pl.: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L )</translation>
+        <translation>Адреса для отримувача платежу (наприклад, 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Choose address from address book</source>
-        <translation>Válassz egy címet a címjegyzékből</translation>
+        <translation>Вибрати адресу з адресної книги</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1401,7 +1408,7 @@ Cím: %4
     <message>
         <location line="+7"/>
         <source>Paste address from clipboard</source>
-        <translation>Cím beillesztése a vágólapról</translation>
+        <translation>Вставити адресу</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1411,12 +1418,12 @@ Cím: %4
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation>Címzett eltávolítása</translation>
+        <translation>Видалити цього отримувача</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Adj meg egy Bitcoin-címet (pl.: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L )</translation>
+        <source>Enter a Phoenixcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Введіть адресу Фенікскойна (наприклад 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1430,7 +1437,7 @@ Cím: %4
         <location line="+13"/>
         <location line="+124"/>
         <source>&amp;Sign Message</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Підписати повідомлення</translation>
     </message>
     <message>
         <location line="-118"/>
@@ -1440,13 +1447,13 @@ Cím: %4
     <message>
         <location line="+18"/>
         <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Adj meg egy Bitcoin-címet (pl.: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L )</translation>
+        <translation>Введіть адресу Фенікскойна (наприклад 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="+10"/>
         <location line="+203"/>
         <source>Choose an address from the address book</source>
-        <translation>Válassz egy címet a címjegyzékből</translation>
+        <translation>Вибрати адресу з адресної книги</translation>
     </message>
     <message>
         <location line="-193"/>
@@ -1457,7 +1464,7 @@ Cím: %4
     <message>
         <location line="-193"/>
         <source>Paste address from clipboard</source>
-        <translation>Cím beillesztése a vágólapról</translation>
+        <translation>Вставити адресу</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1467,7 +1474,7 @@ Cím: %4
     <message>
         <location line="+12"/>
         <source>Enter the message you want to sign here</source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть повідомлення, яке ви хочете підписати тут</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -1476,8 +1483,8 @@ Cím: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation type="unfinished"></translation>
+        <source>Sign the message to prove you own this Phoenixcoin address</source>
+        <translation>Підпишіть повідомлення, щоб підтвердити володіння адресою Фенікскойна</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1488,7 +1495,7 @@ Cím: %4
         <location line="+3"/>
         <location line="+146"/>
         <source>Clear &amp;All</source>
-        <translation>Mindent &amp;töröl</translation>
+        <translation>Очистити &amp;все</translation>
     </message>
     <message>
         <location line="-87"/>
@@ -1504,11 +1511,11 @@ Cím: %4
     <message>
         <location line="+21"/>
         <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Adj meg egy Bitcoin-címet (pl.: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L )</translation>
+        <translation>Введіть адресу Фенікскойна (наприклад 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <source>Verify the message to ensure it was signed with the specified Phoenixcoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1519,17 +1526,17 @@ Cím: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Adj meg egy Bitcoin-címet (pl.: 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L )</translation>
+        <source>Enter a Phoenixcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Введіть адресу Фенікскойна (наприклад 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть кнопку &quot;Підписати повідомлення&quot;, для отриманя підпису</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Bitcoin signature</source>
+        <source>Enter Phoenixcoin signature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1604,46 +1611,50 @@ Cím: %4
     <message>
         <location filename="../transactiondesc.cpp" line="+19"/>
         <source>Open until %1</source>
-        <translation>Megnyitva %1-ig</translation>
+        <translation>Відкрити до %1</translation>
     </message>
     <message numerus="yes">
         <location line="-2"/>
         <source>Open for %n block(s)</source>
         <translation>
-            <numerusform>%n blokkra megnyitva</numerusform>
+            <numerusform>Відкрити для %n блоку</numerusform>
+            <numerusform>Відкрити для %n блоків</numerusform>
+            <numerusform>Відкрити для %n блоків</numerusform>
         </translation>
     </message>
     <message>
         <location line="+8"/>
         <source>%1/offline</source>
-        <translation type="unfinished"></translation>
+        <translation>%1/поза інтернетом</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1/unconfirmed</source>
-        <translation>%1/megerősítetlen</translation>
+        <translation>%1/не підтверджено</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 confirmations</source>
-        <translation>%1 megerősítés</translation>
+        <translation>%1 підтверджень</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Status</source>
-        <translation>Állapot</translation>
+        <translation>Статус</translation>
     </message>
     <message numerus="yes">
         <location line="+7"/>
         <source>, broadcast through %n node(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Date</source>
-        <translation>Dátum</translation>
+        <translation>Дата</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1653,20 +1664,20 @@ Cím: %4
     <message>
         <location line="+0"/>
         <source>Generated</source>
-        <translation>Legenerálva</translation>
+        <translation>Згенеровано</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+17"/>
         <source>From</source>
-        <translation>Űrlap</translation>
+        <translation>Відправник</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+22"/>
         <location line="+58"/>
         <source>To</source>
-        <translation>Címzett</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-77"/>
@@ -1677,7 +1688,7 @@ Cím: %4
     <message>
         <location line="-2"/>
         <source>label</source>
-        <translation>címke</translation>
+        <translation>Мітка</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1686,19 +1697,21 @@ Cím: %4
         <location line="+17"/>
         <location line="+30"/>
         <source>Credit</source>
-        <translation>Jóváírás</translation>
+        <translation>Кредит</translation>
     </message>
     <message numerus="yes">
         <location line="-102"/>
         <source>matures in %n more block(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>not accepted</source>
-        <translation>elutasítva</translation>
+        <translation>не прийнято</translation>
     </message>
     <message>
         <location line="+44"/>
@@ -1706,37 +1719,37 @@ Cím: %4
         <location line="+15"/>
         <location line="+30"/>
         <source>Debit</source>
-        <translation>Terhelés</translation>
+        <translation>Дебет</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Transaction fee</source>
-        <translation>Tranzakciós díj</translation>
+        <translation>Комісія за переказ</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Net amount</source>
-        <translation>Nettó összeg</translation>
+        <translation>Загальна сума</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Message</source>
-        <translation>Üzenet</translation>
+        <translation>Повідомлення</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Comment</source>
-        <translation>Megjegyzés</translation>
+        <translation>Коментар</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Transaction ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID транзакції</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Generated coins must mature 120 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>A frissen generált érméket csak 120 blokkal később tudod elkölteni.  Ez a blokk nyomban szétküldésre került a hálózatba, amint legeneráltad, hogy hozzáadhassák a blokklánchoz.  Ha nem kerül be a láncba, úgy az állapota &quot;elutasítva&quot;-ra módosul,  és nem költheted el az érméket. Ez akkor következhet be időnként, ha egy másik csomópont mindössze néhány másodperc különbséggel generált le egy blokkot a tiédhez képest.</translation>
+        <translation>Після генерації монет, потрібно зачекати 120 блоків, перш ніж їх можна буде використати.  Коли ви згенерували цей блок, його було відправлено в мережу для того, щоб він був доданий до ланцюжка блоків.  Якщо ця процедура не вдасться, статус буде змінено на «не підтверджено» і ви не зможете потратити згенеровані монету.  Таке може статись, якщо хтось інший згенерував блок на декілька секунд раніше.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1746,7 +1759,7 @@ Cím: %4
     <message>
         <location line="+8"/>
         <source>Transaction</source>
-        <translation>Tranzakció</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1756,7 +1769,7 @@ Cím: %4
     <message>
         <location line="+23"/>
         <source>Amount</source>
-        <translation>Összeg</translation>
+        <translation>Кількість</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1771,12 +1784,12 @@ Cím: %4
     <message>
         <location line="-211"/>
         <source>, has not been successfully broadcast yet</source>
-        <translation>, még nem sikerült elküldeni.</translation>
+        <translation>, ще не було успішно розіслано</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>unknown</source>
-        <translation>ismeretlen</translation>
+        <translation>невідомий</translation>
     </message>
 </context>
 <context>
@@ -1784,12 +1797,12 @@ Cím: %4
     <message>
         <location filename="../forms/transactiondescdialog.ui" line="+14"/>
         <source>Transaction details</source>
-        <translation>Tranzakció részletei</translation>
+        <translation>Деталі переказів</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This pane shows a detailed description of the transaction</source>
-        <translation>Ez a mező a tranzakció részleteit mutatja</translation>
+        <translation>Даний діалог показує детальну статистику по вибраному переказу</translation>
     </message>
 </context>
 <context>
@@ -1797,121 +1810,125 @@ Cím: %4
     <message>
         <location filename="../transactiontablemodel.cpp" line="+226"/>
         <source>Date</source>
-        <translation>Dátum</translation>
+        <translation>Дата</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Type</source>
-        <translation>Típus</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Address</source>
-        <translation>Cím</translation>
+        <translation>Адреса</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Amount</source>
-        <translation>Összeg</translation>
+        <translation>Кількість</translation>
     </message>
     <message numerus="yes">
         <location line="+57"/>
         <source>Open for %n block(s)</source>
         <translation>
-            <numerusform>%n blokkra megnyitva</numerusform>
+            <numerusform>Відкрити для %n блоку</numerusform>
+            <numerusform>Відкрити для %n блоків</numerusform>
+            <numerusform>Відкрити для %n блоків</numerusform>
         </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open until %1</source>
-        <translation>%1-ig megnyitva</translation>
+        <translation>Відкрити до %1</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Offline (%1 confirmations)</source>
-        <translation>Offline (%1 megerősítés)</translation>
+        <translation>Поза інтернетом (%1 підтверджень)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Unconfirmed (%1 of %2 confirmations)</source>
-        <translation>Megerősítetlen (%1 %2 megerősítésből)</translation>
+        <translation>Непідтверджено (%1 із %2 підтверджень)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Confirmed (%1 confirmations)</source>
-        <translation>Megerősítve (%1 megerősítés)</translation>
+        <translation>Підтверджено (%1 підтверджень)</translation>
     </message>
     <message numerus="yes">
         <location line="+8"/>
         <source>Mined balance will be available when it matures in %n more block(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This block was not received by any other nodes and will probably not be accepted!</source>
-        <translation>Ezt a blokkot egyetlen másik csomópont sem kapta meg, így valószínűleg nem lesz elfogadva!</translation>
+        <translation>Цей блок не був отриманий жодними іншими вузлами і, ймовірно, не буде прийнятий!</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Generated but not accepted</source>
-        <translation>Legenerálva, de még el nem fogadva.</translation>
+        <translation>Згенеровано, але не підтверджено</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>Received with</source>
-        <translation>Erre a címre</translation>
+        <translation>Отримано</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Received from</source>
-        <translation>Erről az</translation>
+        <translation>Отримано від</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sent to</source>
-        <translation>Erre a címre</translation>
+        <translation>Відправлено</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Payment to yourself</source>
-        <translation>Magadnak kifizetve</translation>
+        <translation>Відправлено собі</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Mined</source>
-        <translation>Kibányászva</translation>
+        <translation>Добуто</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>(n/a)</source>
-        <translation>(nincs)</translation>
+        <translation>(недоступно)</translation>
     </message>
     <message>
         <location line="+199"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
-        <translation>Tranzakció állapota. Húzd ide a kurzort, hogy lásd a megerősítések számát.</translation>
+        <translation>Статус переказу. Наведіть вказівник на це поле, щоб показати кількість підтверджень.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Date and time that the transaction was received.</source>
-        <translation>Tranzakció fogadásának dátuma és időpontja.</translation>
+        <translation>Дата і час, коли переказ було отримано.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Type of transaction.</source>
-        <translation>Tranzakció típusa.</translation>
+        <translation>Тип переказу.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Destination address of transaction.</source>
-        <translation>A tranzakció címzettjének címe.</translation>
+        <translation>Адреса отримувача</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Amount removed from or added to balance.</source>
-        <translation>Az egyenleghez jóváírt vagy ráterhelt összeg.</translation>
+        <translation>Сума, додана чи знята з балансу.</translation>
     </message>
 </context>
 <context>
@@ -1920,92 +1937,92 @@ Cím: %4
         <location filename="../transactionview.cpp" line="+55"/>
         <location line="+16"/>
         <source>All</source>
-        <translation>Mind</translation>
+        <translation>Всі</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>Today</source>
-        <translation>Mai</translation>
+        <translation>Сьогодні</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This week</source>
-        <translation>Ezen a héten</translation>
+        <translation>На цьому тижні</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This month</source>
-        <translation>Ebben a hónapban</translation>
+        <translation>На цьому місяці</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last month</source>
-        <translation>Múlt hónapban</translation>
+        <translation>Минулого місяця</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This year</source>
-        <translation>Ebben az évben</translation>
+        <translation>Цього року</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Range...</source>
-        <translation>Tartomány ...</translation>
+        <translation>Проміжок</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Received with</source>
-        <translation>Erre a címre</translation>
+        <translation>Отримані на</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Sent to</source>
-        <translation>Erre a címre</translation>
+        <translation>Відправлені на</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>To yourself</source>
-        <translation>Magadnak</translation>
+        <translation>Відправлені собі</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mined</source>
-        <translation>Kibányászva</translation>
+        <translation>Добуті</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Other</source>
-        <translation>Más</translation>
+        <translation>Інше</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Enter address or label to search</source>
-        <translation>Írd be a keresendő címet vagy címkét</translation>
+        <translation>Введіть адресу чи мітку для пошуку</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Min amount</source>
-        <translation>Minimális összeg</translation>
+        <translation>Мінімальна сума</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>Copy address</source>
-        <translation>Cím másolása</translation>
+        <translation>Скопіювати адресу</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy label</source>
-        <translation>Címke másolása</translation>
+        <translation>Скопіювати мітку</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Копіювати кількість</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit label</source>
-        <translation>Címke szerkesztése</translation>
+        <translation>Редагувати мітку</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2015,67 +2032,67 @@ Cím: %4
     <message>
         <location line="+142"/>
         <source>Export Transaction Data</source>
-        <translation>Tranzakció adatainak exportálása</translation>
+        <translation>Експортувати дані переказів</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comma separated file (*.csv)</source>
-        <translation>Vesszővel elválasztott fájl (*.csv)</translation>
+        <translation>Файли, розділені комою (*.csv)</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Confirmed</source>
-        <translation>Megerősítve</translation>
+        <translation>Підтверджені</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Date</source>
-        <translation>Dátum</translation>
+        <translation>Дата</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Type</source>
-        <translation>Típus</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Label</source>
-        <translation>Címke</translation>
+        <translation>Мітка</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Address</source>
-        <translation>Cím</translation>
+        <translation>Адреса</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount</source>
-        <translation>Összeg</translation>
+        <translation>Кількість</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>ID</source>
-        <translation>Azonosító</translation>
+        <translation>Ідентифікатор</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Error exporting</source>
-        <translation>Hiba lépett fel exportálás közben</translation>
+        <translation>Помилка експорту</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>%1 fájlba való kiírás sikertelen.</translation>
+        <translation>Неможливо записати у файл %1</translation>
     </message>
     <message>
         <location line="+95"/>
         <source>Range:</source>
-        <translation>Tartomány:</translation>
+        <translation>Діапазон від:</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>to</source>
-        <translation>meddig</translation>
+        <translation>до</translation>
     </message>
 </context>
 <context>
@@ -2083,73 +2100,72 @@ Cím: %4
     <message>
         <location filename="../walletmodel.cpp" line="+192"/>
         <source>Sending...</source>
-        <translation>Küldés ...</translation>
+        <translation>Відправка...</translation>
     </message>
 </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>pxc-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+82"/>
-        <source>Bitcoin version</source>
-        <translation>Bitcoin verzió</translation>
+        <source>Phoenixcoin version</source>
+        <translation>Версія Фенікскойна</translation>
     </message>
     <message>
         <location line="+82"/>
         <source>Usage:</source>
-        <translation>Használat:</translation>
+        <translation>Вкористання:</translation>
     </message>
     <message>
         <location line="-25"/>
-        <source>Send command to -server or bitcoind</source>
-        <translation>Parancs küldése a -serverhez vagy a bitcoindhez
-</translation>
+        <source>Send command to -server or phoenixcoind</source>
+        <translation>Відправити команду серверу -server чи демону phoenixcoind</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>List commands</source>
-        <translation>Parancsok kilistázása
+        <translation>Список команд
 </translation>
     </message>
     <message>
         <location line="-11"/>
         <source>Get help for a command</source>
-        <translation>Segítség egy parancsról
+        <translation>Отримати довідку по команді
 </translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Options:</source>
-        <translation>Opciók
+        <translation>Параметри:
 </translation>
     </message>
     <message>
         <location line="+23"/>
-        <source>Specify configuration file (default: bitcoin.conf)</source>
-        <translation>Konfigurációs fájl (alapértelmezett: bitcoin.conf)
+        <source>Specify configuration file (default: phoenixcoin.conf)</source>
+        <translation>Вкажіть файл конфігурації (за промовчуванням: phoenixcoin.conf)
 </translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: bitcoind.pid)</source>
-        <translation>pid-fájl (alapértelmezett: bitcoind.pid)
+        <source>Specify pid file (default: phoenixcoind.pid)</source>
+        <translation>Вкажіть pid-файл (за промовчуванням: phoenixcoind.pid)
 </translation>
     </message>
     <message>
         <location line="-47"/>
         <source>Generate coins</source>
-        <translation>Érmék generálása
+        <translation>Генерувати монети
 </translation>
     </message>
     <message>
         <location line="-14"/>
         <source>Don&apos;t generate coins</source>
-        <translation>Bitcoin-generálás leállítása
+        <translation>Не генерувати монети
 </translation>
     </message>
     <message>
         <location line="+60"/>
         <source>Specify data directory</source>
-        <translation>Adatkönyvtár
+        <translation>Вкажіть робочий каталог
 </translation>
     </message>
     <message>
@@ -2165,12 +2181,12 @@ Cím: %4
     <message>
         <location line="-26"/>
         <source>Listen for connections on &lt;port&gt; (default: 8333 or testnet: 18333)</source>
-        <translation>Csatlakozásokhoz figyelendő &lt;port&gt; (alapértelmezett: 8333 or testnet: 18333)</translation>
+        <translation>Чекати на з&apos;єднання на порту (по замовченню 8333 або тестова мережа 18333)</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation type="unfinished"></translation>
+        <translation>Підтримувати не більше &lt;n&gt; зв&apos;язків з колегами (за замовчуванням: 125)</translation>
     </message>
     <message>
         <location line="-33"/>
@@ -2190,12 +2206,12 @@ Cím: %4
     <message>
         <location line="+77"/>
         <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation type="unfinished"></translation>
+        <translation>Поріг відключення неправильно підєднаних пірів (за замовчуванням: 100)</translation>
     </message>
     <message>
         <location line="-112"/>
         <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальній розмір вхідного буферу на одне з&apos;єднання (за замовчуванням 86400)</translation>
     </message>
     <message>
         <location line="-25"/>
@@ -2220,7 +2236,8 @@ Cím: %4
     <message>
         <location line="+13"/>
         <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8332 or testnet: 18332)</source>
-        <translation>JSON-RPC csatlakozásokhoz figyelendő &lt;port&gt; (alapértelmezett: 8332 or testnet: 18332)</translation>
+        <translation>Прослуховувати &lt;port&gt; для JSON-RPC-з’єднань (за промовчуванням: 8332)
+</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -2235,7 +2252,7 @@ Cím: %4
     <message>
         <location line="+9"/>
         <source>Accept command line and JSON-RPC commands</source>
-        <translation>Parancssoros és JSON-RPC parancsok elfogadása
+        <translation>Приймати команди із командного рядка та команди JSON-RPC
 </translation>
     </message>
     <message>
@@ -2256,13 +2273,13 @@ Cím: %4
     <message>
         <location line="+23"/>
         <source>Run in the background as a daemon and accept commands</source>
-        <translation>Háttérben futtatás daemonként és parancsok elfogadása
+        <translation>Запустити в фоновому режимі (як демон) та приймати команди
 </translation>
     </message>
     <message>
         <location line="+33"/>
         <source>Use the test network</source>
-        <translation>Teszthálózat használata
+        <translation>Використовувати тестову мережу
 </translation>
     </message>
     <message>
@@ -2273,12 +2290,12 @@ Cím: %4
     <message>
         <location line="-42"/>
         <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Hiba: a tranzakciót elutasították.  Ezt az okozhatja, ha már elköltöttél valamennyi érmét a tárcádból - például ha a wallet.dat-od egy másolatát használtad, és így az elköltés csak abban lett jelölve, de itt nem.</translation>
+        <translation>Помилка: переказ було відхилено.  Це може статись, якщо декілька монет з вашого гаманця вже використані, наприклад, якщо ви використовуєте одну копію гаманця (wallet.dat), а монети були використані з іншої копії, але не позначені як використані в цій.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation>Ez a tranzakció túllépi a mérethatárt,  de %1 tranzakciós díj ellenében így is elküldheted. Ezt a plusz összeget a tranzakcióidat feldolgozó csomópontok kapják,  így magát a hálózatot támogatod vele. Hajlandó vagy megfizetni a díjat?</translation>
+        <translation>Цей переказ перевищує максимально допустимий розмір. Проте ви можете здійснити її, додавши комісію в %1, яка відправиться тим вузлам що оброблять ваш переказ, та допоможе підтримати мережу. Ви хочете додати комісію?</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -2288,7 +2305,7 @@ Cím: %4
     <message>
         <location line="+5"/>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Figyelem: a -paytxfee nagyon magas.  Ennyi tranzakciós díjat fogsz fizetni, ha elküldöd a tranzakciót.</translation>
+        <translation>Увага: встановлено занадто велику комісію (-paytxfee).  Комісія зніматиметься кожен раз коли ви проводитимете перекази.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2297,8 +2314,8 @@ Cím: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Bitcoin will not work properly.</source>
-        <translation>Figyelem: Ellenőrizd, hogy helyesen van-e beállítva a gépeden a dátum és az idő.  A Bitcoin nem fog megfelelően működni, ha rosszul van beállítvaaz órád.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Phoenixcoin will not work properly.</source>
+        <translation>Увага: будь ласка, перевірте дату і час на свому комп’ютері.  Якщо ваш годинник йде неправильно, Фенікскойн може працювати некоректно.</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -2308,7 +2325,7 @@ Cím: %4
     <message>
         <location line="+6"/>
         <source>Connect only to the specified node(s)</source>
-        <translation>Csatlakozás csak a megadott csomóponthoz</translation>
+        <translation>Підключитись лише до вказаного вузла</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2318,7 +2335,7 @@ Cím: %4
     <message>
         <location line="+8"/>
         <source>Error: Transaction creation failed  </source>
-        <translation>Hiba: nem sikerült létrehozni a tranzakciót  </translation>
+        <translation>Помилка: не вдалося створити переказ  </translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2338,17 +2355,17 @@ Cím: %4
     <message>
         <location line="+11"/>
         <source>Invalid -tor address: &apos;%s&apos;</source>
-        <translation>Érvénytelen -tor cím: &apos;%s&apos;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальоий буфер , &lt;n&gt; * 1000 байт (за умовчанням: 5000)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: 1000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальній розмір виіхідного буферу на одне з&apos;єднання (за замовчуванням 1000)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2358,7 +2375,7 @@ Cím: %4
     <message>
         <location line="+2"/>
         <source>Output extra debugging information. Implies all other -debug* options</source>
-        <translation type="unfinished"></translation>
+        <translation>Виводити більше налагоджувальної інформації. Implies all other -debug* options</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2368,12 +2385,12 @@ Cím: %4
     <message>
         <location line="+2"/>
         <source>Prepend debug output with timestamp</source>
-        <translation type="unfinished"></translation>
+        <translation>Доповнювати налагоджувальний вивід відміткою часу</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
-        <translation>SSL-opciók: (lásd a Bitcoin Wiki SSL-beállítási instrukcióit)</translation>
+        <source>SSL options: (see the Phoenixcoin Wiki for SSL setup instructions)</source>
+        <translation>Параметри SSL: (див. Phoenixcoin Wiki)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2383,12 +2400,12 @@ Cím: %4
     <message>
         <location line="+3"/>
         <source>Send trace/debug info to console instead of debug.log file</source>
-        <translation type="unfinished"></translation>
+        <translation>Відсилаті налагоджувальну інформацію на консоль, а не у файл debug.log</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Send trace/debug info to debugger</source>
-        <translation type="unfinished"></translation>
+        <translation>Відсилаті налагоджувальну інформацію до налагоджувача</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2408,17 +2425,17 @@ Cím: %4
     <message>
         <location line="+2"/>
         <source>Specify connection timeout in milliseconds (default: 5000)</source>
-        <translation>Csatlakozás időkerete milliszekundumban (alapértelmezett: 5000)</translation>
+        <translation>Odredi vremenski prozor za spajanje na mrežu u milisekundama (ugrađeni izbor: 5000)</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>UPnP-használat engedélyezése a figyelő port feltérképezésénél (default: 0)</translation>
+        <translation>Намагатись використовувати UPnP для відображення порту що прослуховується на роутері (default: 0)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>UPnP-használat engedélyezése a figyelő port feltérképezésénél (default: 1 when listening)</translation>
+        <translation>Намагатись використовувати UPnP для відображення порту що прослуховується на роутері (default: 1 when listening)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2428,7 +2445,7 @@ Cím: %4
     <message>
         <location line="+2"/>
         <source>Username for JSON-RPC connections</source>
-        <translation>Felhasználói név JSON-RPC csatlakozásokhoz
+        <translation>Ім’я користувача для JSON-RPC-з’єднань
 </translation>
     </message>
     <message>
@@ -2439,7 +2456,7 @@ Cím: %4
     <message>
         <location line="+2"/>
         <source>Warning: Disk space is low!</source>
-        <translation>Figyelem: kevés a hely a lemezen</translation>
+        <translation>Увага: На диску мало вільного місця</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2454,19 +2471,19 @@ Cím: %4
     <message>
         <location line="-43"/>
         <source>Password for JSON-RPC connections</source>
-        <translation>Jelszó JSON-RPC csatlakozásokhoz
+        <translation>Пароль для JSON-RPC-з’єднань
 </translation>
     </message>
     <message>
         <location line="-53"/>
         <source>Allow JSON-RPC connections from specified IP address</source>
-        <translation>JSON-RPC csatlakozások engedélyezése meghatározott IP-címről
+        <translation>Дозволити JSON-RPC-з’єднання з вказаної IP-адреси
 </translation>
     </message>
     <message>
         <location line="+61"/>
         <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
-        <translation>Parancsok küldése &lt;ip&gt; címen működő csomóponthoz (alapértelmezett: 127.0.0.1)
+        <translation>Відправляти команди на вузол, запущений на &lt;ip&gt; (за промовчуванням: 127.0.0.1)
 </translation>
     </message>
     <message>
@@ -2482,13 +2499,13 @@ Cím: %4
     <message>
         <location line="-15"/>
         <source>Set key pool size to &lt;n&gt; (default: 100)</source>
-        <translation>Kulcskarika mérete &lt;n&gt; (alapértelmezett: 100)
+        <translation>Встановити розмір пулу ключів &lt;n&gt; (за промовчуванням: 100)
 </translation>
     </message>
     <message>
         <location line="-14"/>
         <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Blokklánc újraszkennelése hiányzó tárca-tranzakciók után
+        <translation>Пересканувати ланцюжок блоків, в пошуку втрачених переказів
 </translation>
     </message>
     <message>
@@ -2509,92 +2526,93 @@ Cím: %4
     <message>
         <location line="+51"/>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>OpenSSL (https) használata JSON-RPC csatalkozásokhoz
+        <translation>Використовувати OpenSSL (https) для JSON-RPC-з’єднань
 </translation>
     </message>
     <message>
         <location line="-21"/>
         <source>Server certificate file (default: server.cert)</source>
-        <translation>Szervertanúsítvány-fájl (alapértelmezett: server.cert)
+        <translation>Сертифікату сервера (за промовчуванням: server.cert)
 </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server private key (default: server.pem)</source>
-        <translation>Szerver titkos kulcsa (alapértelmezett: server.pem)
+        <translation>Закритий ключ сервера (за промовчуванням: server.pem)
 </translation>
     </message>
     <message>
         <location line="-127"/>
         <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
-        <translation>Elfogadható rejtjelkulcsok (alapértelmezett: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH )
+        <translation>Допустимі шифри (за промовчуванням: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)
 </translation>
     </message>
     <message>
         <location line="+139"/>
         <source>This help message</source>
-        <translation>Ez a súgó-üzenet
+        <translation>Дана довідка
 </translation>
     </message>
     <message>
         <location line="-131"/>
-        <source>Cannot obtain a lock on data directory %s.  Bitcoin is probably already running.</source>
-        <translation>Az %s adatkönyvtár nem zárható.  A Bitcoin valószínűleg fut már.</translation>
+        <source>Cannot obtain a lock on data directory %s.  Phoenixcoin is probably already running.</source>
+        <translation>Неможливо встановити блокування на робочий каталог %s.  Можливо, Фенікскойн вже запущено.</translation>
     </message>
     <message>
         <location line="+57"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Phoenixcoin</source>
+        <translation>Фенікскойн</translation>
     </message>
     <message>
         <location line="+77"/>
         <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
-        <translation>A %s nem elérhető ezen a gépen (bind returned error %d, %s)</translation>
+        <translation>Неможливо прив’язати до порту %s на цьому комп’ютері (bind returned error %d, %s)</translation>
     </message>
     <message>
         <location line="-69"/>
         <source>Connect through socks proxy</source>
-        <translation>Csatlakozás SOCKS proxyn keresztül</translation>
+        <translation>Підключитись через SOCKS-проксі</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
-        <translation>DNS-kikeresés engedélyezése az addnode-nál és a connect-nél</translation>
+        <translation>Дозволити пошук в DNS для команд «addnode» і «connect»
+</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>Loading addresses...</source>
-        <translation>Címek betöltése...</translation>
+        <translation>Завантаження адрес...</translation>
     </message>
     <message>
         <location line="-26"/>
         <source>Error loading blkindex.dat</source>
-        <translation>Hiba az blkindex.dat betöltése közben</translation>
+        <translation>Помилка при завантаженні blkindex.dat </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Error loading wallet.dat: Wallet corrupted</source>
-        <translation>Hiba a wallet.dat betöltése közben: meghibásodott tárca</translation>
+        <translation>Помилка при завантаженні wallet.dat: Гаманець пошкоджено      </translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Bitcoin</source>
-        <translation>Hiba a wallet.dat betöltése közben: ehhez a tárcához újabb verziójú Bitcoin-kliens szükséges</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Phoenixcoin</source>
+        <translation>Помилка при завантаженні wallet.dat: Гаманець потребує новішої версії Фенікскойна</translation>
     </message>
     <message>
         <location line="+73"/>
-        <source>Wallet needed to be rewritten: restart Bitcoin to complete</source>
-        <translation type="unfinished"></translation>
+        <source>Wallet needed to be rewritten: restart Phoenixcoin to complete</source>
+        <translation>Потрібно перезаписати гаманець: перезапустіть Фенікскойн для завершення</translation>
     </message>
     <message>
         <location line="-75"/>
         <source>Error loading wallet.dat</source>
-        <translation>Hiba az wallet.dat betöltése közben</translation>
+        <translation>Помилка при завантаженні wallet.dat</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Invalid -proxy address: &apos;%s&apos;</source>
-        <translation>Érvénytelen -proxy cím: &apos;%s&apos;</translation>
+        <translation>Помилка в адресі проксі-сервера: &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -2619,7 +2637,7 @@ Cím: %4
     <message>
         <location line="+30"/>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos;</source>
-        <translation>Étvénytelen -paytxfee=&lt;összeg&gt; összeg: &apos;%s&apos;</translation>
+        <translation>Помилка у величині комісії: &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="-15"/>
@@ -2629,32 +2647,32 @@ Cím: %4
     <message>
         <location line="+40"/>
         <source>Sending...</source>
-        <translation>Küldés...</translation>
+        <translation>Відправлення...</translation>
     </message>
     <message>
         <location line="-24"/>
         <source>Invalid amount</source>
-        <translation>Étvénytelen összeg</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-4"/>
         <source>Insufficient funds</source>
-        <translation>Nincs elég bitcoinod.</translation>
+        <translation>Недостатньо коштів</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Loading block index...</source>
-        <translation>Blokkindex betöltése...</translation>
+        <translation>Завантаження індексу блоків...</translation>
     </message>
     <message>
         <location line="-46"/>
         <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation>Elérendő csomópont megadása and attempt to keep the connection open</translation>
+        <translation>Додати вузол для підключення and attempt to keep the connection open</translation>
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Bitcoin is probably already running.</source>
-        <translation>A %s nem elérhető ezen a gépen. A Bitcoin valószínűleg fut már.</translation>
+        <source>Unable to bind to %s on this computer. Phoenixcoin is probably already running.</source>
+        <translation>Неможливо прив’язатися до порту %s на цьому комп’ютері. Напевно, Фенікскойн вже запущено.</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -2664,12 +2682,13 @@ Cím: %4
     <message>
         <location line="-2"/>
         <source>Fee per KB to add to transactions you send</source>
-        <translation>kB-onként felajánlandó díj az általad küldött tranzakciókhoz</translation>
+        <translation>Комісія за Кб
+</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Loading wallet...</source>
-        <translation>Tárca betöltése...</translation>
+        <translation>Завантаження гаманця...</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -2689,12 +2708,12 @@ Cím: %4
     <message>
         <location line="+46"/>
         <source>Rescanning...</source>
-        <translation>Újraszkennelés...</translation>
+        <translation>Сканування...</translation>
     </message>
     <message>
         <location line="-40"/>
         <source>Done loading</source>
-        <translation>Betöltés befejezve.</translation>
+        <translation>Завантаження завершене</translation>
     </message>
     <message>
         <location line="+64"/>
@@ -2706,7 +2725,7 @@ Cím: %4
         <source>%s, you must set a rpcpassword in the configuration file:
  %s
 It is recommended you use the following random password:
-rpcuser=bitcoinrpc
+rpcuser=phoenixcoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 If the file does not exist, create it with owner-readable-only file permissions.
@@ -2716,7 +2735,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+91"/>
         <source>Error</source>
-        <translation>Hiba</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-30"/>

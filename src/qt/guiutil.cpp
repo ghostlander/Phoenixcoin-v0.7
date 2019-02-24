@@ -120,18 +120,16 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out) {
     return true;
 }
 
-bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
-{
-    // Convert bitcoin:// to bitcoin:
-    //
-    //    Cannot handle this later, because bitcoin:// will cause Qt to see the part after // as host,
-    //    which will lower-case it (and thus invalidate the address).
-    if(uri.startsWith("bitcoin://"))
-    {
-        uri.replace(0, 10, "bitcoin:");
+bool parseBitcoinURI(QString uri, SendCoinsRecipient *out) {
+
+    /* Convert phoenixcoin:// to phoenixcoin:
+     * Cannot handle this later, because phoenixcoin:// will cause Qt to see the part
+     * after // as host,  which will lower-case it (and thus invalidate the address). */
+    if(uri.startsWith("phoenixcoin://")) {
+        uri.replace(0, 10, "phoenixcoin:");
     }
     QUrl uriInstance(uri);
-    return parseBitcoinURI(uriInstance, out);
+    return(parseBitcoinURI(uriInstance, out));
 }
 
 QString HtmlEscape(const QString& str, bool fMultiLine)
@@ -349,9 +347,8 @@ boost::filesystem::path static GetAutostartDir()
     return fs::path();
 }
 
-boost::filesystem::path static GetAutostartFilePath()
-{
-    return GetAutostartDir() / "bitcoin.desktop";
+boost::filesystem::path static GetAutostartFilePath() {
+    return(GetAutostartDir() / "phoenixcoin.desktop");
 }
 
 bool GetStartOnSystemStartup()
@@ -389,7 +386,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         boost::filesystem::ofstream optionFile(GetAutostartFilePath(), std::ios_base::out|std::ios_base::trunc);
         if (!optionFile.good())
             return false;
-        // Write a bitcoin.desktop file to the autostart directory:
+        /* Write a phoenixcoin.desktop file to the autostart directory */
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         optionFile << "Name=Phoenixcoin\n";
@@ -414,9 +411,9 @@ HelpMessageBox::HelpMessageBox(QWidget *parent) :
     QMessageBox(parent)
 {
     header = tr("Phoenixcoin-Qt") + " " + tr("version") + " " +
-        QString::fromStdString(FormatFullVersion()) + "\n\n" +
-        tr("Usage:") + "\n" +
-        "  bitcoin-qt [" + tr("command-line options") + "]                     " + "\n";
+      QString::fromStdString(FormatFullVersion()) + "\n\n" +
+      tr("Usage:") + "\n" +
+      "  phoenixcoin-qt [" + tr("command-line options") + "]                     " + "\n";
 
     coreOptions = QString::fromStdString(HelpMessage());
 

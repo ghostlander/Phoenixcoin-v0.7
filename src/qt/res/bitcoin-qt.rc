@@ -21,7 +21,7 @@ BEGIN
             VALUE "CompanyName",        "Phoenixcoin"
             VALUE "FileDescription",    "Phoenixcoin-Qt (OSS GUI client for Phoenixcoin)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "bitcoin-qt"
+            VALUE "InternalName",       "phoenixcoin-qt"
             VALUE "LegalCopyright",     "2009-2012 The Bitcoin Developers, 2013-2019 The Phoenixcoin Developers"
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "phoenixcoin-qt.exe"

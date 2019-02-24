@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="hr">
+<TS version="2.0" language="it">
 <defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Bitcoin</source>
-        <translation>O Bitcoinu</translation>
+        <source>About Phoenixcoin</source>
+        <translation>Info su Phoenixcoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Bitcoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Bitcoin&lt;/b&gt; verzija</translation>
-    </message>
-    <message>
-        <location line="+41"/>
-        <source>Copyright © 2009-2012 The Bitcoin developers</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;b&gt;Phoenixcoin&lt;/b&gt; version</source>
+        <translation>Versione di &lt;b&gt;Phoenixcoin&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -27,7 +22,12 @@ This is experimental software.
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Questo è un software sperimentale.
+
+Distribuito sotto la licenza software MIT/X11, vedi il file COPYING incluso oppure su http://www.opensource.org/licenses/mit-license.php.
+
+Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso del Toolkit OpenSSL (http://www.openssl.org/), software crittografico scritto da Eric Young (eay@cryptsoft.com) e software UPnP scritto da Thomas Bernard.</translation>
     </message>
 </context>
 <context>
@@ -35,52 +35,52 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
         <source>Address Book</source>
-        <translation>Adresar</translation>
+        <translation>Rubrica</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Double-click to edit address or label</source>
-        <translation>Dvostruki klik za uređivanje adrese ili oznake</translation>
+        <translation>Fai doppio click per modificare o cancellare l&apos;etichetta</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Create a new address</source>
-        <translation>Dodajte novu adresu</translation>
+        <translation>Crea un nuovo indirizzo</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>Kopiraj trenutno odabranu adresu u međuspremnik</translation>
+        <translation>Copia l&apos;indirizzo attualmente selezionato nella clipboard</translation>
     </message>
     <message>
         <location line="-11"/>
         <source>&amp;New Address</source>
-        <translation>&amp;Nova adresa</translation>
+        <translation>&amp;Nuovo indirizzo</translation>
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your Bitcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Ovo su vaše Bitcoin adrese za primanje isplate. Možda želite dati drukčiju adresu svakom primatelju tako da možete pratiti tko je platio.</translation>
+        <source>These are your Phoenixcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Questi sono i tuoi indirizzi Phoenixcoin per ricevere pagamenti. Potrai darne uno diverso ad ognuno per tenere così traccia di chi ti sta pagando.</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>&amp;Copy Address</source>
-        <translation>&amp;Kopirati adresu</translation>
+        <translation>&amp;Copia l&apos;indirizzo</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Show &amp;QR Code</source>
-        <translation>Prikaži &amp;QR Kôd</translation>
+        <translation>Mostra il codice &amp;QR</translation>
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Bitcoin address</source>
-        <translation type="unfinished"></translation>
+        <source>Sign a message to prove you own a Phoenixcoin address</source>
+        <translation>Firma un messaggio per dimostrare di possedere questo indirizzo</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sign &amp;Message</source>
-        <translation type="unfinished">&amp;Potpišite poruku</translation>
+        <translation>Firma il &amp;messaggio</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -89,7 +89,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified Bitcoin address</source>
+        <source>Verify a message to ensure it was signed with a specified Phoenixcoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -100,37 +100,37 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+14"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Brisanje</translation>
+        <translation>&amp;Cancella</translation>
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
         <source>Copy &amp;Label</source>
-        <translation>Kopirati &amp;oznaku</translation>
+        <translation>Copia &amp;l&apos;etichetta</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Edit</source>
-        <translation>&amp;Izmjeniti</translation>
+        <translation>&amp;Modifica</translation>
     </message>
     <message>
         <location line="+250"/>
         <source>Export Address Book Data</source>
-        <translation>Izvoz podataka adresara</translation>
+        <translation>Esporta gli indirizzi della rubrica</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comma separated file (*.csv)</source>
-        <translation>Datoteka vrijednosti odvojenih zarezom (*. csv)</translation>
+        <translation>Testo CSV (*.csv)</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Error exporting</source>
-        <translation>Pogreška kod izvoza</translation>
+        <translation>Errore nell&apos;esportazione</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>Ne mogu pisati u datoteku %1.</translation>
+        <translation>Impossibile scrivere sul file %1.</translation>
     </message>
 </context>
 <context>
@@ -138,17 +138,17 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../addresstablemodel.cpp" line="+142"/>
         <source>Label</source>
-        <translation>Oznaka</translation>
+        <translation>Etichetta</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Address</source>
-        <translation>Adresa</translation>
+        <translation>Indirizzo</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>(no label)</source>
-        <translation>(bez oznake)</translation>
+        <translation>(nessuna etichetta)</translation>
     </message>
 </context>
 <context>
@@ -161,72 +161,72 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+21"/>
         <source>Enter passphrase</source>
-        <translation>Unesite lozinku</translation>
+        <translation>Inserisci la passphrase</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>New passphrase</source>
-        <translation>Nova lozinka</translation>
+        <translation>Nuova passphrase</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Repeat new passphrase</source>
-        <translation>Ponovite novu lozinku</translation>
+        <translation>Ripeti la passphrase</translation>
     </message>
     <message>
         <location filename="../askpassphrasedialog.cpp" line="+33"/>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Unesite novi lozinku za novčanik. &lt;br/&gt; Molimo Vas da koristite zaporku od &lt;b&gt;10 ili više slučajnih znakova,&lt;/b&gt; ili &lt;b&gt;osam ili više riječi.&lt;/b&gt;</translation>
+        <translation>Inserisci la passphrase per il portamonete.&lt;br/&gt;Per piacere usare unapassphrase di &lt;b&gt;10 o più caratteri casuali&lt;/b&gt;, o &lt;b&gt;otto o più parole&lt;/b&gt;.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypt wallet</source>
-        <translation>Šifriranje novčanika</translation>
+        <translation>Cifra il portamonete</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
-        <translation>Ova operacija treba lozinku vašeg novčanika kako bi se novčanik otključao.</translation>
+        <translation>Quest&apos;operazione necessita della passphrase per sbloccare il portamonete.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Unlock wallet</source>
-        <translation>Otključaj novčanik</translation>
+        <translation>Sblocca il portamonete</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This operation needs your wallet passphrase to decrypt the wallet.</source>
-        <translation>Ova operacija treba lozinku vašeg novčanika kako bi se novčanik dešifrirao.</translation>
+        <translation>Quest&apos;operazione necessita della passphrase per decifrare il portamonete,</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Decrypt wallet</source>
-        <translation>Dešifriranje novčanika.</translation>
+        <translation>Decifra il portamonete</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Change passphrase</source>
-        <translation>Promjena lozinke</translation>
+        <translation>Cambia la passphrase</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Enter the old and new passphrase to the wallet.</source>
-        <translation>Unesite staru i novu lozinku za novčanik.</translation>
+        <translation>Inserisci la vecchia e la nuova passphrase per il portamonete.</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>Confirm wallet encryption</source>
-        <translation>Potvrdi šifriranje novčanika</translation>
+        <translation>Conferma la cifratura del portamonete</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>Upozorenje: Ako šifrirate vaš novčanik i izgubite lozinku, &lt;b&gt;IZGUBIT ĆETE SVE SVOJE BITCOINSE!&lt;/b&gt;</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR PHOENIXCOINS&lt;/b&gt;!</source>
+        <translation>Attenzione: se si cifra il portamonete e si perde la frase d&apos;ordine, &lt;b&gt;SI PERDERANNO TUTTI I PROPRI PHOENIXCOIN&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Are you sure you wish to encrypt your wallet?</source>
-        <translation>Jeste li sigurni da želite šifrirati svoj novčanik?</translation>
+        <translation>Si è sicuri di voler cifrare il portamonete?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -237,18 +237,18 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+100"/>
         <location line="+24"/>
         <source>Warning: The Caps Lock key is on!</source>
-        <translation type="unfinished"></translation>
+        <translation>Attenzione: tasto Blocco maiuscole attivo.</translation>
     </message>
     <message>
         <location line="-130"/>
         <location line="+58"/>
         <source>Wallet encrypted</source>
-        <translation>Novčanik šifriran</translation>
+        <translation>Portamonete cifrato</translation>
     </message>
     <message>
         <location line="-56"/>
-        <source>Bitcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>Bitcoin će se sada zatvoriti kako bi dovršio postupak šifriranja. Zapamtite da šifriranje vašeg novčanika ne može u potpunosti zaštititi vaše bitcoine od krađe preko zloćudnog softvera koji bi bio na vašem računalu.</translation>
+        <source>Phoenixcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>Phoenixcoin verrà ora chiuso per finire il processo di crittazione. Ricorda che criptare il tuo portamonete non può fornire una protezione totale contro furti causati da malware che dovessero infettare il tuo computer.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -256,40 +256,40 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+42"/>
         <location line="+6"/>
         <source>Wallet encryption failed</source>
-        <translation>Šifriranje novčanika nije uspjelo</translation>
+        <translation>Cifratura del portamonete fallita</translation>
     </message>
     <message>
         <location line="-54"/>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
-        <translation>Šifriranje novčanika nije uspjelo zbog interne pogreške. Vaš novčanik nije šifriran.</translation>
+        <translation>Cifratura del portamonete fallita a causa di un errore interno. Il portamonete non è stato cifrato.</translation>
     </message>
     <message>
         <location line="+7"/>
         <location line="+48"/>
         <source>The supplied passphrases do not match.</source>
-        <translation>Priložene lozinke se ne podudaraju.</translation>
+        <translation>Le passphrase inserite non corrispondono.</translation>
     </message>
     <message>
         <location line="-37"/>
         <source>Wallet unlock failed</source>
-        <translation>Otključavanje novčanika nije uspjelo</translation>
+        <translation>Sblocco del portamonete fallito</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+11"/>
         <location line="+19"/>
         <source>The passphrase entered for the wallet decryption was incorrect.</source>
-        <translation>Lozinka za dešifriranje novčanika nije točna.</translation>
+        <translation>La passphrase inserita per la decifrazione del portamonete è errata.</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>Wallet decryption failed</source>
-        <translation>Dešifriranje novčanika nije uspjelo</translation>
+        <translation>Decifrazione del portamonete fallita</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Wallet passphrase was successfully changed.</source>
-        <translation>Lozinka novčanika je uspješno promijenjena.</translation>
+        <translation>Passphrase del portamonete modificata con successo.</translation>
     </message>
 </context>
 <context>
@@ -297,151 +297,150 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../bitcoingui.cpp" line="+257"/>
         <source>Sign &amp;message...</source>
-        <translation>&amp;Potpišite poruku...</translation>
+        <translation>Firma il &amp;messaggio...</translation>
     </message>
     <message>
         <location line="+237"/>
         <source>Synchronizing with network...</source>
-        <translation>Usklađivanje s mrežom ...</translation>
+        <translation>Sto sincronizzando con la rete...</translation>
     </message>
     <message>
         <location line="-299"/>
         <source>&amp;Overview</source>
-        <translation>&amp;Pregled</translation>
+        <translation>&amp;Sintesi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show general overview of wallet</source>
-        <translation>Prikaži opći pregled novčanika</translation>
+        <translation>Mostra lo stato generale del portamonete</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>&amp;Transactions</source>
-        <translation>&amp;Transakcije</translation>
+        <translation>&amp;Transazioni</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Browse transaction history</source>
-        <translation>Pretraži povijest transakcija</translation>
+        <translation>Cerca nelle transazioni</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&amp;Address Book</source>
-        <translation>&amp;Adresar</translation>
+        <translation>&amp;Rubrica</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit the list of stored addresses and labels</source>
-        <translation>Uređivanje popisa pohranjenih adresa i oznaka</translation>
+        <translation>Modifica la lista degli indirizzi salvati e delle etichette</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>&amp;Receive coins</source>
-        <translation>&amp;Primanje novca</translation>
+        <translation>&amp;Ricevi monete</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show the list of addresses for receiving payments</source>
-        <translation>Prikaži popis adresa za primanje isplate</translation>
+        <translation>Mostra la lista di indirizzi su cui ricevere pagamenti</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>&amp;Send coins</source>
-        <translation>&amp;Slanje novca</translation>
+        <translation>&amp;Invia monete</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>E&amp;xit</source>
-        <translation>&amp;Izlaz</translation>
+        <translation>&amp;Esci</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Quit application</source>
-        <translation>Izlazak iz programa</translation>
+        <translation>Chiudi applicazione</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Bitcoin</source>
-        <translation>Prikaži informacije o Bitcoinu</translation>
+        <source>Show information about Phoenixcoin</source>
+        <translation>Mostra informazioni su Phoenixcoin</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>About &amp;Qt</source>
-        <translation>Više o &amp;Qt</translation>
+        <translation>Informazioni su &amp;Qt</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show information about Qt</source>
-        <translation>Prikaži informacije o Qt</translation>
+        <translation>Mostra informazioni su Qt</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Options...</source>
-        <translation>&amp;Postavke</translation>
+        <translation>&amp;Opzioni...</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&amp;Encrypt Wallet...</source>
-        <translation>&amp;Šifriraj novčanik...</translation>
+        <translation>&amp;Cifra il portamonete...</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Backup Wallet...</source>
-        <translation>&amp;Backup novčanika...</translation>
+        <translation>&amp;Backup Portamonete...</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Change Passphrase...</source>
-        <translation>&amp;Promijena lozinke...</translation>
+        <translation>&amp;Cambia la passphrase...</translation>
     </message>
     <message numerus="yes">
         <location line="+241"/>
         <source>~%n block(s) remaining</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>~%n blocco rimanente</numerusform>
+            <numerusform>~%n blocchi rimanenti</numerusform>
         </translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-        <translation>Preuzeto %1 od %2 blokova povijesti transakcije (%3% done).</translation>
+        <translation>Scaricati %1 di %2 blocchi dello storico delle transazioni ( il %3% )</translation>
     </message>
     <message>
         <location line="-242"/>
         <source>&amp;Export...</source>
-        <translation>&amp;Izvoz...</translation>
+        <translation>&amp;Esporta...</translation>
     </message>
     <message>
         <location line="-58"/>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Slanje novca na bitcoin adresu</translation>
+        <source>Send coins to a Phoenixcoin address</source>
+        <translation>Invia monete ad un indirizzo Phoenixcoin</translation>
     </message>
     <message>
         <location line="+45"/>
-        <source>Modify configuration options for Bitcoin</source>
-        <translation>Promijeni postavke konfiguracije za bitcoin</translation>
+        <source>Modify configuration options for Phoenixcoin</source>
+        <translation>Modifica configurazione opzioni per Phoenixcoin</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Export the data in the current tab to a file</source>
-        <translation>Izvoz podataka iz trenutnog taba u datoteku</translation>
+        <translation>Esporta i dati nella tabella corrente su un file</translation>
     </message>
     <message>
         <location line="-10"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation>Šifriranje ili dešifriranje novčanika</translation>
+        <translation>Cifra o decifra il portamonete</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup wallet to another location</source>
-        <translation>Napravite sigurnosnu kopiju novčanika na drugoj lokaciji</translation>
+        <translation>Backup portamonete in un&apos;altra locazione</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Change the passphrase used for wallet encryption</source>
-        <translation>Promijenite lozinku za šifriranje novčanika</translation>
+        <translation>Cambia la passphrase per la cifratura del portamonete</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -460,48 +459,48 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-186"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Phoenixcoin</source>
+        <translation>Phoenixcoin</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet</source>
-        <translation>Novčanik</translation>
+        <translation>Portamonete</translation>
     </message>
     <message>
         <location line="+168"/>
-        <source>&amp;About Bitcoin</source>
-        <translation>&amp;O Bitcoinu</translation>
+        <source>&amp;About Phoenixcoin</source>
+        <translation>&amp;Info su Phoenixcoin</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>&amp;Show / Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mostra/Nascondi</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>&amp;File</source>
-        <translation>&amp;Datoteka</translation>
+        <translation>&amp;File</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Konfiguracija</translation>
+        <translation>&amp;Impostazioni</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&amp;Help</source>
-        <translation>&amp;Pomoć</translation>
+        <translation>&amp;Aiuto</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Tabs toolbar</source>
-        <translation>Traka kartica</translation>
+        <translation>Barra degli strumenti &quot;Tabs&quot;</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Actions toolbar</source>
-        <translation>Traka akcija</translation>
+        <translation>Barra degli strumenti &quot;Azioni&quot;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -512,93 +511,88 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>Bitcoin client</source>
-        <translation type="unfinished"></translation>
+        <source>Phoenixcoin client</source>
+        <translation>Phoenixcoin client</translation>
     </message>
     <message numerus="yes">
         <location line="+69"/>
-        <source>%n active connection(s) to Bitcoin network</source>
+        <source>%n active connection(s) to the Phoenixcoin network</source>
         <translation>
-            <numerusform>%n aktivna veza na Bitcoin mrežu</numerusform>
-            <numerusform>%n aktivne veze na Bitcoin mrežu</numerusform>
-            <numerusform>%n aktivnih veza na Bitcoin mrežu</numerusform>
+            <numerusform>%n connessione attiva alla rete Phoenixcoin</numerusform>
+            <numerusform>%n connessioni attive alla rete Phoenixcoin</numerusform>
         </translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Downloaded %1 blocks of transaction history.</source>
-        <translation>Preuzeto %1 blokova povijesti transakcije.</translation>
+        <translation>Scaricati %1 blocchi dello storico transazioni.</translation>
     </message>
     <message numerus="yes">
         <location line="+22"/>
         <source>%n second(s) ago</source>
         <translation>
-            <numerusform>prije %n sekunde</numerusform>
-            <numerusform>prije %n sekunde</numerusform>
-            <numerusform>prije %n sekundi</numerusform>
+            <numerusform>%n secondo fa</numerusform>
+            <numerusform>%n secondi fa</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s) ago</source>
         <translation>
-            <numerusform>prije %n minute</numerusform>
-            <numerusform>prije %n minute</numerusform>
-            <numerusform>prije %n minuta</numerusform>
+            <numerusform>%n minuto fa</numerusform>
+            <numerusform>%n minuti fa</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s) ago</source>
         <translation>
-            <numerusform>prije %n sata</numerusform>
-            <numerusform>prije %n sata</numerusform>
-            <numerusform>prije %n sati</numerusform>
+            <numerusform>%n ora fa</numerusform>
+            <numerusform>%n ore fa</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s) ago</source>
         <translation>
-            <numerusform>prije %n dana</numerusform>
-            <numerusform>prije %n dana</numerusform>
-            <numerusform>prije %n dana</numerusform>
+            <numerusform>%n giorno fa</numerusform>
+            <numerusform>%n giorni fa</numerusform>
         </translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Up to date</source>
-        <translation>Ažurno</translation>
+        <translation>Aggiornato</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Catching up...</source>
-        <translation>Ažuriranje...</translation>
+        <translation>In aggiornamento...</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Last received block was generated %1.</source>
-        <translation>Zadnji primljeni blok je generiran %1.</translation>
+        <translation>L&apos;ultimo blocco ricevuto è stato generato %1</translation>
     </message>
     <message>
         <location line="+59"/>
         <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
-        <translation>Ova transakcija je preko ograničenja veličine. Možete ju ipak poslati za naknadu od %1, koja se daje čvorovima koji procesiraju vaše transakcije i tako podržavate mrežu. Želite li platiti naknadu?</translation>
+        <translation>Questa transazione è superiore al limite di dimensione. È comunque possibile inviarla con una commissione di %1, che va ai nodi che processano la tua transazione e contribuisce a sostenere la rete. Vuoi pagare la commissione?</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Confirm transaction fee</source>
-        <translation type="unfinished"></translation>
+        <translation>Conferma compenso transazione</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Sent transaction</source>
-        <translation>Poslana transakcija</translation>
+        <translation>Transazione inviata</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Incoming transaction</source>
-        <translation>Dolazna transakcija</translation>
+        <translation>Transazione ricevuta</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -607,10 +601,11 @@ Amount: %2
 Type: %3
 Address: %4
 </source>
-        <translation>Datum:%1
-Iznos:%2
-Tip:%3
-Adresa:%4
+        <translation>Data: %1
+Quantità: %2
+Tipo: %3
+Indirizzo: %4
+
 </translation>
     </message>
     <message>
@@ -622,42 +617,42 @@ Adresa:%4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid Phoenixcoin address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
-        <translation>Novčanik je &lt;b&gt;šifriran&lt;/b&gt; i trenutno &lt;b&gt;otključan&lt;/b&gt;</translation>
+        <translation>Il portamonete è &lt;b&gt;cifrato&lt;/b&gt; e attualmente &lt;b&gt;sbloccato&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
-        <translation>Novčanik je &lt;b&gt;šifriran&lt;/b&gt; i trenutno &lt;b&gt;zaključan&lt;/b&gt;</translation>
+        <translation>Il portamonete è &lt;b&gt;cifrato&lt;/b&gt; e attualmente &lt;b&gt;bloccato&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Backup Wallet</source>
-        <translation>Backup novčanika</translation>
+        <translation>Backup Portamonete</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet Data (*.dat)</source>
-        <translation>Podaci novčanika (*.dat)</translation>
+        <translation>Dati Portamonete (*.dat)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup Failed</source>
-        <translation>Backup nije uspio</translation>
+        <translation>Backup fallito</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>There was an error trying to save the wallet data to the new location.</source>
-        <translation>Došlo je do pogreške kod spremanja podataka novčanika na novu lokaciju.</translation>
+        <translation>C&apos;è stato un errore tentanto di salvare i dati del portamonete in un&apos;altra locazione</translation>
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. Bitcoin can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Phoenixcoin can no longer continue safely and will quit.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -666,7 +661,7 @@ Adresa:%4
     <message>
         <location filename="../clientmodel.cpp" line="+87"/>
         <source>Network Alert</source>
-        <translation type="unfinished"></translation>
+        <translation>Avviso di rete</translation>
     </message>
 </context>
 <context>
@@ -674,67 +669,67 @@ Adresa:%4
     <message>
         <location filename="../forms/editaddressdialog.ui" line="+14"/>
         <source>Edit Address</source>
-        <translation>Izmjeni adresu</translation>
+        <translation>Modifica l&apos;indirizzo</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>&amp;Label</source>
-        <translation>&amp;Oznaka</translation>
+        <translation>&amp;Etichetta</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>The label associated with this address book entry</source>
-        <translation>Oznaka ovog upisa u adresar</translation>
+        <translation>L&apos;etichetta associata a questo indirizzo nella rubrica</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Address</source>
-        <translation>&amp;Adresa</translation>
+        <translation>&amp;Indirizzo</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>The address associated with this address book entry. This can only be modified for sending addresses.</source>
-        <translation>Adresa ovog upisa u adresar. Može se mjenjati samo kod adresa za slanje.</translation>
+        <translation>L&apos;indirizzo associato a questa voce della rubrica. Si può modificare solo negli indirizzi di spedizione.</translation>
     </message>
     <message>
         <location filename="../editaddressdialog.cpp" line="+20"/>
         <source>New receiving address</source>
-        <translation>Nova adresa za primanje</translation>
+        <translation>Nuovo indirizzo di ricezione</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>New sending address</source>
-        <translation>Nova adresa za slanje</translation>
+        <translation>Nuovo indirizzo d&apos;invio</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Edit receiving address</source>
-        <translation>Uredi adresu za primanje</translation>
+        <translation>Modifica indirizzo di ricezione</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Edit sending address</source>
-        <translation>Uredi adresu za slanje</translation>
+        <translation>Modifica indirizzo d&apos;invio</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>The entered address &quot;%1&quot; is already in the address book.</source>
-        <translation>Upisana adresa &quot;%1&quot; je već u adresaru.</translation>
+        <translation>L&apos;indirizzo inserito &quot;%1&quot; è già in rubrica.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Bitcoin address.</source>
-        <translation>Upisana adresa &quot;%1&quot; nije valjana bitcoin adresa.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Phoenixcoin address.</source>
+        <translation>L&apos;indirizzo inserito &quot;%1&quot; non è un indirizzo Phoenixcoin valido.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Could not unlock wallet.</source>
-        <translation>Ne mogu otključati novčanik.</translation>
+        <translation>Impossibile sbloccare il portamonete.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>New key generation failed.</source>
-        <translation>Stvaranje novog ključa nije uspjelo.</translation>
+        <translation>Generazione della nuova chiave non riuscita.</translation>
     </message>
 </context>
 <context>
@@ -742,43 +737,44 @@ Adresa:%4
     <message>
         <location filename="../guiutil.cpp" line="+419"/>
         <location line="+12"/>
-        <source>Bitcoin-Qt</source>
+        <source>Phoenixcoin-Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-12"/>
         <source>version</source>
-        <translation>verzija</translation>
+        <translation>versione</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Usage:</source>
-        <translation>Upotreba:</translation>
+        <translation>Utilizzo:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>command-line options</source>
-        <translation type="unfinished"></translation>
+        <translation>opzioni riga di comando</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>UI options</source>
-        <translation>UI postavke</translation>
+        <translation>UI opzioni</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Set language, for example &quot;de_DE&quot; (default: system locale)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta lingua, ad esempio &quot;it_IT&quot; (predefinita: lingua di sistema)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Start minimized</source>
-        <translation>Pokreni minimiziran</translation>
+        <translation>Parti in icona
+</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show splash screen on startup (default: 1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra finestra di presentazione all&apos;avvio (default: 1)</translation>
     </message>
 </context>
 <context>
@@ -786,32 +782,32 @@ Adresa:%4
     <message>
         <location filename="../forms/optionsdialog.ui" line="+14"/>
         <source>Options</source>
-        <translation>Postavke</translation>
+        <translation>Opzioni</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>&amp;Main</source>
-        <translation>&amp;Glavno</translation>
+        <translation>&amp;Principale</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</source>
-        <translation>Neobavezna naknada za transakciju po kB koja omogućuje da se vaša transakcija obavi brže. Većina transakcija ima 1 kB.  Preporučena naknada je 0.01.</translation>
+        <translation>Commissione di transazione per kB; è opzionale e contribuisce ad assicurare che le transazioni siano elaborate velocemente. Le transazioni sono per la maggior parte da 1 kB. Commissione raccomandata 0,01.</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Pay transaction &amp;fee</source>
-        <translation>Plati &amp;naknadu za transakciju</translation>
+        <translation>Paga la &amp;commissione</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Bitcoin after logging in to the system.</source>
-        <translation>Automatski pokreni Bitcoin kad se uključi računalo</translation>
+        <source>Automatically start Phoenixcoin after logging in to the system.</source>
+        <translation>Avvia automaticamente Phoenixcoin all&apos;accensione del computer</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Bitcoin on system login</source>
-        <translation>&amp;Pokreni Bitcoin kod pokretanja sustava</translation>
+        <source>&amp;Start Phoenixcoin on system login</source>
+        <translation>&amp;Fai partire Phoenixcoin all&apos;avvio del sistema</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -826,47 +822,47 @@ Adresa:%4
     <message>
         <location line="+21"/>
         <source>&amp;Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Rete</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatski otvori port Bitcoin klijenta na ruteru. To radi samo ako ruter podržava UPnP i ako je omogućen.</translation>
+        <source>Automatically open the Phoenixcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Apri automaticamente la porta del client Phoenixcoin sul router. Questo funziona solo se il router supporta UPnP ed è abilitato.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Map port using &amp;UPnP</source>
-        <translation>Mapiraj port koristeći &amp;UPnP</translation>
+        <translation>Mappa le porte tramite l&apos;&amp;UPnP</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Bitcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Spojite se na Bitcon mrežu putem SOCKS proxy-a (npr. kod povezivanja kroz Tor)</translation>
+        <source>Connect to the Phoenixcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connettiti alla rete Bitcon attraverso un proxy SOCKS (ad esempio quando ci si collega via Tor)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Connect through SOCKS proxy:</source>
-        <translation>&amp;Povezivanje putem SOCKS proxy-a:</translation>
+        <translation>&amp;Collegati tramite SOCKS proxy:</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Proxy &amp;IP:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;IP del proxy:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>IP address of the proxy (e.g. 127.0.0.1)</source>
-        <translation>IP adresa proxy-a (npr. 127.0.0.1)</translation>
+        <translation>Indirizzo IP del proxy (ad esempio 127.0.0.1)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Porta:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Port of the proxy (e.g. 9050)</source>
-        <translation>Port od proxy-a (npr. 9050)</translation>
+        <translation>Porta del proxy (es. 9050)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -886,27 +882,27 @@ Adresa:%4
     <message>
         <location line="+6"/>
         <source>Show only a tray icon after minimizing the window.</source>
-        <translation>Prikaži samo ikonu u sistemskoj traci nakon minimiziranja prozora</translation>
+        <translation>Mostra solo un&apos;icona nel tray quando si minimizza la finestra</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Minimize to the tray instead of the taskbar</source>
-        <translation>&amp;Minimiziraj u sistemsku traku umjesto u traku programa</translation>
+        <translation>&amp;Minimizza sul tray invece che sulla barra delle applicazioni</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Quit in the menu.</source>
-        <translation>Minimizirati umjesto izaći iz aplikacije kada je prozor zatvoren. Kada je ova opcija omogućena, aplikacija će biti zatvorena tek nakon odabira Izlaz u izborniku.</translation>
+        <translation>Riduci ad icona, invece di uscire dall&apos;applicazione quando la finestra viene chiusa. Quando questa opzione è attivata, l&apos;applicazione verrà chiusa solo dopo aver selezionato Esci nel menu.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>M&amp;inimize on close</source>
-        <translation>M&amp;inimiziraj kod zatvaranja</translation>
+        <translation>M&amp;inimizza alla chiusura</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>&amp;Display</source>
-        <translation>&amp;Prikaz</translation>
+        <translation>&amp;Mostra</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -915,28 +911,28 @@ Adresa:%4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Bitcoin.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting Phoenixcoin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+11"/>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>&amp;Jedinica za prikazivanje iznosa:</translation>
+        <translation>&amp;Unità di misura degli importi in:</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Izaberite željeni najmanji dio bitcoina koji će biti prikazan u sučelju i koji će se koristiti za plaćanje.</translation>
+        <translation>Scegli l&apos;unità di suddivisione di default per l&apos;interfaccia e per l&apos;invio di monete</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Bitcoin addresses in the transaction list or not.</source>
+        <source>Whether to show Phoenixcoin addresses in the transaction list or not.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
-        <translation>&amp;Prikaži adrese u popisu transakcija</translation>
+        <translation>&amp;Mostra gli indirizzi nella lista delle transazioni</translation>
     </message>
     <message>
         <location line="+71"/>
@@ -962,12 +958,12 @@ Adresa:%4
         <location line="+147"/>
         <location line="+9"/>
         <source>Warning</source>
-        <translation>Upozorenje</translation>
+        <translation>Attenzione</translation>
     </message>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Bitcoin.</source>
+        <source>This setting will take effect after restarting Phoenixcoin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -981,33 +977,33 @@ Adresa:%4
     <message>
         <location filename="../forms/overviewpage.ui" line="+14"/>
         <source>Form</source>
-        <translation>Oblik</translation>
+        <translation>Modulo</translation>
     </message>
     <message>
         <location line="+33"/>
         <location line="+183"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Phoenixcoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-141"/>
         <source>Balance:</source>
-        <translation>Stanje:</translation>
+        <translation>Saldo</translation>
     </message>
     <message>
         <location line="+58"/>
         <source>Number of transactions:</source>
-        <translation>Broj transakcija:</translation>
+        <translation>Numero di transazioni:</translation>
     </message>
     <message>
         <location line="-29"/>
         <source>Unconfirmed:</source>
-        <translation>Nepotvrđene:</translation>
+        <translation>Non confermato:</translation>
     </message>
     <message>
         <location line="-78"/>
         <source>Wallet</source>
-        <translation>Novčanik</translation>
+        <translation>Portamonete</translation>
     </message>
     <message>
         <location line="+124"/>
@@ -1022,28 +1018,28 @@ Adresa:%4
     <message>
         <location line="+46"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Nedavne transakcije&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Transazioni recenti&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="-118"/>
         <source>Your current balance</source>
-        <translation>Vaše trenutno stanje računa</translation>
+        <translation>Saldo attuale</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation>Ukupni iznos transakcija koje tek trebaju biti potvrđene, i još uvijek nisu uračunate u trenutni saldo</translation>
+        <translation>Totale delle transazioni in corso di conferma, che non sono ancora incluse nel saldo attuale</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Total number of transactions in wallet</source>
-        <translation>Ukupni broj tansakcija u novčaniku</translation>
+        <translation>Numero delle transazioni effettuate</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+112"/>
         <location line="+1"/>
         <source>out of sync</source>
-        <translation type="unfinished"></translation>
+        <translation>fuori sincrono</translation>
     </message>
 </context>
 <context>
@@ -1051,32 +1047,32 @@ Adresa:%4
     <message>
         <location filename="../forms/qrcodedialog.ui" line="+14"/>
         <source>QR Code Dialog</source>
-        <translation>QR Code Dijalog</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+59"/>
         <source>Request Payment</source>
-        <translation>Zatraži plaćanje</translation>
+        <translation>Richiedi pagamento</translation>
     </message>
     <message>
         <location line="+56"/>
         <source>Amount:</source>
-        <translation>Iznos:</translation>
+        <translation>Importo:</translation>
     </message>
     <message>
         <location line="-44"/>
         <source>Label:</source>
-        <translation>Oznaka</translation>
+        <translation>Etichetta:</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Message:</source>
-        <translation>Poruka:</translation>
+        <translation>Messaggio:</translation>
     </message>
     <message>
         <location line="+71"/>
         <source>&amp;Save As...</source>
-        <translation>&amp;Spremi kao...</translation>
+        <translation>&amp;Salva come...</translation>
     </message>
     <message>
         <location filename="../qrcodedialog.cpp" line="+62"/>
@@ -1091,17 +1087,17 @@ Adresa:%4
     <message>
         <location line="+23"/>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;URI risulta troppo lungo, prova a ridurre il testo nell&apos;etichetta / messaggio.</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Save QR Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Salva codice QR</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
-        <translation>PNG slike (*.png)</translation>
+        <translation>Immagini PNG (*.png)</translation>
     </message>
 </context>
 <context>
@@ -1123,12 +1119,12 @@ Adresa:%4
         <location line="+23"/>
         <location filename="../rpcconsole.cpp" line="+348"/>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>N/D</translation>
     </message>
     <message>
         <location line="-217"/>
         <source>Client version</source>
-        <translation type="unfinished"></translation>
+        <translation>Versione client</translation>
     </message>
     <message>
         <location line="-45"/>
@@ -1143,17 +1139,17 @@ Adresa:%4
     <message>
         <location line="+49"/>
         <source>Startup time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo di avvio</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Rete</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Number of connections</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero connessioni</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -1168,17 +1164,17 @@ Adresa:%4
     <message>
         <location line="+7"/>
         <source>Current number of blocks</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero attuale di blocchi</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Estimated total blocks</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero totale stimato di blocchi</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Last block time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ora dell blocco piu recente</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -1188,11 +1184,11 @@ Adresa:%4
     <message>
         <location line="+16"/>
         <source>Command-line options</source>
-        <translation type="unfinished"></translation>
+        <translation>opzioni riga di comando</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Bitcoin-Qt help message to get a list with possible Bitcoin command-line options.</source>
+        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1212,12 +1208,12 @@ Adresa:%4
     </message>
     <message>
         <location line="-104"/>
-        <source>Bitcoin - Debug window</source>
+        <source>Phoenixcoin - Debug window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Bitcoin Core</source>
+        <source>Phoenixcoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1227,18 +1223,18 @@ Adresa:%4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Bitcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the Phoenixcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+102"/>
         <source>Clear console</source>
-        <translation type="unfinished"></translation>
+        <translation>Svuota console</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the Bitcoin RPC console.</source>
-        <translation type="unfinished"></translation>
+        <source>Welcome to the Phoenixcoin RPC console.</source>
+        <translation>Benvenuto nella console RPC di Phoenixcoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1248,7 +1244,7 @@ Adresa:%4
     <message>
         <location line="+1"/>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrivi &lt;b&gt;help&lt;/b&gt; per un riassunto dei comandi disponibili</translation>
     </message>
 </context>
 <context>
@@ -1263,32 +1259,32 @@ Adresa:%4
         <location line="+5"/>
         <location line="+5"/>
         <source>Send Coins</source>
-        <translation>Slanje novca</translation>
+        <translation>Spedisci Phoenixcoin</translation>
     </message>
     <message>
         <location line="+50"/>
         <source>Send to multiple recipients at once</source>
-        <translation>Pošalji k nekoliko primatelja odjednom</translation>
+        <translation>Spedisci a diversi beneficiari in una volta sola</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Add &amp;Recipient</source>
-        <translation>&amp;Dodaj primatelja</translation>
+        <translation>&amp;Aggiungi beneficiario</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Remove all transaction fields</source>
-        <translation>Obriši sva polja transakcija</translation>
+        <translation>Rimuovi tutti i campi della transazione</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Clear &amp;All</source>
-        <translation>Obriši &amp;sve</translation>
+        <translation>Cancella &amp;tutto</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Balance:</source>
-        <translation>Stanje:</translation>
+        <translation>Saldo:</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1298,67 +1294,67 @@ Adresa:%4
     <message>
         <location line="+31"/>
         <source>Confirm the send action</source>
-        <translation>Potvrdi akciju slanja</translation>
+        <translation>Conferma la spedizione</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>S&amp;end</source>
-        <translation>&amp;Pošalji</translation>
+        <translation>&amp;Spedisci</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-59"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; do %2 (%3)</translation>
+        <translation>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Confirm send coins</source>
-        <translation>Potvrdi slanje novca</translation>
+        <translation>Conferma la spedizione di Phoenixcoin</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Are you sure you want to send %1?</source>
-        <translation>Jeste li sigurni da želite poslati %1?</translation>
+        <translation>Si è sicuri di voler spedire %1?</translation>
     </message>
     <message>
         <location line="+0"/>
         <source> and </source>
-        <translation>i</translation>
+        <translation> e </translation>
     </message>
     <message>
         <location line="+23"/>
         <source>The recipient address is not valid, please recheck.</source>
-        <translation>Adresa primatelja je nevaljala, molimo provjerite je ponovo.</translation>
+        <translation>L&apos;indirizzo del beneficiario non è valido, per cortesia controlla.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The amount to pay must be larger than 0.</source>
-        <translation>Iznos mora biti veći od 0.</translation>
+        <translation>L&apos;importo da pagare dev&apos;essere maggiore di 0.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The amount exceeds your balance.</source>
-        <translation>Iznos je veći od stanja računa.</translation>
+        <translation>Nincs ennyi Phoenixcoin az egyenlegeden.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>Iznos je veći od stanja računa kad se doda naknada za transakcije od %1.</translation>
+        <translation>Il totale è superiore al saldo attuale includendo la commissione %1.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
-        <translation>Pronašli smo adresu koja se ponavlja. U svakom plaćanju program može svaku adresu koristiti samo jedanput.</translation>
+        <translation>Trovato un indirizzo doppio, si può spedire solo una volta a ciascun indirizzo in una singola operazione.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Error: Transaction creation failed.</source>
-        <translation>Greška: priprema transakcije nije uspjela.</translation>
+        <translation>Errore: creazione della transazione fallita.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Generirani novčići moraju pričekati nastanak 120 blokova prije nego što ih je moguće potrošiti. Kad ste generirali taj blok, on je bio emitiran u mrežu kako bi bio dodan postojećim lancima blokova. Ako ne uspije biti dodan, njegov status bit će promijenjen u &quot;nije prihvatljiv&quot; i on neće biti potrošiv. S vremena na vrijeme tako nešto se može desiti ako neki drugi nod približno istovremeno generira blok.</translation>
+        <translation>Errore: la transazione è stata rifiutata. Ciò accade se alcuni Phoenixcoin nel portamonete sono stati già spesi, ad esempio se è stata usata una copia del file wallet.dat e i Phoenixcoin sono stati spesi dalla copia ma non segnati come spesi qui.</translation>
     </message>
 </context>
 <context>
@@ -1366,38 +1362,38 @@ Adresa:%4
     <message>
         <location filename="../forms/sendcoinsentry.ui" line="+14"/>
         <source>Form</source>
-        <translation>Oblik</translation>
+        <translation>Modulo</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>A&amp;mount:</source>
-        <translation>&amp;Iznos:</translation>
+        <translation>&amp;Importo:</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Pay &amp;To:</source>
-        <translation>&amp;Primatelj plaćanja:</translation>
+        <translation>Paga &amp;a:</translation>
     </message>
     <message>
         <location line="+24"/>
         <location filename="../sendcoinsentry.cpp" line="+25"/>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation>Unesite oznaku za ovu adresu kako bi ju dodali u vaš adresar</translation>
+        <translation>Inserisci un&apos;etichetta per questo indirizzo, per aggiungerlo nella rubrica</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>&amp;Label:</source>
-        <translation>&amp;Oznaka:</translation>
+        <translation>&amp;Etichetta</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The address to send the payment to  (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Adresa za slanje plaćanja (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>L&apos;indirizzo del beneficiario cui inviare il pagamento (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Choose address from address book</source>
-        <translation>Odaberite adresu iz adresara</translation>
+        <translation>Scegli l&apos;indirizzo dalla rubrica</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1407,7 +1403,7 @@ Adresa:%4
     <message>
         <location line="+7"/>
         <source>Paste address from clipboard</source>
-        <translation>Zalijepi adresu iz međuspremnika</translation>
+        <translation>Incollare l&apos;indirizzo dagli appunti</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1417,12 +1413,12 @@ Adresa:%4
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation>Ukloni ovog primatelja</translation>
+        <translation>Rimuovere questo beneficiario</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Unesite Bitcoin adresu (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a Phoenixcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Inserisci un indirizzo Phoenixcoin (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
 </context>
 <context>
@@ -1436,23 +1432,23 @@ Adresa:%4
         <location line="+13"/>
         <location line="+124"/>
         <source>&amp;Sign Message</source>
-        <translation>&amp;Potpišite poruku</translation>
+        <translation>&amp;Firma il messaggio</translation>
     </message>
     <message>
         <location line="-118"/>
         <source>You can sign messages with your addresses to prove you own them. Be careful not to sign anything vague, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation>Možete potpisati poruke sa svojom adresom kako bi dokazali da ih posjedujete. Budite oprezni da ne potpisujete ništa mutno, jer bi vas phishing napadi mogli na prevaru natjerati da prepišete svoj identitet njima. Potpisujte samo detaljno objašnjene izjave sa kojima se slažete.</translation>
+        <translation>Puoi firmare messeggi con i tuoi indirizzi per dimostrare che sono tuoi. Fai attenzione a non firmare niente di vago, visto che gli attacchi di phishing potrebbero cercare di spingerti a mettere la tua firma su di loro. Firma solo dichiarazioni completamente dettagliate con cui sei d&apos;accordo.</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The address to sign the message with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Unesite Bitcoin adresu (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Inserisci un indirizzo Phoenixcoin (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="+10"/>
         <location line="+203"/>
         <source>Choose an address from the address book</source>
-        <translation>Odaberite adresu iz adresara</translation>
+        <translation>Scegli l&apos;indirizzo dalla rubrica</translation>
     </message>
     <message>
         <location line="-193"/>
@@ -1463,7 +1459,7 @@ Adresa:%4
     <message>
         <location line="-193"/>
         <source>Paste address from clipboard</source>
-        <translation>Zalijepi adresu iz međuspremnika</translation>
+        <translation>Incollare l&apos;indirizzo dagli appunti</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1473,7 +1469,7 @@ Adresa:%4
     <message>
         <location line="+12"/>
         <source>Enter the message you want to sign here</source>
-        <translation>Upišite poruku koju želite potpisati ovdje</translation>
+        <translation>Inserisci qui il messaggio che vuoi firmare</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -1482,8 +1478,8 @@ Adresa:%4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation type="unfinished"></translation>
+        <source>Sign the message to prove you own this Phoenixcoin address</source>
+        <translation>Firma un messaggio per dimostrare di possedere questo indirizzo</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1494,7 +1490,7 @@ Adresa:%4
         <location line="+3"/>
         <location line="+146"/>
         <source>Clear &amp;All</source>
-        <translation>Obriši &amp;sve</translation>
+        <translation>Cancella &amp;tutto</translation>
     </message>
     <message>
         <location line="-87"/>
@@ -1510,11 +1506,11 @@ Adresa:%4
     <message>
         <location line="+21"/>
         <source>The address the message was signed with (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Unesite Bitcoin adresu (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <translation>Inserisci un indirizzo Phoenixcoin (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
+        <source>Verify the message to ensure it was signed with the specified Phoenixcoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1525,17 +1521,17 @@ Adresa:%4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
-        <translation>Unesite Bitcoin adresu (npr. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
+        <source>Enter a Phoenixcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</source>
+        <translation>Inserisci un indirizzo Phoenixcoin (ad esempio 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Click &quot;Sign Message&quot; to generate signature</source>
-        <translation type="unfinished"></translation>
+        <translation>Clicca &quot;Firma il messaggio&quot; per ottenere la firma</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Bitcoin signature</source>
+        <source>Enter Phoenixcoin signature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1610,36 +1606,35 @@ Adresa:%4
     <message>
         <location filename="../transactiondesc.cpp" line="+19"/>
         <source>Open until %1</source>
-        <translation>Otvoren do %1</translation>
+        <translation>Aperto fino a %1</translation>
     </message>
     <message numerus="yes">
         <location line="-2"/>
         <source>Open for %n block(s)</source>
         <translation>
-            <numerusform>Otvoren za %n bloka</numerusform>
-            <numerusform>Otvoren za %n blokova</numerusform>
-            <numerusform>Otvoren za %n blokova</numerusform>
+            <numerusform>Aperto per %n blocco</numerusform>
+            <numerusform>Aperto per %n blocchi</numerusform>
         </translation>
     </message>
     <message>
         <location line="+8"/>
         <source>%1/offline</source>
-        <translation>%1 nije dostupan</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1/unconfirmed</source>
-        <translation>%1/nepotvrđeno</translation>
+        <translation>%1/non confermato</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 confirmations</source>
-        <translation>%1 potvrda</translation>
+        <translation>%1 conferme</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Status</source>
-        <translation>Status</translation>
+        <translation>Stato</translation>
     </message>
     <message numerus="yes">
         <location line="+7"/>
@@ -1647,13 +1642,12 @@ Adresa:%4
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Date</source>
-        <translation>Datum</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1663,20 +1657,20 @@ Adresa:%4
     <message>
         <location line="+0"/>
         <source>Generated</source>
-        <translation>Generiran</translation>
+        <translation>Generato</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+17"/>
         <source>From</source>
-        <translation>Od</translation>
+        <translation>Da</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+22"/>
         <location line="+58"/>
         <source>To</source>
-        <translation>Za</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-77"/>
@@ -1687,7 +1681,7 @@ Adresa:%4
     <message>
         <location line="-2"/>
         <source>label</source>
-        <translation>oznaka</translation>
+        <translation>etichetta</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1696,7 +1690,7 @@ Adresa:%4
         <location line="+17"/>
         <location line="+30"/>
         <source>Credit</source>
-        <translation>Uplaćeno</translation>
+        <translation>Credito</translation>
     </message>
     <message numerus="yes">
         <location line="-102"/>
@@ -1704,13 +1698,12 @@ Adresa:%4
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>not accepted</source>
-        <translation>Nije prihvaćeno</translation>
+        <translation>non accettate</translation>
     </message>
     <message>
         <location line="+44"/>
@@ -1718,37 +1711,37 @@ Adresa:%4
         <location line="+15"/>
         <location line="+30"/>
         <source>Debit</source>
-        <translation>Zaduženje</translation>
+        <translation>Debito</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Transaction fee</source>
-        <translation>Naknada za transakciju</translation>
+        <translation>Tranzakciós díj</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Net amount</source>
-        <translation>Neto iznos</translation>
+        <translation>Importo netto</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Message</source>
-        <translation>Poruka</translation>
+        <translation>Messaggio</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Comment</source>
-        <translation>Komentar</translation>
+        <translation>Commento</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Transaction ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID della transazione</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Generated coins must mature 120 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Generirani novčići moraju pričekati nastanak 120 blokova prije nego što ih je moguće potrošiti. Kad ste generirali taj blok, on je bio emitiran u mrežu kako bi bio dodan postojećim lancima blokova. Ako ne uspije biti dodan, njegov status bit će promijenjen u &quot;nije prihvaćen&quot; i on neće biti potrošiv. S vremena na vrijeme tako nešto se može desiti ako neki drugi nod generira blok u približno isto vrijeme.</translation>
+        <translation>Bisogna attendere 120 blocchi prima di spendere I Phoenixcoin generati. Quando è stato generato questo blocco, è stato trasmesso alla rete per aggiungerlo alla catena di blocchi. Se non riesce a entrare nella catena, verrà modificato in &quot;non accettato&quot; e non sarà spendibile. Questo può accadere a volte, se un altro nodo genera un blocco entro pochi secondi del tuo.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1768,7 +1761,7 @@ Adresa:%4
     <message>
         <location line="+23"/>
         <source>Amount</source>
-        <translation>Iznos</translation>
+        <translation>Importo</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1783,12 +1776,12 @@ Adresa:%4
     <message>
         <location line="-211"/>
         <source>, has not been successfully broadcast yet</source>
-        <translation>, još nije bio uspješno emitiran</translation>
+        <translation>, non è stato ancora trasmesso con successo</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>unknown</source>
-        <translation>nepoznato</translation>
+        <translation>sconosciuto</translation>
     </message>
 </context>
 <context>
@@ -1796,12 +1789,12 @@ Adresa:%4
     <message>
         <location filename="../forms/transactiondescdialog.ui" line="+14"/>
         <source>Transaction details</source>
-        <translation>Detalji transakcije</translation>
+        <translation>Dettagli sulla transazione</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This pane shows a detailed description of the transaction</source>
-        <translation>Ova panela prikazuje detaljni opis transakcije</translation>
+        <translation>Questo pannello mostra una descrizione dettagliata della transazione</translation>
     </message>
 </context>
 <context>
@@ -1809,51 +1802,50 @@ Adresa:%4
     <message>
         <location filename="../transactiontablemodel.cpp" line="+226"/>
         <source>Date</source>
-        <translation>Datum</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Type</source>
-        <translation>Tip</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Address</source>
-        <translation>Adresa</translation>
+        <translation>Indirizzo</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Amount</source>
-        <translation>Iznos</translation>
+        <translation>Importo</translation>
     </message>
     <message numerus="yes">
         <location line="+57"/>
         <source>Open for %n block(s)</source>
         <translation>
-            <numerusform>Otvoren za %n bloka</numerusform>
-            <numerusform>Otvoren za %n blokova</numerusform>
-            <numerusform>Otvoren za %n blokova</numerusform>
+            <numerusform>Aperto per %n blocco</numerusform>
+            <numerusform>Aperto per %n blocchi</numerusform>
         </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Open until %1</source>
-        <translation>Otvoren do %1</translation>
+        <translation>Aperto fino a %1</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Offline (%1 confirmations)</source>
-        <translation>Nije na mreži (%1 potvrda)</translation>
+        <translation>Offline (%1 conferme)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Unconfirmed (%1 of %2 confirmations)</source>
-        <translation>Nepotvrđen (%1 od %2 potvrda)</translation>
+        <translation>Non confermati (%1 su %2 conferme)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Confirmed (%1 confirmations)</source>
-        <translation>Potvrđen (%1 potvrda)</translation>
+        <translation>Confermato (%1 conferme)</translation>
     </message>
     <message numerus="yes">
         <location line="+8"/>
@@ -1861,73 +1853,72 @@ Adresa:%4
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This block was not received by any other nodes and will probably not be accepted!</source>
-        <translation>Generirano - Upozorenje: ovaj blok nije bio primljen od strane bilo kojeg drugog noda i vjerojatno neće biti prihvaćen!</translation>
+        <translation>Questo blocco non è stato ricevuto da altri nodi e probabilmente non sarà accettato!</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Generated but not accepted</source>
-        <translation>Generirano, ali nije prihvaćeno</translation>
+        <translation>Generati, ma non accettati</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>Received with</source>
-        <translation>Primljeno s</translation>
+        <translation>Ricevuto tramite</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Received from</source>
-        <translation>Primljeno od</translation>
+        <translation>Ricevuto da</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sent to</source>
-        <translation>Poslano za</translation>
+        <translation>Spedito a</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Payment to yourself</source>
-        <translation>Plaćanje samom sebi</translation>
+        <translation>Pagamento a te stesso</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Mined</source>
-        <translation>Rudareno</translation>
+        <translation>Ottenuto dal mining</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>(n/a)</source>
-        <translation>(n/d)</translation>
+        <translation>(N / a)</translation>
     </message>
     <message>
         <location line="+199"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
-        <translation>Status transakcije</translation>
+        <translation>Stato della transazione. Passare con il mouse su questo campo per vedere il numero di conferme.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Date and time that the transaction was received.</source>
-        <translation>Datum i vrijeme kad je transakcija primljena</translation>
+        <translation>Data e ora in cui la transazione è stata ricevuta.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Type of transaction.</source>
-        <translation>Vrsta transakcije.</translation>
+        <translation>Tipo di transazione.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Destination address of transaction.</source>
-        <translation>Odredište transakcije</translation>
+        <translation>Indirizzo di destinazione della transazione.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Amount removed from or added to balance.</source>
-        <translation>Iznos odbijen od ili dodan k saldu.</translation>
+        <translation>Importo rimosso o aggiunto al saldo.</translation>
     </message>
 </context>
 <context>
@@ -1936,137 +1927,137 @@ Adresa:%4
         <location filename="../transactionview.cpp" line="+55"/>
         <location line="+16"/>
         <source>All</source>
-        <translation>Sve</translation>
+        <translation>Tutti</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>Today</source>
-        <translation>Danas</translation>
+        <translation>Oggi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This week</source>
-        <translation>Ovaj tjedan</translation>
+        <translation>Questa settimana</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This month</source>
-        <translation>Ovaj mjesec</translation>
+        <translation>Questo mese</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last month</source>
-        <translation>Prošli mjesec</translation>
+        <translation>Il mese scorso</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This year</source>
-        <translation>Ove godine</translation>
+        <translation>Quest&apos;anno</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Range...</source>
-        <translation>Raspon...</translation>
+        <translation>Intervallo...</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Received with</source>
-        <translation>Primljeno s</translation>
+        <translation>Ricevuto tramite</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Sent to</source>
-        <translation>Poslano za</translation>
+        <translation>Spedito a</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>To yourself</source>
-        <translation>Tebi</translation>
+        <translation>A te</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mined</source>
-        <translation>Rudareno</translation>
+        <translation>Ottenuto dal mining</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Other</source>
-        <translation>Ostalo</translation>
+        <translation>Altro</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Enter address or label to search</source>
-        <translation>Unesite adresu ili oznaku za pretraživanje</translation>
+        <translation>Inserisci un indirizzo o un&apos;etichetta da cercare</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Min amount</source>
-        <translation>Min iznos</translation>
+        <translation>Importo minimo</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>Copy address</source>
-        <translation>Kopirati adresu</translation>
+        <translation>Copia l&apos;indirizzo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy label</source>
-        <translation>Kopirati oznaku</translation>
+        <translation>Copia l&apos;etichetta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy amount</source>
-        <translation>Kopiraj iznos</translation>
+        <translation>Copia l&apos;importo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit label</source>
-        <translation>Izmjeniti oznaku</translation>
+        <translation>Modifica l&apos;etichetta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show transaction details</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra i dettagli della transazione</translation>
     </message>
     <message>
         <location line="+142"/>
         <source>Export Transaction Data</source>
-        <translation>Izvoz podataka transakcija</translation>
+        <translation>Esporta i dati della transazione</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comma separated file (*.csv)</source>
-        <translation>Datoteka podataka odvojenih zarezima (*.csv)</translation>
+        <translation>Testo CSV (*.csv)</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Confirmed</source>
-        <translation>Potvrđeno</translation>
+        <translation>Confermato</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Date</source>
-        <translation>Datum</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Type</source>
-        <translation>Tip</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Label</source>
-        <translation>Oznaka</translation>
+        <translation>Etichetta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Address</source>
-        <translation>Adresa</translation>
+        <translation>Indirizzo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount</source>
-        <translation>Iznos</translation>
+        <translation>Importo</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2076,22 +2067,22 @@ Adresa:%4
     <message>
         <location line="+4"/>
         <source>Error exporting</source>
-        <translation>Izvoz pogreške</translation>
+        <translation>Errore nell&apos;esportazione</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>Ne mogu pisati u datoteku %1.</translation>
+        <translation>Impossibile scrivere sul file %1.</translation>
     </message>
     <message>
         <location line="+95"/>
         <source>Range:</source>
-        <translation>Raspon:</translation>
+        <translation>Intervallo:</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>to</source>
-        <translation>za</translation>
+        <translation>a</translation>
     </message>
 </context>
 <context>
@@ -2099,70 +2090,79 @@ Adresa:%4
     <message>
         <location filename="../walletmodel.cpp" line="+192"/>
         <source>Sending...</source>
-        <translation>Slanje...</translation>
+        <translation>Invio...</translation>
     </message>
 </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>pxc-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+82"/>
-        <source>Bitcoin version</source>
-        <translation>Bitcoin verzija</translation>
+        <source>Phoenixcoin version</source>
+        <translation>Versione di Phoenixcoin</translation>
     </message>
     <message>
         <location line="+82"/>
         <source>Usage:</source>
-        <translation>Upotreba:</translation>
+        <translation>Utilizzo:</translation>
     </message>
     <message>
         <location line="-25"/>
-        <source>Send command to -server or bitcoind</source>
-        <translation>Pošalji komandu usluzi -server ili bitcoind</translation>
+        <source>Send command to -server or phoenixcoind</source>
+        <translation>Manda il comando a -server o phoenixcoind
+</translation>
     </message>
     <message>
         <location line="-19"/>
         <source>List commands</source>
-        <translation>Prikaži komande</translation>
+        <translation>Lista comandi
+</translation>
     </message>
     <message>
         <location line="-11"/>
         <source>Get help for a command</source>
-        <translation>Potraži pomoć za komandu</translation>
+        <translation>Aiuto su un comando
+</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Options:</source>
-        <translation>Postavke:</translation>
+        <translation>Opzioni:
+</translation>
     </message>
     <message>
         <location line="+23"/>
-        <source>Specify configuration file (default: bitcoin.conf)</source>
-        <translation>Odredi konfiguracijsku datoteku (ugrađeni izbor: bitcoin.conf)</translation>
+        <source>Specify configuration file (default: phoenixcoin.conf)</source>
+        <translation>Specifica il file di configurazione (di default: phoenixcoin.conf)
+</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: bitcoind.pid)</source>
-        <translation>Odredi proces ID datoteku (ugrađeni izbor: bitcoin.pid)</translation>
+        <source>Specify pid file (default: phoenixcoind.pid)</source>
+        <translation>Specifica il file pid (default: phoenixcoind.pid)
+</translation>
     </message>
     <message>
         <location line="-47"/>
         <source>Generate coins</source>
-        <translation>Generiraj novčiće</translation>
+        <translation>Genera Phoenixcoin
+</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>Don&apos;t generate coins</source>
-        <translation>Ne generiraj novčiće</translation>
+        <translation>Non generare Phoenixcoin
+</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>Specify data directory</source>
-        <translation>Odredi direktorij za datoteke</translation>
+        <translation>Specifica la cartella dati
+</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Set database cache size in megabytes (default: 25)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta la dimensione cache del database in megabyte (default: 25)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2172,12 +2172,12 @@ Adresa:%4
     <message>
         <location line="-26"/>
         <source>Listen for connections on &lt;port&gt; (default: 8333 or testnet: 18333)</source>
-        <translation>Slušaj na &lt;port&gt;u (default: 8333 ili testnet: 18333)</translation>
+        <translation>Ascolta le connessioni JSON-RPC su &lt;porta&gt; (default: 8333 o testnet: 18333)</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation>Održavaj najviše &lt;n&gt; veza sa članovima (default: 125)</translation>
+        <translation>Mantieni al massimo &lt;n&gt; connessioni ai peer (default: 125)</translation>
     </message>
     <message>
         <location line="-33"/>
@@ -2187,7 +2187,7 @@ Adresa:%4
     <message>
         <location line="+64"/>
         <source>Specify your own public address</source>
-        <translation type="unfinished"></translation>
+        <translation>Specifica il tuo indirizzo pubblico</translation>
     </message>
     <message>
         <location line="-75"/>
@@ -2197,12 +2197,12 @@ Adresa:%4
     <message>
         <location line="+77"/>
         <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation>Prag za odspajanje članova koji se čudno ponašaju (default: 100)</translation>
+        <translation>Soglia di disconnessione dei peer di cattiva qualità (default: 100)</translation>
     </message>
     <message>
         <location line="-112"/>
         <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation>Broj sekundi koliko se članovima koji se čudno ponašaju neće dopustiti da se opet spoje (default: 86400)</translation>
+        <translation>Numero di secondi di sospensione che i peer di cattiva qualità devono trascorrere prima di riconnettersi (default: 86400)</translation>
     </message>
     <message>
         <location line="-25"/>
@@ -2227,7 +2227,7 @@ Adresa:%4
     <message>
         <location line="+13"/>
         <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8332 or testnet: 18332)</source>
-        <translation>Prihvaćaj JSON-RPC povezivanje na portu broj &lt;port&gt; (ugrađeni izbor: 8332 or testnet: 18332)</translation>
+        <translation>Attendi le connessioni JSON-RPC su &lt;porta&gt; (default: 8332 or testnet: 18332)</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -2242,7 +2242,8 @@ Adresa:%4
     <message>
         <location line="+9"/>
         <source>Accept command line and JSON-RPC commands</source>
-        <translation>Prihvati komande iz tekst moda i JSON-RPC</translation>
+        <translation>Accetta da linea di comando e da comandi JSON-RPC
+</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2262,12 +2263,14 @@ Adresa:%4
     <message>
         <location line="+23"/>
         <source>Run in the background as a daemon and accept commands</source>
-        <translation>Izvršavaj u pozadini kao uslužnik i prihvaćaj komande</translation>
+        <translation>Esegui in background come demone e accetta i comandi
+</translation>
     </message>
     <message>
         <location line="+33"/>
         <source>Use the test network</source>
-        <translation>Koristi test mrežu</translation>
+        <translation>Utilizza la rete di prova
+</translation>
     </message>
     <message>
         <location line="-93"/>
@@ -2277,12 +2280,12 @@ Adresa:%4
     <message>
         <location line="-42"/>
         <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Generirani novčići moraju pričekati nastanak 120 blokova prije nego što ih je moguće potrošiti. Kad ste generirali taj blok, on je bio emitiran u mrežu kako bi bio dodan postojećim lancima blokova. Ako ne uspije biti dodan, njegov status bit će promijenjen u &quot;nije prihvatljiv&quot; i on neće biti potrošiv. S vremena na vrijeme tako nešto se može desiti ako neki drugi nod približno istovremeno generira blok.</translation>
+        <translation>Errore: la transazione è stata rifiutata. Ciò accade se alcuni Phoenixcoin nel portamonete sono stati già spesi, ad esempio se è stata usata una copia del file wallet.dat e i Phoenixcoin sono stati spesi dalla copia ma non segnati come spesi qui.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation>Ova transakcija je preko ograničenja veličine. Možete ju ipak poslati za naknadu od %1, koja se daje čvorovima koji procesiraju vaše transakcije i tako podržavate mrežu. Želite li platiti naknadu?</translation>
+        <translation>Questa transazione è superiore al limite di dimensione. È comunque possibile inviarla con una commissione di %1, che va ai nodi che processano la tua transazione e contribuisce a sostenere la rete. Vuoi pagare la commissione?</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -2292,7 +2295,7 @@ Adresa:%4
     <message>
         <location line="+5"/>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Upozorenje: -paytxfee je podešen na preveliki iznos.  To je iznos koji ćete platiti za obradu transakcije.</translation>
+        <translation>Attenzione: -paytxfee è molto alta. Questa è la commissione che si paga quando si invia una transazione.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2301,8 +2304,8 @@ Adresa:%4
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Bitcoin will not work properly.</source>
-        <translation>Upozorenje: Molimo provjerite jesu li datum i vrijeme na vašem računalu točni. Ako vaš sat ide krivo, Bitcoin neće raditi ispravno.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Phoenixcoin will not work properly.</source>
+        <translation>Attenzione: si prega di controllare che la data del computer e l&apos;ora siano corrette. Se il vostro orologio è sbagliato Phoenixcoin non funziona correttamente.</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -2312,7 +2315,7 @@ Adresa:%4
     <message>
         <location line="+6"/>
         <source>Connect only to the specified node(s)</source>
-        <translation>Poveži se samo sa određenim nodom</translation>
+        <translation>Connetti solo al nodo specificato</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2322,7 +2325,7 @@ Adresa:%4
     <message>
         <location line="+8"/>
         <source>Error: Transaction creation failed  </source>
-        <translation>Greška: priprema transakcije nije uspjela</translation>
+        <translation>Errore: creazione della transazione fallita </translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2342,17 +2345,17 @@ Adresa:%4
     <message>
         <location line="+11"/>
         <source>Invalid -tor address: &apos;%s&apos;</source>
-        <translation>Nevaljala -tor adresa: &apos;%s&apos;</translation>
+        <translation>Indirizzo -tor non valido: &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Buffer di ricezione massimo per connessione, &lt;n&gt;*1000 byte (default: 5000)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: 1000)</source>
-        <translation type="unfinished"></translation>
+        <translation>Buffer di invio massimo per connessione, &lt;n&gt;*1000 byte (default: 1000)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2362,7 +2365,7 @@ Adresa:%4
     <message>
         <location line="+2"/>
         <source>Output extra debugging information. Implies all other -debug* options</source>
-        <translation type="unfinished"></translation>
+        <translation>Produci informazioni extra utili al debug. Implies all other -debug* options</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2372,12 +2375,12 @@ Adresa:%4
     <message>
         <location line="+2"/>
         <source>Prepend debug output with timestamp</source>
-        <translation>Dodaj izlaz debuga na početak sa vremenskom oznakom</translation>
+        <translation>Anteponi all&apos;output di debug una marca temporale</translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
-        <translation>SSL postavke: (za detalje o podešavanju SSL opcija vidi Bitcoin Wiki)</translation>
+        <source>SSL options: (see the Phoenixcoin Wiki for SSL setup instructions)</source>
+        <translation>Opzioni SSL: (vedi il wiki di Phoenixcoin per le istruzioni di configurazione SSL)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2387,12 +2390,12 @@ Adresa:%4
     <message>
         <location line="+3"/>
         <source>Send trace/debug info to console instead of debug.log file</source>
-        <translation>Šalji trace/debug informacije na konzolu umjesto u debug.log datoteku</translation>
+        <translation>Invia le informazioni di trace/debug alla console invece che al file debug.log</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Send trace/debug info to debugger</source>
-        <translation>Pošalji trace/debug informacije u debugger</translation>
+        <translation>Invia le informazioni di trace/debug al debugger</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2412,17 +2415,17 @@ Adresa:%4
     <message>
         <location line="+2"/>
         <source>Specify connection timeout in milliseconds (default: 5000)</source>
-        <translation>Odredi vremenski prozor za spajanje na mrežu u milisekundama (ugrađeni izbor: 5000)</translation>
+        <translation>Specifica il timeout di connessione in millisecondi (default: 5000)</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Pokušaj koristiti UPnP da otvoriš port za uslugu (default: 0)</translation>
+        <translation>UPnP-használat engedélyezése a figyelő port feltérképezésénél (default: 0)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Pokušaj koristiti UPnP da otvoriš port za uslugu (default: 1 when listening)</translation>
+        <translation>UPnP-használat engedélyezése a figyelő port feltérképezésénél (default: 1 when listening)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2432,7 +2435,8 @@ Adresa:%4
     <message>
         <location line="+2"/>
         <source>Username for JSON-RPC connections</source>
-        <translation>Korisničko ime za JSON-RPC veze</translation>
+        <translation>Nome utente per connessioni JSON-RPC
+</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2442,7 +2446,7 @@ Adresa:%4
     <message>
         <location line="+2"/>
         <source>Warning: Disk space is low!</source>
-        <translation>Upozorenje: Malo diskovnog prostora</translation>
+        <translation>Attenzione: lo spazio su disco è scarso</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2457,17 +2461,20 @@ Adresa:%4
     <message>
         <location line="-43"/>
         <source>Password for JSON-RPC connections</source>
-        <translation>Lozinka za JSON-RPC veze</translation>
+        <translation>Password per connessioni JSON-RPC
+</translation>
     </message>
     <message>
         <location line="-53"/>
         <source>Allow JSON-RPC connections from specified IP address</source>
-        <translation>Dozvoli JSON-RPC povezivanje s određene IP adrese</translation>
+        <translation>Consenti connessioni JSON-RPC dall&apos;indirizzo IP specificato
+</translation>
     </message>
     <message>
         <location line="+61"/>
         <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
-        <translation>Pošalji komande nodu na adresi &lt;ip&gt; (ugrađeni izbor: 127.0.0.1)</translation>
+        <translation>Inviare comandi al nodo in esecuzione su &lt;ip&gt; (default: 127.0.0.1)
+</translation>
     </message>
     <message>
         <location line="-99"/>
@@ -2477,22 +2484,24 @@ Adresa:%4
     <message>
         <location line="+122"/>
         <source>Upgrade wallet to latest format</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiorna il wallet all&apos;ultimo formato</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>Set key pool size to &lt;n&gt; (default: 100)</source>
-        <translation>Podesi memorijski prostor za ključeve na &lt;n&gt; (ugrađeni izbor: 100)</translation>
+        <translation>Impostare la quantità di chiavi di riserva a &lt;n&gt; (default: 100)
+</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Ponovno pretraži lanac blokova za transakcije koje nedostaju</translation>
+        <translation>Ripeti analisi della catena dei blocchi per cercare le transazioni  mancanti dal portamonete
+</translation>
     </message>
     <message>
         <location line="-24"/>
         <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
-        <translation type="unfinished"></translation>
+        <translation>Quanti blocchi da controllare all&apos;avvio (default: 2500, 0 = tutti)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2507,87 +2516,93 @@ Adresa:%4
     <message>
         <location line="+51"/>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>Koristi OpenSSL (https) za JSON-RPC povezivanje</translation>
+        <translation>Utilizzare OpenSSL (https) per le connessioni  JSON-RPC
+</translation>
     </message>
     <message>
         <location line="-21"/>
         <source>Server certificate file (default: server.cert)</source>
-        <translation>Uslužnikov SSL certifikat (ugrađeni izbor: server.cert)</translation>
+        <translation>File certificato del server (default: server.cert)
+</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server private key (default: server.pem)</source>
-        <translation>Uslužnikov privatni ključ (ugrađeni izbor: server.pem)</translation>
+        <translation>Chiave privata del server (default: server.pem)
+</translation>
     </message>
     <message>
         <location line="-127"/>
         <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
-        <translation>Prihvaljivi načini šifriranja (ugrađeni izbor: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</translation>
+        <translation>Cifrari accettabili (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)
+</translation>
     </message>
     <message>
         <location line="+139"/>
         <source>This help message</source>
-        <translation>Ova poruka za pomoć</translation>
+        <translation>Questo messaggio di aiuto
+</translation>
     </message>
     <message>
         <location line="-131"/>
-        <source>Cannot obtain a lock on data directory %s.  Bitcoin is probably already running.</source>
-        <translation>Program ne može pristupiti direktoriju s datotekama %s. Bitcoin program je vjerojatno već pokrenut.</translation>
+        <source>Cannot obtain a lock on data directory %s.  Phoenixcoin is probably already running.</source>
+        <translation>Non è possibile ottenere i dati sulla directory %s. Probabilmente Phoenixcoin è già in esecuzione.</translation>
     </message>
     <message>
         <location line="+57"/>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Phoenixcoin</source>
+        <translation>Phoenixcoin</translation>
     </message>
     <message>
         <location line="+77"/>
         <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
-        <translation>Program ne može koristiti %s na ovom računalu (bind returned error %d, %s)</translation>
+        <translation>Impossibile collegarsi alla %s su questo computer (bind returned error %d, %s)</translation>
     </message>
     <message>
         <location line="-69"/>
         <source>Connect through socks proxy</source>
-        <translation>Poveži se kroz socks proxy</translation>
+        <translation>Connessione tramite socks proxy</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
-        <translation>Dozvoli DNS upite za dodavanje nodova i povezivanje</translation>
+        <translation>Consenti ricerche DNS per aggiungere nodi e collegare
+</translation>
     </message>
     <message>
         <location line="+44"/>
         <source>Loading addresses...</source>
-        <translation>Učitavanje adresa...</translation>
+        <translation>Caricamento indirizzi...</translation>
     </message>
     <message>
         <location line="-26"/>
         <source>Error loading blkindex.dat</source>
-        <translation>Greška kod učitavanja blkindex.dat</translation>
+        <translation>Errore caricamento blkindex.dat</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Error loading wallet.dat: Wallet corrupted</source>
-        <translation>Greška kod učitavanja wallet.dat: Novčanik pokvaren</translation>
+        <translation>Errore caricamento wallet.dat: Wallet corrotto</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Bitcoin</source>
-        <translation>Greška kod učitavanja wallet.dat: Novčanik zahtjeva noviju verziju Bitcoina</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Phoenixcoin</source>
+        <translation>Errore caricamento wallet.dat: il wallet richiede una versione nuova di Phoenixcoin</translation>
     </message>
     <message>
         <location line="+73"/>
-        <source>Wallet needed to be rewritten: restart Bitcoin to complete</source>
-        <translation>Novčanik je trebao prepravak: ponovo pokrenite Bitcoin</translation>
+        <source>Wallet needed to be rewritten: restart Phoenixcoin to complete</source>
+        <translation>Il portamonete deve essere riscritto: riavviare Phoenixcoin per completare</translation>
     </message>
     <message>
         <location line="-75"/>
         <source>Error loading wallet.dat</source>
-        <translation>Greška kod učitavanja wallet.dat</translation>
+        <translation>Errore caricamento wallet.dat</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Invalid -proxy address: &apos;%s&apos;</source>
-        <translation>Nevaljala -proxy adresa: &apos;%s&apos;</translation>
+        <translation>Indirizzo -proxy non valido: &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -2612,42 +2627,42 @@ Adresa:%4
     <message>
         <location line="+30"/>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos;</source>
-        <translation>Nevaljali iznos za opciju -paytxfee=&lt;amount&gt;: &apos;%s&apos;</translation>
+        <translation>Importo non valido per -paytxfee=&lt;amount&gt;: &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>Error: could not start node</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore: impossibile inizializzare il nodo</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Sending...</source>
-        <translation>Slanje...</translation>
+        <translation>Invio...</translation>
     </message>
     <message>
         <location line="-24"/>
         <source>Invalid amount</source>
-        <translation>Nevaljali iznos za opciju</translation>
+        <translation>Importo non valido</translation>
     </message>
     <message>
         <location line="-4"/>
         <source>Insufficient funds</source>
-        <translation>Nedovoljna sredstva</translation>
+        <translation>Fondi insufficienti</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Loading block index...</source>
-        <translation>Učitavanje indeksa blokova...</translation>
+        <translation>Caricamento dell&apos;indice del blocco...</translation>
     </message>
     <message>
         <location line="-46"/>
         <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation>Unesite nod s kojim se želite spojiti and attempt to keep the connection open</translation>
+        <translation>Elérendő csomópont megadása and attempt to keep the connection open</translation>
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Bitcoin is probably already running.</source>
-        <translation>Program ne može koristiti %s na ovom računalu.  Bitcoin program je vjerojatno već pokrenut.</translation>
+        <source>Unable to bind to %s on this computer. Phoenixcoin is probably already running.</source>
+        <translation>Impossibile collegarsi alla %s su questo computer. Probabilmente Phoenixcoin è già in esecuzione.</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -2657,12 +2672,12 @@ Adresa:%4
     <message>
         <location line="-2"/>
         <source>Fee per KB to add to transactions you send</source>
-        <translation>Naknada posredniku po KB-u koja će biti dodana svakoj transakciji koju pošalješ</translation>
+        <translation>Commissione per KB da aggiungere alle transazioni in uscita</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Loading wallet...</source>
-        <translation>Učitavanje novčanika...</translation>
+        <translation>Caricamento portamonete...</translation>
     </message>
     <message>
         <location line="-39"/>
@@ -2682,12 +2697,12 @@ Adresa:%4
     <message>
         <location line="+46"/>
         <source>Rescanning...</source>
-        <translation>Rescaniranje</translation>
+        <translation>Ripetere la scansione...</translation>
     </message>
     <message>
         <location line="-40"/>
         <source>Done loading</source>
-        <translation>Učitavanje gotovo</translation>
+        <translation>Caricamento completato</translation>
     </message>
     <message>
         <location line="+64"/>
@@ -2699,7 +2714,7 @@ Adresa:%4
         <source>%s, you must set a rpcpassword in the configuration file:
  %s
 It is recommended you use the following random password:
-rpcuser=bitcoinrpc
+rpcuser=phoenixcoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 If the file does not exist, create it with owner-readable-only file permissions.
@@ -2709,7 +2724,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
     <message>
         <location line="+91"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <location line="-30"/>

@@ -36,14 +36,13 @@ void ipcInit(int argc, char *argv[]) { }
 
 static void ipcThread2(void* pArg);
 
-static bool ipcScanCmd(int argc, char *argv[], bool fRelay)
-{
+static bool ipcScanCmd(int argc, char *argv[], bool fRelay) {
+    int i;
+
     // Check for URI in argv
     bool fSent = false;
-    for (int i = 1; i < argc; i++)
-    {
-        if (boost::algorithm::istarts_with(argv[i], "bitcoin:"))
-        {
+    for(i = 1; i < argc; i++) {
+        if(boost::algorithm::istarts_with(argv[i], "phoenixcoin:")) {
             const char *strURI = argv[i];
             try {
                 boost::interprocess::message_queue mq(boost::interprocess::open_only, BITCOINURI_QUEUE_NAME);
@@ -117,19 +116,18 @@ static void ipcThread2(void* pArg)
     delete mq;
 }
 
-void ipcInit(int argc, char *argv[])
-{
+void ipcInit(int argc, char *argv[]) {
     message_queue* mq = NULL;
     char buffer[MAX_URI_LENGTH + 1] = "";
     size_t nSize = 0;
     unsigned int nPriority = 0;
+    int i;
 
     try {
         mq = new message_queue(open_or_create, BITCOINURI_QUEUE_NAME, 2, MAX_URI_LENGTH);
 
-        // Make sure we don't lose any bitcoin: URIs
-        for (int i = 0; i < 2; i++)
-        {
+        /* Make sure we don't lose any phoenixcoin: URIs */
+        for(i = 0; i < 2; i++) {
             ptime d = boost::posix_time::microsec_clock::universal_time() + millisec(1);
             if (mq->timed_receive(&buffer, sizeof(buffer), nSize, nPriority, d))
             {

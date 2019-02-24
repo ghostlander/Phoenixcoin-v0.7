@@ -1079,11 +1079,10 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
     }
 }
 
-boost::filesystem::path GetPidFile()
-{
-    boost::filesystem::path pathPidFile(GetArg("-pid", "bitcoind.pid"));
-    if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
-    return pathPidFile;
+boost::filesystem::path GetPidFile() {
+    boost::filesystem::path pathPidFile(GetArg("-pid", "phoenixcoind.pid"));
+    if(!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
+    return(pathPidFile);
 }
 
 void CreatePidFile(const boost::filesystem::path &path, pid_t pid)
