@@ -64,7 +64,7 @@ int static permute(int n)
                                   0xA409, 0x3822, 0x299F, 0x31D0, 0x082E, 0xFA98, 0xEC4E, 0x6C89};
 
     int ret = 0;
-    for (int bit=0; bit<16; bit++)
+    for (int bit=0; bit<16; ++bit)
          if (n & (1<<bit))
              ret ^= table[bit];
 

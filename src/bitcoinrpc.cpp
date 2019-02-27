@@ -392,7 +392,7 @@ int ReadHTTPHeader(std::basic_istream<char>& stream, map<string, string>& mapHea
             boost::trim(strValue);
             mapHeadersRet[strHeader] = strValue;
             if (strHeader == "content-length")
-                nLen = atoi(strValue.c_str());
+                nLen = atoi(strValue);
         }
     }
     return nLen;

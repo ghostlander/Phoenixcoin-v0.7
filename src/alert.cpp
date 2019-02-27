@@ -213,7 +213,7 @@ bool CAlert::ProcessAlert()
                 mapAlerts.erase(mi++);
             }
             else
-                mi++;
+                ++mi;
         }
 
         // Check if this alert has been cancelled

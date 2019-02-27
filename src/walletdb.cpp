@@ -518,7 +518,7 @@ void ThreadFlushWalletDB(void* parg)
                 while (mi != bitdb.mapFileUseCount.end())
                 {
                     nRefCount += (*mi).second;
-                    mi++;
+                    ++mi;
                 }
 
                 if (nRefCount == 0 && !fShutdown)

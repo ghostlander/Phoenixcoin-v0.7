@@ -282,7 +282,7 @@ public:
                 READWRITE(nUBuckets);
                 std::map<int, int> mapUnkIds;
                 int nIds = 0;
-                for (std::map<int, CAddrInfo>::iterator it = am->mapInfo.begin(); it != am->mapInfo.end(); it++)
+                for (std::map<int, CAddrInfo>::iterator it = am->mapInfo.begin(); it != am->mapInfo.end(); ++it)
                 {
                     if (nIds == nNew) break; // this means nNew was wrong, oh ow
                     mapUnkIds[(*it).first] = nIds;
@@ -294,7 +294,7 @@ public:
                     }
                 }
                 nIds = 0;
-                for (std::map<int, CAddrInfo>::iterator it = am->mapInfo.begin(); it != am->mapInfo.end(); it++)
+                for (std::map<int, CAddrInfo>::iterator it = am->mapInfo.begin(); it != am->mapInfo.end(); ++it)
                 {
                     if (nIds == nTried) break; // this means nTried was wrong, oh ow
                     CAddrInfo &info = (*it).second;
@@ -304,7 +304,7 @@ public:
                         nIds++;
                     }
                 }
-                for (std::vector<std::set<int> >::iterator it = am->vvNew.begin(); it != am->vvNew.end(); it++)
+                for (std::vector<std::set<int> >::iterator it = am->vvNew.begin(); it != am->vvNew.end(); ++it)
                 {
                     const std::set<int> &vNew = (*it);
                     int nSize = vNew.size();
@@ -430,7 +430,7 @@ public:
         {
             LOCK(cs);
             Check();
-            for (std::vector<CAddress>::const_iterator it = vAddr.begin(); it != vAddr.end(); it++)
+            for (std::vector<CAddress>::const_iterator it = vAddr.begin(); it != vAddr.end(); ++it)
                 nAdd += Add_(*it, source, nTimePenalty) ? 1 : 0;
             Check();
         }

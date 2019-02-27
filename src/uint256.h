@@ -51,7 +51,7 @@ public:
         base_uint ret;
         for (int i = 0; i < WIDTH; i++)
             ret.pn[i] = ~pn[i];
-        ret++;
+        ++ret;
         return ret;
     }
 
@@ -634,17 +634,17 @@ inline int Testuint256AdHoc(std::vector<std::string> vArg)
 
 
     printf("%s\n", g.ToString().c_str());
-    g--;  printf("g--\n");
+    --g;  printf("g--\n");
     printf("%s\n", g.ToString().c_str());
-    g--;  printf("g--\n");
+    --g;  printf("g--\n");
     printf("%s\n", g.ToString().c_str());
-    g++;  printf("g++\n");
+    ++g;  printf("g++\n");
     printf("%s\n", g.ToString().c_str());
-    g++;  printf("g++\n");
+    ++g;  printf("g++\n");
     printf("%s\n", g.ToString().c_str());
-    g++;  printf("g++\n");
+    ++g;  printf("g++\n");
     printf("%s\n", g.ToString().c_str());
-    g++;  printf("g++\n");
+    ++g;  printf("g++\n");
     printf("%s\n", g.ToString().c_str());
 
 
@@ -685,27 +685,27 @@ inline int Testuint256AdHoc(std::vector<std::string> vArg)
     a.pn[4] = 9;
 
     printf("%s\n", a.ToString().c_str());
-    a++;
+    ++a;
     printf("%s\n", a.ToString().c_str());
-    a++;
+    ++a;
     printf("%s\n", a.ToString().c_str());
-    a++;
+    ++a;
     printf("%s\n", a.ToString().c_str());
-    a++;
+    ++a;
     printf("%s\n", a.ToString().c_str());
 
-    a--;
+    --a;
     printf("%s\n", a.ToString().c_str());
-    a--;
+    --a;
     printf("%s\n", a.ToString().c_str());
-    a--;
+    --a;
     printf("%s\n", a.ToString().c_str());
-    uint256 d = a--;
+    uint256 d = --a;
     printf("%s\n", d.ToString().c_str());
     printf("%s\n", a.ToString().c_str());
-    a--;
+    --a;
     printf("%s\n", a.ToString().c_str());
-    a--;
+    --a;
     printf("%s\n", a.ToString().c_str());
 
     d = a;
