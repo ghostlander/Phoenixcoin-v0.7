@@ -48,4 +48,4 @@ private slots:
     void handleTransactionClicked(const QModelIndex &index);
 };
 
-#endif // OVERVIEWPAGE_H
+#endif /* OVERVIEWPAGE_H */

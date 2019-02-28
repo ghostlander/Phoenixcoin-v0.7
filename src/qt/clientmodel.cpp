@@ -48,6 +48,29 @@ int ClientModel::getNumBlocksAtStartup()
     return numBlocksAtStartup;
 }
 
+/* Copied from rpc.cpp */
+double ClientModel::GetDifficulty() const {
+
+    if(!pindexBest) return(1.0);
+
+    int nShift = (pindexBest->nBits >> 24) & 0xFF;
+
+    double dDiff =
+      (double)0x0000FFFF / (double)(pindexBest->nBits & 0x00FFFFFF);
+
+    while(nShift < 29) {
+        dDiff *= 256.0;
+        nShift++;
+    }
+
+    while(nShift > 29) {
+        dDiff /= 256.0;
+        nShift--;
+    }
+
+    return(dDiff);
+}
+
 QDateTime ClientModel::getLastBlockDate() const
 {
     return QDateTime::fromTime_t(pindexBest->GetBlockTime());

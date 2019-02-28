@@ -66,4 +66,4 @@ private:
 #endif
 };
 
-#endif // NOTIFICATOR_H
+#endif /* NOTIFICATOR_H */

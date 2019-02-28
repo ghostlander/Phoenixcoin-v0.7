@@ -126,4 +126,4 @@ public:
     bool statusUpdateNeeded();
 };
 
-#endif // TRANSACTIONRECORD_H
+#endif /* TRANSACTIONRECORD_H */

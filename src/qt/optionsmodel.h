@@ -61,4 +61,4 @@ signals:
     void displayUnitChanged(int unit);
 };
 
-#endif // OPTIONSMODEL_H
+#endif /* OPTIONSMODEL_H */

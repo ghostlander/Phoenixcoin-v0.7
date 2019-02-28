@@ -293,15 +293,15 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>GUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+257"/>
+        <location filename="../gui.cpp" line="+257"/>
         <source>Sign &amp;message...</source>
         <translation>Signer un &amp;message...</translation>
     </message>
     <message>
         <location line="+237"/>
-        <source>Synchronizing with network...</source>
+        <source>Synchronising with the network...</source>
         <translation>Synchronisation avec le réseau…</translation>
     </message>
     <message>
@@ -650,7 +650,7 @@ Adresse : %4
         <translation>Une erreur est survenue lors de l&apos;enregistrement des données de porte-monnaie à un autre emplacement.</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+109"/>
+        <location filename="../phoenixcoin.cpp" line="+109"/>
         <source>A fatal error occurred. Phoenixcoin can no longer continue safely and will quit.</source>
         <translation>Une erreur fatale est survenue. Phoenixcoin ne peut plus continuer à fonctionner de façon sûre et va s&apos;arrêter.</translation>
     </message>
@@ -2094,7 +2094,7 @@ Adresse : %4
 <context>
     <name>pxc-core</name>
     <message>
-        <location filename="../bitcoinstrings.cpp" line="+82"/>
+        <location filename="../strings.cpp" line="+82"/>
         <source>Phoenixcoin version</source>
         <translation>Version de Phoenixcoin</translation>
     </message>
