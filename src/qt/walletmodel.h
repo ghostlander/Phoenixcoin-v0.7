@@ -22,7 +22,7 @@ public:
     qint64 amount;
 };
 
-/** Interface to Bitcoin wallet from Qt view code. */
+/* Interface to the Phoenixcoin wallet from the Qt view code */
 class WalletModel : public QObject
 {
     Q_OBJECT
@@ -161,5 +161,4 @@ public slots:
     void pollBalanceChanged();
 };
 
-
-#endif // WALLETMODEL_H
+#endif /* WALLETMODEL_H */

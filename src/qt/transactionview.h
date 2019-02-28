@@ -79,4 +79,4 @@ public slots:
 
 };
 
-#endif // TRANSACTIONVIEW_H
+#endif /* TRANSACTIONVIEW_H */

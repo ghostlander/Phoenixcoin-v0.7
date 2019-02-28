@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include "db.h"
 #include "walletdb.h"
-#include "bitcoinrpc.h"
+#include "rpc.h"
 #include "net.h"
 #include "init.h"
 #include "util.h"
@@ -51,7 +51,8 @@ void ExitTimeout(void* parg)
 void StartShutdown()
 {
 #ifdef QT_GUI
-    // ensure we leave the Qt main loop for a clean GUI exit (Shutdown() is called in bitcoin.cpp afterwards)
+    /* Ensure we leave the Qt main loop for a clean GUI exit
+     * (Shutdown() is called in phoenixcoin.cpp afterwards) */
     uiInterface.QueueShutdown();
 #else
     // Without UI, Shutdown() can simply be started in a new thread
@@ -89,10 +90,11 @@ void Shutdown(void* parg)
         delete pwalletMain;
         NewThread(ExitTimeout, NULL);
         Sleep(50);
-        printf("Bitcoin exited\n\n");
+        printf("Phoenixcoin exited\n\n");
         fExit = true;
 #ifndef QT_GUI
-        // ensure non-UI client gets exited here, but let Bitcoin-Qt reach 'return 0;' in bitcoin.cpp
+        /* ensure non-UI client gets exited here, but let Phoenixcoin-Qt
+         * reach 'return(0);' in phoenixcoin.cpp */
         exit(0);
 #endif
     }
@@ -129,10 +131,8 @@ bool AppInit(int argc, char* argv[])
     bool fRet = false;
     try
     {
-        //
-        // Parameters
-        //
-        // If Qt is used, parameters/bitcoin.conf are parsed in qt/bitcoin.cpp's main()
+        /* If Qt is used, parameters/phoenixcoin.conf are parsed
+         * in qt/phoenixcoin.cpp's main() */
         ParseParameters(argc, argv);
         if (!boost::filesystem::is_directory(GetDataDir(false)))
         {
@@ -143,13 +143,13 @@ bool AppInit(int argc, char* argv[])
 
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
-            // First part of help message is specific to bitcoind / RPC client
+            /* First part of help message is specific to phoenixcoind / RPC client */
             std::string strUsage = _("Phoenixcoin version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  bitcoind [options]                     " + "\n" +
-                  "  bitcoind [options] <command> [params]  " + _("Send command to -server or bitcoind") + "\n" +
-                  "  bitcoind [options] help                " + _("List commands") + "\n" +
-                  "  bitcoind [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  phoenixcoind [options]                     " + "\n" +
+                  "  phoenixcoind [options] <command> [params]  " + _("Send command to -server or phoenixcoind") + "\n" +
+                  "  phoenixcoind [options] help                " + _("List commands") + "\n" +
+                  "  phoenixcoind [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -159,7 +159,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "bitcoin:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "phoenixcoin:"))
                 fCommandLine = true;
 
         if (fCommandLine)
@@ -185,7 +185,7 @@ int main(int argc, char* argv[])
 {
     bool fRet = false;
 
-    // Connect bitcoind signal handlers
+    /* Connect phoenixcoind signal handlers */
     noui_connect();
 
     fRet = AppInit(argc, argv);
@@ -197,18 +197,17 @@ int main(int argc, char* argv[])
 }
 #endif
 
-bool static InitError(const std::string &str)
-{
-    uiInterface.ThreadSafeMessageBox(str, _("Bitcoin"), CClientUIInterface::OK | CClientUIInterface::MODAL);
-    return false;
+bool static InitError(const std::string &str) {
+    uiInterface.ThreadSafeMessageBox(str, _("Phoenixcoin"),
+      CClientUIInterface::OK | CClientUIInterface::MODAL);
+    return(false);
 }
 
-bool static InitWarning(const std::string &str)
-{
-    uiInterface.ThreadSafeMessageBox(str, _("Bitcoin"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
-    return true;
+bool static InitWarning(const std::string &str) {
+    uiInterface.ThreadSafeMessageBox(str, _("Phoenixcoin"),
+      CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+    return(true);
 }
-
 
 bool static Bind(const CService &addr, bool fError = true) {
     if (IsLimited(addr))
@@ -298,7 +297,7 @@ std::string HelpMessage()
         "  -blockmaxsize=<n>      "   + _("Set maximum block size in bytes (default: 250000)") + "\n" +
         "  -blockprioritysize=<n> "   + _("Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)") + "\n" +
 
-        "\n" + _("SSL options: (see the Bitcoin Wiki for SSL setup instructions)") + "\n" +
+        "\n" + _("SSL options: (see the Phoenixcoin Wiki for SSL setup instructions)") + "\n" +
         "  -rpcssl                                  " + _("Use OpenSSL (https) for JSON-RPC connections") + "\n" +
         "  -rpcsslcertificatechainfile=<file.cert>  " + _("Server certificate file (default: server.cert)") + "\n" +
         "  -rpcsslprivatekeyfile=<file.pem>         " + _("Server private key (default: server.pem)") + "\n" +
@@ -307,7 +306,7 @@ std::string HelpMessage()
     return strUsage;
 }
 
-/** Initialize bitcoin.
+/** Phoenixcoin initialisation.
  *  @pre Parameters should be parsed and config file should be read.
  */
 bool AppInit2()
@@ -465,13 +464,14 @@ bool AppInit2()
 
     std::string strDataDir = GetDataDir().string();
 
-    // Make sure only a single Bitcoin process is using the data directory.
+    /* Make sure only a single Phoenixcoin process is using the data directory */
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
     FILE* file = fopen(pathLockFile.string().c_str(), "a"); // empty lock file; created if it doesn't exist.
     if (file) fclose(file);
     static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
-    if (!lock.try_lock())
-        return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  Bitcoin is probably already running."), strDataDir.c_str()));
+    if(!lock.try_lock())
+      return(InitError(strprintf(_("Cannot obtain a lock on data directory %s.  Phoenixcoin is probably already running."),
+        strDataDir.c_str())));
 
 #if !defined(WIN32) && !defined(QT_GUI)
     if (fDaemon)
@@ -512,8 +512,7 @@ bool AppInit2()
     printf("Set up for a data directory of %s\n", strDataDir.c_str());
     std::ostringstream strErrors;
 
-    if (fDaemon)
-        fprintf(stdout, "Bitcoin server starting\n");
+    if(fDaemon) fprintf(stdout, "Phoenixcoin server starting\n");
 
     int64 nStart;
 
@@ -545,7 +544,8 @@ bool AppInit2()
                                      " Original wallet.dat saved as wallet.{timestamp}.bak in %s; if"
                                      " your balance or transactions are incorrect you should"
                                      " restore from a backup."), strDataDir.c_str());
-            uiInterface.ThreadSafeMessageBox(msg, _("Bitcoin"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+            uiInterface.ThreadSafeMessageBox(msg, _("Phoenixcoin"),
+              CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         }
         if (r == CDBEnv::RECOVER_FAIL)
             return InitError(_("wallet.dat corrupt, salvage failed"));
@@ -736,13 +736,14 @@ bool AppInit2()
         {
             string msg(_("Warning: error reading wallet.dat! All keys read correctly, but transaction data"
                          " or address book entries might be missing or incorrect."));
-            uiInterface.ThreadSafeMessageBox(msg, _("Bitcoin"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+            uiInterface.ThreadSafeMessageBox(msg, _("Phoenixcoin"),
+              CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         }
         else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Bitcoin") << "\n";
+            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Phoenixcoin") << "\n";
         else if (nLoadWalletRet == DB_NEED_REWRITE)
         {
-            strErrors << _("Wallet needed to be rewritten: restart Bitcoin to complete") << "\n";
+            strErrors << _("Wallet needed to be rewritten: restart Phoenixcoin to complete") << "\n";
             printf("%s", strErrors.str().c_str());
             return InitError(strErrors.str());
         }

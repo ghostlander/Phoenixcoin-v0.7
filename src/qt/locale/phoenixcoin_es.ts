@@ -296,15 +296,15 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>GUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+257"/>
+        <location filename="../gui.cpp" line="+257"/>
         <source>Sign &amp;message...</source>
         <translation>Firmar &amp;mensaje...</translation>
     </message>
     <message>
         <location line="+237"/>
-        <source>Synchronizing with network...</source>
+        <source>Synchronising with the network...</source>
         <translation>Sincronizando con la red…</translation>
     </message>
     <message>
@@ -653,7 +653,7 @@ Dirección: %4
         <translation>Ha habido un error al intentar guardar los datos del monedero en la nueva ubicación.</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+109"/>
+        <location filename="../phoenixcoin.cpp" line="+109"/>
         <source>A fatal error occurred. Phoenixcoin can no longer continue safely and will quit.</source>
         <translation>Ha ocurrido un error crítico. Phoenixcoin ya no puede continuar con seguridad y se cerrará.</translation>
     </message>
@@ -2097,7 +2097,7 @@ Dirección: %4
 <context>
     <name>pxc-core</name>
     <message>
-        <location filename="../bitcoinstrings.cpp" line="+82"/>
+        <location filename="../strings.cpp" line="+82"/>
         <source>Phoenixcoin version</source>
         <translation>Versión de Phoenixcoin</translation>
     </message>

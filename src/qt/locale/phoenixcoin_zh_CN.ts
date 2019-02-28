@@ -293,15 +293,15 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>GUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+257"/>
+        <location filename="../gui.cpp" line="+257"/>
         <source>Sign &amp;message...</source>
         <translation>对&amp;消息签名...</translation>
     </message>
     <message>
         <location line="+237"/>
-        <source>Synchronizing with network...</source>
+        <source>Synchronising with the network...</source>
         <translation>正在与网络同步...</translation>
     </message>
     <message>
@@ -644,7 +644,7 @@ Address: %4
         <translation>备份钱包到其它文件夹失败.</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+109"/>
+        <location filename="../phoenixcoin.cpp" line="+109"/>
         <source>A fatal error occurred. Phoenixcoin can no longer continue safely and will quit.</source>
         <translation>发生严重错误。</translation>
     </message>
@@ -2084,7 +2084,7 @@ Address: %4
 <context>
     <name>pxc-core</name>
     <message>
-        <location filename="../bitcoinstrings.cpp" line="+82"/>
+        <location filename="../strings.cpp" line="+82"/>
         <source>Phoenixcoin version</source>
         <translation>凤凰电子币版本</translation>
     </message>

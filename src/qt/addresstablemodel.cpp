@@ -188,11 +188,10 @@ QVariant AddressTableModel::data(const QModelIndex &index, int role) const
     else if (role == Qt::FontRole)
     {
         QFont font;
-        if(index.column() == Address)
-        {
-            font = GUIUtil::bitcoinAddressFont();
+        if(index.column() == Address) {
+            font = GUIUtil::AddressFont();
         }
-        return font;
+        return(font);
     }
     else if (role == TypeRole)
     {

@@ -1,7 +1,7 @@
 #include "sendcoinsdialog.h"
 #include "ui_sendcoinsdialog.h"
 #include "walletmodel.h"
-#include "bitcoinunits.h"
+#include "coinunits.h"
 #include "addressbookpage.h"
 #include "optionsmodel.h"
 #include "sendcoinsentry.h"
@@ -268,12 +268,9 @@ void SendCoinsDialog::pasteEntry(const SendCoinsRecipient &rv)
     entry->setValue(rv);
 }
 
-bool SendCoinsDialog::handleURI(const QString &uri)
-{
+bool SendCoinsDialog::handleURI(const QString &uri) {
     SendCoinsRecipient rv;
-    // URI has to be valid
-    if (GUIUtil::parseBitcoinURI(uri, &rv))
-    {
+    if(GUIUtil::parseCoinURI(uri, &rv)) {
         CBitcoinAddress address(rv.address.toStdString());
         if (!address.IsValid())
             return false;

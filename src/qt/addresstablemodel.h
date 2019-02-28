@@ -20,7 +20,7 @@ public:
 
     enum ColumnIndex {
         Label = 0,   /**< User specified label */
-        Address = 1  /**< Bitcoin address */
+        Address = 1  /**< Phoenixcoin address */
     };
 
     enum RoleIndex {
@@ -88,4 +88,4 @@ public slots:
     friend class AddressTablePriv;
 };
 
-#endif // ADDRESSTABLEMODEL_H
+#endif /* ADDRESSTABLEMODEL_H */
