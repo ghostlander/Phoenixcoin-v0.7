@@ -6,6 +6,8 @@ DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 QMAKE_CFLAGS += -DNEOSCRYPT_SHA256 -DNEOSCRYPT_ASM -DNEOSCRYPT_OPT
+QT += core gui network
+QT += widgets
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -120,7 +122,8 @@ contains(PHOENIXCOIN_NEED_QT_PLUGINS, 1) {
     DEFINES += HAVE_BUILD_INFO
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security \
+			  -Wno-unused-parameter -Wstack-protector -Wno-stringop-truncation \
 
 # Input
 DEPENDPATH += src src/json src/qt
