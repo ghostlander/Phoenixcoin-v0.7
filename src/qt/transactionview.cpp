@@ -173,21 +173,21 @@ void TransactionView::setModel(WalletModel *model)
         transactionView->sortByColumn(TransactionTableModel::Status, Qt::DescendingOrder);
         transactionView->verticalHeader()->hide();
 
-        transactionView->horizontalHeader()->resizeSection \
-		(TransactionTableModel::Status, 23);
-        transactionView->horizontalHeader()->resizeSection \
-		(TransactionTableModel::Date, 120);
-        transactionView->horizontalHeader()->resizeSection \
-		(TransactionTableModel::Type, 120);
-        #if (QT_VERSION < 0x050000)
-        transactionView->horizontalHeader()->setResizeMode \
-		(TransactionTableModel::ToAddress, QHeaderView::Stretch);
-        #else
-        transactionView->horizontalHeader()->setSectionResizeMode \
-		(TransactionTableModel::ToAddress, QHeaderView::Stretch);
-        #endif
-        transactionView->horizontalHeader()->resizeSection \
-		(TransactionTableModel::Amount, 100);
+        transactionView->horizontalHeader()->resizeSection(
+          TransactionTableModel::Status, 23);
+        transactionView->horizontalHeader()->resizeSection(
+          TransactionTableModel::Date, 120);
+        transactionView->horizontalHeader()->resizeSection(
+          TransactionTableModel::Type, 120);
+#if (QT_VERSION < 0x050000)
+        transactionView->horizontalHeader()->setResizeMode(
+          TransactionTableModel::ToAddress, QHeaderView::Stretch);
+#else
+        transactionView->horizontalHeader()->setSectionResizeMode(
+          TransactionTableModel::ToAddress, QHeaderView::Stretch);
+#endif
+        transactionView->horizontalHeader()->resizeSection(
+          TransactionTableModel::Amount, 100);
     }
 }
 

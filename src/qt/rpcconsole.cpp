@@ -15,7 +15,6 @@
 #endif
 #include <QScrollBar>
 
-#include <boost/tokenizer.hpp>
 #include <openssl/crypto.h>
 
 // TODO: make it possible to filter out categories (esp debug messages when implemented)

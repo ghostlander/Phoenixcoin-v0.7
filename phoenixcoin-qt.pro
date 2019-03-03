@@ -7,7 +7,13 @@ CONFIG += no_include_pwd
 CONFIG += thread
 QMAKE_CFLAGS += -DNEOSCRYPT_SHA256 -DNEOSCRYPT_ASM -DNEOSCRYPT_OPT
 QT += core gui network
-QT += widgets
+
+greaterThan(QT_MAJOR_VERSION, 4): {
+    QT += widgets
+    message("Building with the Qt v5 support$$escape_expand(\\n)")
+} else {
+    message("Building with the Qt v4 support$$escape_expand(\\n)")
+}
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -65,7 +71,7 @@ win32:QMAKE_LFLAGS *=  -static -static-libgcc -static-libstdc++
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
 contains(USE_QRCODE, 1) {
-    message(Building with QRCode support)
+    message("Building with the QR code support$$escape_expand(\\n)")
     DEFINES += USE_QRCODE
     LIBS += -lqrencode
 }
@@ -89,17 +95,19 @@ contains(USE_UPNP, -) {
 
 # use: qmake "USE_DBUS=1"
 contains(USE_DBUS, 1) {
-    message(Building with DBUS (Freedesktop notifications) support)
+    message("Building with the D-Bus support$$escape_expand(\\n)")
     DEFINES += USE_DBUS
     QT += dbus
 }
 
-# use: qmake "USE_IPV6=1" ( enabled by default; default)
-#  or: qmake "USE_IPV6=0" (disabled by default)
-#  or: qmake "USE_IPV6=-" (not supported)
+# use: qmake "USE_IPV6=1" (compiled and enabled by default)
+#  or: qmake "USE_IPV6=0" (compiled and disabled by default)
+#  or: qmake "USE_IPV6=-" (not compiled)
 contains(USE_IPV6, -) {
     message(Building without IPv6 support)
+    message("Building without IPv6 support$$escape_expand(\\n)")
 } else {
+    message("Building with the IPv6 support$$escape_expand(\\n)")
     count(USE_IPV6, 0) {
         USE_IPV6=1
     }
@@ -123,7 +131,7 @@ contains(PHOENIXCOIN_NEED_QT_PLUGINS, 1) {
 }
 
 QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security \
-			  -Wno-unused-parameter -Wstack-protector -Wno-stringop-truncation \
+    -Wno-unused-parameter -Wno-stringop-truncation
 
 # Input
 DEPENDPATH += src src/json src/qt

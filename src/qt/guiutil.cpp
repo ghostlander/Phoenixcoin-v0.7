@@ -87,12 +87,12 @@ bool parseCoinURI(const QUrl &uri, SendCoinsRecipient *out) {
     rv.address = uri.path();
     rv.amount = 0;
 
-    #if (QT_VERSION < 0x050000)
+#if (QT_VERSION < 0x050000)
     QList<QPair<QString, QString> > items = uri.queryItems();
-    #else
+#else
     QUrlQuery uriQuery(uri);
     QList<QPair<QString, QString> > items = uriQuery.queryItems();
-    #endif
+#endif
 
     for (QList<QPair<QString, QString> >::iterator i = items.begin(); i != items.end(); i++)
     {
@@ -142,13 +142,13 @@ bool parseCoinURI(QString uri, SendCoinsRecipient *out) {
     return(parseCoinURI(uriInstance, out));
 }
 
-QString HtmlEscape(const QString& str, bool fMultiLine)
-{
-    #if (QT_VERSION < 0x050000)
+QString HtmlEscape(const QString &str, bool fMultiLine) {
+
+#if (QT_VERSION < 0x050000)
     QString escaped = Qt::escape(str);
-    #else
+#else
     QString escaped = str.toHtmlEscaped();
-    #endif
+#endif
 
     if(fMultiLine)
     {
@@ -184,11 +184,11 @@ QString getSaveFileName(QWidget *parent, const QString &caption,
     QString myDir;
     if(dir.isEmpty()) // Default to user documents location
     {
-    #if (QT_VERSION < 0x050000)
+#if (QT_VERSION < 0x050000)
         myDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-    #else
+#else
         myDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    #endif
+#endif
     }
     else
     {

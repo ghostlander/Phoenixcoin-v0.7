@@ -75,10 +75,9 @@ static bool Send(SOCKET hSocket, const char* pszSend)
     return true;
 }
 
-bool RecvLineIRC(SOCKET hSocket, string& strLine)
-{
-    while (true)
-    {
+bool RecvLineIRC(SOCKET hSocket, string &strLine) {
+
+    while(true) {
         bool fRet = RecvLine(hSocket, strLine);
         if (fRet)
         {
@@ -98,10 +97,10 @@ bool RecvLineIRC(SOCKET hSocket, string& strLine)
     }
 }
 
-int RecvUntil(SOCKET hSocket, const char* psz1, const char* psz2=NULL, const char* psz3=NULL, const char* psz4=NULL)
-{
-    while (true)
-    {
+int RecvUntil(SOCKET hSocket, const char *psz1, const char *psz2 = NULL,
+  const char *psz3 = NULL, const char *psz4 = NULL) {
+
+    while(true) {
         string strLine;
         strLine.reserve(10000);
         if (!RecvLineIRC(hSocket, strLine))
@@ -132,11 +131,9 @@ bool Wait(int nSeconds)
     return true;
 }
 
-bool RecvCodeLine(SOCKET hSocket, const char* psz1, string& strRet)
-{
+bool RecvCodeLine(SOCKET hSocket, const char *psz1, string &strRet) {
     strRet.clear();
-    while (true)
-    {
+    while (true) {
         string strLine;
         if (!RecvLineIRC(hSocket, strLine))
             return false;

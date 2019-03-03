@@ -118,10 +118,10 @@ int main(int argc, char *argv[])
     ipcScanRelay(argc, argv);
 
     // Internal string conversion is all UTF-8
-    #if (QT_VERSION < 0x050000)
+#if (QT_VERSION < 0x050000)
     QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForCStrings(QTextCodec::codecForTr());
-    #endif
+#endif
 
     Q_INIT_RESOURCE(phoenixcoin);
     QApplication app(argc, argv);

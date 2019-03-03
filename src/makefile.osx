@@ -65,7 +65,7 @@ endif
 
 # ppc doesn't work because we don't support big-endian
 CXXFLAGS += -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
-    $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
+-Wno-stringop-truncation $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 
 OBJS= \
     obj/alert.o \

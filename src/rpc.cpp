@@ -377,8 +377,7 @@ int ReadHTTPStatus(std::basic_istream<char>& stream, int &proto)
 int ReadHTTPHeader(std::basic_istream<char>& stream, map<string, string>& mapHeadersRet)
 {
     int nLen = 0;
-    while (true)
-    {
+    while(true) {
         string str;
         std::getline(stream, str);
         if (str.empty() || str == "\r")
@@ -956,9 +955,8 @@ void ThreadRPCServer3(void* parg)
     AcceptedConnection *conn = (AcceptedConnection *) parg;
 
     bool fRun = true;
-    while (true) {
-        if (fShutdown || !fRun)
-        {
+    while(true) {
+        if(fShutdown || !fRun) {
             conn->close();
             delete conn;
             {

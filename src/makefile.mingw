@@ -29,7 +29,8 @@ LIBS= \
  -l crypto
 
 DEFS=-DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
-CFLAGS += -mthreads -w -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter $(DEFS) $(INCLUDEPATHS)
+CFLAGS += -mthreads -w -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security \
+-Wno-unused-parameter -Wno-stringop-truncation $(DEFS) $(INCLUDEPATHS)
 LDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat
 
 TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)

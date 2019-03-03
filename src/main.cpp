@@ -2215,8 +2215,7 @@ static unsigned int nCurrentBlockFile = 1;
 FILE* AppendBlockFile(unsigned int& nFileRet)
 {
     nFileRet = 0;
-    while (true)
-    {
+    while(true) {
         FILE* file = OpenBlockFile(nCurrentBlockFile, 0, "ab");
         if (!file)
             return NULL;
@@ -3218,8 +3217,7 @@ bool ProcessMessages(CNode* pfrom)
     //  (x) data
     //
 
-    while (true)
-    {
+    while(true) {
         // Don't bother if send buffer is too full to respond anyway
         if (pfrom->vSend.size() >= SendBufferSize())
             break;
@@ -3644,18 +3642,11 @@ public:
     }
 };
 
-CBlock* CreateNewBlock(CReserveKey& reservekey)
-{
+/* Creates a new block and collects transactions into */
+CBlock *CreateNewBlock(CReserveKey &reservekey) {
 
-    // Create new block
-    #if __cplusplus > 199711L
-    unique_ptr<CBlock> pblock(new CBlock());
-    if (!pblock.get())  
-    #else
-    auto_ptr<CBlock> pblock(new CBlock());
-    if (!pblock.get())
-    #endif  
-        return NULL;
+    CBlock *pblock = new CBlock();
+    if(!pblock) return(NULL);
 
     // Create coinbase tx
     CTransaction txNew;
@@ -3877,7 +3868,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey)
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
     pblock->UpdateTime(pindexPrev);
-    pblock->nBits          = GetNextWorkRequired(pindexPrev, pblock.get());
+    pblock->nBits          = GetNextWorkRequired(pindexPrev, pblock);
     pblock->nNonce         = 0;
 
         pblock->vtx[0].vin[0].scriptSig = CScript() << OP_0 << OP_0;
@@ -3888,7 +3879,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey)
             throw std::runtime_error("CreateNewBlock() : ConnectBlock failed");
     }
 
-    return pblock.release();
+    return(pblock);
 }
 
 
@@ -3932,9 +3923,11 @@ void FormatHashBuffers(CBlock* pblock, char* pmidstate, char* pdata, char* phash
         unsigned char pchPadding1[64];
     }
     tmp;
-    #if __cplusplus < 201703L
+
+#if (__cplusplus < 201703L)
     memset(&tmp, 0, sizeof(tmp));
-    #endif
+#endif
+
     tmp.block.nVersion       = pblock->nVersion;
     tmp.block.hashPrevBlock  = pblock->hashPrevBlock;
     tmp.block.hashMerkleRoot = pblock->hashMerkleRoot;
@@ -4030,15 +4023,11 @@ void static CoinMiner(CWallet *pwallet) {
         unsigned int nTransactionsUpdatedLast = nTransactionsUpdated;
         CBlockIndex* pindexPrev = pindexBest;
 
-        #if __cplusplus > 199711L
-        unique_ptr<CBlock> pblock(CreateNewBlock(reservekey));
-        if (!pblock.get())
-        #else
-        auto_ptr<CBlock> pblock(CreateNewBlock(reservekey));
-        if (!pblock.get())
-        #endif
-            return;
-        IncrementExtraNonce(pblock.get(), pindexPrev, nExtraNonce);
+        CBlock *pblock = CreateNewBlock(reservekey);
+
+        if(!pblock) return;
+
+        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
         printf("Running CoinMiner with %u transactions in block (%u bytes)\n",
           (uint)pblock->vtx.size(),
@@ -4052,7 +4041,7 @@ void static CoinMiner(CWallet *pwallet) {
         char pdatabuf[128+16];    char* pdata     = alignup<16>(pdatabuf);
         char phash1buf[64+16];    char* phash1    = alignup<16>(phash1buf);
 
-        FormatHashBuffers(pblock.get(), pmidstate, pdata, phash1);
+        FormatHashBuffers(pblock, pmidstate, pdata, phash1);
 
         unsigned int& nBlockTime = *(unsigned int*)(pdata + 64 + 4);
         unsigned int& nBlockBits = *(unsigned int*)(pdata + 64 + 8);
@@ -4066,8 +4055,7 @@ void static CoinMiner(CWallet *pwallet) {
         uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
         uint256 hashbuf[2];
         uint256& hash = *alignup<16>(hashbuf);
-        while (true)
-        {
+        while(true) {
             unsigned int nHashesDone = 0;
             unsigned int nNonceFound;
 
@@ -4088,7 +4076,7 @@ void static CoinMiner(CWallet *pwallet) {
                     assert(hash == pblock->GetHash());
 
                     SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                    CheckWork(pblock.get(), *pwalletMain, reservekey);
+                    CheckWork(pblock, *pwalletMain, reservekey);
                     SetThreadPriority(THREAD_PRIORITY_LOWEST);
                     break;
                 }
