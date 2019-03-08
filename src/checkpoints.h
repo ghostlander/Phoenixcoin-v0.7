@@ -2,27 +2,37 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef CHECKPOINTS_H
-#define CHECKPOINTS_H
+#ifndef _CHECKPOINTS_H
+#define _CHECKPOINTS_H
 
 #include <map>
+#include "net.h"
+#include "util.h"
+
+#define CHECKPOINT_MAX_SPAN (60 * 60 * 4)  /* Max 4 hours before latest block */
 
 class uint256;
 class CBlockIndex;
+class CSyncCheckpoint;
 
 /** Block-chain checkpoints are compiled-in sanity checks.
  * They are updated every release or three.
  */
-namespace Checkpoints
-{
-    // Returns true if block passes checkpoint checks
-    bool CheckBlock(int nHeight, const uint256& hash);
+namespace Checkpoints {
 
-    // Return conservative estimate of total number of blocks, 0 if unknown
-    int GetTotalBlocksEstimate();
+// Returns true if block passes checkpoint checks
+bool CheckBlock(int nHeight, const uint256 &hash);
 
-    // Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
-    CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex);
-}
+// Return conservative estimate of total number of blocks, 0 if unknown
+int GetTotalBlocksEstimate();
 
-#endif /* CHECKPOINTS_H */
+// Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
+CBlockIndex *GetLastCheckpoint(const std::map<uint256, CBlockIndex *> &
+    mapBlockIndex);
+
+// Returns the block hash of latest hardened checkpoint
+uint256 GetLatestHardenedCheckpoint();
+
+}  /* namespace Checkpoints */
+
+#endif /* checkpoints.h */

@@ -4,11 +4,11 @@
 
 #include <map>
 
-#include <openssl/ecdsa.h>
-#include <openssl/obj_mac.h>
 #if (OPENSSL_VERSION_NUMBER < 0x10100000L)
 #include <openssl/ecdsa.h>
 #endif
+#include <openssl/obj_mac.h>
+
 #include "key.h"
 
 // Generate a private key from just the secret parameter
