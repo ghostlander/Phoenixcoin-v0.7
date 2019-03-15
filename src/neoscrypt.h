@@ -19,8 +19,8 @@ unsigned int cpu_vec_exts(void);
 }
 #else
 
-typedef unsigned long long ullong;
-typedef signed long long llong;
+typedef uint64_t ullong;
+typedef int64_t llong;
 typedef unsigned int uint;
 typedef unsigned char uchar;
 

@@ -145,8 +145,8 @@ void RandAddSeedPerfmon()
     // Seed with the entire set of perfmon data
     unsigned char pdata[250000];
     memset(pdata, 0, sizeof(pdata));
-    unsigned long nSize = sizeof(pdata);
-    long ret = RegQueryValueExA(HKEY_PERFORMANCE_DATA, "Global", NULL, NULL, pdata, &nSize);
+    uint64_t nSize = sizeof(pdata);
+    int64_t ret = RegQueryValueExA(HKEY_PERFORMANCE_DATA, "Global", NULL, NULL, pdata, &nSize);
     RegCloseKey(HKEY_PERFORMANCE_DATA);
     if (ret == ERROR_SUCCESS)
     {

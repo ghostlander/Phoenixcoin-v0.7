@@ -105,8 +105,8 @@ class CService : public CNetAddr
         explicit CService(const std::string& strIpPort, int portDefault, bool fAllowLookup = false);
         explicit CService(const std::string& strIpPort, bool fAllowLookup = false);
         void Init();
-        void SetPort(unsigned short portIn);
-        unsigned short GetPort() const;
+        void SetPort(uint16_t portIn);
+        uint16_t GetPort() const;
         bool GetSockAddr(struct sockaddr* paddr, socklen_t *addrlen) const;
         bool SetSockAddr(const struct sockaddr* paddr);
         friend bool operator==(const CService& a, const CService& b);
@@ -127,7 +127,7 @@ class CService : public CNetAddr
             (
              CService* pthis = const_cast<CService*>(this);
              READWRITE(FLATDATA(ip));
-             unsigned short portN = htons(port);
+             uint16_t portN = htons(port);
              READWRITE(portN);
              if (fRead)
                  pthis->port = ntohs(portN);

@@ -1015,16 +1015,16 @@ CService::CService()
     Init();
 }
 
-CService::CService(const CNetAddr& cip, unsigned short portIn) : CNetAddr(cip), port(portIn)
+CService::CService(const CNetAddr& cip, uint16_t portIn) : CNetAddr(cip), port(portIn)
 {
 }
 
-CService::CService(const struct in_addr& ipv4Addr, unsigned short portIn) : CNetAddr(ipv4Addr), port(portIn)
+CService::CService(const struct in_addr& ipv4Addr, uint16_t portIn) : CNetAddr(ipv4Addr), port(portIn)
 {
 }
 
 #ifdef USE_IPV6
-CService::CService(const struct in6_addr& ipv6Addr, unsigned short portIn) : CNetAddr(ipv6Addr), port(portIn)
+CService::CService(const struct in6_addr& ipv6Addr, uint16_t portIn) : CNetAddr(ipv6Addr), port(portIn)
 {
 }
 #endif
@@ -1089,7 +1089,7 @@ CService::CService(const std::string &strIpPort, int portDefault, bool fAllowLoo
         *this = ip;
 }
 
-unsigned short CService::GetPort() const
+uint16_t CService::GetPort() const
 {
     return port;
 }
@@ -1174,7 +1174,7 @@ void CService::print() const
     printf("CService(%s)\n", ToString().c_str());
 }
 
-void CService::SetPort(unsigned short portIn)
+void CService::SetPort(uint16_t portIn)
 {
     port = portIn;
 }

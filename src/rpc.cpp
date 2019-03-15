@@ -42,7 +42,7 @@ const Object emptyobj;
 
 void ThreadRPCServer3(void* parg);
 
-static inline unsigned short GetDefaultRPCPort() {
+static inline uint16_t GetDefaultRPCPort() {
     return(GetBoolArg("-testnet", false) ? 19554 : 9554);
 }
 

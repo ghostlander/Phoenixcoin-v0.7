@@ -84,9 +84,9 @@ void AddOneShot(string strDest)
     vOneShots.push_back(strDest);
 }
 
-unsigned short GetListenPort()
+uint16_t GetListenPort()
 {
-    return (unsigned short)(GetArg("-port", GetDefaultPort()));
+    return (uint16_t)(GetArg("-port", GetDefaultPort()));
 }
 
 void CNode::PushGetBlocks(CBlockIndex *pindexBegin, uint256 hashEnd) {

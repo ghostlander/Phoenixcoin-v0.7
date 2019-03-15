@@ -30,11 +30,11 @@ typedef int pid_t; /* define for Windows compatibility */
 
 #include "netbase.h" // for AddTimeData
 
-typedef long long  int64;
-typedef unsigned long long  uint64;
-typedef unsigned long  ulong;
-typedef unsigned int  uint;
-typedef unsigned short  ushort;
+typedef int64_t   llong;
+typedef uint64_t  ullong;
+typedef uint64_t  ulong;
+typedef uint32_t  uint;
+typedef uint16_t  ushort;
 typedef unsigned char  uchar;
 
 static const int64 COIN = 100000000;

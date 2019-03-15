@@ -841,7 +841,7 @@ CAddrDB::CAddrDB()
 bool CAddrDB::Write(const CAddrMan& addr)
 {
     // Generate random temporary filename
-    unsigned short randv = 0;
+    uint16_t randv = 0;
     RAND_bytes((unsigned char *)&randv, sizeof(randv));
     std::string tmpfn = strprintf("peers.dat.%04x", randv);
 
