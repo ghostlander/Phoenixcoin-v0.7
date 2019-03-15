@@ -8,6 +8,7 @@
 #include "rpc.h"
 #include "init.h"
 #include "base58.h"
+#include "ntp.h"
 
 using namespace json_spirit;
 using namespace std;
@@ -73,7 +74,10 @@ Value getinfo(const Array& params, bool fHelp)
     obj.push_back(Pair("blocks",        (int)nBestHeight));
     obj.push_back(Pair("connections",   (int)vNodes.size()));
     obj.push_back(Pair("proxy",         (proxy.first.IsValid() ? proxy.first.ToStringIPPort() : string())));
-    obj.push_back(Pair("difficulty",    (double)GetDifficulty()));
+    obj.push_back(Pair("systemtime",    (boost::int64_t)GetTime()));
+    obj.push_back(Pair("adjustedtime",  (boost::int64_t)GetAdjustedTime()));
+    obj.push_back(Pair("ntpoffset",     (boost::int64_t)nNtpOffset != INT64_MAX ? (boost::int64_t)nNtpOffset : Value::null));
+    obj.push_back(Pair("p2poffset",     (boost::int64_t)nPeersOffset != INT64_MAX ? (boost::int64_t)nPeersOffset : Value::null));
     obj.push_back(Pair("testnet",       fTestNet));
     obj.push_back(Pair("keypoololdest", (boost::int64_t)pwalletMain->GetOldestKeyPoolTime()));
     obj.push_back(Pair("keypoolsize",   pwalletMain->GetKeyPoolSize()));

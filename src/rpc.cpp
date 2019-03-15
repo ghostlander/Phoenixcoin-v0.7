@@ -10,6 +10,7 @@
 #include "base58.h"
 #include "rpc.h"
 #include "db.h"
+#include "ntp.h"
 
 #undef printf
 #include <boost/asio.hpp>
@@ -256,6 +257,7 @@ static const CRPCCommand vRPCCommands[] =
     { "decoderawtransaction",   &decoderawtransaction,   false,  false },
     { "signrawtransaction",     &signrawtransaction,     false,  false },
     { "sendrawtransaction",     &sendrawtransaction,     false,  false },
+    { "ntptime",                &ntptime,                true,   false },
 };
 
 CRPCTable::CRPCTable()

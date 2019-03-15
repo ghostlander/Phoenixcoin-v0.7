@@ -206,7 +206,8 @@ HEADERS += src/qt/gui.h \
     src/version.h \
     src/netbase.h \
     src/clientversion.h \
-    src/neoscrypt.h
+    src/neoscrypt.h \
+    src/ntp.h
 
 SOURCES += src/qt/phoenixcoin.cpp \
     src/qt/gui.cpp \
@@ -269,7 +270,8 @@ SOURCES += src/qt/phoenixcoin.cpp \
     src/qt/rpcconsole.cpp \
     src/noui.cpp \
     src/neoscrypt.c \
-    src/neoscrypt_asm.S
+    src/neoscrypt_asm.S \
+    src/ntp.cpp
 
 RESOURCES += \
     src/qt/phoenixcoin.qrc

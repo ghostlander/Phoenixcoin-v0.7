@@ -83,7 +83,8 @@ OBJS= \
     obj/walletdb.o \
     obj/noui.o \
     obj/neoscrypt.o \
-    obj/neoscrypt_asm.o
+    obj/neoscrypt_asm.o \
+    obj/ntp.o
 
 all: phoenixcoind.exe
 

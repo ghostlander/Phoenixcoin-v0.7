@@ -78,6 +78,10 @@ static const int64 CENT = 1000000;
   #define PRIpdd    "td"
 #endif
 
+#ifndef INT64_MAX
+#define INT64_MAX 9223372036854775807LL
+#endif
+
 // This is needed because the foreach macro can't get over the comma in pair<t1, t2>
 #define PAIRTYPE(t1, t2)    std::pair<t1, t2>
 
@@ -149,6 +153,8 @@ extern bool fReopenDebugLog;
 
 extern bool fNeoScrypt;
 extern uint nNeoScryptOptions;
+
+extern int64 nPeersOffset;
 
 void RandAddSeed();
 void RandAddSeedPerfmon();

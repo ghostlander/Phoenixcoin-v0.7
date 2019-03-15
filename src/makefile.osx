@@ -96,7 +96,8 @@ OBJS= \
     obj/walletdb.o \
     obj/noui.o \
     obj/neoscrypt.o \
-    obj/neoscrypt_asm.o
+    obj/neoscrypt_asm.o \
+    obj/ntp.o
 
 ifndef USE_UPNP
 	override USE_UPNP = -
