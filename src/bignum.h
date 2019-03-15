@@ -44,7 +44,7 @@ class CAutoBN_CTX {
     BN_CTX& operator*() {
         return *pctx;
     }
-    BN_CTX** operator&() {
+    BN_CTX** operator+() {
         return &pctx;
     }
     bool operator!() {
