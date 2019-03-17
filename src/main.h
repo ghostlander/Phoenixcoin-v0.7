@@ -1014,7 +1014,7 @@ public:
         fileout << FLATDATA(pchMessageStart) << nSize;
 
         // Write block
-        long fileOutPos = ftell(fileout);
+        int fileOutPos = (int)ftell(fileout);
         if(fileOutPos < 0)
           return(error("CBlock::WriteToDisk() : ftell() failed"));
         nBlockPosRet = fileOutPos;
@@ -1501,10 +1501,9 @@ public:
     void clear();
     void queryHashes(std::vector<uint256>& vtxid);
 
-    unsigned long size()
-    {
+    uint size() {
         LOCK(cs);
-        return mapTx.size();
+        return(mapTx.size());
     }
 
     bool exists(uint256 hash)

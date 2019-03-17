@@ -288,31 +288,27 @@ public:
     explicit CScript(signed char b)    { operator<<(b); }
     explicit CScript(short b)          { operator<<(b); }
     explicit CScript(int b)            { operator<<(b); }
-    explicit CScript(long b)           { operator<<(b); }
     explicit CScript(int64 b)          { operator<<(b); }
     explicit CScript(unsigned char b)  { operator<<(b); }
-    explicit CScript(unsigned int b)   { operator<<(b); }
     explicit CScript(unsigned short b) { operator<<(b); }
-    explicit CScript(unsigned long b)  { operator<<(b); }
+    explicit CScript(unsigned int b)   { operator<<(b); }
     explicit CScript(uint64 b)         { operator<<(b); }
 
     explicit CScript(opcodetype b)     { operator<<(b); }
-    explicit CScript(const uint256& b) { operator<<(b); }
-    explicit CScript(const CBigNum& b) { operator<<(b); }
-    explicit CScript(const std::vector<unsigned char>& b) { operator<<(b); }
+    explicit CScript(const uint256 &b) { operator<<(b); }
+    explicit CScript(const CBigNum &b) { operator<<(b); }
+    explicit CScript(const std::vector<uchar> &b) { operator<<(b); }
 
 
     //CScript& operator<<(char b) is not portable.  Use 'signed char' or 'unsigned char'.
-    CScript& operator<<(signed char b)    { return push_int64(b); }
-    CScript& operator<<(short b)          { return push_int64(b); }
-    CScript& operator<<(int b)            { return push_int64(b); }
-    CScript& operator<<(long b)           { return push_int64(b); }
-    CScript& operator<<(int64 b)          { return push_int64(b); }
-    CScript& operator<<(unsigned char b)  { return push_uint64(b); }
-    CScript& operator<<(unsigned int b)   { return push_uint64(b); }
-    CScript& operator<<(unsigned short b) { return push_uint64(b); }
-    CScript& operator<<(unsigned long b)  { return push_uint64(b); }
-    CScript& operator<<(uint64 b)         { return push_uint64(b); }
+    CScript& operator<<(signed char b)    { return(push_int64(b)); }
+    CScript& operator<<(short b)          { return(push_int64(b)); }
+    CScript& operator<<(int b)            { return(push_int64(b)); }
+    CScript& operator<<(int64 b)          { return(push_int64(b)); }
+    CScript& operator<<(unsigned char b)  { return(push_uint64(b)); }
+    CScript& operator<<(unsigned short b) { return(push_uint64(b)); }
+    CScript& operator<<(unsigned int b)   { return(push_uint64(b)); }
+    CScript& operator<<(uint64 b)         { return(push_uint64(b)); }
 
     CScript& operator<<(opcodetype opcode)
     {
@@ -486,10 +482,8 @@ public:
             return nFound;
         iterator pc = begin();
         opcodetype opcode;
-        do
-        {
-            while (end() - pc >= (long)b.size() && memcmp(&pc[0], &b[0], b.size()) == 0)
-            {
+        do {
+            while(((end() - pc) >= (int)b.size()) && !memcmp(&pc[0], &b[0], b.size())) {
                 erase(pc, pc + b.size());
                 ++nFound;
             }

@@ -97,22 +97,17 @@ class CBigNum {
     /* CBigNum(char n) is not portable.  Use 'signed char' or 'unsigned char' */
     CBigNum(signed char n)      {
         init();
-        if(n >= 0) setulong(n);
+        if(n >= 0) setuint(n);
         else setint64(n);
     }
     CBigNum(short n)            {
         init();
-        if(n >= 0) setulong(n);
+        if(n >= 0) setuint(n);
         else setint64(n);
     }
     CBigNum(int n)              {
         init();
-        if(n >= 0) setulong(n);
-        else setint64(n);
-    }
-    CBigNum(long n)             {
-        init();
-        if(n >= 0) setulong(n);
+        if(n >= 0) setuint(n);
         else setint64(n);
     }
     CBigNum(int64 n)            {
@@ -121,19 +116,15 @@ class CBigNum {
     }
     CBigNum(uchar n)            {
         init();
-        setulong(n);
+        setuint(n);
     }
     CBigNum(ushort n)           {
         init();
-        setulong(n);
+        setuint(n);
     }
     CBigNum(uint n)             {
         init();
-        setulong(n);
-    }
-    CBigNum(ulong n)            {
-        init();
-        setulong(n);
+        setuint(n);
     }
     CBigNum(uint64 n)           {
         init();
@@ -149,27 +140,23 @@ class CBigNum {
         setvch(vch);
     }
 
-    void setulong(unsigned long n) {
+    void setuint(uint n) {
         if(!BN_set_word(self, n))
-            throw(bignum_error("CBigNum from ulong : BN_set_word() failed"));
+          throw(bignum_error("CBigNum from uint : BN_set_word() failed"));
     }
 
-    unsigned long getulong() const {
-        return(BN_get_word(self));
-    }
-
-    unsigned int getuint() const {
+    uint getuint() const {
         return(BN_get_word(self));
     }
 
     int getint() const {
-        ulong n = BN_get_word(self);
+        uint n = BN_get_word(self);
         if(!BN_is_negative(self))
-            return((n > (unsigned long)std::numeric_limits<int>::max() ?
-                    std::numeric_limits<int>::max() : n));
+          return((n > (uint)std::numeric_limits<int>::max() ?
+            std::numeric_limits<int>::max() : n));
         else
-            return((n > (unsigned long)std::numeric_limits<int>::max() ?
-                    std::numeric_limits<int>::min() : -(int)n));
+          return((n > (uint)std::numeric_limits<int>::max() ?
+            std::numeric_limits<int>::min() : -(int)n));
     }
 
     void setint64(int64 sn) {
@@ -360,7 +347,7 @@ class CBigNum {
             if(!BN_div(dv.get(), rem.get(), bn.cget(), bnBase.cget(), pctx))
                 throw(bignum_error("CBigNum::ToString() : BN_div() failed"));
             bn = dv;
-            uint c = rem.getulong();
+            uint c = rem.getuint();
             str += "0123456789abcdef"[c];
         }
         if(BN_is_negative(self))
