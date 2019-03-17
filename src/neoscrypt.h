@@ -37,8 +37,8 @@ typedef unsigned char uchar;
 
 typedef uchar hash_digest[DIGEST_SIZE];
 
-#define ROTL32(a,b) (((a) << (b)) | ((a) >> (32 - b)))
-#define ROTR32(a,b) (((a) >> (b)) | ((a) << (32 - b)))
+#define ROTL32(a, b) (((a) << (b)) | ((a) >> (32 - b)))
+#define ROTR32(a, b) (((a) >> (b)) | ((a) << (32 - b)))
 
 #define U8TO32_BE(p) \
     (((uint)((p)[0]) << 24) | ((uint)((p)[1]) << 16) | \

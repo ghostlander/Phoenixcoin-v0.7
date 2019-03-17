@@ -46,7 +46,7 @@ inline std::string EncodeBase58(const unsigned char* pbegin, const unsigned char
         if(!BN_div(dv.get(), rem.get(), bn.cget(), bn58.cget(), pctx))
             throw bignum_error("EncodeBase58 : BN_div failed");
         bn = dv;
-        unsigned int c = rem.getulong();
+        uint c = rem.getuint();
         str += pszBase58[c];
     }
     // Leading zeroes encoded as base58 zeros
@@ -82,7 +82,7 @@ inline bool DecodeBase58(const char* psz, std::vector<unsigned char>& vchRet) {
                 return(false);
             break;
         }
-        bnChar.setulong(p1 - pszBase58);
+        bnChar.setuint(p1 - pszBase58);
         if(!BN_mul(bn.get(), bn.cget(), bn58.cget(), pctx))
             throw bignum_error("DecodeBase58 : BN_mul failed");
         bn += bnChar;
