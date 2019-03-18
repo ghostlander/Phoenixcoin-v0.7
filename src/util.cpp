@@ -145,12 +145,11 @@ void RandAddSeedPerfmon()
     // Seed with the entire set of perfmon data
     unsigned char pdata[250000];
     memset(pdata, 0, sizeof(pdata));
-    uint64_t nSize = sizeof(pdata);
-    int64_t ret = RegQueryValueExA(HKEY_PERFORMANCE_DATA, "Global", NULL, NULL, pdata, &nSize);
+    uint nSize = sizeof(pdata);
+    int ret = RegQueryValueExA(HKEY_PERFORMANCE_DATA, "Global", NULL, NULL, pdata, &nSize);
     RegCloseKey(HKEY_PERFORMANCE_DATA);
-    if (ret == ERROR_SUCCESS)
-    {
-        RAND_add(pdata, nSize, nSize/100.0);
+    if(ret == ERROR_SUCCESS) {
+        RAND_add(pdata, nSize, nSize / 100.0);
         memset(pdata, 0, nSize);
         printf("RandAddSeed() %lu bytes\n", nSize);
     }
