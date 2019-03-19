@@ -45,7 +45,7 @@
 template <class Locker> class LockedPageManagerBase
 {
 public:
-    LockedPageManagerBase(size_t page_size):
+    explicit LockedPageManagerBase(size_t page_size):
         page_size(page_size)
     {
         // Determine bitmask for extracting page from address

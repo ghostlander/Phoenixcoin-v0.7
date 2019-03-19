@@ -235,7 +235,7 @@ class CBitcoinAddressVisitor : public boost::static_visitor<bool> {
   private:
     CBitcoinAddress *addr;
   public:
-    CBitcoinAddressVisitor(CBitcoinAddress *addrIn) : addr(addrIn) { }
+    explicit CBitcoinAddressVisitor(CBitcoinAddress *addrIn) : addr(addrIn) { }
     bool operator()(const CKeyID &id) const;
     bool operator()(const CScriptID &id) const;
     bool operator()(const CNoDestination &no) const;
@@ -297,11 +297,11 @@ class CBitcoinAddress : public CBase58Data {
         Set(dest);
     }
 
-    CBitcoinAddress(const std::string& strAddress) {
+    explicit CBitcoinAddress(const std::string& strAddress) {
         SetString(strAddress);
     }
 
-    CBitcoinAddress(const char* pszAddress) {
+    explicit CBitcoinAddress(const char* pszAddress) {
         SetString(pszAddress);
     }
 

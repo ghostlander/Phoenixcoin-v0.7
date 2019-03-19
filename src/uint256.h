@@ -421,7 +421,7 @@ public:
         return *this;
     }
 
-    uint160(uint64 b)
+    explicit uint160(uint64 b)
     {
         pn[0] = (unsigned int)b;
         pn[1] = (unsigned int)(b >> 32);

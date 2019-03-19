@@ -721,7 +721,7 @@ public:
         Init();
     }
 
-    CMerkleTx(const CTransaction& txIn) : CTransaction(txIn)
+    explicit CMerkleTx(const CTransaction& txIn) : CTransaction(txIn)
     {
         Init();
     }
@@ -1379,7 +1379,7 @@ public:
             Set((*mi).second);
     }
 
-    CBlockLocator(const std::vector<uint256>& vHaveIn)
+    explicit CBlockLocator(const std::vector<uint256>& vHaveIn)
     {
         vHave = vHaveIn;
     }

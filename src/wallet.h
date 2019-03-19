@@ -48,7 +48,7 @@ public:
         nTime = GetTime();
     }
 
-    CKeyPool(const CPubKey& vchPubKeyIn)
+    explicit CKeyPool(const CPubKey& vchPubKeyIn)
     {
         nTime = GetTime();
         vchPubKey = vchPubKeyIn;
@@ -101,7 +101,7 @@ public:
         pwalletdbEncryption = NULL;
         nOrderPosNext = 0;
     }
-    CWallet(std::string strWalletFileIn)
+    explicit CWallet(std::string strWalletFileIn)
     {
         nWalletVersion = FEATURE_BASE;
         nWalletMaxVersion = FEATURE_BASE;
@@ -314,7 +314,7 @@ protected:
     int64 nIndex;
     CPubKey vchPubKey;
 public:
-    CReserveKey(CWallet* pwalletIn)
+    explicit CReserveKey(CWallet* pwalletIn)
     {
         nIndex = -1;
         pwallet = pwalletIn;
@@ -389,7 +389,7 @@ public:
         Init(NULL);
     }
 
-    CWalletTx(const CWallet* pwalletIn)
+    explicit CWalletTx(const CWallet* pwalletIn)
     {
         Init(pwalletIn);
     }
@@ -709,7 +709,7 @@ public:
     //// todo: add something to note what created it (user, getnewaddress, change)
     ////   maybe should have a map<string, string> property map
 
-    CWalletKey(int64 nExpires=0)
+    explicit CWalletKey(int64 nExpires=0)
     {
         nTimeCreated = (nExpires ? GetTime() : 0);
         nTimeExpires = nExpires;

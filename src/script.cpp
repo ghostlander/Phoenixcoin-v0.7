@@ -1253,7 +1253,7 @@ class CKeyStoreIsMineVisitor : public boost::static_visitor<bool> {
   private:
     const CKeyStore *keystore;
   public:
-    CKeyStoreIsMineVisitor(const CKeyStore *keystoreIn) : keystore(keystoreIn) { }
+    explicit CKeyStoreIsMineVisitor(const CKeyStore *keystoreIn) : keystore(keystoreIn) { }
     bool operator()(const CNoDestination &dest) const {
         return(false);
     }
@@ -1576,7 +1576,7 @@ class CScriptVisitor : public boost::static_visitor<bool> {
   private:
     CScript *script;
   public:
-    CScriptVisitor(CScript *scriptin) {
+    explicit CScriptVisitor(CScript *scriptin) {
         script = scriptin;
     }
 

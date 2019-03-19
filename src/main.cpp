@@ -3529,7 +3529,7 @@ public:
     double dPriority;
     double dFeePerKb;
 
-    COrphan(CTransaction* ptxIn)
+    explicit COrphan(CTransaction* ptxIn)
     {
         ptx = ptxIn;
         dPriority = dFeePerKb = 0;
@@ -3554,7 +3554,7 @@ class TxPriorityCompare
 {
     bool byFee;
 public:
-    TxPriorityCompare(bool _byFee) : byFee(_byFee) { }
+    explicit TxPriorityCompare(bool _byFee) : byFee(_byFee) { }
     bool operator()(const TxPriority& a, const TxPriority& b)
     {
         if (byFee)

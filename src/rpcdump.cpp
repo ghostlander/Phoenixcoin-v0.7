@@ -22,7 +22,7 @@ public:
     bool fSpent;
     CWalletTx* ptx;
     int nOut;
-    CTxDump(CWalletTx* ptx = NULL, int nOut = -1)
+    explicit CTxDump(CWalletTx* ptx = NULL, int nOut = -1)
     {
         pindex = NULL;
         nValue = 0;
