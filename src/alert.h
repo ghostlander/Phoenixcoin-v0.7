@@ -20,9 +20,8 @@ class CNode;
  * not read the entire buffer if the alert is for a newer version, but older
  * versions can still relay the original data.
  */
-class CUnsignedAlert
-{
-public:
+class CUnsignedAlert {
+ public:
     int nVersion;
     int64 nRelayUntil;      // when newer nodes stop relaying to newer nodes
     int64 nExpiration;
@@ -65,14 +64,12 @@ public:
 };
 
 /** An alert is a combination of a serialized CUnsignedAlert and a signature. */
-class CAlert : public CUnsignedAlert
-{
-public:
+class CAlert : public CUnsignedAlert {
+ public:
     std::vector<unsigned char> vchMsg;
     std::vector<unsigned char> vchSig;
 
-    CAlert()
-    {
+    CAlert() {
         SetNull();
     }
 
@@ -86,10 +83,10 @@ public:
     bool IsNull() const;
     uint256 GetHash() const;
     bool IsInEffect() const;
-    bool Cancels(const CAlert& alert) const;
+    bool Cancels(const CAlert &alert) const;
     bool AppliesTo(int nVersion, std::string strSubVerIn) const;
     bool AppliesToMe() const;
-    bool RelayTo(CNode* pnode) const;
+    bool RelayTo(CNode *pnode) const;
     bool CheckSignature() const;
     bool ProcessAlert();
 

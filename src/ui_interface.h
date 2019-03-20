@@ -7,7 +7,7 @@
 #define UI_INTERFACE_H
 
 #include <string>
-#include "util.h" // for int64
+#include "util.h"  // for int64
 #include <boost/signals2/signal.hpp>
 #include <boost/signals2/last_value.hpp>
 
@@ -16,24 +16,21 @@ class CWallet;
 class uint256;
 
 /** General change type (added, updated, removed). */
-enum ChangeType
-{
+enum ChangeType {
     CT_NEW,
     CT_UPDATED,
     CT_DELETED
 };
 
 /** Signals for UI communication. */
-class CClientUIInterface
-{
-public:
+class CClientUIInterface {
+ public:
     /** Flags for CClientUIInterface::ThreadSafeMessageBox */
-    enum MessageBoxFlags
-    {
+    enum MessageBoxFlags {
         YES                   = 0x00000002,
         OK                    = 0x00000004,
         NO                    = 0x00000008,
-        YES_NO                = (YES|NO),
+        YES_NO                = (YES | NO),
         CANCEL                = 0x00000010,
         APPLY                 = 0x00000020,
         CLOSE                 = 0x00000040,
@@ -49,7 +46,7 @@ public:
         ICON_INFORMATION      = 0x00000800,
         ICON_STOP             = ICON_HAND,
         ICON_ASTERISK         = ICON_INFORMATION,
-        ICON_MASK             = (0x00000100|0x00000200|0x00000400|0x00000800),
+        ICON_MASK             = (0x00000100 | 0x00000200 | 0x00000400 | 0x00000800),
         FORWARD               = 0x00001000,
         BACKWARD              = 0x00002000,
         RESET                 = 0x00004000,
@@ -61,13 +58,13 @@ public:
     };
 
     /** Show message box. */
-    boost::signals2::signal<void (const std::string& message, const std::string& caption, int style)> ThreadSafeMessageBox;
+    boost::signals2::signal<void (const std::string &message, const std::string &caption, int style)> ThreadSafeMessageBox;
 
     /** Ask the user whether they want to pay a fee or not. */
-    boost::signals2::signal<bool (int64 nFeeRequired, const std::string& strCaption), boost::signals2::last_value<bool> > ThreadSafeAskFee;
+    boost::signals2::signal<bool (int64 nFeeRequired, const std::string &strCaption), boost::signals2::last_value<bool> > ThreadSafeAskFee;
 
     /** Handle a URL passed at the command line. */
-    boost::signals2::signal<void (const std::string& strURI)> ThreadSafeHandleURI;
+    boost::signals2::signal<void (const std::string &strURI)> ThreadSafeHandleURI;
 
     /** Progress message during initialization. */
     boost::signals2::signal<void (const std::string &message)> InitMessage;
@@ -76,7 +73,7 @@ public:
     boost::signals2::signal<void ()> QueueShutdown;
 
     /** Translate a message to the native language of the user. */
-    boost::signals2::signal<std::string (const char* psz)> Translate;
+    boost::signals2::signal<std::string(const char *psz)> Translate;
 
     /** Block chain changed. */
     boost::signals2::signal<void ()> NotifyBlocksChanged;
@@ -97,8 +94,7 @@ extern CClientUIInterface uiInterface;
  * Translation function: Call Translate signal on UI interface, which returns a boost::optional result.
  * If no translation slot is registered, nothing is returned, and simply return the input.
  */
-inline std::string _(const char* psz)
-{
+inline std::string _(const char *psz) {
     boost::optional<std::string> rv = uiInterface.Translate(psz);
     return rv ? (*rv) : psz;
 }

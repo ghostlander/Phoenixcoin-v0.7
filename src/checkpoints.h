@@ -13,16 +13,15 @@ class CBlockIndex;
 /** Block-chain checkpoints are compiled-in sanity checks.
  * They are updated every release or three.
  */
-namespace Checkpoints
-{
-    // Returns true if block passes checkpoint checks
-    bool CheckBlock(int nHeight, const uint256& hash);
+namespace Checkpoints {
+// Returns true if block passes checkpoint checks
+bool CheckBlock(int nHeight, const uint256 &hash);
 
-    // Return conservative estimate of total number of blocks, 0 if unknown
-    int GetTotalBlocksEstimate();
+// Return conservative estimate of total number of blocks, 0 if unknown
+int GetTotalBlocksEstimate();
 
-    // Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
-    CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex);
+// Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
+CBlockIndex *GetLastCheckpoint(const std::map<uint256, CBlockIndex *> &mapBlockIndex);
 }
 
 #endif /* CHECKPOINTS_H */

@@ -84,7 +84,6 @@ struct pkt {
 const uint nServersCount = 135;
 
 std::string NtpServers[nServersCount] = {
-
     "time.apple.com",
     "time.windows.com",
     "time1.google.com",
@@ -248,84 +247,75 @@ std::string NtpServers[nServersCount] = {
     "0.br.pool.ntp.org",
     "1.br.pool.ntp.org",
     "2.br.pool.ntp.org",
-
 };
 
 bool InitWithHost(const std::string &strHostName, SOCKET &sockfd, socklen_t &servlen,
-  struct sockaddr *pcliaddr) {
+    struct sockaddr *pcliaddr) {
     uint i;
-
     sockfd = INVALID_SOCKET;
-
     std::vector<CNetAddr> vIP;
     bool fRet = LookupHost(strHostName.c_str(), vIP, 10, true);
-    if(!fRet) return(false);
-
+    if(!fRet) {
+        return(false);
+    }
     struct sockaddr_in servaddr;
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(123);
-
     bool found = false;
     for(i = 0; i < vIP.size(); i++) {
-        if((found = vIP[i].GetInAddr(&servaddr.sin_addr)) != false)
-          break;
+        if((found = vIP[i].GetInAddr(&servaddr.sin_addr)) != false) {
+            break;
+        }
     }
-
-    if(!found) return(false);
-
+    if(!found) {
+        return(false);
+    }
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-
-    if(sockfd == INVALID_SOCKET)
-      return(false);
-
-    if(connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1)
-      return(false);
-
+    if(sockfd == INVALID_SOCKET) {
+        return(false);
+    }
+    if(connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) == -1) {
+        return(false);
+    }
     *pcliaddr = *((struct sockaddr *) &servaddr);
     servlen = sizeof(servaddr);
-
     return(true);
 }
 
 bool InitWithRandom(SOCKET &sockfd, socklen_t &servlen, struct sockaddr *pcliaddr) {
     uint i;
-
     for(i = 0; i < nServersCount; i++) {
         int nServerNum = GetRandInt(nServersCount);
-        if(InitWithHost(NtpServers[nServerNum], sockfd, servlen, pcliaddr))
-          return(true);
+        if(InitWithHost(NtpServers[nServerNum], sockfd, servlen, pcliaddr)) {
+            return(true);
+        }
     }
-
     return(false);
 }
 
 int64 DoReq(SOCKET sockfd, socklen_t servlen, struct sockaddr cliaddr) {
-
 #ifdef WIN32
     u_long nOne = 1;
     if(ioctlsocket(sockfd, FIONBIO, &nOne) == SOCKET_ERROR) {
         printf("ConnectSocket() : ioctlsocket non-blocking setting failed, error %d\n",
-          WSAGetLastError());
+            WSAGetLastError());
 #else
     if(fcntl(sockfd, F_SETFL, O_NONBLOCK) == SOCKET_ERROR) {
         printf("ConnectSocket() : fcntl non-blocking setting failed, error %d\n", errno);
 #endif
         return(-2);
     }
-
     struct timeval timeout = {10, 0};
     struct pkt *msg = new pkt;
     struct pkt *prt = new pkt;
     int ret, len = 48;
     time_t seconds;
-
     msg->li_vn_mode = 227;
     msg->stratum = 0;
     msg->ppoll = 4;
     msg->precision = 0;
     msg->rootdelay = 0;
     msg->rootdispersion = 0;
-
     msg->ref.Ul_i.Xl_i = 0;
     msg->ref.Ul_f.Xl_f = 0;
     msg->org.Ul_i.Xl_i = 0;
@@ -334,7 +324,6 @@ int64 DoReq(SOCKET sockfd, socklen_t servlen, struct sockaddr cliaddr) {
     msg->rec.Ul_f.Xl_f = 0;
     msg->xmt.Ul_i.Xl_i = 0;
     msg->xmt.Ul_f.Xl_f = 0;
-
     ret = sendto(sockfd, (char *) msg, len, 0, &cliaddr, servlen);
     if(ret < 0) {
         printf("sendto() failed: %d\n", ret);
@@ -342,11 +331,9 @@ int64 DoReq(SOCKET sockfd, socklen_t servlen, struct sockaddr cliaddr) {
         delete(prt);
         return(-3);
     }
-
     fd_set fdset;
     FD_ZERO(&fdset);
     FD_SET(sockfd, &fdset);
-
     ret = select(sockfd + 1, &fdset, NULL, NULL, &timeout);
     if(ret <= 0) {
         printf("select() failed: %d\n", ret);
@@ -354,11 +341,9 @@ int64 DoReq(SOCKET sockfd, socklen_t servlen, struct sockaddr cliaddr) {
         delete(prt);
         return(-4);
     }
-
     recvfrom(sockfd, (char *) msg, len, 0, NULL, NULL);
     ntohl_fp(&msg->xmt, &prt->xmt);
     Ntp2Unix(prt->xmt.Ul_i.Xl_ui, seconds);
-
     delete(msg);
     delete(prt);
     return(seconds);
@@ -369,23 +354,17 @@ int64 NtpGetTime(CNetAddr &ip) {
     SOCKET sockfd;
     socklen_t servlen;
     struct sockaddr cliaddr;
-
-    if(!InitWithRandom(sockfd, servlen, &cliaddr))
-      return(-1);
-
+    if(!InitWithRandom(sockfd, servlen, &cliaddr)) {
+        return(-1);
+    }
     ip = CNetAddr(((sockaddr_in *) &cliaddr)->sin_addr);
-
     printf("NtpGetTime() : querying an NTP server %s\n", ip.ToStringIP().c_str());
-
     nTime = DoReq(sockfd, servlen, cliaddr);
-
     closesocket(sockfd);
-
     if((nTime > 0) && (nTime != 2085978496)) {
         printf("NtpGetTime() : time sample %" PRI64d " offset %+" PRI64d " received from %s\n",
-          nTime, nTime - GetTime(), ip.ToStringIP().c_str());
+            nTime, nTime - GetTime(), ip.ToStringIP().c_str());
     }
-
     return(nTime);
 }
 
@@ -394,22 +373,17 @@ int64 NtpGetTime(const std::string &strHostName) {
     SOCKET sockfd;
     socklen_t servlen;
     struct sockaddr cliaddr;
-
-    if(!InitWithHost(strHostName, sockfd, servlen, &cliaddr))
-      return(-1);
-
+    if(!InitWithHost(strHostName, sockfd, servlen, &cliaddr)) {
+        return(-1);
+    }
     CNetAddr ip = ((sockaddr_in *) &cliaddr)->sin_addr;
     printf("NtpGetTime() : querying an NTP server %s\n", ip.ToStringIP().c_str());
-
     nTime = DoReq(sockfd, servlen, cliaddr);
-
     closesocket(sockfd);
-
     if((nTime > 0) && (nTime != 2085978496)) {
         printf("NtpGetTime() : time sample %" PRI64d " offset %+" PRI64d " received from %s\n",
-          nTime, nTime - GetTime(), ip.ToStringIP().c_str());
+            nTime, nTime - GetTime(), ip.ToStringIP().c_str());
     }
-
     return(nTime);
 }
 
@@ -425,79 +399,62 @@ bool fNtpWarning = false;
 void ThreadNtpPoller(void *parg) {
     int i;
     int64 nTime, nSystemTime;
-
     printf("ThreadNtpPoller started\n");
     vnThreadsRunning[THREAD_NTP]++;
-
     /* Make this thread recognisable */
     RenameThread("pxc-ntppoll");
-
     while(!fShutdown) {
         if(strTrustedNTP != "localhost") {
-
             /* Obtain a time sample from a trusted NTP server */
             nTime = NtpGetTime(strTrustedNTP);
-
             nSystemTime = GetTime();
-
             /* Calculate a time offset */
-            if((nTime > 0) && (nTime != 2085978496))
-              nNtpOffset = nTime - nSystemTime;
-            else {
+            if((nTime > 0) && (nTime != 2085978496)) {
+                nNtpOffset = nTime - nSystemTime;
+            } else {
                 printf("ThreadNtpPoller() : invalid response from the trusted NTP server %s, "
-                  "fail over to a random NTP server\n", strTrustedNTP.c_str());
+                    "fail over to a random NTP server\n", strTrustedNTP.c_str());
                 nNtpOffset = INT64_MAX;
                 strTrustedNTP = "localhost";
                 continue;
             }
-
         } else {
-
             CNetAddr ip;
-
             /* Obtain a time sample from a random NTP server */
             nTime = NtpGetTime(ip);
-
             nSystemTime = GetTime();
-
             /* Calculate a time offset */
-            if((nTime > 0) && (nTime != 2085978496))
-              nNtpOffset = nTime - nSystemTime;
-            else {
+            if((nTime > 0) && (nTime != 2085978496)) {
+                nNtpOffset = nTime - nSystemTime;
+            } else {
                 int nSleepMinutes = 1 + GetRandInt(9);
-                for(i = 0; (i < nSleepMinutes * 60) && !fShutdown; i++)
-                  Sleep(1000);
+                for(i = 0; (i < nSleepMinutes * 60) && !fShutdown; i++) {
+                    Sleep(1000);
+                }
                 continue;
             }
-
         }
-
         /* Issue a warning if the system time is way off */
         if(!fNtpWarning && (abs64(nNtpOffset) > 5 * 60)) {
             fNtpWarning = true;
             string strMessage = _("Warning: Please check your date and time! Phoenixcoin will not work properly if they are incorrect.");
             strMiscWarning = strMessage;
             printf("*** %s\n", strMessage.c_str());
-            uiInterface.ThreadSafeMessageBox(strMessage+" ", string("Phoenixcoin"),
-              CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION);
+            uiInterface.ThreadSafeMessageBox(strMessage + " ", string("Phoenixcoin"),
+                CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION);
         }
-
         /* Remove the warning if back to normal */
         if(fNtpWarning && (abs64(nNtpOffset) <= 5 * 60)) {
             strMiscWarning.clear();
             fNtpWarning = false;
         }
-
         int nSleepHours = 1 + GetRandInt(5);
-
         printf("ThreadNtpPoller() : nNtpOffset = %+" PRI64d " seconds, "
-          "the next sync in %d hours\n", nNtpOffset, nSleepHours);
-
-        for(i = 0; (i < nSleepHours * 60 * 60) && !fShutdown; i++)
-          Sleep(1000);
-
+            "the next sync in %d hours\n", nNtpOffset, nSleepHours);
+        for(i = 0; (i < nSleepHours * 60 * 60) && !fShutdown; i++) {
+            Sleep(1000);
+        }
     }
-
     vnThreadsRunning[THREAD_NTP]--;
     printf("ThreadNtpPoller exited\n");
 }

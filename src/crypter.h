@@ -28,9 +28,8 @@ master key's key as the encryption key (see keystore.[ch]).
 */
 
 /** Master key for wallet encryption */
-class CMasterKey
-{
-public:
+class CMasterKey {
+ public:
     std::vector<unsigned char> vchCryptedKey;
     std::vector<unsigned char> vchSalt;
     // 0 = EVP_sha512()
@@ -49,8 +48,7 @@ public:
         READWRITE(nDeriveIterations);
         READWRITE(vchOtherDerivationParameters);
     )
-    CMasterKey()
-    {
+    CMasterKey() {
         // 25000 rounds is just under 0.1 seconds on a 1.86 GHz Pentium M
         // ie slightly lower than the lowest hardware we need bother supporting
         nDeriveIterations = 25000;
@@ -62,30 +60,26 @@ public:
 typedef std::vector<unsigned char, secure_allocator<unsigned char> > CKeyingMaterial;
 
 /** Encryption/decryption context with key information */
-class CCrypter
-{
-private:
+class CCrypter {
+ private:
     unsigned char chKey[WALLET_CRYPTO_KEY_SIZE];
     unsigned char chIV[WALLET_CRYPTO_KEY_SIZE];
     bool fKeySet;
 
-public:
-    bool SetKeyFromPassphrase(const SecureString &strKeyData, const std::vector<unsigned char>& chSalt, const unsigned int nRounds, const unsigned int nDerivationMethod);
-    bool Encrypt(const CKeyingMaterial& vchPlaintext, std::vector<unsigned char> &vchCiphertext);
-    bool Decrypt(const std::vector<unsigned char>& vchCiphertext, CKeyingMaterial& vchPlaintext);
-    bool SetKey(const CKeyingMaterial& chNewKey, const std::vector<unsigned char>& chNewIV);
+ public:
+    bool SetKeyFromPassphrase(const SecureString &strKeyData, const std::vector<unsigned char> &chSalt, const unsigned int nRounds, const unsigned int nDerivationMethod);
+    bool Encrypt(const CKeyingMaterial &vchPlaintext, std::vector<unsigned char> &vchCiphertext);
+    bool Decrypt(const std::vector<unsigned char> &vchCiphertext, CKeyingMaterial &vchPlaintext);
+    bool SetKey(const CKeyingMaterial &chNewKey, const std::vector<unsigned char> &chNewIV);
 
-    void CleanKey()
-    {
+    void CleanKey() {
         memset(&chKey, 0, sizeof chKey);
         memset(&chIV, 0, sizeof chIV);
         fKeySet = false;
     }
 
-    CCrypter()
-    {
+    CCrypter() {
         fKeySet = false;
-
         // Try to keep the key data out of swap (and be a bit over-careful to keep the IV that we don't even use out of swap)
         // Note that this does nothing about suspend-to-disk (which will put all our key data on disk)
         // Note as well that at no point in this program is any attempt made to prevent stealing of keys by reading the memory of the running process.
@@ -93,16 +87,14 @@ public:
         LockedPageManager::instance.LockRange(&chIV[0], sizeof chIV);
     }
 
-    ~CCrypter()
-    {
+    ~CCrypter() {
         CleanKey();
-
         LockedPageManager::instance.UnlockRange(&chKey[0], sizeof chKey);
         LockedPageManager::instance.UnlockRange(&chIV[0], sizeof chIV);
     }
 };
 
-bool EncryptSecret(CKeyingMaterial& vMasterKey, const CSecret &vchPlaintext, const uint256& nIV, std::vector<unsigned char> &vchCiphertext);
-bool DecryptSecret(const CKeyingMaterial& vMasterKey, const std::vector<unsigned char> &vchCiphertext, const uint256& nIV, CSecret &vchPlaintext);
+bool EncryptSecret(CKeyingMaterial &vMasterKey, const CSecret &vchPlaintext, const uint256 &nIV, std::vector<unsigned char> &vchCiphertext);
+bool DecryptSecret(const CKeyingMaterial &vMasterKey, const std::vector<unsigned char> &vchCiphertext, const uint256 &nIV, CSecret &vchPlaintext);
 
 #endif /* CRYPTER_H */

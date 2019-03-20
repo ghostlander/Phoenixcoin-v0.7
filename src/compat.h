@@ -46,10 +46,10 @@ typedef int socklen_t;
 #define SOCKET_ERROR        -1
 #endif
 
-inline int myclosesocket(SOCKET& hSocket)
-{
-    if (hSocket == INVALID_SOCKET)
+inline int myclosesocket(SOCKET &hSocket) {
+    if(hSocket == INVALID_SOCKET) {
         return WSAENOTSOCK;
+    }
 #ifdef WIN32
     int ret = closesocket(hSocket);
 #else
