@@ -677,7 +677,7 @@ bool EvalScript(vector<vector<unsigned char> > &stack, const CScript &script, co
                     // (in -- in size)
                     if(stack.size() < 1) {
                         return(false);
-                    }
+
                     CBigNum bn((int64)stacktop(-1).size());
                     stack.push_back(bn.getvch());
                 }

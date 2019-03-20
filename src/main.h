@@ -986,9 +986,8 @@ class CBlock {
         fileout << FLATDATA(pchMessageStart) << nSize;
         // Write block
         int fileOutPos = (int)ftell(fileout);
-        if(fileOutPos < 0) {
-            return(error("CBlock::WriteToDisk() : ftell() failed"));
-        }
+        if(fileOutPos < 0)
+          return(error("CBlock::WriteToDisk() : ftell() failed"));
         nBlockPosRet = fileOutPos;
         fileout << *this;
         // Flush stdio buffers and commit to disk before returning

@@ -28,7 +28,8 @@ typedef int pid_t; /* define for Windows compatibility */
 #include <openssl/sha.h>
 #include <openssl/ripemd.h>
 
-#include "netbase.h"  // for AddTimeData
+
+#include "netbase.h" // for AddTimeData
 
 static const int64 COIN = 100000000;
 static const int64 CENT = 1000000;

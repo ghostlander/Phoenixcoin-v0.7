@@ -103,29 +103,20 @@ class CBigNum {
     }
 
     /* CBigNum(char n) is not portable.  Use 'signed char' or 'unsigned char' */
-    explicit CBigNum(signed char n) {
+    CBigNum(signed char n) {
         init();
-        if(n >= 0) {
-            setuint(n);
-        } else {
-            setint64(n);
-        }
+        if(n >= 0) setuint(n);
+        else setint64(n);
+    }
+    CBigNum(short n) {
+        init();
+        if(n >= 0) setuint(n);
+        else setint64(n);
     }
     explicit CBigNum(short n) {
         init();
-        if(n >= 0) {
-            setuint(n);
-        } else {
-            setint64(n);
-        }
-    }
-    CBigNum(int n) {
-        init();
-        if(n >= 0) {
-            setuint(n);
-        } else {
-            setint64(n);
-        }
+        if(n >= 0) setuint(n);
+        else setint64(n);
     }
     explicit  CBigNum(int64 n) {
         init();
@@ -143,7 +134,7 @@ class CBigNum {
         init();
         setuint(n);
     }
-    explicit CBigNum(uint64 n) {
+    CBigNum(uint64 n) {
         init();
         setuint64(n);
     }
@@ -158,9 +149,8 @@ class CBigNum {
     }
 
     void setuint(uint n) {
-        if(!BN_set_word(self, n)) {
-            throw(bignum_error("CBigNum from uint : BN_set_word() failed"));
-        }
+        if(!BN_set_word(self, n))
+          throw(bignum_error("CBigNum from uint : BN_set_word() failed"));
     }
 
     uint getuint() const {
@@ -170,11 +160,11 @@ class CBigNum {
     int getint() const {
         uint n = BN_get_word(self);
         if(!BN_is_negative(self))
-            return((n > (uint)std::numeric_limits<int>::max() ?
-                        std::numeric_limits<int>::max() : n));
+          return((n > (uint)std::numeric_limits<int>::max() ?
+            std::numeric_limits<int>::max() : n));
         else
-            return((n > (uint)std::numeric_limits<int>::max() ?
-                        std::numeric_limits<int>::min() : -(int)n));
+          return((n > (uint)std::numeric_limits<int>::max() ?
+            std::numeric_limits<int>::min() : -(int)n));
     }
 
     void setint64(int64 sn) {
