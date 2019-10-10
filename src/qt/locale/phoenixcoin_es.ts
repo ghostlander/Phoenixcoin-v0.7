@@ -1338,8 +1338,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>El total sobrepasa su saldo cuando se incluye la tasa de envío de %1</translation>
+        <source>The total exceeds your balance if a %1 fee is included.</source>
+        <translation>El total sobrepasa su saldo cuando se incluye la tasa de %1.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1348,8 +1348,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation>Error: ha fallado la creación de la transacción.</translation>
+        <source>Error: payment failed!</source>
+        <translation>Error: pago fallido!</translation>
     </message>
     <message>
         <location line="+5"/>

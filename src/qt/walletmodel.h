@@ -2,20 +2,30 @@
 #define WALLETMODEL_H
 
 #include <QObject>
+#include <vector>
+#include <map>
 
 #include "allocators.h" /* for SecureString */
+#include "wallet.h"
+#include "walletmodeltransaction.h"
 
 class OptionsModel;
 class AddressTableModel;
 class TransactionTableModel;
 class CWallet;
+class WalletModelTransaction;
+class CKeyID;
+class CPubKey;
+class COutput;
+class COutPoint;
+class uint256;
+class CCoinControl;
 
 QT_BEGIN_NAMESPACE
 class QTimer;
 QT_END_NAMESPACE
 
-class SendCoinsRecipient
-{
+class SendCoinsRecipient {
 public:
     QString address;
     QString label;
@@ -23,9 +33,9 @@ public:
 };
 
 /* Interface to the Phoenixcoin wallet from the Qt view code */
-class WalletModel : public QObject
-{
+class WalletModel : public QObject {
     Q_OBJECT
+
 public:
     explicit WalletModel(CWallet *wallet, OptionsModel *optionsModel, QObject *parent = 0);
     ~WalletModel();
@@ -54,9 +64,9 @@ public:
     AddressTableModel *getAddressTableModel();
     TransactionTableModel *getTransactionTableModel();
 
-    qint64 getBalance() const;
-    qint64 getUnconfirmedBalance() const;
-    qint64 getImmatureBalance() const;
+    qint64 getBalance(const CCoinControl *coinControl = NULL) const;
+    qint64 getUnconfirmed() const;
+    qint64 getImmature() const;
     int getNumTransactions() const;
     EncryptionStatus getEncryptionStatus() const;
 
@@ -64,19 +74,17 @@ public:
     bool validateAddress(const QString &address);
 
     // Return status record for SendCoins, contains error id + information
-    struct SendCoinsReturn
-    {
-        SendCoinsReturn(StatusCode status,
-                         qint64 fee=0,
-                         QString hex=QString()):
-            status(status), fee(fee), hex(hex) {}
+    struct SendCoinsReturn {
+        SendCoinsReturn(StatusCode status = Aborted) : status(status) {}
         StatusCode status;
-        qint64 fee; // is used in case status is "AmountWithFeeExceedsBalance"
-        QString hex; // is filled with the transaction hash if status is "OK"
     };
 
-    // Send coins to a list of recipients
-    SendCoinsReturn sendCoins(const QList<SendCoinsRecipient> &recipients);
+    /* Prepare a transaction to get a fee estimate */
+    SendCoinsReturn prepareTransaction(WalletModelTransaction &transaction,
+      const CCoinControl *coinControl = NULL);
+
+    /* Send coins to a list of recipients */
+    SendCoinsReturn sendCoins(WalletModelTransaction &transaction);
 
     // Wallet encryption
     bool setWalletEncrypted(bool encrypted, const SecureString &passphrase);
@@ -108,6 +116,15 @@ public:
 
     UnlockContext requestUnlock();
 
+    bool getPubKey(const CKeyID &address, CPubKey &vchPubKeyOut) const;
+    void getOutputs(const std::vector<COutPoint> &vOutpoints, std::vector<COutput> &vOutputs);
+    void listCoins(std::map<QString, std::vector<COutput> > &mapCoins) const;
+
+    bool isLockedCoin(uint256 hash, uint n) const;
+    void lockCoin(COutPoint &output);
+    void unlockCoin(COutPoint &output);
+    void listLockedCoins(std::vector<COutPoint> &vOutpts);
+
 private:
     CWallet *wallet;
 
@@ -120,8 +137,8 @@ private:
 
     // Cache some values to be able to detect changes
     qint64 cachedBalance;
-    qint64 cachedUnconfirmedBalance;
-    qint64 cachedImmatureBalance;
+    qint64 cachedUnconfirmed;
+    qint64 cachedImmature;
     qint64 cachedNumTransactions;
     EncryptionStatus cachedEncryptionStatus;
     int cachedNumBlocks;

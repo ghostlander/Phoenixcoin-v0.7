@@ -5,7 +5,6 @@
 #include "util.h"
 #include "init.h"
 
-#include <QString>
 #include <QDateTime>
 #include <QDoubleValidator>
 #include <QFont>
@@ -173,6 +172,11 @@ void copyEntryData(QAbstractItemView *view, int column, int role)
         // Copy first item
         QApplication::clipboard()->setText(selection.at(0).data(role).toString());
     }
+}
+
+void setClipboard(const QString &str) {
+    QApplication::clipboard()->setText(str, QClipboard::Clipboard);
+    QApplication::clipboard()->setText(str, QClipboard::Selection);
 }
 
 QString getSaveFileName(QWidget *parent, const QString &caption,

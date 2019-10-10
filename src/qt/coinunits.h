@@ -6,8 +6,9 @@
 
 /* Coin unit definitions. Encapsulates parsing and formatting
  * and serves as list model for drop-down selection boxes. */
-class CoinUnits: public QAbstractListModel
-{
+class CoinUnits: public QAbstractListModel {
+    Q_OBJECT
+
 public:
     explicit CoinUnits(QObject *parent);
 
@@ -53,6 +54,7 @@ public:
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     ///@}
+
 private:
     QList<CoinUnits::Unit> unitlist;
 };

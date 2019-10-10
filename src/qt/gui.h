@@ -33,6 +33,7 @@ QT_END_NAMESPACE
  * models to give the user an up-to-date view of the current core state. */
 class GUI : public QMainWindow {
     Q_OBJECT
+
 public:
     explicit GUI(QWidget *parent = 0);
     ~GUI();
@@ -143,7 +144,7 @@ private slots:
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
-    void gotoSendCoinsPage();
+    void gotoSendCoinsPage(QString addr = "");
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");

@@ -1342,8 +1342,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>Сума перевищить ваш баланс, якщо комісія %1 буде додана до вашого переказу.</translation>
+        <source>The total exceeds your balance if a %1 fee is included.</source>
+        <translation>Сума з врахуванням комісії в розмірі %1 перевищує ваш баланс.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1352,8 +1352,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation>Помилка: не вдалося створити переказ.</translation>
+        <source>Error: payment failed!</source>
+        <translation>Помилка: не вдалося провести платіж!</translation>
     </message>
     <message>
         <location line="+5"/>

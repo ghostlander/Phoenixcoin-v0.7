@@ -1340,8 +1340,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>The total exceeds your balance when the %1 transaction fee is included.</translation>
+        <source>The total exceeds your balance if a %1 fee is included.</source>
+        <translation>The total exceeds your balance if a %1 fee is included.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1350,8 +1350,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation>Error: Transaction creation failed.</translation>
+        <source>Error: payment failed!</source>
+        <translation>Error: payment failed!</translation>
     </message>
     <message>
         <location line="+5"/>

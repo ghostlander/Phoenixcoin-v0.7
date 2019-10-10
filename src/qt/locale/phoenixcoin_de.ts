@@ -1334,8 +1334,8 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>Der angegebene Betrag übersteigt aufgrund der Transaktionsgebühr in Höhe von %1 Ihren Kontostand.</translation>
+        <source>The total exceeds your balance if a %1 fee is included.</source>
+        <translation>Der angegebene Betrag übersteigt aufgrund der Gebühr in Höhe von %1 Ihren Kontostand.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1344,13 +1344,13 @@ Adresse: %4</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation>Fehler: Transaktionserstellung fehlgeschlagen.</translation>
+        <source>Error: payment failed!</source>
+        <translation>Fehler: Zahlung fehlgeschlagen!</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Fehler: Die Transaktion wurde abgelehnt. Dies kann passieren, wenn einige Phoenixcoins aus Ihrer Brieftasche bereits ausgegeben wurden. Beispielsweise weil Sie eine Kopie Ihrer wallet.dat genutzt, die Phoenixcoins dort ausgegeben haben und dies daher in der derzeit aktiven Brieftasche nicht vermerkt ist.</translation>
+        <translation>Fehler: ie Transaktion wurde abgelehnt. Dies kann passieren, wenn einige Phoenixcoins aus Ihrer Brieftasche bereits ausgegeben wurden. Beispielsweise weil Sie eine Kopie Ihrer wallet.dat genutzt, die Phoenixcoins dort ausgegeben haben und dies daher in der derzeit aktiven Brieftasche nicht vermerkt ist.</translation>
     </message>
 </context>
 <context>

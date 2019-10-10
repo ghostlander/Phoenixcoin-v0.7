@@ -57,6 +57,7 @@ private:
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();
+
 signals:
     void numConnectionsChanged(int count);
     void numBlocksChanged(int count, int countOfPeers);

@@ -1333,11 +1333,11 @@ Indirizzo: %4
     <message>
         <location line="+5"/>
         <source>The amount exceeds your balance.</source>
-        <translation>Nincs ennyi Phoenixcoin az egyenlegeden.</translation>
+        <translation>L&apos;importo supera il saldo.</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
+        <source>The total exceeds your balance if a %1 fee is included.</source>
         <translation>Il totale è superiore al saldo attuale includendo la commissione %1.</translation>
     </message>
     <message>
@@ -1347,8 +1347,8 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation>Errore: creazione della transazione fallita.</translation>
+        <source>Error: payment failed!</source>
+        <translation>Errore: pagamento fallito!</translation>
     </message>
     <message>
         <location line="+5"/>

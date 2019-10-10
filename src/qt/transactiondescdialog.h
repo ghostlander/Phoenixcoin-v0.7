@@ -6,13 +6,13 @@
 namespace Ui {
     class TransactionDescDialog;
 }
+
 QT_BEGIN_NAMESPACE
 class QModelIndex;
 QT_END_NAMESPACE
 
-/** Dialog showing transaction details. */
-class TransactionDescDialog : public QDialog
-{
+/* Dialog showing transaction details */
+class TransactionDescDialog : public QDialog {
     Q_OBJECT
 
 public:

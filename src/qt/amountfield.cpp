@@ -1,16 +1,11 @@
 #include "amountfield.h"
 #include "qvaluecombobox.h"
 #include "coinunits.h"
-
 #include "guiconstants.h"
 
-#include <QLabel>
-#include <QLineEdit>
-#include <QRegExpValidator>
 #include <QHBoxLayout>
 #include <QKeyEvent>
 #include <QDoubleSpinBox>
-#include <QComboBox>
 #include <QApplication>
 #include <qmath.h>
 

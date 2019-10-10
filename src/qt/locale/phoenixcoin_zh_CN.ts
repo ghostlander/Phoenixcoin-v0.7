@@ -1330,8 +1330,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>计入 %1 交易费后的金额超出您的账上余额。</translation>
+        <source>The total exceeds your balance if a %1 fee is included.</source>
+        <translation>计入 %1 费后的金额超出您的账上余额。</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1340,8 +1340,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation>错误: 创建交易失败.</translation>
+        <source>Error: payment failed!</source>
+        <translation>错误: 支付失敗!</translation>
     </message>
     <message>
         <location line="+5"/>

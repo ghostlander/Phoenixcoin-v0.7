@@ -207,7 +207,9 @@ HEADERS += src/qt/gui.h \
     src/netbase.h \
     src/clientversion.h \
     src/neoscrypt.h \
-    src/ntp.h
+    src/ntp.h \
+    src/qt/walletmodeltransaction.h \
+    src/qt/coincontrol.h
 
 SOURCES += src/qt/phoenixcoin.cpp \
     src/qt/gui.cpp \
@@ -271,7 +273,9 @@ SOURCES += src/qt/phoenixcoin.cpp \
     src/noui.cpp \
     src/neoscrypt.c \
     src/neoscrypt_asm.S \
-    src/ntp.cpp
+    src/ntp.cpp \
+    src/qt/walletmodeltransaction.cpp \
+    src/qt/coincontrol.cpp
 
 RESOURCES += \
     src/qt/phoenixcoin.qrc
@@ -287,7 +291,8 @@ FORMS += \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
-    src/qt/forms/optionsdialog.ui
+    src/qt/forms/optionsdialog.ui \
+    src/qt/forms/coincontrol.ui
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h

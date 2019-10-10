@@ -126,6 +126,7 @@ extern unsigned char pchMessageStart[4];
 
 // Settings
 extern int64 nTransactionFee;
+extern int64 nMinimumInputValue;
 
 // Minimum disk space required - used in CheckDiskSpace()
 static const uint64 nMinDiskSpace = 52428800;
@@ -587,14 +588,13 @@ public:
      */
     int64 GetValueIn(const MapPrevTx& mapInputs) const;
 
-    static bool AllowFree(double dPriority)
-    {
-        // Large (in bytes) low-priority (new, small-coin) transactions
-        // need a fee.
-        return dPriority > COIN * 144 / 250;
+    static bool AllowFree(double dPriority) {
+        /* High priority transactions are exempt of mandatory fees usually;
+         * Phoenixcoin: 480 blocks per day target, priority boundary is 1 PXC day / 250 bytes */
+        return(dPriority > (COIN * 480 / 250));
     }
 
-    int64 GetMinFee(unsigned int nBlockSize=1, bool fAllowFree=true, enum GetMinFee_mode mode=GMF_BLOCK) const;
+    int64 GetMinFee(uint nBytes = 0, bool fAllowFree = false, enum GetMinFee_mode mode = GMF_BLOCK) const;
 
     bool ReadFromDisk(CDiskTxPos pos, FILE** pfileRet=NULL)
     {

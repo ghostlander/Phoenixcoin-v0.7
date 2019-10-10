@@ -1341,8 +1341,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>Сумма превысит ваш баланс, если комиссия в размере %1 будет добавлена к транзакции</translation>
+        <source>The total exceeds your balance if a %1 fee is included.</source>
+        <translation>Сумма с учётом комиссии в размере %1 превышает ваш баланс.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1351,8 +1351,8 @@ Address: %4
     </message>
     <message>
         <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation>Ошибка: не удалось создать транзакцию.</translation>
+        <source>Error: payment failed!</source>
+        <translation>Ошибка: не удалось провести платёж!</translation>
     </message>
     <message>
         <location line="+5"/>
