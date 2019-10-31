@@ -130,8 +130,8 @@ contains(PHOENIXCOIN_NEED_QT_PLUGINS, 1) {
     DEFINES += HAVE_BUILD_INFO
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security \
-    -Wno-unused-parameter -Wno-stringop-truncation
+QMAKE_CXXFLAGS_WARN_ON = -std=c++11 -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security \
+    -Wno-unused-parameter -Wno-stringop-truncation 
 
 # Input
 DEPENDPATH += src src/json src/qt

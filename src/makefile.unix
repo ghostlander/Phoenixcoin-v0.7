@@ -61,7 +61,7 @@ DEBUGFLAGS=
 
 # CXXFLAGS can be specified on the make command line, so we use xCXXFLAGS that only
 # adds some defaults in front. Unfortunately, CXXFLAGS=... $(CXXFLAGS) does not work.
-xCXXFLAGS=-O2 -fomit-frame-pointer -fno-stack-protector -pthread -Wall -Wextra -Wformat \
+xCXXFLAGS=-O2 -std=c++11 -fomit-frame-pointer -fno-stack-protector -pthread -Wall -Wextra -Wformat \
 -Wformat-security -Wno-unused-parameter -Wno-stringop-truncation \
 $(DEBUGFLAGS) $(DEFS) $(CXXFLAGS)
 
