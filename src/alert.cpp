@@ -3,7 +3,10 @@
 //
 
 #include <boost/foreach.hpp>
+
+#include <utility>
 #include <map>
+#include <limits>
 
 #include "alert.h"
 #include "key.h"

@@ -31,13 +31,18 @@
 #endif
 
 #include <QApplication>
+#include <QMainWindow>
 #include <QMenuBar>
 #include <QMenu>
 #include <QIcon>
+#include <QTabWidget>
 #include <QVBoxLayout>
 #include <QToolBar>
 #include <QStatusBar>
 #include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QLocale>
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QStackedWidget>

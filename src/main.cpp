@@ -3,6 +3,15 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <string>
+#include <algorithm>
+#include <map>
+#include <utility>
+#include <list>
+#include <vector>
+#include <set>
+#include <limits>
+
 #include "alert.h"
 #include "checkpoints.h"
 #include "db.h"

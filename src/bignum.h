@@ -6,9 +6,12 @@
 #ifndef BIGNUM_H
 #define BIGNUM_H
 
+#include <openssl/bn.h>
+
+#include <limits>
+#include <string>
 #include <stdexcept>
 #include <vector>
-#include <openssl/bn.h>
 
 #include "util.h"
 

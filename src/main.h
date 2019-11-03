@@ -6,13 +6,19 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <string>
+#include <algorithm>
+#include <map>
+#include <utility>
+#include <vector>
+#include <set>
+#include <limits>
+
 #include "bignum.h"
 #include "sync.h"
 #include "net.h"
 #include "script.h"
 #include "neoscrypt.h"
-
-#include <list>
 
 class CWallet;
 class CBlock;

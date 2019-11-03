@@ -13,6 +13,9 @@
 #include <unistd.h>
 #endif
 
+#include <string>
+#include <vector>
+
 #include "util.h"
 #include "netbase.h"
 #include "net.h"

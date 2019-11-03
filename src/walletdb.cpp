@@ -3,9 +3,13 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <boost/filesystem.hpp>
+
+#include <algorithm>
+#include <map>
+
 #include "walletdb.h"
 #include "wallet.h"
-#include <boost/filesystem.hpp>
 
 using namespace std;
 using namespace boost;

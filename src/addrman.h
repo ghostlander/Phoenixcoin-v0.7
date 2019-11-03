@@ -5,16 +5,16 @@
 #ifndef ADDRMAN
 #define ADDRMAN 1
 
+#include <openssl/rand.h>
+
+#include <map>
+#include <vector>
+#include <set>
+
 #include "netbase.h"
 #include "protocol.h"
 #include "util.h"
 #include "sync.h"
-
-
-#include <map>
-#include <vector>
-
-#include <openssl/rand.h>
 
 
 /** Extended statistics about a CAddress */

@@ -6,19 +6,22 @@
 #ifndef SERIALIZE_H
 #define SERIALIZE_H
 
-#include <string>
-#include <vector>
-#include <map>
-#include <set>
-#include <cassert>
-#include <limits>
-#include <cstring>
-#include <cstdio>
-
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 #include <boost/tuple/tuple_io.hpp>
+
+#include <string>
+#include <algorithm>
+#include <map>
+#include <utility>
+#include <vector>
+#include <set>
+#include <limits>
+
+#include <cassert>
+#include <cstring>
+#include <cstdio>
 
 #include "datatypes.h"
 #include "allocators.h"

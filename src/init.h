@@ -6,6 +6,8 @@
 #ifndef INIT_H
 #define INIT_H
 
+#include <string>
+
 #include "wallet.h"
 
 extern CWallet* pwalletMain;

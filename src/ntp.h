@@ -1,6 +1,8 @@
 #ifndef NTP_H
 #define NTP_H
 
+#include <string>
+
 extern std::string strTrustedNTP;
 extern int64 nNtpOffset;
 extern bool fNtpWarning;

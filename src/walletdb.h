@@ -6,6 +6,11 @@
 #ifndef WALLETDB_H
 #define WALLETDB_H
 
+#include <utility>
+#include <string>
+#include <list>
+#include <vector>
+
 #include "db.h"
 #include "base58.h"
 

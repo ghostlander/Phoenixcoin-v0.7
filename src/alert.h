@@ -6,8 +6,9 @@
 #ifndef ALERT_H
 #define ALERT_H
 
-#include <set>
 #include <string>
+#include <vector>
+#include <set>
 
 #include "uint256.h"
 #include "util.h"

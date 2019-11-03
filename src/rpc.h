@@ -6,9 +6,10 @@
 #ifndef RPC_H
 #define RPC_H
 
+#include <map>
 #include <string>
 #include <list>
-#include <map>
+#include <vector>
 
 class CBlockIndex;
 

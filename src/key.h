@@ -7,6 +7,7 @@
 #define KEY_H
 
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 #include "allocators.h"

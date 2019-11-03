@@ -6,13 +6,14 @@
 #ifndef DB_H
 #define DB_H
 
-#include "main.h"
+#include <db_cxx.h>
 
+#include <utility>
 #include <map>
 #include <string>
 #include <vector>
 
-#include <db_cxx.h>
+#include "main.h"
 
 class CAddress;
 class CAddrMan;

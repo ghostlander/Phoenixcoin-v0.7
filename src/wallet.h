@@ -6,10 +6,15 @@
 #ifndef WALLET_H
 #define WALLET_H
 
-#include <string>
-#include <vector>
-
 #include <stdlib.h>
+
+#include <string>
+#include <algorithm>
+#include <map>
+#include <utility>
+#include <list>
+#include <vector>
+#include <set>
 
 #include "main.h"
 #include "key.h"

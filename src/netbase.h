@@ -5,6 +5,7 @@
 #ifndef NETBASE_H
 #define NETBASE_H
 
+#include <utility>
 #include <string>
 #include <vector>
 
