@@ -7,9 +7,12 @@
 #define ALLOCATORS_H
 
 #include <string.h>
-#include <string>
 #include <boost/thread/mutex.hpp>
+
 #include <map>
+#include <utility>
+#include <string>
+#include <memory>
 
 #ifdef WIN32
 #ifdef _WIN32_WINNT

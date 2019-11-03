@@ -5,6 +5,11 @@
 
 #include <boost/assign/list_of.hpp>
 
+#include <map>
+#include <string>
+#include <vector>
+#include <set>
+
 #include "base58.h"
 #include "rpc.h"
 #include "db.h"

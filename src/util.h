@@ -15,9 +15,11 @@
 #else
 typedef int pid_t; /* define for Windows compatibility */
 #endif
+
 #include <map>
-#include <vector>
 #include <string>
+#include <algorithm>
+#include <vector>
 
 #include <boost/thread.hpp>
 #include <boost/filesystem.hpp>

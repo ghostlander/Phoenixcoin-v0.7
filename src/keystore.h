@@ -6,9 +6,15 @@
 #ifndef KEYSTORE_H
 #define KEYSTORE_H
 
+#include <boost/signals2/signal.hpp>
+
+#include <map>
+#include <utility>
+#include <vector>
+#include <set>
+
 #include "crypter.h"
 #include "sync.h"
-#include <boost/signals2/signal.hpp>
 
 class CScript;
 

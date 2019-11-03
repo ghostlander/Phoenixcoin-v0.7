@@ -6,10 +6,17 @@
 #ifndef NET_H
 #define NET_H
 
-#include <deque>
 #include <boost/array.hpp>
 #include <boost/foreach.hpp>
 #include <openssl/rand.h>
+
+#include <string>
+#include <algorithm>
+#include <deque>
+#include <map>
+#include <utility>
+#include <vector>
+#include <set>
 
 #ifndef WIN32
 #include <arpa/inet.h>

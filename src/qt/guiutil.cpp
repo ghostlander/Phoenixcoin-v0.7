@@ -5,6 +5,7 @@
 #include "util.h"
 #include "init.h"
 
+#include <QString>
 #include <QDateTime>
 #include <QDoubleValidator>
 #include <QFont>

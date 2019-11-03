@@ -5,6 +5,8 @@
 #ifndef CRYPTER_H
 #define CRYPTER_H
 
+#include <vector>
+
 #include "allocators.h" /* for SecureString */
 #include "key.h"
 #include "serialize.h"

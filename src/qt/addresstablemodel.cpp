@@ -6,6 +6,7 @@
 #include "base58.h"
 
 #include <QFont>
+#include <QColor>
 
 const QString AddressTableModel::Send = "S";
 const QString AddressTableModel::Receive = "R";
