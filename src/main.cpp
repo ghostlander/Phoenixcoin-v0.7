@@ -121,7 +121,7 @@ bool static GetTransaction(const uint256& hashTx, CWalletTx& wtx)
 }
 
 // erases transaction with the given hash from all wallets
-void static EraseFromWallets(uint256 hash)
+static void EraseFromWallets(uint256 hash)
 {
     BOOST_FOREACH(CWallet* pwallet, setpwalletRegistered)
         pwallet->EraseFromWallet(hash);
@@ -135,35 +135,35 @@ void SyncWithWallets(const CTransaction& tx, const CBlock* pblock, bool fUpdate)
 }
 
 // notify wallets about a new best chain
-void static SetBestChain(const CBlockLocator& loc)
+static void SetBestChain(const CBlockLocator& loc)
 {
     BOOST_FOREACH(CWallet* pwallet, setpwalletRegistered)
         pwallet->SetBestChain(loc);
 }
 
 // notify wallets about an updated transaction
-void static UpdatedTransaction(const uint256& hashTx)
+static void UpdatedTransaction(const uint256& hashTx)
 {
     BOOST_FOREACH(CWallet* pwallet, setpwalletRegistered)
         pwallet->UpdatedTransaction(hashTx);
 }
 
 // dump all wallets
-void static PrintWallets(const CBlock& block)
+static void PrintWallets(const CBlock& block)
 {
     BOOST_FOREACH(CWallet* pwallet, setpwalletRegistered)
         pwallet->PrintWallet(block);
 }
 
 // notify wallets about an incoming inventory (for request counts)
-void static Inventory(const uint256& hash)
+static void Inventory(const uint256& hash)
 {
     BOOST_FOREACH(CWallet* pwallet, setpwalletRegistered)
         pwallet->Inventory(hash);
 }
 
 // ask wallets to resend their transactions
-void static ResendWalletTransactions()
+static void ResendWalletTransactions()
 {
     BOOST_FOREACH(CWallet* pwallet, setpwalletRegistered)
         pwallet->ResendWalletTransactions();
@@ -213,7 +213,7 @@ bool AddOrphanTx(const CDataStream& vMsg)
     return true;
 }
 
-void static EraseOrphanTx(uint256 hash)
+static void EraseOrphanTx(uint256 hash)
 {
     if (!mapOrphanTransactions.count(hash))
         return;
@@ -909,7 +909,7 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-int64 static GetBlockValue(int nHeight, int64 nFees) {
+static int64 GetBlockValue(int nHeight, int64 nFees) {
 
     int64 nSubsidy = 50 * COIN;
 
@@ -1133,7 +1133,7 @@ bool IsInitialBlockDownload()
       (pindexBest->GetBlockTime() < (GetTime() - 4 * 60 * 60)));
 }
 
-void static InvalidChainFound(CBlockIndex* pindexNew)
+static void InvalidChainFound(CBlockIndex* pindexNew)
 {
     if (pindexNew->bnChainWork > bnBestInvalidWork)
     {
@@ -3898,13 +3898,13 @@ bool CheckWork(CBlock *pblock, CWallet &wallet, CReserveKey &reservekey, bool fG
     return(true);
 }
 
-void static ThreadCoinMiner(void *parg);
+static void ThreadCoinMiner(void *parg);
 
 static bool fGenerateCoins = false;
 static bool fLimitProcessors = false;
 static int nLimitProcessors = -1;
 
-void static CoinMiner(CWallet *pwallet) {
+static void CoinMiner(CWallet *pwallet) {
 
     printf("CoinMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
@@ -4027,7 +4027,7 @@ void static CoinMiner(CWallet *pwallet) {
     }
 }
 
-void static ThreadCoinMiner(void *parg) {
+static void ThreadCoinMiner(void *parg) {
 
     CWallet *pwallet = (CWallet *) parg;
     try {
