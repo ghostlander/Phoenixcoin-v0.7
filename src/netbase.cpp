@@ -933,7 +933,7 @@ void CNetAddr::print() const
 // and only used in GetReachabilityFrom
 static const int NET_UNKNOWN = NET_MAX + 0;
 static const int NET_TEREDO  = NET_MAX + 1;
-int static GetExtNetwork(const CNetAddr *addr)
+static int GetExtNetwork(const CNetAddr *addr)
 {
     if (addr == NULL)
         return NET_UNKNOWN;
