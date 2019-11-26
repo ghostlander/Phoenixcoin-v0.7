@@ -151,6 +151,8 @@ public:
     int64 nReleaseTime;
     uint nPingTime;
     int nStartingHeight;
+    uint64 nTxBytes;
+    uint64 nRxBytes;
     int nMisbehavior;
 };
 
@@ -173,6 +175,8 @@ public:
     int64 nLastRecv;
     int64 nLastSendEmpty;
     int64 nTimeConnected;
+    uint64 nTxBytes;
+    uint64 nRxBytes;
     int nHeaderStart;
     unsigned int nMessageStart;
     CAddress addr;
@@ -228,6 +232,8 @@ public:
         nLastRecv = 0;
         nLastSendEmpty = GetTime();
         nTimeConnected = GetTime();
+        nTxBytes  = 0;
+        nRxBytes  = 0;
         nHeaderStart = -1;
         nMessageStart = -1;
         addr = addrIn;
@@ -268,10 +274,16 @@ public:
     }
 
 private:
+    /* Traffic counters */
+    static CCriticalSection cs_totalBytesRx;
+    static CCriticalSection cs_totalBytesTx;
+    static uint64 nTotalBytesRx;
+    static uint64 nTotalBytesTx;
+
     CNode(const CNode&);
     void operator=(const CNode&);
-public:
 
+public:
 
     int GetRefCount()
     {
@@ -652,6 +664,12 @@ public:
     static bool IsBanned(CNetAddr ip);
     bool Misbehaving(int howmuch); // 1 == a little, 100 == a lot
     void copyStats(CNodeStats &stats);
+
+    /* Traffic counters */
+    static void RecordBytesRx(uint64 nBytes);
+    static void RecordBytesTx(uint64 nBytes);
+    static uint64 GetTotalBytesRx();
+    static uint64 GetTotalBytesTx();
 };
 
 

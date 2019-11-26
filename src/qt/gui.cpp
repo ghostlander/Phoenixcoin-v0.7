@@ -181,6 +181,7 @@ GUI::GUI(QWidget *parent):
 
     rpcConsole = new RPCConsole(this);
     connect(openRPCConsoleAction, SIGNAL(triggered()), rpcConsole, SLOT(show()));
+    connect(trafficAction, SIGNAL(triggered()), rpcConsole, SLOT(showTabStats()));
 
     blockExplorer = new BlockExplorer(this);
     connect(explorerAction, SIGNAL(triggered()), blockExplorer, SLOT(gotoBlockExplorer()));
@@ -289,6 +290,7 @@ void GUI::createActions() {
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
     openRPCConsoleAction->setToolTip(tr("Open debugging and diagnostic console"));
+    trafficAction = new QAction(QIcon(":/icons/traffic"), tr("&Network activity"), this);
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
@@ -329,6 +331,7 @@ void GUI::createMenuBar() {
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
     help->addAction(openRPCConsoleAction);
+    help->addAction(trafficAction);
     help->addAction(explorerAction);
     help->addSeparator();
     help->addAction(aboutAction);

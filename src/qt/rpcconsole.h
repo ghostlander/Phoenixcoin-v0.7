@@ -36,6 +36,12 @@ private slots:
     void on_openDebugLogfileButton_clicked();
     /** display messagebox with program parameters (same as bitcoin-qt --help) */
     void on_showCLOptionsButton_clicked();
+    /* Change the time range of the network traffic graph */
+    void on_sldGraphRange_valueChanged(int nValue);
+    /* Update traffic statistics */
+    void updateTrafficStats(quint64 totalBytesIn, quint64 totalBytesOut);
+    /* Clear traffic graph */
+    void on_btnClearTrafficGraph_clicked();
 
 public slots:
     void clear();
@@ -48,6 +54,9 @@ public slots:
     void browseHistory(int offset);
     /** Scroll console view to end */
     void scrollToEnd();
+    /* Show traffic statistics tab */
+    void showTabStats();
+
 signals:
     // For RPC command executor
     void stopExecutor();
@@ -58,6 +67,9 @@ private:
     ClientModel *clientModel;
     QStringList history;
     int historyPtr;
+
+    static QString FormatBytes(quint64 nBytes);
+    void setTrafficGraphRange(int nMinutes);
 
     void startExecutor();
 };

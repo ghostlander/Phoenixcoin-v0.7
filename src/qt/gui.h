@@ -93,6 +93,7 @@ private:
     QAction *changePassphraseAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
+    QAction *trafficAction;
     QAction *explorerAction;
 
     QSystemTrayIcon *trayIcon;

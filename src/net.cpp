@@ -435,10 +435,10 @@ void AddressCurrentlyConnected(const CService& addr)
 }
 
 
-
-
-
-
+uint64 CNode::nTotalBytesRx = 0;
+uint64 CNode::nTotalBytesTx = 0;
+CCriticalSection CNode::cs_totalBytesRx;
+CCriticalSection CNode::cs_totalBytesTx;
 
 CNode* FindNode(const CNetAddr& ip)
 {
@@ -630,6 +630,8 @@ void CNode::copyStats(CNodeStats &stats)
     X(nReleaseTime);
     X(nPingTime);
     X(nStartingHeight);
+    X(nTxBytes);
+    X(nRxBytes);
     X(nMisbehavior);
 }
 #undef X
@@ -902,6 +904,8 @@ void ThreadSocketHandler2(void* parg)
                             vRecv.resize(nPos + nBytes);
                             memcpy(&vRecv[nPos], pchBuf, nBytes);
                             pnode->nLastRecv = GetTime();
+                            pnode->nRxBytes += nBytes;
+                            pnode->RecordBytesRx(nBytes);
                         }
                         else if (nBytes == 0)
                         {
@@ -943,6 +947,8 @@ void ThreadSocketHandler2(void* parg)
                         {
                             vSend.erase(vSend.begin(), vSend.begin() + nBytes);
                             pnode->nLastSend = GetTime();
+                            pnode->nTxBytes += nBytes;
+                            pnode->RecordBytesTx(nBytes);
                         }
                         else if (nBytes < 0)
                         {
@@ -2016,3 +2022,21 @@ public:
     }
 }
 instance_of_cnetcleanup;
+
+void CNode::RecordBytesRx(uint64 nBytes) {
+    LOCK(cs_totalBytesRx);
+    nTotalBytesRx += nBytes;
+}
+
+void CNode::RecordBytesTx(uint64 nBytes) {
+    LOCK(cs_totalBytesTx);
+    nTotalBytesTx += nBytes;
+}
+
+uint64 CNode::GetTotalBytesRx() {
+    return(nTotalBytesRx);
+}
+
+uint64 CNode::GetTotalBytesTx() {
+    return(nTotalBytesTx);
+}
