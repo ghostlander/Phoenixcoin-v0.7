@@ -909,7 +909,7 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     return pblock->GetHash();
 }
 
-static int64 GetBlockValue(int nHeight, int64 nFees) {
+int64 GetProofOfWorkReward(int nHeight, int64 nFees) {
 
     int64 nSubsidy = 50 * COIN;
 
@@ -923,6 +923,68 @@ static int64 GetBlockValue(int nHeight, int64 nFees) {
     nSubsidy >>= (nHeight / 1000000);
 
     return(nSubsidy + nFees);
+}
+
+/* Quick money supply calculator for the given block height */
+int64 GetMoneySupply(int nHeight) {
+    int64 nMoneySupply = 0;
+
+    if(!fTestNet) {
+
+        /* Includes the genesis block which is unspendable */
+        if(nHeight < nForkThree) return((nHeight + 1) * 50 * COIN);
+        else nMoneySupply = nForkThree * 50 * COIN;
+
+        if(nHeight < nForkFour) {
+            return(nMoneySupply + (nHeight - nForkThree + 1) * 25 * COIN);
+        } else {
+            nMoneySupply += (nForkFour - nForkThree) * 25 * COIN;
+        }
+
+        if(nHeight < 1000000) {
+            return(nMoneySupply + (nHeight - nForkFour + 1) * 50 * COIN);
+        } else {
+            nMoneySupply += (1000000 - nForkFour) * 50 * COIN;
+        }
+
+        if(nHeight < 2000000) {
+            return(nMoneySupply + (nHeight - 1000000 + 1) * 25 * COIN);
+        } else {
+            nMoneySupply += (2000000 - 1000000) * 25 * COIN;
+        }
+
+        if(nHeight < 3000000) {
+            return(nMoneySupply + (nHeight - 2000000 + 1) * 25 * COIN / 2);
+        } else {
+            nMoneySupply += (3000000 - 2000000) * 25 * COIN / 2;
+        }
+
+        if(nHeight < 4000000) {
+            return(nMoneySupply + (nHeight - 3000000 + 1) * 25 * COIN / 4);
+        } else {
+            nMoneySupply += (4000000 - 3000000) * 25 * COIN / 4;
+        }
+
+    } else {
+
+        if(nHeight < nTestnetForkOne) return(nHeight * 25 * COIN);
+        else nMoneySupply = nTestnetForkOne * 25 * COIN;
+
+        if(nHeight < 1000000) {
+            return(nMoneySupply + (nHeight - nTestnetForkOne + 1) * 50 * COIN);
+        } else {
+            nMoneySupply += (1000000 - nTestnetForkOne) * 50 * COIN;
+        }
+
+        if(nHeight < 2000000) {
+            return(nMoneySupply + (nHeight - 1000000 + 1) * 25 * COIN);
+        } else {
+            nMoneySupply += (2000000 - 1000000) * 25 * COIN;
+        }
+
+    }
+
+    return(nMoneySupply);
 }
 
 static const int64 nTargetTimespan = 14 * 24 * 60 * 60; // two weeks
@@ -1572,8 +1634,10 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         mapQueuedChanges[hashTx] = CTxIndex(posThisTx, tx.vout.size());
     }
 
-    if (vtx[0].GetValueOut() > GetBlockValue(pindex->nHeight, nFees))
-        return error("ConnectBlock() : coinbase pays too much (actual=%" PRI64d" vs limit=%" PRI64d")", vtx[0].GetValueOut(), GetBlockValue(pindex->nHeight, nFees));
+    if(vtx[0].GetValueOut() > GetProofOfWorkReward(pindex->nHeight, nFees)) {
+        return(error("ConnectBlock() : coin base pays too much (actual=%" PRI64d" vs limit=%" PRI64d")",
+          vtx[0].GetValueOut(), GetProofOfWorkReward(pindex->nHeight, nFees)));
+    }
 
     if (fJustCheck)
         return true;
@@ -3788,7 +3852,7 @@ CBlock *CreateNewBlock(CReserveKey &reservekey) {
         nLastBlockSize = nBlockSize;
         printf("CreateNewBlock(): total size %" PRI64u"\n", nBlockSize);
 
-    pblock->vtx[0].vout[0].nValue = GetBlockValue(pindexPrev->nHeight+1, nFees);
+    pblock->vtx[0].vout[0].nValue = GetProofOfWorkReward(pindexPrev->nHeight + 1, nFees);
 
     // Fill in header
     pblock->hashPrevBlock  = pindexPrev->GetBlockHash();

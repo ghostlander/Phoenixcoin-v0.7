@@ -161,6 +161,8 @@ void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& 
 void FormatDataBuffer(CBlock *pblock, uint *pdata);
 bool CheckWork(CBlock *pblock, CWallet &wallet, CReserveKey &reservekey, bool fGetWork);
 bool CheckProofOfWork(uint256 hash, unsigned int nBits);
+int64 GetProofOfWorkReward(int nHeight, int64 nFees);
+int64 GetMoneySupply(int nHeight);
 int GetNumBlocksOfPeers();
 bool IsInitialBlockDownload();
 std::string GetWarnings(std::string strFor);

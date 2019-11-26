@@ -25,6 +25,7 @@
 #include "notificator.h"
 #include "guiutil.h"
 #include "rpcconsole.h"
+#include "blockexplorer.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -181,6 +182,9 @@ GUI::GUI(QWidget *parent):
     rpcConsole = new RPCConsole(this);
     connect(openRPCConsoleAction, SIGNAL(triggered()), rpcConsole, SLOT(show()));
 
+    blockExplorer = new BlockExplorer(this);
+    connect(explorerAction, SIGNAL(triggered()), blockExplorer, SLOT(gotoBlockExplorer()));
+
     /* Clicking on "Send Coins" in the address book sends you to the send coins tab */
     connect(addressBookPage, SIGNAL(sendCoins(QString)), this, SLOT(gotoSendCoinsPage(QString)));
     /* Clicking on "Verify Message" in the address book opens the verify message tab
@@ -189,6 +193,10 @@ GUI::GUI(QWidget *parent):
     /* Clicking on "Sign Message" in the receive coins page opens the sign message tab
      * in the Sign/Verify Message dialogue */
     connect(receiveCoinsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
+
+    /* Selecting block explorer in the transaction page menu redirects to the block explorer */ 
+    connect(transactionView, SIGNAL(blockExplorerSignal(QString)), blockExplorer,
+      SLOT(gotoBlockExplorer(QString)));
 
     gotoOverviewPage();
 }
@@ -234,6 +242,13 @@ void GUI::createActions() {
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
+
+    explorerAction = new QAction(QIcon(":/icons/explorer"), tr("&Explorer"), this);
+    explorerAction->setToolTip(tr("Open the block explorer"));
+    explorerAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
+    explorerAction->setCheckable(false);
+    tabGroup->addAction(explorerAction);
+    /* Block explorer action connected already */
 
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
@@ -314,6 +329,7 @@ void GUI::createMenuBar() {
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
     help->addAction(openRPCConsoleAction);
+    help->addAction(explorerAction);
     help->addSeparator();
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
@@ -328,10 +344,7 @@ void GUI::createToolBars() {
     toolbar->addAction(receiveCoinsAction);
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
-
-    QToolBar *toolbar2 = addToolBar(tr("Actions toolbar"));
-    toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    toolbar2->addAction(exportAction);
+    toolbar->addAction(explorerAction);
 }
 
 void GUI::setClientModel(ClientModel *clientModel) {
@@ -432,6 +445,7 @@ void GUI::createTrayIcon() {
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(optionsAction);
     trayIconMenu->addAction(openRPCConsoleAction);
+    trayIconMenu->addAction(explorerAction);
 #ifndef Q_OS_MAC // This is built-in on Mac
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(quitAction);

@@ -203,6 +203,7 @@ HEADERS += src/qt/gui.h \
     src/allocators.h \
     src/ui_interface.h \
     src/qt/rpcconsole.h \
+    src/qt/blockexplorer.h \
     src/version.h \
     src/netbase.h \
     src/clientversion.h \
@@ -270,6 +271,7 @@ SOURCES += src/qt/phoenixcoin.cpp \
     src/qt/notificator.cpp \
     src/qt/qtipcserver.cpp \
     src/qt/rpcconsole.cpp \
+    src/qt/blockexplorer.cpp \
     src/noui.cpp \
     src/neoscrypt.c \
     src/neoscrypt_asm.S \
@@ -291,6 +293,7 @@ FORMS += \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
+    src/qt/forms/blockexplorer.ui \
     src/qt/forms/optionsdialog.ui \
     src/qt/forms/coincontrol.ui
 
