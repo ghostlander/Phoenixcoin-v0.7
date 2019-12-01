@@ -31,6 +31,8 @@ extern unsigned int nWalletDBUpdated;
 void ThreadFlushWalletDB(void* parg);
 bool BackupWallet(const CWallet& wallet, const std::string& strDest);
 
+bool ExportWallet(CWallet *pwallet, const std::string &strDst);
+bool ImportWallet(CWallet *pwallet, const std::string &strSrc);
 
 class CDBEnv
 {

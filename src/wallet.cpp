@@ -72,6 +72,14 @@ bool CWallet::AddCryptedKey(const CPubKey &vchPubKey, const vector<unsigned char
     return false;
 }
 
+bool CWallet::LoadKeyMetadata(const CPubKey &pubkey, const CKeyMetadata &meta) {
+
+    UpdateTimeFirstKey(meta.nCreateTime);
+
+    mapKeyMetadata[pubkey.GetID()] = meta;
+    return(true);
+}
+
 bool CWallet::AddCScript(const CScript& redeemScript)
 {
     if (!CCryptoKeyStore::AddCScript(redeemScript))
@@ -1833,6 +1841,73 @@ void CWallet::UpdatedTransaction(const uint256 &hashTx)
         if (mi != mapWallet.end())
             NotifyTransactionChanged(this, hashTx, CT_UPDATED);
     }
+}
+
+void CWallet::GetKeyBirthTimes(std::map<CKeyID, int64> &mapKeyBirth) const {
+    mapKeyBirth.clear();
+
+    /* Get birth times for keys with metadata */
+    for(std::map<CKeyID, CKeyMetadata>::const_iterator it = mapKeyMetadata.begin();
+      it != mapKeyMetadata.end(); it++) {
+        if(it->second.nCreateTime) mapKeyBirth[it->first] = it->second.nCreateTime;
+    }
+
+    /* Map in which we'll infer heights of other keys;
+     * the tip can be reorganised, so use a 144-block safety margin */
+    CBlockIndex *pindexMax = FindBlockByHeight(std::max(0, nBestHeight - 144));
+    std::map<CKeyID, CBlockIndex *> mapKeyFirstBlock;
+    std::set<CKeyID> setKeys;
+    GetKeys(setKeys);
+    BOOST_FOREACH(const CKeyID &keyid, setKeys)
+      if(mapKeyBirth.count(keyid) == 0) mapKeyFirstBlock[keyid] = pindexMax;
+    setKeys.clear();
+
+    /* Return if there are no such keys */
+    if(mapKeyFirstBlock.empty())
+      return;
+
+    /* Find the first block that affects those keys if any */
+    std::vector<CKeyID> vAffected;
+    for(std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin();
+      it != mapWallet.end(); it++) {
+        /* Iterate over all wallet transactions */
+        const CWalletTx &wtx = (*it).second;
+        std::map<uint256, CBlockIndex *>::const_iterator blit = mapBlockIndex.find(wtx.hashBlock);
+        if((blit != mapBlockIndex.end()) && (blit->second->IsInMainChain())) {
+            /* Those already in blocks */
+            int nHeight = blit->second->nHeight;
+            BOOST_FOREACH(const CTxOut &txout, wtx.vout) {
+                /* Iterate over all their outputs */
+                ::ExtractAffectedKeys(*this, txout.scriptPubKey, vAffected);
+                BOOST_FOREACH(const CKeyID &keyid, vAffected) {
+                    /* Iterate over all their affected keys */
+                    std::map<CKeyID, CBlockIndex*>::iterator rit = mapKeyFirstBlock.find(keyid);
+                    if((rit != mapKeyFirstBlock.end()) && (nHeight < rit->second->nHeight))
+                      rit->second = blit->second;
+                }
+                vAffected.clear();
+            }
+        }
+    }
+
+    /* Extract block time stamps for those keys */
+    for(std::map<CKeyID, CBlockIndex *>::const_iterator it = mapKeyFirstBlock.begin();
+      it != mapKeyFirstBlock.end(); it++) {
+        /* Block time may be 2 hours off */
+        mapKeyBirth[it->first] = it->second->nTime - 7200;
+    }
+}
+
+void CWallet::UpdateTimeFirstKey(int64 nCreateTime) {
+    const int64 nBirthday = 1356998400; /* 1-Jan-2013 00:00:00 */
+
+    LOCK(cs_wallet);
+    if(nCreateTime < nBirthday) {
+        nTimeFirstKey = nBirthday;
+    } else if(!nTimeFirstKey || (nCreateTime < nTimeFirstKey)) {
+        nTimeFirstKey = nCreateTime;
+    }
+
 }
 
 void CWallet::LockCoin(COutPoint &output) {

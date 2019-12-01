@@ -10,6 +10,8 @@
 #include "base58.h"
 
 #include <boost/lexical_cast.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
 
 #define printf OutputDebugStringF
 
@@ -71,6 +73,32 @@ Value importprivkey(const Array& params, bool fHelp)
     return Value::null;
 }
 
+Value importwallet(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1))
+      throw(runtime_error(
+        "importwallet <file name>\n"
+        "Imports keys from a wallet dump file.\n"
+        "The file name may be specified with a directory path."));
+
+    EnsureWalletIsUnlocked();
+
+    boost::filesystem::ifstream file;
+    boost::filesystem::path pathImportFile = params[0].get_str().c_str();
+    if(!pathImportFile.is_complete()) pathImportFile = GetDataDir(true) / pathImportFile;
+    if(!boost::filesystem::exists(pathImportFile))
+      throw(JSONRPCError(RPC_INVALID_PARAMETER, "The file with wallet keys doesn't exist"));
+    file.open(pathImportFile, std::ios_base::in);
+    if(!file.good())
+      throw(JSONRPCError(RPC_INVALID_PARAMETER, "Cannot open the file with wallet keys"));
+    file.close();
+
+    if(!ImportWallet(pwalletMain, pathImportFile.string().c_str()))
+      throw(JSONRPCError(RPC_WALLET_ERROR, "Failed while importing keys to the wallet"));
+
+    return(Value::null);
+}
+
 Value dumpprivkey(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
@@ -90,4 +118,30 @@ Value dumpprivkey(const Array& params, bool fHelp)
     if (!pwalletMain->GetSecret(keyID, vchSecret, fCompressed))
         throw JSONRPCError(RPC_WALLET_ERROR, "Private key for address " + strAddress + " is not known");
     return CBitcoinSecret(vchSecret, fCompressed).ToString();
+}
+
+Value dumpwallet(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1))
+      throw(runtime_error(
+        "dumpwallet <file name>\n"
+        "Dumps all wallet keys in a human readable format.\n"
+        "The file name may be specified with a directory path."));
+
+    EnsureWalletIsUnlocked();
+
+    boost::filesystem::ofstream file;
+    boost::filesystem::path pathDumpFile = params[0].get_str().c_str();
+    if(!pathDumpFile.is_complete()) pathDumpFile = GetDataDir(true) / pathDumpFile;
+    if(boost::filesystem::exists(pathDumpFile))
+      throw(JSONRPCError(RPC_INVALID_PARAMETER, "The file for wallet keys exists already"));
+    file.open(pathDumpFile, std::ios_base::out);
+    if(!file.good())
+      throw(JSONRPCError(RPC_INVALID_PARAMETER, "Cannot create the file for wallet keys"));
+    file.close();
+
+    if(!ExportWallet(pwalletMain, pathDumpFile.string().c_str()))
+      throw(JSONRPCError(RPC_WALLET_ERROR, "Failed while exporting keys from the wallet"));
+
+    return(Value::null);
 }
