@@ -77,7 +77,6 @@ GUI::GUI(QWidget *parent):
     prevBlocks(0),
     spinnerFrame(0)
 {
-    resize(850, 550);
     setWindowTitle(tr("Phoenixcoin") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/phoenixcoin"));
@@ -86,17 +85,75 @@ GUI::GUI(QWidget *parent):
     setUnifiedTitleAndToolBarOnMac(true);
     QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
+
+    int nQtStyle = GetArg("-qtstyle", 2);
+    if(nQtStyle < 0) nQtStyle = 0;
+
+    if(!nQtStyle) {
+        resize(850, 575);
+        qApp->setStyleSheet("QToolBar QToolButton { text-align: left; \
+          padding-left: 0px; padding-right: 0px; padding-top: 3px; padding-bottom: 3px; }");
+    } else if(nQtStyle == 1) {
+        resize(1000, 525);
+#ifndef Q_OS_MAC
+        qApp->setStyleSheet("QToolBar QToolButton { text-align: center; width: 100%; \
+          padding-left: 5px; padding-right: 5px; padding-top: 2px; padding-bottom: 2px; \
+          margin-top: 2px; } \
+          QToolBar QToolButton:hover { font-weight: bold; } \
+          #toolbar { border: none; height: 100%; min-width: 150px; max-width: 150px; } \
+          QMenuBar { min-height: 20px; }");
+#else
+        qApp->setStyleSheet("QToolBar QToolButton { text-align: center; width: 100%; \
+          padding-left: 5px; padding-right: 5px; padding-top: 2px; padding-bottom: 2px; \
+          margin-top: 2px; } \
+          QToolBar QToolButton:hover { font-weight: bold; background-color: transparent; } \
+          #toolbar { border: none; height: 100%; min-width: 150px; max-width: 150px; }");
+#endif
+    } else {
+        resize(1000, 525);
+#ifndef Q_OS_MAC
+        qApp->setStyleSheet("QToolBar QToolButton { text-align: center; width: 100%; \
+          color: white; background-color: darkred; padding-left: 5px; padding-right: 5px; \
+          padding-top: 2px; padding-bottom: 2px; margin-top: 2px; } \
+          QToolBar QToolButton:hover { font-weight: bold; \
+          background-color: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 2, \
+          stop: 0 #640000, stop: 1 #DFFF5F); } \
+          #toolbar { border: none; height: 100%; min-width: 150px; max-width: 150px; \
+          background-color: darkred; } \
+          QMenuBar { color: white; background-color: darkred; } \
+          QMenuBar::item { color: white; background-color: transparent; \
+          padding-top: 6px; padding-bottom: 6px; \
+          padding-left: 10px; padding-right: 10px; } \
+          QMenuBar::item:selected { background-color: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 2, \
+          stop: 0 #640000, stop: 1 #DFFF5F); } \
+          QMenu { border: 1px solid; color: black; background-color: ivory; } \
+          QMenu::item { background-color: transparent; } \
+          QMenu::item:disabled { color: gray; } \
+          QMenu::item:enabled:selected { color: white; background-color: red; } \
+          QMenu::separator { height: 4px; }");
+#else
+        qApp->setStyleSheet("QToolBar QToolButton { text-align: center; width: 100%; \
+          color: white; padding-left: 5px; padding-right: 5px; \
+          padding-top: 2px; padding-bottom: 2px; margin-top: 2px; } \
+          QToolBar QToolButton:hover { font-weight: bold; \
+          background-color: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 2, \
+          stop: 0 #640000, stop: 1 #DFFF5F); } \
+          #toolbar { border: none; height: 100%; min-width: 150px; max-width: 150px; \
+          background-color: darkred; }");
+#endif
+    }
+
     // Accept D&D of URIs
     setAcceptDrops(true);
 
     // Create actions for the toolbar, menu bar and tray/dock icon
-    createActions();
+    createActions(nQtStyle);
 
     // Create application menu bar
     createMenuBar();
 
     // Create the toolbars
-    createToolBars();
+    createToolBars(nQtStyle);
 
     // Create the tray icon (or setup the dock icon)
     createTrayIcon();
@@ -155,22 +212,13 @@ GUI::GUI(QWidget *parent):
     progressBar->setAlignment(Qt::AlignCenter);
     progressBar->setVisible(false);
 
-    // Override style sheet for progress bar for styles that have a segmented progress bar,
-    // as they make the text unreadable (workaround for issue #1071)
-    // See https://qt-project.org/doc/qt-4.8/gallery.html
-    QString curStyle = qApp->style()->metaObject()->className();
-    if(curStyle == "QWindowsStyle" || curStyle == "QWindowsXPStyle")
-    {
-        progressBar->setStyleSheet("QProgressBar { background-color: #e8e8e8; border: 1px solid grey; border-radius: 7px; padding: 1px; text-align: center; } QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF8000, stop: 1 orange); border-radius: 7px; margin: 0px; }");
-    }
+    /* OS & theme independent style; widgets must be added prior to styling */
+    progressBar->setStyleSheet("QProgressBar { color: black; background-color: transparent; border: 1px solid grey; border-radius: 2px; padding: 1px; text-align: center; } \
+      QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF7F00, stop: 1 #FFD77F); margin: 0px; }");  
 
     statusBar()->addWidget(progressBarLabel);
     statusBar()->addWidget(progressBar);
     statusBar()->addPermanentWidget(frameBlocks);
-
-    /* OS & theme independent style; widgets must be added prior to styling */
-    progressBar->setStyleSheet("QProgressBar { color: black; background-color: transparent; border: 1px solid grey; border-radius: 2px; padding: 1px; text-align: center; } \
-      QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF7F00, stop: 1 #FFD77F); margin: 0px; }");
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
@@ -180,8 +228,8 @@ GUI::GUI(QWidget *parent):
     connect(transactionView, SIGNAL(doubleClicked(QModelIndex)), transactionView, SLOT(showDetails()));
 
     rpcConsole = new RPCConsole(this);
-    connect(openRPCConsoleAction, SIGNAL(triggered()), rpcConsole, SLOT(show()));
-    connect(trafficAction, SIGNAL(triggered()), rpcConsole, SLOT(showTabStats()));
+    connect(consoleAction, SIGNAL(triggered()), rpcConsole, SLOT(showConsole()));
+    connect(trafficAction, SIGNAL(triggered()), rpcConsole, SLOT(showTraffic()));
 
     blockExplorer = new BlockExplorer(this);
     connect(explorerAction, SIGNAL(triggered()), blockExplorer, SLOT(gotoBlockExplorer()));
@@ -210,8 +258,7 @@ GUI::~GUI() {
 #endif
 }
 
-void GUI::createActions() {
-
+void GUI::createActions(int nQtStyle) {
     QActionGroup *tabGroup = new QActionGroup(this);
 
     overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
@@ -219,30 +266,47 @@ void GUI::createActions() {
     overviewAction->setCheckable(true);
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
     tabGroup->addAction(overviewAction);
+    connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
 
-    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send coins"), this);
+    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
     sendCoinsAction->setToolTip(tr("Send coins to a Phoenixcoin address"));
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
+    connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
 
-    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive coins"), this);
+    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(receiveCoinsAction);
+    connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
 
-    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
-    historyAction->setToolTip(tr("Browse transaction history"));
+    historyAction = new QAction(QIcon(":/icons/history"), tr("&Payments"), this);
+    historyAction->setToolTip(tr("Browse payment history"));
     historyAction->setCheckable(true);
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
+    connect(historyAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
 
-    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Address Book"), this);
+    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Addresses"), this);
     addressBookAction->setToolTip(tr("Edit the list of stored addresses and labels"));
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
+    connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
+
+    consoleAction = new QAction(QIcon(":/icons/console"), tr("&Console"), this);
+    consoleAction->setToolTip(tr("Open the RPC console"));
+    consoleAction->setCheckable(false);
+    consoleAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    tabGroup->addAction(consoleAction);
+    /* RPC console action connected already */
 
     explorerAction = new QAction(QIcon(":/icons/explorer"), tr("&Explorer"), this);
     explorerAction->setToolTip(tr("Open the block explorer"));
@@ -262,46 +326,56 @@ void GUI::createActions() {
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
 
+    toggleHideAction = new QAction(QIcon(":/icons/phoenixcoin"), tr("&Show / Hide"), this);
+    connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
+
+    cloneWalletAction = new QAction(QIcon(":/icons/filesave"), tr("&Clone"), this);
+    connect(cloneWalletAction, SIGNAL(triggered()), this, SLOT(cloneWallet()));
+
+    optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options"), this);
+    optionsAction->setMenuRole(QAction::PreferencesRole);
+    connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
+
+    lockWalletToggleAction = new QAction(QIcon(":/icons/lock_open"), tr("&Unlock"), this);
+    connect(lockWalletToggleAction, SIGNAL(triggered()), this, SLOT(lockWalletToggle()));
+
+    exportWalletAction = new QAction(QIcon(":/icons/key_export"), tr("&Export keys"), this);
+    connect(exportWalletAction, SIGNAL(triggered()), this, SLOT(exportWallet()));
+
+    importWalletAction = new QAction(QIcon(":/icons/key_import"), tr("&Import keys"), this);
+    connect(importWalletAction, SIGNAL(triggered()), this, SLOT(importWallet()));
+
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
-    quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/phoenixcoin"), tr("&About Phoenixcoin"), this);
-    aboutAction->setToolTip(tr("Show information about Phoenixcoin"));
-    aboutAction->setMenuRole(QAction::AboutRole);
-    aboutQtAction = new QAction(QIcon(":/icons/qt"), tr("About &Qt"), this);
-    aboutQtAction->setToolTip(tr("Show information about Qt"));
-    aboutQtAction->setMenuRole(QAction::AboutQtRole);
-    optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setToolTip(tr("Modify configuration options for Phoenixcoin"));
-    optionsAction->setMenuRole(QAction::PreferencesRole);
-    toggleHideAction = new QAction(QIcon(":/icons/phoenixcoin"), tr("&Show / Hide"), this);
-    encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Encrypt Wallet..."), this);
-    encryptWalletAction->setToolTip(tr("Encrypt or decrypt wallet"));
-    encryptWalletAction->setCheckable(true);
-    backupWalletAction = new QAction(QIcon(":/icons/filesave"), tr("&Backup Wallet..."), this);
-    backupWalletAction->setToolTip(tr("Backup wallet to another location"));
-    changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change Passphrase..."), this);
-    changePassphraseAction->setToolTip(tr("Change the passphrase used for wallet encryption"));
-    signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
-    verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 
-    exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
-    exportAction->setToolTip(tr("Export the data in the current tab to a file"));
-    openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
-    openRPCConsoleAction->setToolTip(tr("Open debugging and diagnostic console"));
     trafficAction = new QAction(QIcon(":/icons/traffic"), tr("&Network activity"), this);
 
-    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
-    connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
-    connect(toggleHideAction, SIGNAL(triggered()), this, SLOT(toggleHidden()));
+    encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("Encrypt &wallet"), this);
+    encryptWalletAction->setCheckable(true);
     connect(encryptWalletAction, SIGNAL(triggered(bool)), this, SLOT(encryptWallet(bool)));
-    connect(backupWalletAction, SIGNAL(triggered()), this, SLOT(backupWallet()));
+
+    changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change passphrase"), this);
     connect(changePassphraseAction, SIGNAL(triggered()), this, SLOT(changePassphrase()));
+
+    signMessageAction = new QAction(QIcon(":/icons/edit"), tr("&Sign message"), this);
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(gotoSignMessageTab()));
+
+    verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message"), this);
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(gotoVerifyMessageTab()));
+
+    exportAction = new QAction(QIcon(":/icons/export"), tr("E&xport"), this);
+    exportAction->setToolTip(tr("Export the data in the current tab to a file"));
+    /* Connected / disconnected on respective tab pages */
+
+    aboutAction = new QAction(QIcon(":/icons/phoenixcoin"), tr("&About Phoenixcoin"), this);
+    aboutAction->setMenuRole(QAction::AboutRole);
+    connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
+
+    aboutQtAction = new QAction(QIcon(":/icons/qt"), tr("About &Qt"), this);
+    aboutQtAction->setMenuRole(QAction::AboutQtRole);
+    connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
 
 void GUI::createMenuBar() {
@@ -315,38 +389,55 @@ void GUI::createMenuBar() {
 #endif
 
     // Configure the menus
-    QMenu *file = appMenuBar->addMenu(tr("&File"));
-    file->addAction(backupWalletAction);
-    file->addAction(exportAction);
-    file->addAction(signMessageAction);
-    file->addAction(verifyMessageAction);
-    file->addSeparator();
-    file->addAction(quitAction);
+    QMenu *wallet = appMenuBar->addMenu(tr("&Wallet"));
+    wallet->addAction(cloneWalletAction);
+    wallet->addAction(exportWalletAction);
+    wallet->addAction(importWalletAction);
+    wallet->addAction(optionsAction);
+    wallet->addSeparator();
+    wallet->addAction(lockWalletToggleAction);
+    wallet->addSeparator();
+    wallet->addAction(quitAction);
 
-    QMenu *settings = appMenuBar->addMenu(tr("&Settings"));
-    settings->addAction(encryptWalletAction);
-    settings->addAction(changePassphraseAction);
-    settings->addSeparator();
-    settings->addAction(optionsAction);
+    QMenu *tools = appMenuBar->addMenu(tr("&Tools"));
+    tools->addAction(consoleAction);
+    tools->addAction(explorerAction);
+    tools->addAction(trafficAction);
+    tools->addSeparator();
+    tools->addAction(encryptWalletAction);
+    tools->addAction(changePassphraseAction);
+    tools->addSeparator();
+    tools->addAction(signMessageAction);
+    tools->addAction(verifyMessageAction);
+    tools->addSeparator();
+    tools->addAction(exportAction);
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
-    help->addAction(openRPCConsoleAction);
-    help->addAction(trafficAction);
-    help->addAction(explorerAction);
-    help->addSeparator();
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
 }
 
-void GUI::createToolBars() {
+void GUI::createToolBars(int nQtStyle) {
+    QToolBar *toolbar = addToolBar(tr("Primary tool bar"));
+    toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    toolbar->setMovable(false);
+    toolbar->setIconSize(QSize(32, 32));
 
-    QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
-    toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    if(!nQtStyle) {
+        toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    } else {
+        toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        toolbar->setObjectName("toolbar");
+        addToolBar(Qt::LeftToolBarArea, toolbar);
+        toolbar->setOrientation(Qt::Vertical);
+    }
+
     toolbar->addAction(overviewAction);
     toolbar->addAction(sendCoinsAction);
     toolbar->addAction(receiveCoinsAction);
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
+    toolbar->addAction(consoleAction);
     toolbar->addAction(explorerAction);
 }
 
@@ -447,7 +538,7 @@ void GUI::createTrayIcon() {
     trayIconMenu->addAction(verifyMessageAction);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(optionsAction);
-    trayIconMenu->addAction(openRPCConsoleAction);
+    trayIconMenu->addAction(consoleAction);
     trayIconMenu->addAction(explorerAction);
 #ifndef Q_OS_MAC // This is built-in on Mac
     trayIconMenu->addSeparator();
@@ -534,10 +625,11 @@ void GUI::setNumBlocks(int count, int nTotalBlocks) {
 
         overviewPage->showOutOfSyncWarning(false);
     } else {
+        /* Better represent time from the last generated block */
         QString timeBehindText;
         if(secs < 48 * 60 * 60) {
             timeBehindText = tr("%n hours", "", secs / (60 * 60));
-        } else if(secs < 14*24*60*60) {
+        } else if(secs < 14 * 24 * 60 * 60) {
             timeBehindText = tr("%n days", "", secs / (24 * 60 * 60));
         } else {
             timeBehindText = tr("%n weeks", "", secs / (7 * 24 * 60 * 60));
@@ -637,13 +729,12 @@ void GUI::askFee(qint64 nFeeRequired, bool *payFee) {
     if (!clientModel || !clientModel->getOptionsModel()) return;
 
     QString strMessage = tr(
-      "This transaction is over the size limit.  You can still send it for a fee of %1, "
-      "which goes to the nodes that process your transaction and helps to support the network.  "
-      "Do you want to pay the fee?"
+      "This payment is over the size limit. You can still send it for a fee of %1. "
+      "Are you ready to pay?"
       ).arg(CoinUnits::formatWithUnit(clientModel->getOptionsModel()->getDisplayUnit(), nFeeRequired));
 
     QMessageBox::StandardButton retval = QMessageBox::question(this,
-      tr("Confirm transaction fee"), strMessage,
+      tr("Payment fee request"), strMessage,
       QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Yes);
 
     *payFee = (retval == QMessageBox::Yes);
@@ -784,30 +875,37 @@ void GUI::handleURI(QString strURI) {
 }
 
 void GUI::setEncryptionStatus(int status) {
-    switch(status)
-    {
-    case WalletModel::Unencrypted:
-        labelEncryptionIcon->hide();
-        encryptWalletAction->setChecked(false);
-        changePassphraseAction->setEnabled(false);
-        encryptWalletAction->setEnabled(true);
-        break;
-    case WalletModel::Unlocked:
-        labelEncryptionIcon->show();
-        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_open").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
-        encryptWalletAction->setChecked(true);
-        changePassphraseAction->setEnabled(true);
-        encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported
-        break;
-    case WalletModel::Locked:
-        labelEncryptionIcon->show();
-        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_closed").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>locked</b>"));
-        encryptWalletAction->setChecked(true);
-        changePassphraseAction->setEnabled(true);
-        encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported
-        break;
+
+    switch(status) {
+        case(WalletModel::Unencrypted):
+            labelEncryptionIcon->hide();
+            encryptWalletAction->setChecked(false);
+            encryptWalletAction->setEnabled(true);
+            changePassphraseAction->setEnabled(false);
+            lockWalletToggleAction->setEnabled(false);
+            break;
+        case(WalletModel::Unlocked):
+            labelEncryptionIcon->show();
+            labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_open") \
+              .pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+            labelEncryptionIcon->setToolTip(tr("The wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
+            encryptWalletAction->setChecked(true);
+            encryptWalletAction->setEnabled(false);
+            changePassphraseAction->setEnabled(true);
+            lockWalletToggleAction->setIcon(QIcon(":/icons/lock_closed"));
+            lockWalletToggleAction->setText(tr("&Lock"));
+            break;
+        case(WalletModel::Locked):
+            labelEncryptionIcon->show();
+            labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_closed") \
+              .pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
+            labelEncryptionIcon->setToolTip(tr("The wallet is <b>encrypted</b> and currently <b>locked</b>"));
+            encryptWalletAction->setChecked(true);
+            encryptWalletAction->setEnabled(false);
+            changePassphraseAction->setEnabled(true);
+            lockWalletToggleAction->setIcon(QIcon(":/icons/lock_open"));
+            lockWalletToggleAction->setText(tr("&Unlock"));
+            break;
     }
 }
 
@@ -822,18 +920,83 @@ void GUI::encryptWallet(bool status) {
     setEncryptionStatus(walletModel->getEncryptionStatus());
 }
 
-void GUI::backupWallet() {
+void GUI::cloneWallet() {
+
+   if(!walletModel) return;
+   WalletModel::UnlockContext ctx(walletModel->requestUnlock());
+   if(!ctx.isValid()) return;
 
 #if (QT_VERSION < 0x050000)
-    QString saveDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+    QString saveDir = QDesktopServices::storageLocation(QDesktopServices::HomeLocation);
 #else
-    QString saveDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    QString saveDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 #endif
 
-    QString filename = QFileDialog::getSaveFileName(this, tr("Backup Wallet"), saveDir, tr("Wallet Data (*.dat)"));
+    QString filename = QFileDialog::getSaveFileName(this, tr("Clone Wallet"),
+      saveDir, tr("Wallet Data (*.dat)"));
     if(!filename.isEmpty()) {
-        if(!walletModel->backupWallet(filename)) {
-            QMessageBox::warning(this, tr("Backup Failed"), tr("There was an error trying to save the wallet data to the new location."));
+        if(walletModel->cloneWallet(filename)) {
+            QMessageBox::information(this,
+              tr("Cloning Complete"),
+              tr("A copy of your wallet has been saved to:<br>%1").arg(filename));
+        } else {
+            QMessageBox::critical(this,
+              tr("Cloning Failed"),
+              tr("There was an error while making a copy of your wallet."));
+        }
+    }
+}
+
+void GUI::exportWallet() {
+
+   if(!walletModel) return;
+   WalletModel::UnlockContext ctx(walletModel->requestUnlock());
+   if(!ctx.isValid()) return;
+
+#if (QT_VERSION < 0x050000)
+    QString saveDir = QDesktopServices::storageLocation(QDesktopServices::HomeLocation);
+#else
+    QString saveDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+#endif
+
+    QString filename = QFileDialog::getSaveFileName(this, tr("Export Wallet Keys"),
+      saveDir, tr("Wallet Keys (*.txt)"));
+    if(!filename.isEmpty()) {
+        if(walletModel->exportWallet(filename)) {
+            QMessageBox::information(this,
+              tr("Export Complete"),
+              tr("All keys of your wallet have been exported into:<br>%1").arg(filename));
+        } else {
+            QMessageBox::critical(this,
+              tr("Export Failed"),
+              tr("There was an error while exporting your wallet keys."));
+        }
+    }
+}
+
+void GUI::importWallet() {
+
+   if(!walletModel) return;
+   WalletModel::UnlockContext ctx(walletModel->requestUnlock());
+   if(!ctx.isValid()) return;
+
+#if (QT_VERSION < 0x050000)
+    QString openDir = QDesktopServices::storageLocation(QDesktopServices::HomeLocation);
+#else
+    QString openDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+#endif
+
+    QString filename = QFileDialog::getOpenFileName(this, tr("Import Wallet Keys"),
+      openDir, tr("Wallet Keys (*.txt)"));
+    if(!filename.isEmpty()) {
+        if(walletModel->importWallet(filename)) {
+            QMessageBox::information(this,
+              tr("Import Complete"),
+              tr("All keys have been imported into your wallet from:<br>%1").arg(filename));
+        } else {
+            QMessageBox::critical(this,
+              tr("Import Failed"),
+              tr("There was an error while importing wallet keys from:<br>%1").arg(filename));
         }
     }
 }
@@ -853,6 +1016,19 @@ void GUI::unlockWallet() {
         AskPassphraseDialog dlg(AskPassphraseDialog::Unlock, this);
         dlg.setModel(walletModel);
         dlg.exec();
+    }
+}
+
+void GUI::lockWalletToggle() {
+
+    if(!walletModel) return;
+
+    if(walletModel->getEncryptionStatus() == WalletModel::Locked) {
+        AskPassphraseDialog dlg(AskPassphraseDialog::Unlock, this);
+        dlg.setModel(walletModel);
+        dlg.exec();
+    } else {
+        walletModel->setWalletLocked(true);
     }
 }
 

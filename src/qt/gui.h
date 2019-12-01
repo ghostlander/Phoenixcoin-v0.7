@@ -4,8 +4,6 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 
-extern bool fTestNet;
-
 class TransactionTableModel;
 class ClientModel;
 class WalletModel;
@@ -77,24 +75,27 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
-    QAction *historyAction;
-    QAction *quitAction;
     QAction *sendCoinsAction;
+    QAction *receiveCoinsAction;
+    QAction *historyAction;
     QAction *addressBookAction;
+    QAction *consoleAction;
+    QAction *explorerAction;
+    QAction *trafficAction;
+    QAction *toggleHideAction;
+    QAction *cloneWalletAction;
+    QAction *exportWalletAction;
+    QAction *importWalletAction;
+    QAction *optionsAction;
+    QAction *lockWalletToggleAction;
+    QAction *quitAction;
+    QAction *encryptWalletAction;
+    QAction *changePassphraseAction;
     QAction *signMessageAction;
     QAction *verifyMessageAction;
-    QAction *aboutAction;
-    QAction *receiveCoinsAction;
-    QAction *optionsAction;
-    QAction *toggleHideAction;
     QAction *exportAction;
-    QAction *encryptWalletAction;
-    QAction *backupWalletAction;
-    QAction *changePassphraseAction;
+    QAction *aboutAction;
     QAction *aboutQtAction;
-    QAction *openRPCConsoleAction;
-    QAction *trafficAction;
-    QAction *explorerAction;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
@@ -106,11 +107,11 @@ private:
     int spinnerFrame;
 
     /** Create the main UI actions. */
-    void createActions();
+    void createActions(int nQtStyle);
     /** Create the menu bar and sub-menus. */
     void createMenuBar();
     /** Create the toolbars */
-    void createToolBars();
+    void createToolBars(int nQtStyle);
     /** Create system tray (notification) icon */
     void createTrayIcon();
 
@@ -170,12 +171,17 @@ private slots:
     void incomingTransaction(const QModelIndex & parent, int start, int end);
     /** Encrypt the wallet */
     void encryptWallet(bool status);
-    /** Backup the wallet */
-    void backupWallet();
+    /* Wallet cloning */
+    void cloneWallet();
+    /* Wallet keys export / import */
+    void exportWallet();
+    void importWallet();
     /** Change encrypted wallet passphrase */
     void changePassphrase();
     /** Ask for passphrase to unlock wallet temporarily */
     void unlockWallet();
+    /* Wallet lock/unlock toggle */
+    void lockWalletToggle();
 
     /** Show window if hidden, unminimize when minimized, rise when obscured or show if hidden and fToggleHidden is true */
     void showNormalIfMinimized(bool fToggleHidden = false);

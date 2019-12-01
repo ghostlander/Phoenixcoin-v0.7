@@ -315,18 +315,18 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+17"/>
-        <source>&amp;Transactions</source>
-        <translation>&amp;交易记录</translation>
+        <source>&amp;Payments</source>
+        <translation>&amp;付款方式</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Browse transaction history</source>
-        <translation>查看交易历史</translation>
+        <translation>瀏覽付款記錄</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>&amp;Address Book</source>
-        <translation>&amp;地址簿</translation>
+        <source>&amp;Addresses</source>
+        <translation>&amp;地址</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -335,8 +335,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-13"/>
-        <source>&amp;Receive coins</source>
-        <translation>&amp;收款地址</translation>
+        <source>&amp;Receive</source>
+        <translation>&amp;接收</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -345,8 +345,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-7"/>
-        <source>&amp;Send coins</source>
-        <translation>&amp;发送货币</translation>
+        <source>&amp;Send</source>
+        <translation>&amp;發送</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -614,12 +614,12 @@ Address: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>钱包已被&lt;b&gt;加密&lt;/b&gt;，当前为&lt;b&gt;解锁&lt;/b&gt;状态</translation>
     </message>
     <message>
         <location line="+8"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>钱包已被&lt;b&gt;加密&lt;/b&gt;，当前为&lt;b&gt;锁定&lt;/b&gt;状态</translation>
     </message>
     <message>
@@ -984,8 +984,8 @@ Address: %4
     </message>
     <message>
         <location line="+58"/>
-        <source>Number of transactions:</source>
-        <translation>交易笔数：</translation>
+        <source>Number of payments:</source>
+        <translation>付款數量：</translation>
     </message>
     <message>
         <location line="-29"/>
@@ -1009,8 +1009,8 @@ Address: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;最近交易记录&lt;/b&gt;</translation>
+        <source>&lt;b&gt;Recent payments&lt;/b&gt;</source>
+        <translation>&lt;b&gt;最近付款&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="-118"/>
@@ -1024,8 +1024,8 @@ Address: %4
     </message>
     <message>
         <location line="+20"/>
-        <source>Total number of transactions in wallet</source>
-        <translation>钱包总交易数量</translation>
+        <source>Total number of payments in the wallet</source>
+        <translation>錢包中的付款總數</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+112"/>

@@ -315,18 +315,18 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+17"/>
-        <source>&amp;Transactions</source>
-        <translation>Пе&amp;реклади</translation>
+        <source>&amp;Payments</source>
+        <translation>Пл&amp;тежі</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Browse transaction history</source>
-        <translation>Переглянути історію переказів</translation>
+        <source>Browse payment history</source>
+        <translation>Переглянути історію платежів</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>&amp;Address Book</source>
-        <translation>&amp;Адресна книга</translation>
+        <source>&amp;Addresses</source>
+        <translation>&amp;Адреси</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -335,7 +335,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-13"/>
-        <source>&amp;Receive coins</source>
+        <source>&amp;Receive</source>
         <translation>О&amp;тримати</translation>
     </message>
     <message>
@@ -345,7 +345,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-7"/>
-        <source>&amp;Send coins</source>
+        <source>&amp;Send</source>
         <translation>В&amp;ідправити</translation>
     </message>
     <message>
@@ -626,12 +626,12 @@ Address: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>&lt;b&gt;Зашифрований&lt;/b&gt; гаманець &lt;b&gt;розблоковано&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>&lt;b&gt;Зашифрований&lt;/b&gt; гаманець &lt;b&gt;заблоковано&lt;/b&gt;</translation>
     </message>
     <message>
@@ -996,8 +996,8 @@ Address: %4
     </message>
     <message>
         <location line="+58"/>
-        <source>Number of transactions:</source>
-        <translation>Кількість переказів:</translation>
+        <source>Number of payments:</source>
+        <translation>Кількість платежів:</translation>
     </message>
     <message>
         <location line="-29"/>
@@ -1021,8 +1021,8 @@ Address: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Недавні перекази&lt;/b&gt;</translation>
+        <source>&lt;b&gt;Recent payments&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Останні платежі&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="-118"/>
@@ -1036,8 +1036,8 @@ Address: %4
     </message>
     <message>
         <location line="+20"/>
-        <source>Total number of transactions in wallet</source>
-        <translation>Загальна кількість переказів в гаманці</translation>
+        <source>Total number of payments in the wallet</source>
+        <translation>Загальна кількість платежів в гаманці</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+112"/>

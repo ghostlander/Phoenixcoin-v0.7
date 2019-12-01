@@ -54,8 +54,10 @@ public slots:
     void browseHistory(int offset);
     /** Scroll console view to end */
     void scrollToEnd();
+    /* Show console tab */
+    void showConsole();
     /* Show traffic statistics tab */
-    void showTabStats();
+    void showTraffic();
 
 signals:
     // For RPC command executor

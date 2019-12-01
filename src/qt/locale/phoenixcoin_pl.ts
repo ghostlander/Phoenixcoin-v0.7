@@ -315,28 +315,28 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+17"/>
-        <source>&amp;Transactions</source>
-        <translation>&amp;Transakcje</translation>
+        <source>&amp;Payments</source>
+        <translation>&amp;Płatności</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Browse transaction history</source>
-        <translation>Przeglądaj historię transakcji</translation>
+        <source>Browse payment history</source>
+        <translation>Przeglądaj historię płatności</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>&amp;Address Book</source>
-        <translation>Książka &amp;adresowa</translation>
+        <source>&amp;Addresses</source>
+        <translation>&amp;Adresy</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit the list of stored addresses and labels</source>
-        <translation>Edytuj listę zapisanych adresów i i etykiet</translation>
+        <translation>Edytuj listę zapisanych adresów i etykiet</translation>
     </message>
     <message>
         <location line="-13"/>
-        <source>&amp;Receive coins</source>
-        <translation>Odbie&amp;rz monety</translation>
+        <source>&amp;Receive</source>
+        <translation>Ot&amp;rzymać</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -345,8 +345,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-7"/>
-        <source>&amp;Send coins</source>
-        <translation>Wy&amp;syłka monet</translation>
+        <source>&amp;Send</source>
+        <translation>Wy&amp;słać</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -626,12 +626,12 @@ Adres: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Portfel jest &lt;b&gt;zaszyfrowany&lt;/b&gt; i obecnie &lt;b&gt;niezablokowany&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Portfel jest &lt;b&gt;zaszyfrowany&lt;/b&gt; i obecnie &lt;b&gt;zablokowany&lt;/b&gt;</translation>
     </message>
     <message>
@@ -995,8 +995,8 @@ Adres: %4
     </message>
     <message>
         <location line="+58"/>
-        <source>Number of transactions:</source>
-        <translation>Liczba transakcji:</translation>
+        <source>Number of payments:</source>
+        <translation>Liczba płatności:</translation>
     </message>
     <message>
         <location line="-29"/>
@@ -1020,8 +1020,8 @@ Adres: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Ostatnie transakcje&lt;/b&gt;</translation>
+        <source>&lt;b&gt;Recent payments&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Ostatnie płatności&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="-118"/>
@@ -1035,8 +1035,8 @@ Adres: %4
     </message>
     <message>
         <location line="+20"/>
-        <source>Total number of transactions in wallet</source>
-        <translation>Całkowita liczba transakcji w portfelu</translation>
+        <source>Total number of payments in the wallet</source>
+        <translation>Całkowita liczba płatności w portfelu</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+112"/>

@@ -491,7 +491,12 @@ void RPCConsole::on_btnClearTrafficGraph_clicked() {
     ui->trafficGraph->clear();
 }
 
-void RPCConsole::showTabStats() {
+void RPCConsole::showConsole() {
+    ui->tabWidget->setCurrentIndex(1);
+    this->show();
+}
+
+void RPCConsole::showTraffic() {
     ui->tabWidget->setCurrentIndex(2);
     this->show();
 }

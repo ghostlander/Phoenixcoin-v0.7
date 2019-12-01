@@ -37,9 +37,11 @@
         <file alias="lock_closed">res/icons/lock_closed.png</file>
         <file alias="lock_open">res/icons/lock_open.png</file>
         <file alias="key">res/icons/key.png</file>
+        <file alias="key_export">res/icons/key_export.png</file>
+        <file alias="key_import">res/icons/key_import.png</file>
         <file alias="filesave">res/icons/filesave.png</file>
         <file alias="qrcode">res/icons/qrcode.png</file>
-        <file alias="debugwindow">res/icons/debugwindow.png</file>
+        <file alias="console">res/icons/console.png</file>
         <file alias="traffic">res/icons/traffic.png</file>
         <file alias="explorer">res/icons/explorer.png</file>
         <file alias="qt">res/icons/qt.png</file>

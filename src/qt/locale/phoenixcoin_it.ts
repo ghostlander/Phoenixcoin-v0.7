@@ -315,18 +315,18 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="+17"/>
-        <source>&amp;Transactions</source>
-        <translation>&amp;Transazioni</translation>
+        <source>&amp;Payments</source>
+        <translation>&amp;Pagamenti</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Browse transaction history</source>
-        <translation>Cerca nelle transazioni</translation>
+        <source>Browse payment history</source>
+        <translation>Cerca nelle pagamenti</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>&amp;Address Book</source>
-        <translation>&amp;Rubrica</translation>
+        <source>&amp;Addresses</source>
+        <translation>In&amp;dirizzi</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -335,8 +335,8 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="-13"/>
-        <source>&amp;Receive coins</source>
-        <translation>&amp;Ricevi monete</translation>
+        <source>&amp;Receive</source>
+        <translation>&amp;Ricevi</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -345,8 +345,8 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="-7"/>
-        <source>&amp;Send coins</source>
-        <translation>&amp;Invia monete</translation>
+        <source>&amp;Send</source>
+        <translation>In&amp;via</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -621,12 +621,12 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Il portamonete è &lt;b&gt;cifrato&lt;/b&gt; e attualmente &lt;b&gt;sbloccato&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Il portamonete è &lt;b&gt;cifrato&lt;/b&gt; e attualmente &lt;b&gt;bloccato&lt;/b&gt;</translation>
     </message>
     <message>
@@ -1016,8 +1016,8 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Transazioni recenti&lt;/b&gt;</translation>
+        <source>&lt;b&gt;Recent payments&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Pagamenti recenti&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="-118"/>

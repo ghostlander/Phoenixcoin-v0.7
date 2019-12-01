@@ -187,18 +187,14 @@ QString getSaveFileName(QWidget *parent, const QString &caption,
 {
     QString selectedFilter;
     QString myDir;
-    if(dir.isEmpty()) // Default to user documents location
-    {
+    if(dir.isEmpty()) {
+        /* The default location is the home directory */
 #if (QT_VERSION < 0x050000)
-        myDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+        myDir = QDesktopServices::storageLocation(QDesktopServices::HomeLocation);
 #else
-        myDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+        myDir = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 #endif
-    }
-    else
-    {
-        myDir = dir;
-    }
+    } else myDir = dir;
     QString result = QFileDialog::getSaveFileName(parent, caption, myDir, filter, &selectedFilter);
 
     /* Extract first suffix from filter pattern "Description (*.foo)" or "Description (*.foo *.bar ...) */

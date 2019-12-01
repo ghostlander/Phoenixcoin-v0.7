@@ -318,18 +318,18 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+17"/>
-        <source>&amp;Transactions</source>
-        <translation>&amp;Transacciones</translation>
+        <source>&amp;Payments</source>
+        <translation>&amp;Pagos</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Browse transaction history</source>
-        <translation>Examinar el historial de transacciones</translation>
+        <source>Browse payment history</source>
+        <translation>Examinar el historial de pagos</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>&amp;Address Book</source>
-        <translation>&amp;Libreta de direcciones</translation>
+        <source>&amp;Addresses</source>
+        <translation>&amp;Direcciones</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -338,8 +338,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="-13"/>
-        <source>&amp;Receive coins</source>
-        <translation>&amp;Recibir monedas</translation>
+        <source>&amp;Receive</source>
+        <translation>&amp;Recibir</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -348,8 +348,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="-7"/>
-        <source>&amp;Send coins</source>
-        <translation>&amp;Enviar monedas</translation>
+        <source>&amp;Send</source>
+        <translation>&amp;Enviar</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -623,12 +623,12 @@ Dirección: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>El monedero está &lt;b&gt;cifrado&lt;/b&gt; y actualmente &lt;b&gt;desbloqueado&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>El monedero está &lt;b&gt;cifrado&lt;/b&gt; y actualmente &lt;b&gt;bloqueado&lt;/b&gt;</translation>
     </message>
     <message>
@@ -992,8 +992,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+58"/>
-        <source>Number of transactions:</source>
-        <translation>Número de movimientos:</translation>
+        <source>Number of payments:</source>
+        <translation>Número de pagos:</translation>
     </message>
     <message>
         <location line="-29"/>
@@ -1017,8 +1017,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Movimientos recientes&lt;/b&gt;</translation>
+        <source>&lt;b&gt;Recent payments&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Pagos recientes&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="-118"/>
@@ -1032,8 +1032,8 @@ Dirección: %4
     </message>
     <message>
         <location line="+20"/>
-        <source>Total number of transactions in wallet</source>
-        <translation>Número total de movimientos en el monedero</translation>
+        <source>Total number of transactions in the wallet</source>
+        <translation>Número total de pagos en el monedero</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+112"/>

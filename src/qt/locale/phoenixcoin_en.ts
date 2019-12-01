@@ -320,18 +320,18 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+17"/>
-        <source>&amp;Transactions</source>
-        <translation>&amp;Transactions</translation>
+        <source>&amp;Payments</source>
+        <translation>&amp;Payments</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Browse transaction history</source>
-        <translation>Browse transaction history</translation>
+        <source>Browse payment history</source>
+        <translation>Browse payment history</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>&amp;Address Book</source>
-        <translation>&amp;Address Book</translation>
+        <source>&amp;Addresses</source>
+        <translation>&amp;Addresses</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -340,8 +340,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-13"/>
-        <source>&amp;Receive coins</source>
-        <translation>&amp;Receive coins</translation>
+        <source>&amp;Receive</source>
+        <translation>&amp;Receive</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -350,8 +350,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-7"/>
-        <source>&amp;Send coins</source>
-        <translation>&amp;Send coins</translation>
+        <source>&amp;Send</source>
+        <translation>&amp;Send</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -625,13 +625,13 @@ Address: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
-        <translation>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</translation>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
+        <translation>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
-        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
-        <translation>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</translation>
+        <source>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
+        <translation>The wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -995,7 +995,7 @@ Address: %4
     <message>
         <location line="+58"/>
         <source>Number of transactions:</source>
-        <translation>Number of transactions:</translation>
+        <translation>Number of payments:</translation>
     </message>
     <message>
         <location line="-29"/>
@@ -1019,8 +1019,8 @@ Address: %4
     </message>
     <message>
         <location line="+46"/>
-        <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Recent transactions&lt;/b&gt;</translation>
+        <source>&lt;b&gt;Recent payments&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Recent payments&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="-118"/>
@@ -1034,8 +1034,8 @@ Address: %4
     </message>
     <message>
         <location line="+20"/>
-        <source>Total number of transactions in wallet</source>
-        <translation>Total number of transactions in wallet</translation>
+        <source>Total number of payments in the wallet</source>
+        <translation>Total number of payments in the wallet</translation>
     </message>
     <message>
         <location filename="../overviewpage.cpp" line="+112"/>
@@ -1260,8 +1260,8 @@ Address: %4
         <location line="+6"/>
         <location line="+5"/>
         <location line="+5"/>
-        <source>Send Coins</source>
-        <translation>Send Coins</translation>
+        <source>Send</source>
+        <translation>Send</translation>
     </message>
     <message>
         <location line="+50"/>

@@ -6,7 +6,7 @@
 
 #include "ui_interface.h"
 #include "wallet.h"
-#include "walletdb.h" // for BackupWallet
+#include "walletdb.h" /* for cloneWallet() */
 #include "base58.h"
 
 #include <QSet>
@@ -246,20 +246,15 @@ TransactionTableModel *WalletModel::getTransactionTableModel()
     return transactionTableModel;
 }
 
-WalletModel::EncryptionStatus WalletModel::getEncryptionStatus() const
-{
+WalletModel::EncryptionStatus WalletModel::getEncryptionStatus() const {
+
     if(!wallet->IsCrypted())
-    {
-        return Unencrypted;
-    }
-    else if(wallet->IsLocked())
-    {
-        return Locked;
-    }
-    else
-    {
-        return Unlocked;
-    }
+      return(Unencrypted);
+
+    if(wallet->IsLocked())
+      return(Locked);
+
+    return(Unlocked);
 }
 
 bool WalletModel::setWalletEncrypted(bool encrypted, const SecureString &passphrase)
@@ -301,9 +296,16 @@ bool WalletModel::changePassphrase(const SecureString &oldPass, const SecureStri
     return retval;
 }
 
-bool WalletModel::backupWallet(const QString &filename)
-{
-    return BackupWallet(*wallet, filename.toLocal8Bit().data());
+bool WalletModel::cloneWallet(const QString &filename) {
+    return(BackupWallet(*wallet, filename.toLocal8Bit().data()));
+}
+
+bool WalletModel::exportWallet(const QString &filename) {
+    return(ExportWallet(wallet, filename.toLocal8Bit().data()));
+}
+
+bool WalletModel::importWallet(const QString &filename) {
+    return(ImportWallet(wallet, filename.toLocal8Bit().data()));
 }
 
 // Handlers for core signals

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>874</width>
-    <height>690</height>
+    <width>850</width>
+    <height>475</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,14 +103,14 @@
           <item row="3" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Number of transactions:</string>
+             <string>Number of payments:</string>
             </property>
            </widget>
           </item>
           <item row="3" column="1">
            <widget class="QLabel" name="labelNumTransactions">
             <property name="toolTip">
-             <string>Total number of transactions in your wallet</string>
+             <string>Total number of payments in the wallet</string>
             </property>
             <property name="text">
              <string notr="true">0</string>
@@ -216,7 +216,7 @@
           <item>
            <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>&lt;b&gt;Recent transactions&lt;/b&gt;</string>
+             <string>&lt;b&gt;Recent payments&lt;/b&gt;</string>
             </property>
            </widget>
           </item>

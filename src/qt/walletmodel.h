@@ -91,8 +91,11 @@ public:
     // Passphrase only needed when unlocking
     bool setWalletLocked(bool locked, const SecureString &passPhrase=SecureString());
     bool changePassphrase(const SecureString &oldPass, const SecureString &newPass);
-    // Wallet backup
-    bool backupWallet(const QString &filename);
+    /* Wallet cloning */
+    bool cloneWallet(const QString &filename);
+    /* Wallet keys export / import */
+    bool exportWallet(const QString &filename);
+    bool importWallet(const QString &filename);
 
     // RAI object for unlocking wallet, returned by requestUnlock()
     class UnlockContext
