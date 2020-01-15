@@ -24,6 +24,15 @@ greaterThan(QT_MAJOR_VERSION, 4): {
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
+win32:BOOST_LIB_SUFFIX=-mgw49-mt-x64-1_70
+win32:BOOST_INCLUDE_PATH="/home/Administrator/boost-1.70"
+win32:BOOST_LIB_PATH="/home/Administrator/boost-1.70/stage/lib"
+win32:BDB_INCLUDE_PATH="/home/Administrator/db-5.3.28/build_unix"
+win32:BDB_LIB_PATH="/home/Administrator/db-5.3.28/build_unix"
+win32:OPENSSL_INCLUDE_PATH="/home/Administrator/openssl-1.0.2u/include"
+win32:OPENSSL_LIB_PATH="/home/Administrator/openssl-1.0.2u"
+win32:MINIUPNPC_INCLUDE_PATH="/home/Administrator"
+win32:MINIUPNPC_LIB_PATH="/home/Administrator/miniupnpc"
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -59,14 +68,22 @@ contains(RELEASE_AMD64, 1) {
 # strip symbols
 !macx:QMAKE_LFLAGS += -Wl,-s
 macx:QMAKE_LFLAGS += -dead_strip
-# disable debug builds on Windows
-win32:CONFIG -= debug_and_release debug_and_release_target
-# for extra security on Windows: enable ASLR and DEP via GCC linker flags
-win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
-# on Windows: enable GCC large address aware linker flag; breaks MinGW-w64
-#win32:QMAKE_LFLAGS *= -Wl,--large-address-aware
-# i686-w64-mingw32
-win32:QMAKE_LFLAGS *=  -static -static-libgcc -static-libstdc++
+
+win32 {
+    DEFINES += WINDOWS
+
+    # disable debug builds
+    CONFIG -= debug_and_release debug_and_release_target
+
+    # enable ASLR and DEP via GCC linker flags
+    QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
+
+    # large address aware linker flag may break MinGW64
+    #QMAKE_LFLAGS *= -Wl,--large-address-aware
+    
+    # default to static linking
+    QMAKE_LFLAGS *= -static -static-libgcc -static-libstdc++ -pthread
+}
 
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
@@ -189,7 +206,7 @@ HEADERS += src/qt/gui.h \
     src/qt/transactionfilterproxy.h \
     src/qt/transactionview.h \
     src/qt/walletmodel.h \
-    src/rpc.h \
+    src/rpcmain.h \
     src/qt/overviewpage.h \
     src/qt/csvmodelwriter.h \
     src/crypter.h \
@@ -254,7 +271,7 @@ SOURCES += src/qt/phoenixcoin.cpp \
     src/qt/transactionfilterproxy.cpp \
     src/qt/transactionview.cpp \
     src/qt/walletmodel.cpp \
-    src/rpc.cpp \
+    src/rpcmain.cpp \
     src/rpcdump.cpp \
     src/rpcnet.cpp \
     src/rpcmining.cpp \
@@ -368,7 +385,6 @@ isEmpty(BOOST_INCLUDE_PATH) {
     macx:BOOST_INCLUDE_PATH = /opt/local/include
 }
 
-windows:DEFINES += WIN32
 windows:RC_FILE = src/qt/res/phoenixcoin-qt.rc
 
 windows:!contains(MINGW_THREAD_BUGFIX, 0) {
@@ -402,7 +418,7 @@ INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$
 LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
-windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
+win32:LIBS += -lws2_32 -lmswsock -lshlwapi -lole32 -loleaut32 -luuid -lgdi32
 LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
 
 system($$QMAKE_LRELEASE -silent $$_PRO_FILE_)

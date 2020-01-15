@@ -7,13 +7,14 @@
 #include <vector>
 #include <set>
 
+#include "util.h"
+#include "init.h"
 #include "db.h"
 #include "walletdb.h"
-#include "rpc.h"
 #include "net.h"
-#include "init.h"
-#include "util.h"
+#include "rpcmain.h"
 #include "ui_interface.h"
+
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
@@ -25,7 +26,7 @@
 #include <miniupnpc/miniupnpc.h>
 #endif
 
-#ifndef WIN32
+#ifndef WINDOWS
 #include <signal.h>
 #endif
 
@@ -47,7 +48,7 @@ uint opt_flags = 0;
 
 void ExitTimeout(void* parg)
 {
-#ifdef WIN32
+#ifdef WINDOWS
     Sleep(5000);
     ExitProcess(0);
 #endif
@@ -271,7 +272,7 @@ std::string HelpMessage()
 #ifdef QT_GUI
         "  -server                " + _("Accept command line and JSON-RPC commands") + "\n" +
 #endif
-#if !defined(WIN32) && !defined(QT_GUI)
+#if !defined(WINDOWS) && !defined(QT_GUI)
         "  -daemon                " + _("Run in the background as a daemon and accept commands") + "\n" +
 #endif
         "  -testnet               " + _("Use the test network") + "\n" +
@@ -280,7 +281,7 @@ std::string HelpMessage()
         "  -logtimestamps         " + _("Prepend debug output with timestamp") + "\n" +
         "  -shrinkdebugfile       " + _("Shrink debug.log file on client startup (default: 1 when no -debug)") + "\n" +
         "  -printtoconsole        " + _("Send trace/debug info to console instead of debug.log file") + "\n" +
-#ifdef WIN32
+#ifdef WINDOWS
         "  -printtodebugger       " + _("Send trace/debug info to debugger") + "\n" +
 #endif
         "  -rpcuser=<user>        " + _("Username for JSON-RPC connections") + "\n" +
@@ -326,7 +327,7 @@ bool AppInit2()
     // Disable confusing "helpful" text message on abort, Ctrl-C
     _set_abort_behavior(0, _WRITE_ABORT_MSG | _CALL_REPORTFAULT);
 #endif
-#ifdef WIN32
+#ifdef WINDOWS
     // Enable Data Execution Prevention (DEP)
     // Minimum supported OS versions: WinXP SP3, WinVista >= SP1, Win Server 2008
     // A failure is non-critical and needs no further attention!
@@ -339,7 +340,7 @@ bool AppInit2()
     PSETPROCDEPPOL setProcDEPPol = (PSETPROCDEPPOL)GetProcAddress(GetModuleHandleA("Kernel32.dll"), "SetProcessDEPPolicy");
     if (setProcDEPPol != NULL) setProcDEPPol(PROCESS_DEP_ENABLE);
 #endif
-#ifndef WIN32
+#ifndef WINDOWS
     umask(077);
 
     // Clean shutdown on SIGTERM
@@ -421,7 +422,7 @@ bool AppInit2()
 
     bitdb.SetDetach(GetBoolArg("-detachdb", false));
 
-#if !defined(WIN32) && !defined(QT_GUI)
+#if !defined(WINDOWS) && !defined(QT_GUI)
     fDaemon = GetBoolArg("-daemon");
 #else
     fDaemon = false;
@@ -484,7 +485,7 @@ bool AppInit2()
       return(InitError(strprintf(_("Cannot obtain a lock on data directory %s.  Phoenixcoin is probably already running."),
         strDataDir.c_str())));
 
-#if !defined(WIN32) && !defined(QT_GUI)
+#if !defined(WINDOWS) && !defined(QT_GUI)
     if (fDaemon)
     {
         // Daemonize

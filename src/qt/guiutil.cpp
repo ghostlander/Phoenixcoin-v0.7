@@ -1,21 +1,7 @@
-#include "guiutil.h"
-#include "addressvalidator.h"
-#include "walletmodel.h"
-#include "coinunits.h"
-#include "util.h"
-#include "init.h"
-
-#include <QString>
 #include <QDateTime>
 #include <QDoubleValidator>
 #include <QFont>
 #include <QLineEdit>
-#if (QT_VERSION < 0x050000)
-#include <QUrl>
-#else
-#include <QUrlQuery>
-#include <QStandardPaths>
-#endif
 #include <QTextDocument> // For Qt::escape
 #include <QAbstractItemView>
 #include <QApplication>
@@ -24,25 +10,28 @@
 #include <QDesktopServices>
 #include <QThread>
 
+#if (QT_VERSION < 0x050000)
+#include <QUrl>
+#else
+#include <QUrlQuery>
+#include <QStandardPaths>
+#endif
+
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
-#ifdef WIN32
-#ifdef _WIN32_WINNT
-#undef _WIN32_WINNT
-#endif
-#define _WIN32_WINNT 0x0501
-#ifdef _WIN32_IE
-#undef _WIN32_IE
-#endif
-#define _WIN32_IE 0x0501
-#define WIN32_LEAN_AND_MEAN 1
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#include "shlwapi.h"
-#include "shlobj.h"
-#include "shellapi.h"
+#include "util.h"
+#include "init.h"
+
+#include "guiutil.h"
+#include "addressvalidator.h"
+#include "walletmodel.h"
+#include "coinunits.h"
+
+#ifdef WINDOWS
+#include <shellapi.h>
+#include <shlobj.h>
+#include <shlwapi.h>
 #endif
 
 namespace GUIUtil {
@@ -287,9 +276,12 @@ bool ToolTipToRichTextFilter::eventFilter(QObject *obj, QEvent *evt)
     return QObject::eventFilter(obj, evt);
 }
 
-#ifdef WIN32
+#ifdef WINDOWS
 boost::filesystem::path static StartupShortcutPath() {
-    return(GetSpecialFolderPath(CSIDL_STARTUP) / "Phoenixcoin.lnk");
+    TCHAR szPath[MAX_PATH];
+    SHGetFolderPath(NULL, CSIDL_STARTUP, NULL, 0, szPath);
+    PathAppend(szPath, TEXT("Phoenixcoin.lnk"));
+    return((boost::filesystem::path)szPath);
 }
 
 bool GetStartOnSystemStartup() {
@@ -458,7 +450,7 @@ void HelpMessageBox::printToConsole()
 
 void HelpMessageBox::showOrPrint()
 {
-#if defined(WIN32)
+#if defined(WINDOWS)
         // On Windows, show a message box, as there is no stderr/stdout in windowed applications
         exec();
 #else

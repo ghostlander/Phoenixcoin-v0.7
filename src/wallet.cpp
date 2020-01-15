@@ -5,11 +5,11 @@
 
 #include <limits>
 
-#include "wallet.h"
-#include "walletdb.h"
-#include "crypter.h"
-#include "ui_interface.h"
 #include "base58.h"
+#include "crypter.h"
+#include "walletdb.h"
+#include "wallet.h"
+#include "ui_interface.h"
 
 using namespace std;
 

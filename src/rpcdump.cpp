@@ -5,9 +5,9 @@
 #include <string>
 
 #include "init.h" // for pwalletMain
-#include "rpc.h"
-#include "ui_interface.h"
 #include "base58.h"
+#include "rpcmain.h"
+#include "ui_interface.h"
 
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>

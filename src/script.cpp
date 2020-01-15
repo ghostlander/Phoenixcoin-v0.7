@@ -17,9 +17,9 @@ using namespace boost;
 #include "keystore.h"
 #include "bignum.h"
 #include "key.h"
+#include "util.h"
 #include "main.h"
 #include "sync.h"
-#include "util.h"
 
 bool CheckSig(vector<unsigned char> vchSig, vector<unsigned char> vchPubKey, CScript scriptCode, const CTransaction& txTo, unsigned int nIn, int nHashType);
 

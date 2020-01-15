@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2018 John Doering <ghostlander@phoenixcoin.org>
+ * Copyright (c) 2014-2020 John Doering <ghostlander@phoenixcoin.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,6 +23,12 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) || defined(__WIN32__) || defined(__WINDOWS__)
+#ifndef WINDOWS
+#define WINDOWS 1
+#endif
+#endif
 
 #if defined(NEOSCRYPT_ASM) && defined(__x86_64__)
 
@@ -7333,7 +7339,7 @@ _neoscrypt:
 	jnz	.scrypt
 #endif
 
-#ifdef WIN32
+#ifdef WINDOWS
 /* attempt to allocate 33280 + 128 bytes of stack space fails miserably;
  * have to use malloc() and free() instead */
 	subl	$64, %esp
@@ -7356,7 +7362,7 @@ _neoscrypt:
 	movl	%eax, 32(%esp)
 /* memory base: X, Z, V */
 	leal	128(%esp), %ebp
-#endif /* WIN32 */
+#endif /* WINDOWS */
 
 /* FastKDF */
 #ifdef NEOSCRYPT_OPT
@@ -7365,11 +7371,11 @@ _neoscrypt:
 	movl	%ebp, 8(%esp)
 	xorl	%eax, %eax
 	movl	%eax, 12(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_fastkdf_opt
 #else
 	call	neoscrypt_fastkdf_opt
-#endif /* (WIN32) || (__APPLE__) */
+#endif /* (WINDOWS) || (__APPLE__) */
 #else
 	movl	$80, %eax
 	movl	%esi, 0(%esp)
@@ -7379,11 +7385,11 @@ _neoscrypt:
 	movl	$32, 16(%esp)
 	movl	%ebp, 20(%esp)
 	movl	$256, 24(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_fastkdf
 #else
 	call	neoscrypt_fastkdf
-#endif /* (WIN32) || (__APPLE__) */
+#endif /* (WINDOWS) || (__APPLE__) */
 #endif /* NEOSCRYPT_OPT */
 
 /* SSE2 switch */
@@ -8154,11 +8160,11 @@ _neoscrypt:
 	movl	%ebp, 4(%esp)
 	movl	%edi, 8(%esp)
 	movl	$1, 12(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_fastkdf_opt
 #else
 	call	neoscrypt_fastkdf_opt
-#endif /* (WIN32) || (__APPLE__) */
+#endif /* (WINDOWS) || (__APPLE__) */
 #else
 	movl	%esi, 0(%esp)
 	movl	$80, 4(%esp)
@@ -8167,14 +8173,14 @@ _neoscrypt:
 	movl	$32, 16(%esp)
 	movl	%edi, 20(%esp)
 	movl	$32, 24(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_fastkdf
 #else
 	call	neoscrypt_fastkdf
-#endif /* (WIN32) || (__APPLE__) */
+#endif /* (WINDOWS) || (__APPLE__) */
 #endif /* NEOSCRYPT_OPT */
 
-#ifdef WIN32
+#ifdef WINDOWS
 /* free memory */
 	movl	32(%esp), %eax
 	movl	%eax, 0(%esp)
@@ -8659,11 +8665,11 @@ _neoscrypt:
 	movl	%ebp, 4(%esp)
 	movl	%edi, 8(%esp)
 	movl	$1, 12(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_fastkdf_opt
 #else
 	call	neoscrypt_fastkdf_opt
-#endif /* (WIN32) || (__APPLE__) */
+#endif /* (WINDOWS) || (__APPLE__) */
 #else
 	movl	%esi, 0(%esp)
 	movl	$80, 4(%esp)
@@ -8672,14 +8678,14 @@ _neoscrypt:
 	movl	$32, 16(%esp)
 	movl	%edi, 20(%esp)
 	movl	$32, 24(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_fastkdf
 #else
 	call	neoscrypt_fastkdf
-#endif /* (WIN32) || (__APPLE__) */
+#endif /* (WINDOWS) || (__APPLE__) */
 #endif /* NEOSCRYPT_OPT */
 
-#ifdef WIN32
+#ifdef WINDOWS
 /* free memory */
 	movl	32(%esp), %eax
 	movl	%eax, 0(%esp)
@@ -8699,7 +8705,7 @@ _neoscrypt:
 #ifdef NEOSCRYPT_SHA256
 
 .scrypt:
-#ifdef WIN32
+#ifdef WINDOWS
 /* attempt to allocate 131200 + 128 bytes of stack space fails miserably;
  * have to use malloc() and free() instead */
 	subl	$64, %esp
@@ -8722,7 +8728,7 @@ _neoscrypt:
 	movl	%eax, 32(%esp)
 /* memory base: X, Z, V */
 	leal	128(%esp), %ebp
-#endif /* WIN32 */
+#endif /* WINDOWS */
 
 /* PBKDF2-HMAC-SHA256 */
 	movl	$80, %eax
@@ -8733,7 +8739,7 @@ _neoscrypt:
 	movl	$1, 16(%esp)
 	movl	%ebp, 20(%esp)
 	movl	$128, 24(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_pbkdf2_sha256
 #else
 	call	neoscrypt_pbkdf2_sha256
@@ -8878,13 +8884,13 @@ _neoscrypt:
 	movl	$1, 16(%esp)
 	movl	%edi, 20(%esp)
 	movl	$32, 24(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_pbkdf2_sha256
 #else
 	call	neoscrypt_pbkdf2_sha256
 #endif
 
-#ifdef WIN32
+#ifdef WINDOWS
 /* free memory */
 	movl	32(%esp), %eax
 	movl	%eax, 0(%esp)
@@ -9004,13 +9010,13 @@ _neoscrypt:
 	movl	$1, 16(%esp)
 	movl	%edi, 20(%esp)
 	movl	$32, 24(%esp)
-#if defined(WIN32) || defined(__APPLE__)
+#if defined(WINDOWS) || defined(__APPLE__)
 	call	_neoscrypt_pbkdf2_sha256
 #else
 	call	neoscrypt_pbkdf2_sha256
 #endif
 
-#ifdef WIN32
+#ifdef WINDOWS
 /* free memory */
 	movl	32(%esp), %eax
 	movl	%eax, 0(%esp)

@@ -12,18 +12,22 @@
 #include <set>
 #include <limits>
 
-#include "alert.h"
-#include "checkpoints.h"
-#include "db.h"
-#include "net.h"
-#include "init.h"
-#include "ui_interface.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
+#include "util.h"
+#include "init.h"
+#include "alert.h"
+#include "db.h"
+#include "checkpoints.h"
+#include "ui_interface.h"
+#include "main.h"
+
 using namespace std;
 using namespace boost;
+
+
 
 //
 // Global state
@@ -2281,7 +2285,7 @@ FILE* AppendBlockFile(unsigned int& nFileRet)
         if (fseek(file, 0, SEEK_END) != 0)
             return NULL;
         // FAT32 file size max 4GB, fseek and ftell max 2GB, so we must stay under 2GB
-        if(ftell(file) < (uint)(0x7F000000 - MAX_SIZE)) {
+        if(ftell(file) < (int)(0x7F000000 - MAX_SIZE)) {
             nFileRet = nCurrentBlockFile;
             return(file);
         }
@@ -2652,6 +2656,8 @@ bool static AlreadyHave(CTxDB& txdb, const CInv& inv)
     return true;
 }
 
+
+extern void AddTimeData(const CNetAddr& ip, int64 nTime);
 
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 {

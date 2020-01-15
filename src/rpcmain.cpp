@@ -5,14 +5,14 @@
 
 #include <set>
 
-#include "init.h"
 #include "util.h"
+#include "init.h"
 #include "sync.h"
-#include "ui_interface.h"
 #include "base58.h"
-#include "rpc.h"
 #include "db.h"
 #include "ntp.h"
+#include "rpcmain.h"
+#include "ui_interface.h"
 
 #undef printf
 #include <boost/asio.hpp>

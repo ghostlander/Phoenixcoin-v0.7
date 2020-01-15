@@ -4,8 +4,9 @@
 
 #include <vector>
 
+#include "util.h"
 #include "net.h"
-#include "rpc.h"
+#include "rpcmain.h"
 #include "ntp.h"
 
 using namespace json_spirit;

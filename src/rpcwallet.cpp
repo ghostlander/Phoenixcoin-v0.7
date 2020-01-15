@@ -12,11 +12,11 @@
 #include <set>
 #include <limits>
 
-#include "wallet.h"
-#include "walletdb.h"
-#include "rpc.h"
 #include "init.h"
 #include "base58.h"
+#include "walletdb.h"
+#include "wallet.h"
+#include "rpcmain.h"
 #include "ntp.h"
 
 using namespace json_spirit;

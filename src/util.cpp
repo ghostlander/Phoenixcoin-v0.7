@@ -11,6 +11,9 @@
 #include "strlcpy.h"
 #include "version.h"
 #include "ui_interface.h"
+
+#include "netbase.h" /* for AddTimeData() */
+
 #include <boost/algorithm/string/join.hpp>
 
 // Work around clang compilation problem in Boost 1.46:
@@ -33,29 +36,13 @@ namespace boost {
 #include <openssl/rand.h>
 #include <stdarg.h>
 
-#ifdef WIN32
-#ifdef _MSC_VER
-#pragma warning(disable:4786)
-#pragma warning(disable:4804)
-#pragma warning(disable:4805)
-#pragma warning(disable:4717)
-#endif
-#ifdef _WIN32_WINNT
-#undef _WIN32_WINNT
-#endif
-#define _WIN32_WINNT 0x0501
-#ifdef _WIN32_IE
-#undef _WIN32_IE
-#endif
-#define _WIN32_IE 0x0501
-#define WIN32_LEAN_AND_MEAN 1
+#ifdef WINDOWS
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
 #include <io.h> /* for _commit */
-#include "shlobj.h"
 #elif defined(__linux__)
-# include <sys/prctl.h>
+#include <sys/prctl.h>
 #endif
 
 using namespace std;
@@ -107,7 +94,7 @@ public:
             ppmutexOpenSSL[i] = new CCriticalSection();
         CRYPTO_set_locking_callback(locking_callback);
 
-#ifdef WIN32
+#ifdef WINDOWS
         // Seed random number generator with screen scrape and other hardware sources
         RAND_screen();
 #endif
@@ -143,13 +130,14 @@ void RandAddSeedPerfmon()
         return;
     nLastPerfmon = GetTime();
 
-#ifdef WIN32
+#ifdef WINDOWS
     // Don't need this on Linux, OpenSSL automatically uses /dev/urandom
     // Seed with the entire set of perfmon data
     unsigned char pdata[250000];
     memset(pdata, 0, sizeof(pdata));
-    uint nSize = sizeof(pdata);
-    int ret = RegQueryValueExA(HKEY_PERFORMANCE_DATA, "Global", NULL, NULL, pdata, &nSize);
+    unsigned long nSize = sizeof(pdata);
+    long ret = RegQueryValueExA(HKEY_PERFORMANCE_DATA, "Global",
+      NULL, NULL, pdata, &nSize);
     RegCloseKey(HKEY_PERFORMANCE_DATA);
     if(ret == ERROR_SUCCESS) {
         RAND_add(pdata, nSize, nSize / 100.0);
@@ -250,7 +238,7 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
         }
     }
 
-#ifdef WIN32
+#ifdef WINDOWS
     if (fPrintToDebugger)
     {
         static CCriticalSection cs_OutputDebugStringF;
@@ -287,7 +275,7 @@ string vstrprintf(const char *format, va_list ap)
     while(true) {
         va_list arg_ptr;
         va_copy(arg_ptr, ap);
-#ifdef WIN32
+#ifdef WINDOWS
         ret = _vsnprintf(p, limit, format, arg_ptr);
 #else
         ret = vsnprintf(p, limit, format, arg_ptr);
@@ -508,11 +496,11 @@ void ParseParameters(int argc, const char* const argv[])
             pszValue = strchr(psz, '=');
             *pszValue++ = '\0';
         }
-        #ifdef WIN32
+#ifdef WINDOWS
         _strlwr(psz);
         if (psz[0] == '/')
             psz[0] = '-';
-        #endif
+#endif
         if (psz[0] != '-')
             break;
 
@@ -946,7 +934,7 @@ bool WildcardMatch(const string& str, const string& mask)
 
 static std::string FormatException(std::exception* pex, const char* pszThread)
 {
-#ifdef WIN32
+#ifdef WINDOWS
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
@@ -1084,6 +1072,7 @@ boost::filesystem::path GetPidFile() {
     return(pathPidFile);
 }
 
+#ifndef WINDOWS
 void CreatePidFile(const boost::filesystem::path &path, pid_t pid)
 {
     FILE* file = fopen(path.string().c_str(), "w");
@@ -1093,16 +1082,17 @@ void CreatePidFile(const boost::filesystem::path &path, pid_t pid)
         fclose(file);
     }
 }
+#endif
 
 bool RenameOver(boost::filesystem::path src, boost::filesystem::path dest)
 {
-#ifdef WIN32
+#ifdef WINDOWS
     return MoveFileExA(src.string().c_str(), dest.string().c_str(),
                       MOVEFILE_REPLACE_EXISTING);
 #else
     int rc = std::rename(src.string().c_str(), dest.string().c_str());
     return (rc == 0);
-#endif /* WIN32 */
+#endif /* WINDOWS */
 }
 
 /* Returns zero on success and -1 on failure */
@@ -1112,14 +1102,14 @@ int FileCommit(FILE *fileout) {
     /* fflush() is a caller's responsibility */
 
     /* Get a file descriptor and perform the synchronisation */
-#if defined WINDOWS
+#if (WINDOWS)
     fd = _fileno(fileout);
     ret = _commit(fd);
 #else
     fd = fileno(fileout);
-#if defined __linux__
+#if (__linux__)
     ret = fdatasync(fd);
-#elif defined __APPLE__ && defined F_FULLFSYNC
+#elif (__APPLE__) && (F_FULLFSYNC)
     /* F_FULLFSYNC means fsync with device flush to medium;
      * works with HFS only as of 10.4, so fail over to fsync */
     ret = fcntl(fd, F_FULLFSYNC, 0);
@@ -1141,16 +1131,13 @@ int GetFilesize(FILE* file)
     return nFilesize;
 }
 
-void ShrinkDebugFile()
-{
-    // Scroll debug.log if it's getting too big
+void ShrinkDebugFile() {
     boost::filesystem::path pathLog = GetDataDir() / "debug.log";
     FILE* file = fopen(pathLog.string().c_str(), "r");
-    if (file && GetFilesize(file) > 10 * 1000000)
-    {
-        // Restart the file with some of the end
-        char pch[200000];
-        fseek(file, -sizeof(pch), SEEK_END);
+    /* If the file size exceeds 10Mb, crop it to the last 200Kb */
+    if(file && (GetFilesize(file) > 10 * 1024 * 1024)) {
+        char pch[200 * 1024];
+        fseek(file, -((long)sizeof(pch)), SEEK_END);
         int nBytes = fread(pch, 1, sizeof(pch), file);
         fclose(file);
 
@@ -1160,7 +1147,7 @@ void ShrinkDebugFile()
             fwrite(pch, 1, nBytes, file);
             fclose(file);
         }
-    }
+    } else if(file != NULL) fclose(file);
 }
 
 
@@ -1300,23 +1287,6 @@ std::string FormatSubVersion(const std::string& name, int nClientVersion, const 
     ss << "/";
     return ss.str();
 }
-
-#ifdef WIN32
-boost::filesystem::path GetSpecialFolderPath(int nFolder, bool fCreate)
-{
-    namespace fs = boost::filesystem;
-
-    char pszPath[MAX_PATH] = "";
-
-    if(SHGetSpecialFolderPathA(NULL, pszPath, nFolder, fCreate))
-    {
-        return fs::path(pszPath);
-    }
-
-    printf("SHGetSpecialFolderPathA() failed, could not obtain requested path.\n");
-    return fs::path("");
-}
-#endif
 
 void runCommand(std::string strCommand)
 {

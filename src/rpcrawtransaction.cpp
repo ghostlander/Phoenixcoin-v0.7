@@ -10,13 +10,13 @@
 #include <vector>
 #include <set>
 
-#include "base58.h"
-#include "rpc.h"
-#include "db.h"
 #include "init.h"
 #include "main.h"
-#include "net.h"
+#include "base58.h"
+#include "db.h"
 #include "wallet.h"
+#include "net.h"
+#include "rpcmain.h"
 
 using namespace std;
 using namespace boost;

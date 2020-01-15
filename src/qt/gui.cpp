@@ -4,6 +4,7 @@
  * W.J. van der Laan 2011-2012
  * The Bitcoin Developers 2011-2012
  */
+
 #include "gui.h"
 #include "transactiontablemodel.h"
 #include "addressbookpage.h"

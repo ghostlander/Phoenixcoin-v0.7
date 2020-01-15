@@ -2,7 +2,7 @@
  * Copyright (c) 2018 John Doering <ghostlander@phoenixcoin.org>
  */
 
-#ifdef WIN32
+#ifdef WINDOWS
 #include <winsock2.h>
 #else
 #include <sys/socket.h>
@@ -304,7 +304,7 @@ bool InitWithRandom(SOCKET &sockfd, socklen_t &servlen, struct sockaddr *pcliadd
 
 int64 DoReq(SOCKET sockfd, socklen_t servlen, struct sockaddr cliaddr) {
 
-#ifdef WIN32
+#ifdef WINDOWS
     u_long nOne = 1;
     if(ioctlsocket(sockfd, FIONBIO, &nOne) == SOCKET_ERROR) {
         printf("ConnectSocket() : ioctlsocket non-blocking setting failed, error %d\n",
