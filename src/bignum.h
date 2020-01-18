@@ -63,13 +63,19 @@ class CBigNum : public BIGNUM {
 class CBigNum {
 
 private:
+#if (__GNUC__) && (GCC_VERSION < 40300)
+    BIGNUM *self;
+
+    void init() {
+#else
     BIGNUM *self = NULL;
 
     void init() {
         if(self) BN_clear_free(self);
+#endif
         self = BN_new();
         if(!self)
-            throw(bignum_error("CBigNum::init() : BN_new() returned NULL"));
+          throw(bignum_error("CBigNum::init() : BN_new() returned NULL"));
     }
 #endif
 
