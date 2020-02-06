@@ -69,23 +69,26 @@ QMenu *MacDockIconHandler::dockMenu()
 void MacDockIconHandler::setIcon(const QIcon &icon) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSImage *image = nil;
-    CGContextRef imageContext = nil;
 
     if(icon.isNull())
       image = [[NSImage imageNamed:@"NSApplicationIcon"] retain];
     else {
         QSize size = icon.actualSize(QSize(128, 128));
         QPixmap pixmap = icon.pixmap(size);
+#if (QT_VERSION < 0x050000)
         CGImageRef cgImage = pixmap.toMacCGImageRef();
-        /* Not using initWithCGImage as it is for 10.6+ */
-        /* image = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize]; */
+#else
+        QImage img = pixmap.toImage();
+        CGImageRef cgImage = img.toCGImage();
+#endif
+        CGContextRef imageContext = nil;
         NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
         imageRect.size = NSMakeSize(CGImageGetWidth(cgImage), CGImageGetHeight(cgImage));
         image = [[NSImage alloc] initWithSize:imageRect.size];
         /* Render the icon */
         [image lockFocus];
         imageContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
-        CGContextDrawImage(imageContext, *(CGRect *)&imageRect, cgImage);
+        CGContextDrawImage(imageContext, *((CGRect *) &imageRect), cgImage);
         [image unlockFocus];
         CFRelease(cgImage);
     }
