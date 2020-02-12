@@ -6,10 +6,6 @@
 #ifndef NET_H
 #define NET_H
 
-#include <boost/array.hpp>
-#include <boost/foreach.hpp>
-#include <openssl/rand.h>
-
 #include <string>
 #include <algorithm>
 #include <deque>
@@ -18,7 +14,10 @@
 #include <vector>
 #include <set>
 
-#ifndef WIN32
+#include <boost/array.hpp>
+#include <boost/foreach.hpp>
+
+#ifndef WINDOWS
 #include <arpa/inet.h>
 #endif
 
@@ -26,6 +25,8 @@
 #include "netbase.h"
 #include "protocol.h"
 #include "addrman.h"
+
+#include <openssl/rand.h>
 
 class CRequestTracker;
 class CNode;

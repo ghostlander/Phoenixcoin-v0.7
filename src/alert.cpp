@@ -8,11 +8,11 @@
 #include <map>
 #include <limits>
 
-#include "alert.h"
 #include "key.h"
-#include "net.h"
 #include "sync.h"
+#include "net.h"
 #include "ui_interface.h"
+#include "alert.h"
 
 using namespace std;
 

@@ -3,17 +3,17 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <algorithm>
+
 #include <boost/version.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
-#include <algorithm>
-
-#include "db.h"
 #include "util.h"
 #include "main.h"
+#include "db.h"
 
-#ifndef WIN32
+#ifndef WINDOWS
 #include "sys/stat.h"
 #endif
 

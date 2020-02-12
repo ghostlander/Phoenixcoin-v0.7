@@ -2,14 +2,17 @@
 #include "ui_rpcconsole.h"
 
 #include "clientmodel.h"
-#include "rpc.h"
 #include "guiutil.h"
+
+#include "datatypes.h"
+#include "rpcmain.h"
 
 #include <QTime>
 #include <QTimer>
 #include <QThread>
 #include <QTextEdit>
 #include <QKeyEvent>
+
 #if (QT_VERSION < 0x050000)
 #include <QUrl>
 #endif

@@ -6,10 +6,11 @@
 #include <string>
 #include <vector>
 
-#include "irc.h"
-#include "net.h"
-#include "strlcpy.h"
 #include "base58.h"
+#include "strlcpy.h"
+#include "compat.h"
+#include "net.h"
+#include "irc.h"
 
 using namespace std;
 using namespace boost;

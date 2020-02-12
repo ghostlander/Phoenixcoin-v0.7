@@ -10,10 +10,10 @@
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
 
-#include "serialize.h"
-#include "netbase.h"
 #include <string>
+
 #include "uint256.h"
+#include "serialize.h"
 
 extern bool fTestNet;
 

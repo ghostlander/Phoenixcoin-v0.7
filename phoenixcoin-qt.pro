@@ -15,15 +15,21 @@ greaterThan(QT_MAJOR_VERSION, 4): {
     message("Building with the Qt v4 support$$escape_expand(\\n)")
 }
 
-# for boost 1.37, add -mt to the boost libraries
-# use: qmake BOOST_LIB_SUFFIX=-mt
-# for boost thread win32 with _win32 sufix
-# use: BOOST_THREAD_LIB_SUFFIX=_win32-...
-# or when linking against a specific BerkelyDB version: BDB_LIB_SUFFIX=-4.8
 
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
+win32:BOOST_LIB_SUFFIX=-mgw49-mt-x64-1_70
+win32:BOOST_INCLUDE_PATH="/home/Administrator/boost-1.70"
+win32:BOOST_LIB_PATH="/home/Administrator/boost-1.70/stage/lib"
+win32:BDB_INCLUDE_PATH="/home/Administrator/db-5.3.28/build_unix"
+win32:BDB_LIB_PATH="/home/Administrator/db-5.3.28/build_unix"
+win32:OPENSSL_INCLUDE_PATH="/home/Administrator/openssl-1.0.2u/include"
+win32:OPENSSL_LIB_PATH="/home/Administrator/openssl-1.0.2u"
+win32:MINIUPNPC_INCLUDE_PATH="/home/Administrator"
+win32:MINIUPNPC_LIB_PATH="/home/Administrator/miniupnpc"
+
+macx:BOOST_LIB_SUFFIX=-mt-x64
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -35,9 +41,10 @@ contains(RELEASE_I386, 1) {
     macx:QMAKE_CFLAGS += -arch i386 -fomit-frame-pointer -msse2 -mdynamic-no-pic -I/usr/local/i386/include
     macx:QMAKE_CXXFLAGS += -arch i386 -fomit-frame-pointer -msse2 -mdynamic-no-pic -I/usr/local/i386/include
     macx:QMAKE_LFLAGS += -arch i386 -L/usr/local/i386/lib
-    # Mac: 10.5+ compatibility; Qt with Cocoa is broken on 10.4
+    # Mac: 10.5+ (GCC 4.2.1) compatibility; Qt with Cocoa is broken on 10.4
     macx:QMAKE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
     macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+    macx:QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
     macx:QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
     # Windows: optimised 32-bit x86
     win32:QMAKE_CFLAGS += -march=i686 -fomit-frame-pointer
@@ -50,23 +57,32 @@ contains(RELEASE_AMD64, 1) {
     macx:QMAKE_CFLAGS += -DNEOSCRYPT_MOVQ_FIX -arch x86_64 -fomit-frame-pointer -mdynamic-no-pic -I/usr/local/amd64/include
     macx:QMAKE_CXXFLAGS += -arch x86_64 -fomit-frame-pointer -mdynamic-no-pic -I/usr/local/amd64/include
     macx:QMAKE_LFLAGS += -arch x86_64 -L/usr/local/amd64/lib
-    # Mac: 10.8+ compatibility
-    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.8 -isysroot /Developer/SDKs/MacOSX10.8.sdk
-    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.8 -isysroot /Developer/SDKs/MacOSX10.8.sdk
-    macx:QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.8
+    # Mac: 10.5+ (GCC 4.2.1) compatibility
+    macx:QMAKE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+    macx:QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+    macx:QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.5
 }
 
 # strip symbols
 !macx:QMAKE_LFLAGS += -Wl,-s
 macx:QMAKE_LFLAGS += -dead_strip
-# disable debug builds on Windows
-win32:CONFIG -= debug_and_release debug_and_release_target
-# for extra security on Windows: enable ASLR and DEP via GCC linker flags
-win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
-# on Windows: enable GCC large address aware linker flag; breaks MinGW-w64
-#win32:QMAKE_LFLAGS *= -Wl,--large-address-aware
-# i686-w64-mingw32
-win32:QMAKE_LFLAGS *=  -static -static-libgcc -static-libstdc++
+
+win32 {
+    DEFINES += WINDOWS
+
+    # disable debug builds
+    CONFIG -= debug_and_release debug_and_release_target
+
+    # enable ASLR and DEP via GCC linker flags
+    QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
+
+    # large address aware linker flag may break MinGW64
+    #QMAKE_LFLAGS *= -Wl,--large-address-aware
+
+    # default to static linking
+    QMAKE_LFLAGS *= -static -static-libgcc -static-libstdc++ -pthread
+}
 
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
@@ -131,7 +147,7 @@ contains(PHOENIXCOIN_NEED_QT_PLUGINS, 1) {
 }
 
 QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security \
-    -Wno-unused-parameter -Wno-stringop-truncation
+    -Wno-unused-parameter
 
 # Input
 DEPENDPATH += src src/json src/qt
@@ -189,7 +205,7 @@ HEADERS += src/qt/gui.h \
     src/qt/transactionfilterproxy.h \
     src/qt/transactionview.h \
     src/qt/walletmodel.h \
-    src/rpc.h \
+    src/rpcmain.h \
     src/qt/overviewpage.h \
     src/qt/csvmodelwriter.h \
     src/crypter.h \
@@ -254,7 +270,7 @@ SOURCES += src/qt/phoenixcoin.cpp \
     src/qt/transactionfilterproxy.cpp \
     src/qt/transactionview.cpp \
     src/qt/walletmodel.cpp \
-    src/rpc.cpp \
+    src/rpcmain.cpp \
     src/rpcdump.cpp \
     src/rpcnet.cpp \
     src/rpcmining.cpp \
@@ -338,37 +354,6 @@ QMAKE_EXTRA_COMPILERS += TSQM
 OTHER_FILES += \
     doc/*.rst doc/*.txt doc/README README.md res/phoenixcoin-qt.rc src/test/*.cpp src/test/*.h src/qt/test/*.cpp src/qt/test/*.h
 
-# platform specific defaults, if not overridden on command line
-isEmpty(BOOST_LIB_SUFFIX) {
-    macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw44-mt-s-1_50
-}
-
-isEmpty(BOOST_THREAD_LIB_SUFFIX) {
-    BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
-}
-
-isEmpty(BDB_LIB_PATH) {
-    macx:BDB_LIB_PATH = /opt/local/lib/db48
-}
-
-isEmpty(BDB_LIB_SUFFIX) {
-    macx:BDB_LIB_SUFFIX = -4.8
-}
-
-isEmpty(BDB_INCLUDE_PATH) {
-    macx:BDB_INCLUDE_PATH = /opt/local/include/db48
-}
-
-isEmpty(BOOST_LIB_PATH) {
-    macx:BOOST_LIB_PATH = /opt/local/lib
-}
-
-isEmpty(BOOST_INCLUDE_PATH) {
-    macx:BOOST_INCLUDE_PATH = /opt/local/include
-}
-
-windows:DEFINES += WIN32
 windows:RC_FILE = src/qt/res/phoenixcoin-qt.rc
 
 windows:!contains(MINGW_THREAD_BUGFIX, 0) {
@@ -387,8 +372,8 @@ windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     LIBS += -lrt
 }
 
-macx:HEADERS += src/qt/macdockiconhandler.h
-macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
+macx:HEADERS += src/qt/macdockiconhandler.h src/qt/macnotificationhandler.h
+macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm src/qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/phoenixcoin.icns
@@ -402,7 +387,7 @@ INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$
 LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
-windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
-LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
+win32:LIBS += -lws2_32 -lmswsock -lshlwapi -lole32 -loleaut32 -luuid -lgdi32
+LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_LIB_SUFFIX
 
 system($$QMAKE_LRELEASE -silent $$_PRO_FILE_)

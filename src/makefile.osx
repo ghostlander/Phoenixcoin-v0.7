@@ -7,10 +7,12 @@
 # Originally by Laszlo Hanyecz (solar@heliacal.net)
 
 CC = gcc
-CFLAGS = -O2 -fomit-frame-pointer
+CFLAGS = -O2 -fomit-frame-pointer -mdynamic-no-pic -mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
 
 CXX = g++
-DEPSDIR = /usr/local
+CXXFLAGS = $(CFLAGS)
+
+DEPSDIR = /usr/local/amd64
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
@@ -27,25 +29,25 @@ TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
 
 ifdef STATIC
 TESTLIBS += \
- $(DEPSDIR)/lib/libboost_unit_test_framework-mt.a
+ $(DEPSDIR)/lib/libboost_unit_test_framework-mt-x64.a
 LIBS += \
+ $(DEPSDIR)/lib/libboost_system-mt-x64.a \
+ $(DEPSDIR)/lib/libboost_filesystem-mt-x64.a \
+ $(DEPSDIR)/lib/libboost_program_options-mt-x64.a \
+ $(DEPSDIR)/lib/libboost_thread-mt-x64.a \
  $(DEPSDIR)/lib/libdb_cxx.a \
- $(DEPSDIR)/lib/libboost_system-mt.a \
- $(DEPSDIR)/lib/libboost_filesystem-mt.a \
- $(DEPSDIR)/lib/libboost_program_options-mt.a \
- $(DEPSDIR)/lib/libboost_thread-mt.a \
  $(DEPSDIR)/lib/libssl.a \
  $(DEPSDIR)/lib/libcrypto.a \
  -lz
 else
 TESTLIBS += \
- -lboost_unit_test_framework-mt
+ -lboost_unit_test_framework-mt-x64
 LIBS += \
- -ldb_cxx-4.8 \
- -lboost_system-mt \
- -lboost_filesystem-mt \
- -lboost_program_options-mt \
- -lboost_thread-mt \
+ -lboost_system-mt-x64 \
+ -lboost_filesystem-mt-x64 \
+ -lboost_program_options-mt-x64 \
+ -lboost_thread-mt-x64 \
+ -ldb_cxx \
  -lssl \
  -lcrypto \
  -lz
@@ -54,18 +56,9 @@ endif
 
 DEFS=-DMAC_OSX -DMSG_NOSIGNAL=0 -DBOOST_SPIRIT_THREADSAFE
 
-ifdef RELEASE
-# Compile for maximum compatibility and smallest size.
-# This requires that dependencies are compiled
-# the same way.
-CXXFLAGS = $(CFLAGS) -mmacosx-version-min=10.5 -arch i386
-else
-CXXFLAGS = $(CFLAGS)
-endif
-
 # ppc doesn't work because we don't support big-endian
 CXXFLAGS += -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
--Wno-stringop-truncation $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
+$(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 
 OBJS= \
     obj/alert.o \
@@ -82,7 +75,7 @@ OBJS= \
     obj/main.o \
     obj/net.o \
     obj/protocol.o \
-    obj/rpc.o \
+    obj/rpcmain.o \
     obj/rpcdump.o \
     obj/rpcnet.o \
     obj/rpcmining.o \

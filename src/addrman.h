@@ -2,20 +2,16 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ADDRMAN
-#define ADDRMAN 1
-
-#include <openssl/rand.h>
+#ifndef ADDRMAN_H
+#define ADDRMAN_H
 
 #include <map>
 #include <vector>
 #include <set>
 
-#include "netbase.h"
-#include "protocol.h"
-#include "util.h"
 #include "sync.h"
 
+#include <openssl/rand.h>
 
 /** Extended statistics about a CAddress */
 class CAddrInfo : public CAddress

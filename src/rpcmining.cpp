@@ -8,10 +8,10 @@
 #include <string>
 #include <vector>
 
-#include "main.h"
-#include "db.h"
 #include "init.h"
-#include "rpc.h"
+#include "db.h"
+#include "main.h"
+#include "rpcmain.h"
 
 using namespace json_spirit;
 using namespace std;

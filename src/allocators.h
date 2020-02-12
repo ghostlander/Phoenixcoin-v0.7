@@ -14,7 +14,7 @@
 #include <string>
 #include <memory>
 
-#ifdef WIN32
+#ifdef WINDOWS
 #ifdef _WIN32_WINNT
 #undef _WIN32_WINNT
 #endif
@@ -122,7 +122,7 @@ private:
 static inline size_t GetSystemPageSize()
 {
     size_t page_size;
-#if defined(WIN32)
+#ifdef WINDOWS
     SYSTEM_INFO sSysInfo;
     GetSystemInfo(&sSysInfo);
     page_size = sSysInfo.dwPageSize;
@@ -146,7 +146,7 @@ public:
      */
     bool Lock(const void *addr, size_t len)
     {
-#ifdef WIN32
+#ifdef WINDOWS
         return VirtualLock(const_cast<void*>(addr), len);
 #else
         return mlock(addr, len) == 0;
@@ -157,7 +157,7 @@ public:
      */
     bool Unlock(const void *addr, size_t len)
     {
-#ifdef WIN32
+#ifdef WINDOWS
         return VirtualUnlock(const_cast<void*>(addr), len);
 #else
         return munlock(addr, len) == 0;

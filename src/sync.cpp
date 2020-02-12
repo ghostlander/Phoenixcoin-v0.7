@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-#include "sync.h"
 #include "util.h"
+#include "sync.h"
 
 #include <boost/foreach.hpp>
 

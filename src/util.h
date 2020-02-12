@@ -6,20 +6,16 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include "uint256.h"
-
-#ifndef WIN32
-#include <sys/types.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#else
-typedef int pid_t; /* define for Windows compatibility */
-#endif
-
 #include <map>
 #include <string>
 #include <algorithm>
 #include <vector>
+
+#include "datatypes.h"
+#include "compat.h"
+
+#include "uint256.h"
+#include "serialize.h"
 
 #include <boost/thread.hpp>
 #include <boost/filesystem.hpp>
@@ -29,8 +25,6 @@ typedef int pid_t; /* define for Windows compatibility */
 
 #include <openssl/sha.h>
 #include <openssl/ripemd.h>
-
-#include "netbase.h" // for AddTimeData
 
 static const int64 COIN = 100000000;
 static const int64 CENT = 1000000;
@@ -58,7 +52,7 @@ T* alignup(T* p)
     return u.ptr;
 }
 
-#ifdef WIN32
+#ifdef WINDOWS
 #define MSG_NOSIGNAL        0
 #define MSG_DONTWAIT        0
 
@@ -175,7 +169,7 @@ boost::filesystem::path GetConfigFile();
 boost::filesystem::path GetPidFile();
 void CreatePidFile(const boost::filesystem::path &path, pid_t pid);
 void ReadConfigFile(std::map<std::string, std::string>& mapSettingsRet, std::map<std::string, std::vector<std::string> >& mapMultiSettingsRet);
-#ifdef WIN32
+#ifdef WINDOWS
 boost::filesystem::path GetSpecialFolderPath(int nFolder, bool fCreate = true);
 #endif
 void ShrinkDebugFile();
@@ -187,7 +181,6 @@ void SetMockTime(int64 nMockTimeIn);
 int64 GetAdjustedTime();
 std::string FormatFullVersion();
 std::string FormatSubVersion(const std::string& name, int nClientVersion, const std::vector<std::string>& comments);
-void AddTimeData(const CNetAddr& ip, int64 nTime);
 void runCommand(std::string strCommand);
 
 
@@ -285,7 +278,7 @@ inline void PrintHex(const std::vector<unsigned char>& vch, const char* pszForma
 inline int64 GetTimeMicros() {
     uint64 nTime = 0;
 
-#ifdef WIN32
+#ifdef WINDOWS
     /* Number of 100ns intervals from 12:00 01-Jan-1601 to 00:00 01-Jan-1970 */
     const uint64 EPOCH = 116444736000000000ULL;
 
@@ -333,7 +326,7 @@ void skipspaces(T& it)
 
 inline bool IsSwitchChar(char c)
 {
-#ifdef WIN32
+#ifdef WINDOWS
     return c == '-' || c == '/';
 #else
     return c == '-';

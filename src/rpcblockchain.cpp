@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "main.h"
-#include "rpc.h"
+#include "rpcmain.h"
 
 using namespace json_spirit;
 using namespace std;
