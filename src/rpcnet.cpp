@@ -12,16 +12,19 @@
 using namespace json_spirit;
 using namespace std;
 
-Value getconnectioncount(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getconnectioncount\n"
-            "Returns the number of connections to other nodes.");
+
+Value getconnectioncount(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 0)) {
+        string msg = "getconnectioncount\n"
+          "Returns the number of connections to other nodes";
+        throw(runtime_error(msg));
+    }
 
     LOCK(cs_vNodes);
-    return (int)vNodes.size();
+    return((int)vNodes.size());
 }
+
 
 static void CopyNodeStats(std::vector<CNodeStats>& vstats)
 {
@@ -36,12 +39,13 @@ static void CopyNodeStats(std::vector<CNodeStats>& vstats)
     }
 }
 
-Value getpeerinfo(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getpeerinfo\n"
-            "Returns data about each connected network node.");
+Value getpeerinfo(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 0)) {
+        string msg = "getpeerinfo\n"
+          "Returns data about each connected network node";
+        throw(runtime_error(msg));
+    }
 
     vector<CNodeStats> vstats;
     CopyNodeStats(vstats);
@@ -76,13 +80,15 @@ Value getpeerinfo(const Array& params, bool fHelp)
     return ret;
 }
 
+
 Value getnettotals(const Array &params, bool fHelp) {
 
-    if(fHelp || (params.size() > 0))
-      throw(runtime_error(
-        "getnettotals\n"
-        "Returns information about network traffic including bytes received,\n"
-        "bytes transmitted and current time."));
+    if(fHelp || (params.size() > 0)) {
+        string msg = "getnettotals\n"
+          "Returns information about network traffic including bytes received,\n"
+          "bytes transmitted and current time";
+        throw(runtime_error(msg));
+    }
 
     Object obj;
     obj.push_back(Pair("rxbytestotal", (boost::uint64_t)CNode::GetTotalBytesRx()));
@@ -91,14 +97,16 @@ Value getnettotals(const Array &params, bool fHelp) {
     return(obj);
 }
 
+
 Value ntptime(const Array &params, bool fHelp) {
     int64 nTime;
     CNetAddr ip;
 
-    if(fHelp || (params.size() > 1))
-      throw(runtime_error(
-        "ntptime [server]\n"
-        "Returns current time from a specific or random NTP server."));
+    if(fHelp || (params.size() > 1)) {
+        string msg = "ntptime [server]\n"
+          "Returns current time from a specific or random NTP server";
+        throw(runtime_error(msg));
+    }
 
     if(params.size() > 0) {
         nTime = NtpGetTime(params[0].get_str());

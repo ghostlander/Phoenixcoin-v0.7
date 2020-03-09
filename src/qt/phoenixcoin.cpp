@@ -111,7 +111,6 @@ static void handleRunawayException(std::exception *e) {
     exit(1);
 }
 
-#ifndef PHOENIXCOIN_QT_TEST
 int main(int argc, char *argv[])
 {
     // Do this early as we don't want to bother initializing if we are just calling IPC
@@ -270,4 +269,3 @@ int main(int argc, char *argv[])
     }
     return 0;
 }
-#endif /* PHOENIXCOIN_QT_TEST */

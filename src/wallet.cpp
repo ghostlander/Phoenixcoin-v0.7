@@ -1005,7 +1005,7 @@ void CWallet::AvailableCoins(vector<COutput> &vCoins, bool fOnlyConfirmed,
             for(i = 0; i < pcoin->vout.size(); i++) {
                 if(!(pcoin->IsSpent(i)) &&
                   IsMine(pcoin->vout[i]) &&
-                  !IsLockedCoin((*it).first, i) && 
+                  !IsLockedCoin((*it).first, i) &&
                   (pcoin->vout[i].nValue >= nMinimumInputValue) &&
                   (!coinControl || !coinControl->HasSelected() || coinControl->IsSelected((*it).first, i))) {
                       vCoins.push_back(COutput(pcoin, i, pcoin->GetDepthInMainChain()));
@@ -1156,7 +1156,7 @@ bool CWallet::SelectCoins(int64 nTargetValue, set<pair<const CWalletTx *, uint> 
   int64 &nValueRet, const CCoinControl *coinControl) const {
     vector<COutput> vCoins;
     AvailableCoins(vCoins, true, coinControl);
-    
+
     /* The Coin Control: return all selected outputs for
      * we want all of them to go into the transaction possibly */
     if(coinControl && coinControl->HasSelected()) {

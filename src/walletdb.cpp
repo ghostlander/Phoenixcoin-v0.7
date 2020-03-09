@@ -731,7 +731,8 @@ int64 DecodeDumpTime(const std::string &s) {
 }
 
 std::string static EncodeDumpTime(int64 nTime) {
-    return(DateTimeStrFormat("%Y-%m-%d~%H:%M:%S", nTime));
+    /* ISO 8601 */
+    return(DateTimeStrFormat("%Y-%m-%dT%H:%M:%SZ", nTime));
 }
 
 std::string static EncodeDumpString(const std::string &str) {
@@ -754,7 +755,7 @@ std::string DecodeDumpString(const std::string &str) {
     for(pos = 0; pos < str.length(); pos++) {
         uchar c = str[pos];
         if((c == '%') && ((pos + 2) < str.length())) {
-            c = (((str[pos + 1] >> 6) * 9 + ((str[pos + 1] - '0') & 15)) << 4) | 
+            c = (((str[pos + 1] >> 6) * 9 + ((str[pos + 1] - '0') & 15)) << 4) |
               ((str[pos + 2] >> 6) * 9 + ((str[pos + 2] - '0') & 15));
             pos += 2;
         }

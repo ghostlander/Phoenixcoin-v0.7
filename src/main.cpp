@@ -991,10 +991,6 @@ int64 GetMoneySupply(int nHeight) {
     return(nMoneySupply);
 }
 
-static const int64 nTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-static const int64 nTargetSpacing = 10 * 60;
-static const int64 nInterval = nTargetTimespan / nTargetSpacing;
-
 uint static GetNextWorkRequired(const CBlockIndex *pindexLast, const CBlock *pblock) {
     uint nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
     int i;

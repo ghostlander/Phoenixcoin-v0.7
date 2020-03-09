@@ -655,7 +655,7 @@ void CoinControl::updateView() {
                   sLabel = model->getAddressTableModel()->labelForAddress(sAddress);
                 if(!sLabel.length())
                   sLabel = tr("(no label)");
-                itemOutput->setText(COLUMN_LABEL, sLabel); 
+                itemOutput->setText(COLUMN_LABEL, sLabel);
             }
 
             itemOutput->setText(COLUMN_AMOUNT,

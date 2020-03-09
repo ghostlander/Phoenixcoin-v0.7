@@ -43,7 +43,7 @@ qint64 WalletModel::getBalance(const CCoinControl *coinControl) const {
         std::vector<COutput> vCoins;
         wallet->AvailableCoins(vCoins, true, coinControl);
         BOOST_FOREACH(const COutput &out, vCoins)
-          nBalance += out.tx->vout[out.i].nValue;   
+          nBalance += out.tx->vout[out.i].nValue;
 
         return(nBalance);
     }
@@ -392,7 +392,7 @@ bool WalletModel::getPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const 
 
 /* Returns a list of COutputs from COutPoints */
 void WalletModel::getOutputs(const std::vector<COutPoint> &vOutpoints, std::vector<COutput> &vOutputs) {
-    
+
     BOOST_FOREACH(const COutPoint &outpoint, vOutpoints) {
         if(!wallet->mapWallet.count(outpoint.hash)) continue;
         COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n,

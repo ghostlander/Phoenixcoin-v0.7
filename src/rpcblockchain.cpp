@@ -72,34 +72,40 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex)
 }
 
 
-Value getblockcount(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getblockcount\n"
-            "Returns the number of blocks in the longest block chain.");
+Value getblockcount(const Array &params, bool fHelp) {
 
-    return nBestHeight;
+    if(fHelp || (params.size() != 0)) {
+        string msg = "getblockcount\n"
+          "Returns the number of blocks in the longest block chain";
+        throw(runtime_error(msg));
+    }
+
+    return(nBestHeight);
 }
 
 
-Value getdifficulty(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getdifficulty\n"
-            "Returns the proof-of-work difficulty as a multiple of the minimum difficulty.");
+Value getdifficulty(const Array &params, bool fHelp) {
 
-    return GetDifficulty();
+    if(fHelp || (params.size() != 0)) {
+        string msg = "getdifficulty\n"
+          "Returns the current proof-of-work difficulty\n"
+          "as a multiple of the lowest possible difficulty";
+        throw(runtime_error(msg));
+    }
+
+    return(GetDifficulty());
 }
 
 
-Value getnetworkhashps(const Array& params, bool fHelp) {
+Value getnetworkhashps(const Array &params, bool fHelp) {
 
-    if(fHelp || params.size() > 1) throw runtime_error(
-      "getnetworkhashps [blocks]\n"
-      "Calculates estimated network hashes per second based on the last 30 blocks.\n"
-      "Pass in [blocks] to override the default value; zero specifies # of blocks since the last retarget.");
+    if(fHelp || (params.size() > 1)) {
+        string msg = "getnetworkhashps [blocks]\n"
+          "Calculates estimated network hashes per second based on the last 30 blocks.\n"
+          "Pass in [blocks] to override the default value;\n"
+          "zero specifies the number of blocks since the last retarget.";
+        throw(runtime_error(msg));
+    }
 
     int lookup = params.size() > 0 ? params[0].get_int() : 30;
 
@@ -121,12 +127,14 @@ Value getnetworkhashps(const Array& params, bool fHelp) {
 }
 
 
-Value settxfee(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 1)
-        throw runtime_error(
-            "settxfee <amount>\n"
-            "<amount> is a real and is rounded to the nearest 0.00000001");
+Value settxfee(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 1) || (params.size() > 1)) {
+        string msg = "settxfee <amount>\n"
+          "Sets the transaction fee per 1000 bytes of data.\n"
+          "<amount> is a real and is rounded to the nearest 0.00000001";
+        throw(runtime_error(msg));
+    }
 
     // Amount
     int64 nAmount = 0;
@@ -137,12 +145,13 @@ Value settxfee(const Array& params, bool fHelp)
     return true;
 }
 
-Value getrawmempool(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getrawmempool\n"
-            "Returns all transaction ids in memory pool.");
+Value getrawmempool(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 0)) {
+        string msg = "getrawmempool\n"
+          "Returns IDs of all transactions stored in the memory pool";
+        throw(runtime_error(msg));
+    }
 
     vector<uint256> vtxid;
     mempool.queryHashes(vtxid);
@@ -154,12 +163,13 @@ Value getrawmempool(const Array& params, bool fHelp)
     return a;
 }
 
-Value getblockhash(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "getblockhash <index>\n"
-            "Returns hash of block in best-block-chain at <index>.");
+Value getblockhash(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "getblockhash <height>\n"
+          "Returns hash of block in the best block chain at <height>";
+        throw(runtime_error(msg));
+    }
 
     int nHeight = params[0].get_int();
     if (nHeight < 0 || nHeight > nBestHeight)
@@ -169,12 +179,13 @@ Value getblockhash(const Array& params, bool fHelp)
     return pblockindex->phashBlock->GetHex();
 }
 
-Value getblock(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "getblock <hash>\n"
-            "Returns details of a block with given block-hash.");
+Value getblock(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "getblock <hash>\n"
+          "Returns details of a block with a given block hash";
+        throw(runtime_error(msg));
+    }
 
     std::string strHash = params[0].get_str();
     uint256 hash(strHash);
@@ -188,8 +199,3 @@ Value getblock(const Array& params, bool fHelp)
 
     return blockToJSON(block, pblockindex);
 }
-
-
-
-
-

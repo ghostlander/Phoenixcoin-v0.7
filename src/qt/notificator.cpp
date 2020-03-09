@@ -55,6 +55,9 @@ Notificator::Notificator(const QString &programName, QSystemTrayIcon *trayicon, 
         return;
     }
 
+#if (MAC_OS_X_VERSION_MAX_ALLOWED < 101000)
+/* LSGetApplicationForInfo() has been deprecated in MacOS X 10.10 and removed since 10.11 */
+
     /* Attempt to use Growl */
     CFURLRef cfurl;
     OSStatus status = LSGetApplicationForInfo(kLSUnknownType, kLSUnknownCreator,
@@ -71,6 +74,7 @@ Notificator::Notificator(const QString &programName, QSystemTrayIcon *trayicon, 
         CFRelease(cfurl);
         CFRelease(bundle);
     }
+#endif
 #endif
 }
 

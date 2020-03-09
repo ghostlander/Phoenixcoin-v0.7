@@ -104,15 +104,15 @@ void TxToJSON(const CTransaction& tx, const uint256 hashBlock, Object& entry)
     }
 }
 
-Value getrawtransaction(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
-            "getrawtransaction <txid> [verbose=0]\n"
-            "If verbose=0, returns a string that is\n"
-            "serialized, hex-encoded data for <txid>.\n"
-            "If verbose is non-zero, returns an Object\n"
-            "with information about <txid>.");
+
+Value getrawtransaction(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 1) || (params.size() > 2)) {
+        string msg = "getrawtransaction <txid> [verbose]\n"
+          "If [verbose] is zero, returns a string containing serialised hex data for <txid>.\n"
+          "If [verbose] is non-zero, returns an object with information about <txid>.";
+        throw(runtime_error(msg));
+    }
 
     uint256 hash;
     hash.SetHex(params[0].get_str());
@@ -139,16 +139,18 @@ Value getrawtransaction(const Array& params, bool fHelp)
     return result;
 }
 
-Value listunspent(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 3)
-        throw runtime_error(
-            "listunspent [minconf=1] [maxconf=9999999]  [\"address\",...]\n"
-            "Returns array of unspent transaction outputs\n"
-            "with between minconf and maxconf (inclusive) confirmations.\n"
-            "Optionally filtered to only include txouts paid to specified addresses.\n"
-            "Results are an array of Objects, each of which has:\n"
-            "{txid, vout, scriptPubKey, amount, confirmations}");
+
+Value listunspent(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 3)) {
+        string msg = "listunspent [minconf=1] [maxconf=9999999]  [\"address\",...]\n"
+          "Returns array of unspent transaction outputs\n"
+          "with between minconf and maxconf (inclusive) confirmations.\n"
+          "Optionally filtered to only include txouts paid to specified addresses.\n"
+          "Results are an array of Objects, each of which has:\n"
+          "{txid, vout, scriptPubKey, amount, confirmations}";
+        throw(runtime_error(msg));
+    }
 
     RPCTypeCheck(params, list_of(int_type)(int_type)(array_type));
 
@@ -208,17 +210,19 @@ Value listunspent(const Array& params, bool fHelp)
     return results;
 }
 
-Value createrawtransaction(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 2)
-        throw runtime_error(
-            "createrawtransaction [{\"txid\":txid,\"vout\":n},...] {address:amount,...}\n"
-            "Create a transaction spending given inputs\n"
-            "(array of objects containing transaction id and output number),\n"
-            "sending to given address(es).\n"
-            "Returns hex-encoded raw transaction.\n"
-            "Note that the transaction's inputs are not signed, and\n"
-            "it is not stored in the wallet or transmitted to the network.");
+
+Value createrawtransaction(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 2)) {
+        string msg = "createrawtransaction [{\"txid\":txid,\"vout\":n},...] {address:amount,...}\n"
+          "Creates a transaction spending inputs formatted in an array of\n"
+          "objects each comprising of a transaction ID and output index,\n"
+          "to given addresses in amounts specified.\n"
+          "Returns a serialised hex encoded raw transaction.\n"
+          "Note that the transaction's inputs are not signed, and\n"
+          "it is not stored in the wallet or transmitted to the network.";
+        throw(runtime_error(msg));
+    }
 
     RPCTypeCheck(params, list_of(array_type)(obj_type));
 
@@ -274,12 +278,15 @@ Value createrawtransaction(const Array& params, bool fHelp)
     return HexStr(ss.begin(), ss.end());
 }
 
-Value decoderawtransaction(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "decoderawtransaction <hex string>\n"
-            "Return a JSON object representing the serialized, hex-encoded transaction.");
+
+Value decoderawtransaction(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "decoderawtransaction <string>\n"
+          "Decodes a hex string of raw transaction data and\n"
+          "returns a JSON object of formatted data of this transaction.";
+        throw(runtime_error(msg));
+    }
 
     RPCTypeCheck(params, list_of(str_type));
 
@@ -299,22 +306,24 @@ Value decoderawtransaction(const Array& params, bool fHelp)
     return result;
 }
 
-Value signrawtransaction(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 4)
-        throw runtime_error(
-            "signrawtransaction <hex string> [{\"txid\":txid,\"vout\":n,\"scriptPubKey\":hex},...] [<privatekey1>,...] [sighashtype=\"ALL\"]\n"
-            "Sign inputs for raw transaction (serialized, hex-encoded).\n"
-            "Second optional argument (may be null) is an array of previous transaction outputs that\n"
-            "this transaction depends on but may not yet be in the blockchain.\n"
-            "Third optional argument (may be null) is an array of base58-encoded private\n"
-            "keys that, if given, will be the only keys used to sign the transaction.\n"
-            "Fourth optional argument is a string that is one of six values; ALL, NONE, SINGLE or\n"
-            "ALL|ANYONECANPAY, NONE|ANYONECANPAY, SINGLE|ANYONECANPAY.\n"
-            "Returns json object with keys:\n"
-            "  hex : raw transaction with signature(s) (hex-encoded string)\n"
-            "  complete : 1 if transaction has a complete set of signature (0 if not)"
-            + HelpRequiringPassphrase());
+
+Value signrawtransaction(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 1) || (params.size() > 4)) {
+        string msg = "signrawtransaction <string> [{\"txid\":txid,\"vout\":n,\"scriptPubKey\":hex},...] [<privatekey1>,...] [sighashtype=\"ALL\"]\n"
+          "Signs inputs of a serialised hex encoded raw transaction in the <string>.\n"
+          "The second argument is an optional array of previous transaction outputs that\n"
+          "this transaction depends on, which may not yet be in the block chain.\n"
+          "The third argument is an optional array of base58 encoded private\n"
+          "keys that, if given, will be the only keys used to sign the transaction.\n"
+          "The fourth argument is an optional string that is one of six values;\n"
+          "ALL, NONE, SINGLE, ALL|ANYONECANPAY, NONE|ANYONECANPAY, SINGLE|ANYONECANPAY.\n"
+          "Returns a JSON object with the following keys:\n"
+          "  hex : raw transaction with signature(s) (hex-encoded string)\n"
+          "  complete : 1 if the transaction has a complete set of signatures (0 if not)"
+          + HelpRequiringPassphrase();
+        throw(runtime_error(msg));
+    }
 
     RPCTypeCheck(params, list_of(str_type)(array_type)(array_type)(str_type), true);
 
@@ -489,12 +498,14 @@ Value signrawtransaction(const Array& params, bool fHelp)
     return result;
 }
 
-Value sendrawtransaction(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 1)
-        throw runtime_error(
-            "sendrawtransaction <hex string>\n"
-            "Submits raw transaction (serialized, hex-encoded) to local node and network.");
+
+Value sendrawtransaction(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 1) || (params.size() > 1)) {
+        string msg = "sendrawtransaction <string>\n"
+          "Submits a serialised hex encoded raw transaction to the local node and network";
+        throw(runtime_error(msg));
+    }
 
     RPCTypeCheck(params, list_of(str_type));
 

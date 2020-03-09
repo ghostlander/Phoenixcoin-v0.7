@@ -164,12 +164,13 @@ string CRPCTable::help(string strCommand) const
     return strRet;
 }
 
-Value help(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 1)
-        throw runtime_error(
-            "help [command]\n"
-            "List commands, or get help for a command.");
+Value help(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 1)) {
+        string msg = "help [command]\n"
+          "Lists all RPC commands or shows help for a particular command";
+        throw(runtime_error(msg));
+    }
 
     string strCommand;
     if (params.size() > 0)
@@ -181,10 +182,12 @@ Value help(const Array& params, bool fHelp)
 
 Value stop(const Array &params, bool fHelp) {
 
-    if(fHelp || (params.size() > 1)) throw(runtime_error(
-      "stop <detach>\n"
-      "<detach> is true or false to detach the database or not for this stop only\n"
-      "Stop Phoenixcoin server (and possibly override the detachdb config value)."));
+    if(fHelp || (params.size() > 1)) {
+        string msg = "stop <detach>\n"
+          "Stops the Phoenixcoin server.\n"
+          "<detach> is true or false to detach the data base or not.";
+        throw(runtime_error(msg));
+    }
 
     if(params.size() > 0)
       bitdb.SetDetach(params[0].get_bool());

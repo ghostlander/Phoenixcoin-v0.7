@@ -215,7 +215,7 @@ GUI::GUI(QWidget *parent):
 
     /* OS & theme independent style; widgets must be added prior to styling */
     progressBar->setStyleSheet("QProgressBar { color: black; background-color: transparent; border: 1px solid grey; border-radius: 2px; padding: 1px; text-align: center; } \
-      QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF7F00, stop: 1 #FFD77F); margin: 0px; }");  
+      QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF7F00, stop: 1 #FFD77F); margin: 0px; }");
 
     statusBar()->addWidget(progressBarLabel);
     statusBar()->addWidget(progressBar);
@@ -244,7 +244,7 @@ GUI::GUI(QWidget *parent):
      * in the Sign/Verify Message dialogue */
     connect(receiveCoinsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
 
-    /* Selecting block explorer in the transaction page menu redirects to the block explorer */ 
+    /* Selecting block explorer in the transaction page menu redirects to the block explorer */
     connect(transactionView, SIGNAL(blockExplorerSignal(QString)), blockExplorer,
       SLOT(gotoBlockExplorer(QString)));
 

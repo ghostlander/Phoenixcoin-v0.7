@@ -16,24 +16,27 @@
 using namespace json_spirit;
 using namespace std;
 
-Value getgenerate(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getgenerate\n"
-            "Returns true or false.");
+Value getgenerate(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 0)) {
+        string msg = "getgenerate\n"
+          "Returns execution state of the internal proof-of-work miner";
+        throw(runtime_error(msg));
+    }
 
     return GetBoolArg("-gen");
 }
 
 
-Value setgenerate(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
-            "setgenerate <generate> [genproclimit]\n"
-            "<generate> is true or false to turn generation on or off.\n"
-            "Generation is limited to [genproclimit] processors, -1 is unlimited.");
+Value setgenerate(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 1) || (params.size() > 2)) {
+        string msg = "setgenerate <state> [genproclimit]\n"
+          "Sets execution state of the internal proof-of-work miner.\n"
+          "<state> is true or false to set mining on or off respectively.\n"
+          "[genproclimit] defines the maximum number of mining threads, -1 is unlimited.";
+        throw(runtime_error(msg));
+    }
 
     bool fGenerate = true;
     if (params.size() > 0)
@@ -53,12 +56,13 @@ Value setgenerate(const Array& params, bool fHelp)
 }
 
 
-Value gethashespersec(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "gethashespersec\n"
-            "Returns a recent hashes per second performance measurement while generating.");
+Value gethashespersec(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 0)) {
+        string msg = "gethashespersec\n"
+          "Returns hash rate of the internal proof-of-work miner";
+        throw(runtime_error(msg));
+    }
 
     if (GetTimeMillis() - nHPSTimerStart > 8000)
         return (boost::int64_t)0;
@@ -66,12 +70,13 @@ Value gethashespersec(const Array& params, bool fHelp)
 }
 
 
-Value getmininginfo(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getmininginfo\n"
-            "Returns an object containing mining-related information.");
+Value getmininginfo(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 0)) {
+       string msg = "getmininginfo\n"
+         "Returns information related to mining";
+        throw(runtime_error(msg));
+    }
 
     Object obj;
     obj.push_back(Pair("blocks",        (int)nBestHeight));
@@ -93,13 +98,16 @@ Value getmininginfo(const Array& params, bool fHelp)
  * and receives the result if available */
 Value getwork(const Array &params, bool fHelp) {
 
-    if(fHelp || (params.size() > 1)) throw(runtime_error(
-        "getwork [data]\n"
-        "If [data] is not specified, returns formatted data to work on:\n"
-        "  \"data\" : block header\n"
-        "  \"target\" : hash target\n"
-        "  \"algorithm\" : hashing algorithm expected (optional)\n"
-        "If [data] is specified, verifies the PoW hash against target and returns true if successful."));
+    if(fHelp || (params.size() > 1)) {
+        string msg = "getwork [data]\n"
+          "If [data] is not specified, returns formatted data to work on:\n"
+          "  \"data\" : block header\n"
+          "  \"target\" : hash target\n"
+          "  \"algorithm\" : hashing algorithm expected (optional)\n"
+          "If [data] is specified, verifies the proof-of-work hash\n"
+          "against target and returns true if successful.";
+        throw(runtime_error(msg));
+    }
 
     if(vNodes.empty())
       throw(JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Phoenixcoin is not connected!"));
@@ -237,27 +245,28 @@ Value getwork(const Array &params, bool fHelp) {
 }
 
 
-Value getblocktemplate(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 1)
-        throw runtime_error(
-            "getblocktemplate [params]\n"
-            "Returns data needed to construct a block to work on:\n"
-            "  \"version\" : block version\n"
-            "  \"previousblockhash\" : hash of current highest block\n"
-            "  \"transactions\" : contents of non-coinbase transactions that should be included in the next block\n"
-            "  \"coinbaseaux\" : data that should be included in coinbase\n"
-            "  \"coinbasevalue\" : maximum allowable input to coinbase transaction, including the generation award and transaction fees\n"
-            "  \"target\" : hash target\n"
-            "  \"mintime\" : minimum timestamp appropriate for next block\n"
-            "  \"curtime\" : current timestamp\n"
-            "  \"mutable\" : list of ways the block template may be changed\n"
-            "  \"noncerange\" : range of valid nonces\n"
-            "  \"sigoplimit\" : limit of sigops in blocks\n"
-            "  \"sizelimit\" : limit of block size\n"
-            "  \"bits\" : compressed target of next block\n"
-            "  \"height\" : height of the next block\n"
-            "See https://en.bitcoin.it/wiki/BIP_0022 for full specification.");
+Value getblocktemplate(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 1)) {
+        string msg = "getblocktemplate [params]\n"
+          "Returns data required to construct a block to work on:\n"
+          "  \"version\" : block version\n"
+          "  \"previousblockhash\" : hash of the current best block\n"
+          "  \"transactions\" : contents of transactions to be included in the next block\n"
+          "  \"coinbaseaux\" : auxiliary data to be included in the coin base\n"
+          "  \"coinbasevalue\" : highest possible value of the coin base including transaction fees\n"
+          "  \"target\" : hash target\n"
+          "  \"mintime\" : minimum time stamp appropriate for the next block\n"
+          "  \"curtime\" : current time stamp\n"
+          "  \"mutable\" : list of ways the block template may be changed\n"
+          "  \"noncerange\" : range of valid nonces\n"
+          "  \"sigoplimit\" : maximum number of sigops per block\n"
+          "  \"sizelimit\" : maximum block size\n"
+          "  \"bits\" : compressed target of the next block\n"
+          "  \"height\" : height of the next block\n"
+          "See https://en.bitcoin.it/wiki/BIP_0022 for the complete specification.";
+        throw(runtime_error(msg));
+    }
 
     std::string strMode = "template";
     if (params.size() > 0)
@@ -394,12 +403,15 @@ Value getblocktemplate(const Array& params, bool fHelp)
     return result;
 }
 
+
 Value submitblock(const Array &params, bool fHelp) {
 
-    if(fHelp || (params.size() < 1) || (params.size() > 2)) throw(runtime_error(
-        "submitblock <hex data> [workid]\n"
-        "[workid] parameter is optional and ignored.\n"
-        "Attempts to submit a new block to the network."));
+    if(fHelp || (params.size() < 1) || (params.size() > 2)) {
+        string msg = "submitblock <data> [workid]\n"
+          "Attempts to submit a new block to the network.\n"
+          "[workid] parameter is optional and ignored.\n";
+        throw(runtime_error(msg));
+    }
 
     vector<unsigned char> blockData(ParseHex(params[0].get_str()));
     CDataStream ssBlock(blockData, SER_NETWORK, PROTOCOL_VERSION);
@@ -432,4 +444,3 @@ Value submitblock(const Array &params, bool fHelp) {
 
     return(Value::null);
 }
-

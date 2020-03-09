@@ -65,12 +65,14 @@ string AccountFromValue(const Value& value)
     return strAccount;
 }
 
-Value getinfo(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getinfo\n"
-            "Returns an object containing various state info.");
+
+Value getinfo(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 0)) {
+        string msg = "getinfo\n"
+          "Returns an object containing various state info";
+        throw(runtime_error(msg));
+    }
 
     proxyType proxy;
     GetProxy(NET_IPV4, proxy);
@@ -99,15 +101,15 @@ Value getinfo(const Array& params, bool fHelp)
 }
 
 
+Value getnewaddress(const Array &params, bool fHelp) {
 
-Value getnewaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 1)
-        throw runtime_error(
-            "getnewaddress [account]\n"
-            "Returns a new Phoenixcoin address for receiving payments.  "
-            "If [account] is specified (recommended), it is added to the address book "
-            "so payments received with the address will be credited to [account].");
+    if(fHelp || (params.size() > 1)) {
+        string msg = "getnewaddress [account]\n"
+          "Picks up a new address from the key pool.\n"
+          "If [account] is specified (recommended), it is added to the address book\n"
+          "so payments received with the address will be credited to [account].";
+        throw(runtime_error(msg));
+    }
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount;
@@ -167,12 +169,13 @@ CBitcoinAddress GetAccountAddress(string strAccount, bool bForceNew=false)
     return CBitcoinAddress(account.vchPubKey.GetID());
 }
 
-Value getaccountaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "getaccountaddress <account>\n"
-            "Returns the current Phoenixcoin address for receiving payments to this account.");
+Value getaccountaddress(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "getaccountaddress <account>\n"
+          "Returns the current address for receiving payments to this account";
+        throw(runtime_error(msg));
+    }
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount = AccountFromValue(params[0]);
@@ -185,13 +188,13 @@ Value getaccountaddress(const Array& params, bool fHelp)
 }
 
 
+Value setaccount(const Array &params, bool fHelp) {
 
-Value setaccount(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
-            "setaccount <phoenixcoinaddress> <account>\n"
-            "Sets the account associated with the given address.");
+    if(fHelp || (params.size() < 1) || (params.size() > 2)) {
+        string msg = "setaccount <address> <account>\n"
+          "Sets the account associated with the given address";
+        throw(runtime_error(msg));
+    }
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
@@ -216,12 +219,13 @@ Value setaccount(const Array& params, bool fHelp)
 }
 
 
-Value getaccount(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "getaccount <phoenixcoinaddress>\n"
-            "Returns the account associated with the given address.");
+Value getaccount(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "getaccount <address>\n"
+          "Returns the account associated with the given address";
+        throw(runtime_error(msg));
+    }
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
@@ -235,12 +239,13 @@ Value getaccount(const Array& params, bool fHelp)
 }
 
 
-Value getaddressesbyaccount(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "getaddressesbyaccount <account>\n"
-            "Returns the list of addresses for the given account.");
+Value getaddressesbyaccount(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "getaddressesbyaccount <account>\n"
+          "Returns the list of addresses for the given account";
+        throw(runtime_error(msg));
+    }
 
     string strAccount = AccountFromValue(params[0]);
 
@@ -256,13 +261,15 @@ Value getaddressesbyaccount(const Array& params, bool fHelp)
     return ret;
 }
 
-Value sendtoaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 2 || params.size() > 4)
-        throw runtime_error(
-            "sendtoaddress <phoenixcoinaddress> <amount> [comment] [comment-to]\n"
-            "<amount> is a real and is rounded to the nearest 0.00000001"
-            + HelpRequiringPassphrase());
+
+Value sendtoaddress(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 2) || (params.size() > 4)) {
+        string msg = "sendtoaddress <address> <amount> [comment] [comment-to]\n"
+          "<amount> is a real and is rounded to the nearest 0.00000001"
+          + HelpRequiringPassphrase();
+        throw(runtime_error(msg));
+    }
 
     CBitcoinAddress address(params[0].get_str());
     if(!address.IsValid())
@@ -288,14 +295,16 @@ Value sendtoaddress(const Array& params, bool fHelp)
     return wtx.GetHash().GetHex();
 }
 
-Value listaddressgroupings(const Array& params, bool fHelp)
-{
-    if (fHelp)
-        throw runtime_error(
-            "listaddressgroupings\n"
-            "Lists groups of addresses which have had their common ownership\n"
-            "made public by common use as inputs or as the resulting change\n"
-            "in past transactions");
+
+Value listaddressgroupings(const Array &params, bool fHelp) {
+
+    if(fHelp) {
+        string msg = "listaddressgroupings\n"
+          "Lists groups of addresses which have had their common ownership\n"
+          "made public by common use as inputs or as the resulting change\n"
+          "in past transactions";
+        throw(runtime_error(msg));
+    }
 
     Array jsonGroupings;
     map<CTxDestination, int64> balances = pwalletMain->GetAddressBalances();
@@ -319,12 +328,14 @@ Value listaddressgroupings(const Array& params, bool fHelp)
     return jsonGroupings;
 }
 
-Value signmessage(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 2)
-        throw runtime_error(
-            "signmessage <phoenixcoinaddress> <message>\n"
-            "Sign a message with the private key of an address");
+
+Value signmessage(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 2)) {
+        string msg = "signmessage <address> <message>\n"
+          "Signs a message with the private key of an address";
+        throw(runtime_error(msg));
+    }
 
     EnsureWalletIsUnlocked();
 
@@ -354,12 +365,14 @@ Value signmessage(const Array& params, bool fHelp)
     return EncodeBase64(&vchSig[0], vchSig.size());
 }
 
-Value verifymessage(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 3)
-        throw runtime_error(
-            "verifymessage <phoenixcoinaddress> <signature> <message>\n"
-            "Verify a signed message");
+
+Value verifymessage(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 3)) {
+        string msg = "verifymessage <address> <signature> <message>\n"
+          "Verifies a signed message";
+        throw(runtime_error(msg));
+    }
 
     string strAddress  = params[0].get_str();
     string strSign     = params[1].get_str();
@@ -391,14 +404,16 @@ Value verifymessage(const Array& params, bool fHelp)
 }
 
 
-Value getreceivedbyaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
-            "getreceivedbyaddress <phoenixcoinaddress> [minconf=1]\n"
-            "Returns the total amount received by <phoenixcoinaddress> in transactions with at least [minconf] confirmations.");
+Value getreceivedbyaddress(const Array &params, bool fHelp) {
 
-    // Bitcoin address
+    if(fHelp || (params.size() < 1) || (params.size() > 2)) {
+        string msg = "getreceivedbyaddress <address> [minconf=1]\n"
+          "Returns the total amount received by <address> in transactions\n"
+          "with at least [minconf] confirmations";
+        throw(runtime_error(msg));
+    }
+
+    /* Address */
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
     CScript scriptPubKey;
     if (!address.IsValid())
@@ -441,12 +456,14 @@ void GetAccountAddresses(string strAccount, set<CTxDestination>& setAddress)
     }
 }
 
-Value getreceivedbyaccount(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
-            "getreceivedbyaccount <account> [minconf=1]\n"
-            "Returns the total amount received by addresses with <account> in transactions with at least [minconf] confirmations.");
+Value getreceivedbyaccount(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 1) || (params.size() > 2)) {
+        string msg = "getreceivedbyaccount <account> [minconf=1]\n"
+          "Returns the total amount received by addresses\n"
+          "with <account> in transactions with at least [minconf] confirmations";
+        throw(runtime_error(msg));
+    }
 
     // Minimum confirmations
     int nMinDepth = 1;
@@ -510,14 +527,14 @@ int64 GetAccountBalance(const string& strAccount, int nMinDepth)
     return GetAccountBalance(walletdb, strAccount, nMinDepth);
 }
 
+Value getbalance(const Array &params, bool fHelp) {
 
-Value getbalance(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 2)
-        throw runtime_error(
-            "getbalance [account] [minconf=1]\n"
-            "If [account] is not specified, returns the server's total available balance.\n"
-            "If [account] is specified, returns the balance in the account.");
+    if(fHelp || (params.size() > 2)) {
+        string msg = "getbalance [account] [minconf=1]\n"
+          "If [account] is not specified, returns the server's total available balance.\n"
+          "If [account] is specified, returns the balance in the account.";
+        throw(runtime_error(msg));
+    }
 
     if (params.size() == 0)
         return  ValueFromAmount(pwalletMain->GetBalance());
@@ -562,12 +579,13 @@ Value getbalance(const Array& params, bool fHelp)
 }
 
 
-Value movecmd(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 3 || params.size() > 5)
-        throw runtime_error(
-            "move <fromaccount> <toaccount> <amount> [minconf=1] [comment]\n"
-            "Move from one account in your wallet to another.");
+Value movecmd(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 3) || (params.size() > 5)) {
+        string msg = "move <from-account> <to-account> <amount> [minconf=1] [comment]\n"
+          "Moves from one account in your wallet to another.";
+        throw(runtime_error(msg));
+    }
 
     string strFrom = AccountFromValue(params[0]);
     string strTo = AccountFromValue(params[1]);
@@ -612,13 +630,14 @@ Value movecmd(const Array& params, bool fHelp)
 }
 
 
-Value sendfrom(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 3 || params.size() > 6)
-        throw runtime_error(
-            "sendfrom <fromaccount> <tophoenixcoinaddress> <amount> [minconf=1] [comment] [comment-to]\n"
-            "<amount> is a real and is rounded to the nearest 0.00000001"
-            + HelpRequiringPassphrase());
+Value sendfrom(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 3) || (params.size() > 6)) {
+        string msg = "sendfrom <from-account> <to-address> <amount> [minconf=1] [comment] [comment-to]\n"
+          "<amount> is a real and is rounded to the nearest 0.00000001"
+          + HelpRequiringPassphrase();
+        throw(runtime_error(msg));
+    }
 
     string strAccount = AccountFromValue(params[0]);
     CBitcoinAddress address(params[1].get_str());
@@ -652,13 +671,14 @@ Value sendfrom(const Array& params, bool fHelp)
 }
 
 
-Value sendmany(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 2 || params.size() > 4)
-        throw runtime_error(
-            "sendmany <fromaccount> {address:amount,...} [minconf=1] [comment]\n"
-            "amounts are double-precision floating point numbers"
-            + HelpRequiringPassphrase());
+Value sendmany(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 2) || (params.size() > 4)) {
+        string msg = "sendmany <from-account> {address:amount,...} [minconf=1] [comment]\n"
+          "Amounts are double precision floating point numbers"
+          + HelpRequiringPassphrase();
+        throw(runtime_error(msg));
+    }
 
     string strAccount = AccountFromValue(params[0]);
     Object sendTo = params[1].get_obj();
@@ -716,15 +736,15 @@ Value sendmany(const Array& params, bool fHelp)
     return wtx.GetHash().GetHex();
 }
 
-Value addmultisigaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 2 || params.size() > 3)
-    {
+
+Value addmultisigaddress(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 2) || (params.size() > 3)) {
         string msg = "addmultisigaddress <nrequired> <'[\"key\",\"key\"]'> [account]\n"
-            "Add a nrequired-to-sign multisignature address to the wallet\"\n"
-            "each key is a Phoenixcoin address or hex-encoded public key\n"
-            "If [account] is specified, assign address to [account].";
-        throw runtime_error(msg);
+          "Add a nrequired-to-sign multisignature address to the wallet\"\n"
+          "each key is an address or hex encoded public key.\n"
+          "If [account] is specified, assign address to [account].";
+        throw(runtime_error(msg));
     }
 
     int nRequired = params[0].get_int();
@@ -887,36 +907,41 @@ Value ListReceived(const Array& params, bool fByAccounts)
     return ret;
 }
 
-Value listreceivedbyaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 2)
-        throw runtime_error(
-            "listreceivedbyaddress [minconf=1] [includeempty=false]\n"
-            "[minconf] is the minimum number of confirmations before payments are included.\n"
-            "[includeempty] whether to include addresses that haven't received any payments.\n"
-            "Returns an array of objects containing:\n"
-            "  \"address\" : receiving address\n"
-            "  \"account\" : the account of the receiving address\n"
-            "  \"amount\" : total amount received by the address\n"
-            "  \"confirmations\" : number of confirmations of the most recent transaction included");
 
-    return ListReceived(params, false);
+Value listreceivedbyaddress(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 2)) {
+        string msg = "listreceivedbyaddress [minconf=1] [include-empty=false]\n"
+          "[minconf] is the minimum number of confirmations before payments are included.\n"
+          "[include-empty] whether to include addresses that haven't received any payments.\n"
+          "Returns an array of objects containing:\n"
+          "  \"address\" : receiving address\n"
+          "  \"account\" : the account of the receiving address\n"
+          "  \"amount\" : total amount received by the address\n"
+          "  \"confirmations\" : number of confirmations of the most recent transaction included";
+        throw(runtime_error(msg));
+    }
+
+    return(ListReceived(params, false));
 }
 
-Value listreceivedbyaccount(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 2)
-        throw runtime_error(
-            "listreceivedbyaccount [minconf=1] [includeempty=false]\n"
-            "[minconf] is the minimum number of confirmations before payments are included.\n"
-            "[includeempty] whether to include accounts that haven't received any payments.\n"
-            "Returns an array of objects containing:\n"
-            "  \"account\" : the account of the receiving addresses\n"
-            "  \"amount\" : total amount received by addresses with this account\n"
-            "  \"confirmations\" : number of confirmations of the most recent transaction included");
 
-    return ListReceived(params, true);
+Value listreceivedbyaccount(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 2)) {
+        string msg = "listreceivedbyaccount [minconf=1] [include-empty=false]\n"
+          "[minconf] is the minimum number of confirmations before payments are included.\n"
+          "[include-empty] whether to include accounts that haven't received any payments.\n"
+          "Returns an array of objects containing:\n"
+          "  \"account\" : the account of the receiving addresses\n"
+          "  \"amount\" : total amount received by addresses with this account\n"
+          "  \"confirmations\" : number of confirmations of the most recent transaction included";
+        throw(runtime_error(msg));
+    }
+
+    return(ListReceived(params, true));
 }
+
 
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, Array& ret)
 {
@@ -996,12 +1021,14 @@ void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, Ar
     }
 }
 
-Value listtransactions(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 3)
-        throw runtime_error(
-            "listtransactions [account] [count=10] [from=0]\n"
-            "Returns up to [count] most recent transactions skipping the first [from] transactions for account [account].");
+Value listtransactions(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 3)) {
+        string msg = "listtransactions [account] [count=10] [from=0]\n"
+          "Returns up to [count] most recent transactions\n"
+          "skipping the first [from] transactions for account [account]";
+        throw(runtime_error(msg));
+    }
 
     string strAccount = "*";
     if (params.size() > 0)
@@ -1054,12 +1081,14 @@ Value listtransactions(const Array& params, bool fHelp)
     return ret;
 }
 
-Value listaccounts(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 1)
-        throw runtime_error(
-            "listaccounts [minconf=1]\n"
-            "Returns Object that has account names as keys, account balances as values.");
+
+Value listaccounts(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 1)) {
+        string msg = "listaccounts [minconf=1]\n"
+          "Returns object that has account names as keys, account balances as values";
+        throw(runtime_error(msg));
+    }
 
     int nMinDepth = 1;
     if (params.size() > 0)
@@ -1104,12 +1133,14 @@ Value listaccounts(const Array& params, bool fHelp)
     return ret;
 }
 
-Value listsinceblock(const Array& params, bool fHelp)
-{
-    if (fHelp)
-        throw runtime_error(
-            "listsinceblock [blockhash] [target-confirmations]\n"
-            "Get all transactions in blocks since block [blockhash], or all transactions if omitted");
+
+Value listsinceblock(const Array &params, bool fHelp) {
+
+    if(fHelp) {
+        string msg = "listsinceblock [hash] [target-confirmations]\n"
+          "Gets all transactions in blocks since a block [hash] or all transactions if omitted";
+        throw(runtime_error(msg));
+    }
 
     CBlockIndex *pindex = NULL;
     int target_confirms = 1;
@@ -1167,20 +1198,22 @@ Value listsinceblock(const Array& params, bool fHelp)
     return ret;
 }
 
-Value gettransaction(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "gettransaction <txid>\n"
-            "Get detailed information about in-wallet transaction <txid>");
+
+Value gettransaction(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "gettransaction <txid>\n"
+          "Displays detailed information about an in-wallet transaction <txid>";
+        throw(runtime_error(msg));
+    }
 
     uint256 hash;
     hash.SetHex(params[0].get_str());
 
     Object entry;
-    if (!pwalletMain->mapWallet.count(hash))
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid or non-wallet transaction id");
-    const CWalletTx& wtx = pwalletMain->mapWallet[hash];
+    if(!pwalletMain->mapWallet.count(hash))
+      throw(JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid or non-wallet transaction ID"));
+    const CWalletTx &wtx = pwalletMain->mapWallet[hash];
 
     int64 nCredit = wtx.GetCredit();
     int64 nDebit = wtx.GetDebit();
@@ -1201,12 +1234,14 @@ Value gettransaction(const Array& params, bool fHelp)
 }
 
 
-Value backupwallet(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "backupwallet <destination>\n"
-            "Safely copies wallet.dat to destination, which can be a directory or a path with filename.");
+Value backupwallet(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "backupwallet <destination>\n"
+          "Safely copies wallet.dat to <destination>,\n"
+          "which can be a directory or a path with file name";
+        throw(runtime_error(msg));
+    }
 
     string strDest = params[0].get_str();
     if (!BackupWallet(*pwalletMain, strDest))
@@ -1216,22 +1251,23 @@ Value backupwallet(const Array& params, bool fHelp)
 }
 
 
-Value keypoolrefill(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() > 0)
-        throw runtime_error(
-            "keypoolrefill\n"
-            "Fills the keypool."
-            + HelpRequiringPassphrase());
+Value keypoolrefill(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 0)) {
+        string msg = "keypoolrefill\n"
+          "Tops up the pool of ready-for-use private and public key pairs"
+          + HelpRequiringPassphrase();
+        throw(runtime_error(msg));
+    }
 
     EnsureWalletIsUnlocked();
 
     pwalletMain->TopUpKeyPool();
 
-    if (pwalletMain->GetKeyPoolSize() < GetArg("-keypool", 100))
-        throw JSONRPCError(RPC_WALLET_ERROR, "Error refreshing keypool.");
+    if(pwalletMain->GetKeyPoolSize() < GetArg("-keypool", 100))
+      throw(JSONRPCError(RPC_WALLET_ERROR, "Error: Key pool refresh failed!"));
 
-    return Value::null;
+    return(Value::null);
 }
 
 
@@ -1287,12 +1323,15 @@ void ThreadCleanWalletPassphrase(void* parg)
     delete (int64*)parg;
 }
 
-Value walletpassphrase(const Array& params, bool fHelp)
-{
-    if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
-        throw runtime_error(
-            "walletpassphrase <passphrase> <timeout>\n"
-            "Stores the wallet decryption key in memory for <timeout> seconds.");
+
+Value walletpassphrase(const Array &params, bool fHelp) {
+
+    if(pwalletMain->IsCrypted() && (fHelp || (params.size() != 2))) {
+        string msg = "walletpassphrase <passphrase> <timeout>\n"
+          "Stores the wallet decryption key <passphrase> in memory for <timeout> seconds";
+        throw(runtime_error(msg));
+    }
+
     if (fHelp)
         return true;
     if (!pwalletMain->IsCrypted())
@@ -1308,15 +1347,14 @@ Value walletpassphrase(const Array& params, bool fHelp)
     // Alternately, find a way to make params[0] mlock()'d to begin with.
     strWalletPass = params[0].get_str().c_str();
 
-    if (strWalletPass.length() > 0)
-    {
-        if (!pwalletMain->Unlock(strWalletPass))
-            throw JSONRPCError(RPC_WALLET_PASSPHRASE_INCORRECT, "Error: The wallet passphrase entered was incorrect.");
+    if(strWalletPass.length() > 0) {
+        if(!pwalletMain->Unlock(strWalletPass))
+          throw(JSONRPCError(RPC_WALLET_PASSPHRASE_INCORRECT, "Error: The passphrase entered is incorrect."));
+    } else {
+        string msg = "walletpassphrase <passphrase> <timeout>\n"
+          "Stores the wallet decryption key <passphrase> in memory for <timeout> seconds";
+        throw(runtime_error(msg));
     }
-    else
-        throw runtime_error(
-            "walletpassphrase <passphrase> <timeout>\n"
-            "Stores the wallet decryption key in memory for <timeout> seconds.");
 
     NewThread(ThreadTopUpKeyPool, NULL);
     int64* pnSleepTime = new int64(params[1].get_int64());
@@ -1326,12 +1364,14 @@ Value walletpassphrase(const Array& params, bool fHelp)
 }
 
 
-Value walletpassphrasechange(const Array& params, bool fHelp)
-{
-    if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
-        throw runtime_error(
-            "walletpassphrasechange <oldpassphrase> <newpassphrase>\n"
-            "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
+Value walletpassphrasechange(const Array &params, bool fHelp) {
+
+    if(pwalletMain->IsCrypted() && (fHelp || (params.size() != 2))) {
+        string msg = "walletpassphrasechange <old-passphrase> <new-passphrase>\n"
+          "Changes the wallet decryption key from <old-passphrase> to <new-passphrase>";
+        throw(runtime_error(msg));
+    }
+
     if (fHelp)
         return true;
     if (!pwalletMain->IsCrypted())
@@ -1347,26 +1387,29 @@ Value walletpassphrasechange(const Array& params, bool fHelp)
     strNewWalletPass.reserve(100);
     strNewWalletPass = params[1].get_str().c_str();
 
-    if (strOldWalletPass.length() < 1 || strNewWalletPass.length() < 1)
-        throw runtime_error(
-            "walletpassphrasechange <oldpassphrase> <newpassphrase>\n"
-            "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
+    if((strOldWalletPass.length() < 1) || (strNewWalletPass.length() < 1)) {
+        string msg = "walletpassphrasechange <old-passphrase> <new-passphrase>\n"
+          "Changes the wallet decryption key from <old-passphrase> to <new-passphrase>";
+        throw(runtime_error(msg));
+    }
 
-    if (!pwalletMain->ChangeWalletPassphrase(strOldWalletPass, strNewWalletPass))
-        throw JSONRPCError(RPC_WALLET_PASSPHRASE_INCORRECT, "Error: The wallet passphrase entered was incorrect.");
+    if(!pwalletMain->ChangeWalletPassphrase(strOldWalletPass, strNewWalletPass))
+      throw(JSONRPCError(RPC_WALLET_PASSPHRASE_INCORRECT, "Error: The passphrase entered is incorrect."));
 
-    return Value::null;
+    return(Value::null);
 }
 
 
-Value walletlock(const Array& params, bool fHelp)
-{
-    if (pwalletMain->IsCrypted() && (fHelp || params.size() != 0))
-        throw runtime_error(
-            "walletlock\n"
-            "Removes the wallet encryption key from memory, locking the wallet.\n"
-            "After calling this method, you will need to call walletpassphrase again\n"
-            "before being able to call any methods which require the wallet to be unlocked.");
+Value walletlock(const Array &params, bool fHelp) {
+
+    if(pwalletMain->IsCrypted() && (fHelp || (params.size() != 0))) {
+        string msg = "walletlock\n"
+          "Removes the wallet decryption key from memory and locks the wallet.\n"
+          "You need to call walletpassphrase again after this\n"
+          "in order to call any methods which require the wallet to be unlocked.";
+        throw(runtime_error(msg));
+    }
+
     if (fHelp)
         return true;
     if (!pwalletMain->IsCrypted())
@@ -1382,12 +1425,14 @@ Value walletlock(const Array& params, bool fHelp)
 }
 
 
-Value encryptwallet(const Array& params, bool fHelp)
-{
-    if (!pwalletMain->IsCrypted() && (fHelp || params.size() != 1))
-        throw runtime_error(
-            "encryptwallet <passphrase>\n"
-            "Encrypts the wallet with <passphrase>.");
+Value encryptwallet(const Array &params, bool fHelp) {
+
+    if(!pwalletMain->IsCrypted() && (fHelp || (params.size() != 1))) {
+        string msg = "encryptwallet <passphrase>\n"
+          "Encrypts the wallet with the <passphrase> key";
+        throw(runtime_error(msg));
+    }
+
     if (fHelp)
         return true;
     if (pwalletMain->IsCrypted())
@@ -1399,10 +1444,11 @@ Value encryptwallet(const Array& params, bool fHelp)
     strWalletPass.reserve(100);
     strWalletPass = params[0].get_str().c_str();
 
-    if (strWalletPass.length() < 1)
-        throw runtime_error(
-            "encryptwallet <passphrase>\n"
-            "Encrypts the wallet with <passphrase>.");
+    if(strWalletPass.length() < 1) {
+        string msg = "encryptwallet <passphrase>\n"
+          "Encrypts the wallet with the <passphrase> key";
+        throw(runtime_error(msg));
+    }
 
     if (!pwalletMain->EncryptWallet(strWalletPass))
         throw JSONRPCError(RPC_WALLET_ENCRYPTION_FAILED, "Error: Failed to encrypt the wallet.");
@@ -1413,6 +1459,7 @@ Value encryptwallet(const Array& params, bool fHelp)
     StartShutdown();
     return "wallet encrypted; Phoenixcoin server stopping, restart to run with encrypted wallet.  The keypool has been flushed, you need to make a new backup.";
 }
+
 
 class DescribeAddressVisitor : public boost::static_visitor<Object>
 {
@@ -1449,12 +1496,14 @@ public:
     }
 };
 
-Value validateaddress(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "validateaddress <phoenixcoinaddress>\n"
-            "Return information about <phoenixcoinaddress>.");
+
+Value validateaddress(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "validateaddress <address>\n"
+          "Returns information about <address>";
+        throw(runtime_error(msg));
+    }
 
     CBitcoinAddress address(params[0].get_str());
     bool isValid = address.IsValid();
@@ -1477,4 +1526,3 @@ Value validateaddress(const Array& params, bool fHelp)
     }
     return ret;
 }
-
