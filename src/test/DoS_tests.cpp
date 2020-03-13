@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(DoS_banning)
     BOOST_CHECK(CNode::IsBanned(addr1));  // ... but 1 still should be
     dummyNode2.Misbehaving(50);
     BOOST_CHECK(CNode::IsBanned(addr2));
-}    
+}
 
 BOOST_AUTO_TEST_CASE(DoS_banscore)
 {
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(DoS_checknbits)
 
     // ... but OK if enough time passed for difficulty to adjust downward:
     BOOST_CHECK(CheckNBits(firstcheck.second, lastcheck.first+60*60*24*365*4, lastcheck.second, lastcheck.first));
-    
+
 }
 
 CTransaction RandomOrphan()

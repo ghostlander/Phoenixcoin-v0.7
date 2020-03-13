@@ -1033,7 +1033,7 @@ boost::filesystem::path GetConfigFile() {
     if(mapArgs.count("-conf")) pathConfigFile = fs::path(mapArgs["-conf"]);
     else pathConfigFile = fs::path("phoenixcoin.conf");
     if(!pathConfigFile.is_absolute()) {
-        if(!GetBoolArg("-testnet", false)) 
+        if(!GetBoolArg("-testnet", false))
           pathConfigFile = GetDataDir(false) / pathConfigFile;
         else
           pathConfigFile = GetDataDir(false) / "testnet" / pathConfigFile;
