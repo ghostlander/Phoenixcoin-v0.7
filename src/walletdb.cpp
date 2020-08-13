@@ -219,7 +219,7 @@ bool ReadKeyValue(CWallet *pwallet, CDataStream &ssKey, CDataStream &ssValue,
         {
             string strAddress;
             ssKey >> strAddress;
-            ssValue >> pwallet->mapAddressBook[CBitcoinAddress(strAddress).Get()];
+            ssValue >> pwallet->mapAddressBook[CCoinAddress(strAddress).Get()];
         }
         else if (strType == "tx")
         {
@@ -800,7 +800,7 @@ bool ExportWallet(CWallet *pwallet, const string &strDst) {
     for(std::vector<std::pair<int64, CKeyID> >::const_iterator it = vKeyBirth.begin(); it != vKeyBirth.end(); it++) {
         const CKeyID &keyid = it->second;
         std::string strTime = EncodeDumpTime(it->first);
-        std::string strAddr = CBitcoinAddress(keyid).ToString();
+        std::string strAddr = CCoinAddress(keyid).ToString();
         bool IsCompressed;
 
         CKey key;
@@ -808,17 +808,17 @@ bool ExportWallet(CWallet *pwallet, const string &strDst) {
             if(pwallet->mapAddressBook.count(keyid)) {
                 CSecret secret = key.GetSecret(IsCompressed);
                 file << strprintf("%s %s label=%s # addr=%s\n",
-                  CBitcoinSecret(secret, IsCompressed).ToString().c_str(), strTime.c_str(),
+                  CCoinSecret(secret, IsCompressed).ToString().c_str(), strTime.c_str(),
                   EncodeDumpString(pwallet->mapAddressBook[keyid]).c_str(), strAddr.c_str());
             } else if(setKeyPool.count(keyid)) {
                 CSecret secret = key.GetSecret(IsCompressed);
                 file << strprintf("%s %s reserve=1 # addr=%s\n",
-                  CBitcoinSecret(secret, IsCompressed).ToString().c_str(), strTime.c_str(),
+                  CCoinSecret(secret, IsCompressed).ToString().c_str(), strTime.c_str(),
                   strAddr.c_str());
             } else {
                 CSecret secret = key.GetSecret(IsCompressed);
                 file << strprintf("%s %s change=1 # addr=%s\n",
-                  CBitcoinSecret(secret, IsCompressed).ToString().c_str(), strTime.c_str(),
+                  CCoinSecret(secret, IsCompressed).ToString().c_str(), strTime.c_str(),
                   strAddr.c_str());
             }
         }
@@ -854,7 +854,7 @@ bool ImportWallet(CWallet *pwallet, const string &strSrc) {
         if(vstr.size() < 2)
           continue;
 
-        CBitcoinSecret vchSecret;
+        CCoinSecret vchSecret;
         if(!vchSecret.SetString(vstr[0]))
           continue;
 
@@ -866,7 +866,7 @@ bool ImportWallet(CWallet *pwallet, const string &strSrc) {
 
         if(pwallet->HaveKey(keyid)) {
             printf("Skipping import of %s (key already present)\n",
-              CBitcoinAddress(keyid).ToString().c_str());
+              CCoinAddress(keyid).ToString().c_str());
             continue;
         }
         int64 nTime = DecodeDumpTime(vstr[1]);
@@ -885,7 +885,7 @@ bool ImportWallet(CWallet *pwallet, const string &strSrc) {
                 fLabel = true;
             }
         }
-        printf("Importing %s...\n", CBitcoinAddress(keyid).ToString().c_str());
+        printf("Importing %s...\n", CCoinAddress(keyid).ToString().c_str());
         if(!pwallet->AddKey(key)) {
             fGood = false;
             continue;

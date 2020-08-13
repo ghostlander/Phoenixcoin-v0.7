@@ -400,7 +400,7 @@ bool SendCoinsDialog::handleURI(const QString &uri) {
     SendCoinsRecipient rv;
 
     if(GUIUtil::parseCoinURI(uri, &rv)) {
-        CBitcoinAddress address(rv.address.toStdString());
+        CCoinAddress address(rv.address.toStdString());
         if(!address.IsValid()) return(false);
         pasteEntry(rv);
         return(true);
@@ -493,7 +493,7 @@ void SendCoinsDialog::coinControlChangeChecked(int state) {
     if(model) {
         if(state == Qt::Checked) {
             CoinControl::control->destChange =
-              CBitcoinAddress(ui->lineEditCoinControlChange->text().toStdString()).Get();
+              CCoinAddress(ui->lineEditCoinControlChange->text().toStdString()).Get();
         } else {
             CoinControl::control->destChange = CNoDestination();
         }
@@ -508,13 +508,13 @@ void SendCoinsDialog::coinControlChangeEdited(const QString &text) {
 
     if(!model) return;
 
-    CoinControl::control->destChange = CBitcoinAddress(text.toStdString()).Get();
+    CoinControl::control->destChange = CCoinAddress(text.toStdString()).Get();
 
     /* Label for the change address */
     ui->labelCoinControlChangeLabel->setStyleSheet("QLabel{color:black;}");
     if(text.isEmpty()) {
         ui->labelCoinControlChangeLabel->setText("");
-    } else if(!CBitcoinAddress(text.toStdString()).IsValid()) {
+    } else if(!CCoinAddress(text.toStdString()).IsValid()) {
         ui->labelCoinControlChangeLabel->setStyleSheet("QLabel{color:red;}");
         ui->labelCoinControlChangeLabel->setText(tr("Warning: invalid address"));
     } else {
@@ -524,7 +524,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString &text) {
         } else {
             CPubKey pubkey;
             CKeyID keyid;
-            CBitcoinAddress(text.toStdString()).GetKeyID(keyid);
+            CCoinAddress(text.toStdString()).GetKeyID(keyid);
             if(model->getPubKey(keyid, pubkey)) {
                 ui->labelCoinControlChangeLabel->setText(tr("(no label)"));
             } else {

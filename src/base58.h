@@ -152,7 +152,7 @@ inline bool DecodeBase58Check(const std::string& str, std::vector<unsigned char>
 
 /** Base class for all base58-encoded data */
 class CBase58Data {
-  protected:
+protected:
     // the version byte
     unsigned char nVersion;
 
@@ -181,7 +181,7 @@ class CBase58Data {
         SetData(nVersionIn, (void*)pbegin, pend - pbegin);
     }
 
-  public:
+public:
     bool SetString(const char* psz) {
         std::vector<unsigned char> vchTemp;
         DecodeBase58Check(psz, vchTemp);
@@ -239,19 +239,19 @@ class CBase58Data {
  * Script-hash-addresses have version 5 (or 196 testnet).
  * The data vector contains RIPEMD160(SHA256(cscript)), where cscript is the serialized redemption script.
  */
-class CBitcoinAddress;
-class CBitcoinAddressVisitor : public boost::static_visitor<bool> {
-  private:
-    CBitcoinAddress *addr;
-  public:
-    CBitcoinAddressVisitor(CBitcoinAddress *addrIn) : addr(addrIn) { }
+class CCoinAddress;
+class CCoinAddressVisitor : public boost::static_visitor<bool> {
+private:
+    CCoinAddress *addr;
+public:
+    CCoinAddressVisitor(CCoinAddress *addrIn) : addr(addrIn) { }
     bool operator()(const CKeyID &id) const;
     bool operator()(const CScriptID &id) const;
     bool operator()(const CNoDestination &no) const;
 };
 
-class CBitcoinAddress : public CBase58Data {
-  public:
+class CCoinAddress : public CBase58Data {
+public:
     enum {
         PUBKEY_ADDRESS = 56, /* Phoenixcoin addresses start with P */
         SCRIPT_ADDRESS = 5,
@@ -270,7 +270,7 @@ class CBitcoinAddress : public CBase58Data {
     }
 
     bool Set(const CTxDestination &dest) {
-        return boost::apply_visitor(CBitcoinAddressVisitor(this), dest);
+        return(boost::apply_visitor(CCoinAddressVisitor(this), dest));
     }
 
     bool IsValid() const {
@@ -299,18 +299,18 @@ class CBitcoinAddress : public CBase58Data {
         return fExpectTestNet == fTestNet && vchData.size() == nExpectedSize;
     }
 
-    CBitcoinAddress() {
+    CCoinAddress() {
     }
 
-    CBitcoinAddress(const CTxDestination &dest) {
+    CCoinAddress(const CTxDestination &dest) {
         Set(dest);
     }
 
-    CBitcoinAddress(const std::string& strAddress) {
+    CCoinAddress(const std::string& strAddress) {
         SetString(strAddress);
     }
 
-    CBitcoinAddress(const char* pszAddress) {
+    CCoinAddress(const char *pszAddress) {
         SetString(pszAddress);
     }
 
@@ -364,19 +364,19 @@ class CBitcoinAddress : public CBase58Data {
     }
 };
 
-bool inline CBitcoinAddressVisitor::operator()(const CKeyID &id) const         {
-    return addr->Set(id);
+bool inline CCoinAddressVisitor::operator()(const CKeyID &id) const {
+    return(addr->Set(id));
 }
-bool inline CBitcoinAddressVisitor::operator()(const CScriptID &id) const      {
-    return addr->Set(id);
+bool inline CCoinAddressVisitor::operator()(const CScriptID &id) const {
+    return(addr->Set(id));
 }
-bool inline CBitcoinAddressVisitor::operator()(const CNoDestination &id) const {
+bool inline CCoinAddressVisitor::operator()(const CNoDestination &id) const {
     return(false);
 }
 
 /** A base58-encoded secret key */
-class CBitcoinSecret : public CBase58Data {
-  public:
+class CCoinSecret : public CBase58Data {
+public:
     void SetSecret(const CSecret& vchSecret, bool fCompressed) {
         assert(vchSecret.size() == 32);
         SetData(fTestNet ? 239 : 128, &vchSecret[0], vchSecret.size());
@@ -414,11 +414,11 @@ class CBitcoinSecret : public CBase58Data {
         return SetString(strSecret.c_str());
     }
 
-    CBitcoinSecret(const CSecret& vchSecret, bool fCompressed) {
+    CCoinSecret(const CSecret &vchSecret, bool fCompressed) {
         SetSecret(vchSecret, fCompressed);
     }
 
-    CBitcoinSecret() {
+    CCoinSecret() {
     }
 };
 
