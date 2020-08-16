@@ -233,10 +233,10 @@ public:
     }
 };
 
-/** base58-encoded Bitcoin addresses.
- * Public-key-hash-addresses have version 0 (or 111 testnet).
+/** base58-encoded addresses
+ * Public-key-hash-addresses have version PUBKEY_ADDRESS (or PUBKEY_ADDRESS_TEST for testnet).
  * The data vector contains RIPEMD160(SHA256(pubkey)), where pubkey is the serialized public key.
- * Script-hash-addresses have version 5 (or 196 testnet).
+ * Script-hash-addresses have version SCRIPT_ADDRESS (or SCRIPT_ADDRESS_TEST for testnet).
  * The data vector contains RIPEMD160(SHA256(cscript)), where cscript is the serialized redemption script.
  */
 class CCoinAddress;
@@ -274,29 +274,36 @@ public:
     }
 
     bool IsValid() const {
-        unsigned int nExpectedSize = 20;
-        bool fExpectTestNet = false;
+        bool fExpectTestNet;
+        uint nExpectedSize;
+
         switch(nVersion) {
-        case PUBKEY_ADDRESS:
-            nExpectedSize = 20; // Hash of public key
-            fExpectTestNet = false;
-            break;
-        case SCRIPT_ADDRESS:
-            nExpectedSize = 20; // Hash of CScript
-            fExpectTestNet = false;
-            break;
-        case PUBKEY_ADDRESS_TEST:
-            nExpectedSize = 20;
-            fExpectTestNet = true;
-            break;
-        case SCRIPT_ADDRESS_TEST:
-            nExpectedSize = 20;
-            fExpectTestNet = true;
-            break;
-        default:
-            return(false);
+            case(PUBKEY_ADDRESS):
+                /* Hash of public key */
+                fExpectTestNet = false;
+                nExpectedSize = 20;
+                break;
+            case(SCRIPT_ADDRESS):
+                /* Hash of CScript */
+                fExpectTestNet = false;
+                nExpectedSize = 20;
+                break;
+            case(PUBKEY_ADDRESS_TEST):
+                fExpectTestNet = true;
+                nExpectedSize = 20;
+                break;
+            case(SCRIPT_ADDRESS_TEST):
+                fExpectTestNet = true;
+                nExpectedSize = 20;
+                break;
+            default:
+                return(false);
         }
-        return fExpectTestNet == fTestNet && vchData.size() == nExpectedSize;
+
+        if((fExpectTestNet != fTestNet) || (vchData.size() != nExpectedSize))
+          return(false);
+
+        return(true);
     }
 
     CCoinAddress() {
@@ -315,51 +322,47 @@ public:
     }
 
     CTxDestination Get() const {
-        if(!IsValid())
-            return CNoDestination();
+        if(!IsValid()) return(CNoDestination());
         switch(nVersion) {
-        case PUBKEY_ADDRESS:
-        case PUBKEY_ADDRESS_TEST: {
-            uint160 id;
-            memcpy(&id, &vchData[0], 20);
-            return CKeyID(id);
+            case(PUBKEY_ADDRESS):
+            case(PUBKEY_ADDRESS_TEST): {
+                uint160 id;
+                memcpy(&id, &vchData[0], 20);
+                return(CKeyID(id));
+            }
+            case(SCRIPT_ADDRESS):
+            case(SCRIPT_ADDRESS_TEST): {
+                uint160 id;
+                memcpy(&id, &vchData[0], 20);
+                return(CScriptID(id));
+            }
         }
-        case SCRIPT_ADDRESS:
-        case SCRIPT_ADDRESS_TEST: {
-            uint160 id;
-            memcpy(&id, &vchData[0], 20);
-            return CScriptID(id);
-        }
-        }
-        return CNoDestination();
+        return(CNoDestination());
     }
 
     bool GetKeyID(CKeyID &keyID) const {
-        if(!IsValid())
-            return(false);
+        if(!IsValid()) return(false);
         switch(nVersion) {
-        case PUBKEY_ADDRESS:
-        case PUBKEY_ADDRESS_TEST: {
-            uint160 id;
-            memcpy(&id, &vchData[0], 20);
-            keyID = CKeyID(id);
-            return(true);
-        }
-        default:
-            return(false);
+            case(PUBKEY_ADDRESS):
+            case(PUBKEY_ADDRESS_TEST): {
+                uint160 id;
+                memcpy(&id, &vchData[0], 20);
+                keyID = CKeyID(id);
+                return(true);
+            }
+            default:
+                return(false);
         }
     }
 
     bool IsScript() const {
-        if(!IsValid())
-            return(false);
+        if(!IsValid()) return(false);
         switch(nVersion) {
-        case SCRIPT_ADDRESS:
-        case SCRIPT_ADDRESS_TEST: {
-            return(true);
-        }
-        default:
-            return(false);
+            case(SCRIPT_ADDRESS):
+            case(SCRIPT_ADDRESS_TEST):
+                return(true);
+            default:
+                return(false);
         }
     }
 };
@@ -377,33 +380,46 @@ bool inline CCoinAddressVisitor::operator()(const CNoDestination &id) const {
 /** A base58-encoded secret key */
 class CCoinSecret : public CBase58Data {
 public:
-    void SetSecret(const CSecret& vchSecret, bool fCompressed) {
+    enum {
+        PRIVKEY_ADDRESS = CCoinAddress::PUBKEY_ADDRESS + 128,
+        PRIVKEY_ADDRESS_TEST = CCoinAddress::PUBKEY_ADDRESS_TEST + 128,
+    };
+
+    void SetSecret(const CSecret &vchSecret, bool fCompressed) {
         assert(vchSecret.size() == 32);
-        SetData(fTestNet ? 239 : 128, &vchSecret[0], vchSecret.size());
-        if(fCompressed)
-            vchData.push_back(1);
+        SetData(fTestNet ? PRIVKEY_ADDRESS_TEST : PRIVKEY_ADDRESS, &vchSecret[0], vchSecret.size());
+        if(fCompressed) vchData.push_back(1);
     }
 
     CSecret GetSecret(bool &fCompressedOut) {
         CSecret vchSecret;
         vchSecret.resize(32);
         memcpy(&vchSecret[0], &vchData[0], 32);
-        fCompressedOut = vchData.size() == 33;
-        return vchSecret;
+        fCompressedOut = (vchData.size() == 33);
+        return(vchSecret);
     }
 
     bool IsValid() const {
         bool fExpectTestNet = false;
+
         switch(nVersion) {
-        case 128:
-            break;
-        case 239:
-            fExpectTestNet = true;
-            break;
-        default:
-            return(false);
+            case(PRIVKEY_ADDRESS):
+                break;
+            case(PRIVKEY_ADDRESS_TEST):
+                fExpectTestNet = true;
+                break;
+            default:
+                return(false);
         }
-        return fExpectTestNet == fTestNet && (vchData.size() == 32 || (vchData.size() == 33 && vchData[32] == 1));
+
+        /* Key type must match the current network */
+        if(fExpectTestNet != fTestNet) return(false);
+        /* The only known key sizes */
+        if((vchData.size() < 32) || (vchData.size() > 33)) return(false);
+        /* Compressed key format */
+        if((vchData.size() == 33) && (vchData[32] != 1)) return(false);
+
+        return(true);
     }
 
     bool SetString(const char* pszSecret) {
