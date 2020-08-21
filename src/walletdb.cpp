@@ -274,6 +274,16 @@ bool ReadKeyValue(CWallet *pwallet, CDataStream &ssKey, CDataStream &ssValue,
                   wss.fAnyUnordered = true;
             }
         }
+        else if(strType == "watch") {
+            CScript script;
+            ssKey >> script;
+            char fYes;
+            ssValue >> fYes;
+            if(fYes == '1')
+              pwallet->LoadWatchOnly(script);
+
+            pwallet->UpdateTimeFirstKey();
+        }
         else if (strType == "key" || strType == "wkey")
         {
             vector<unsigned char> vchPubKey;

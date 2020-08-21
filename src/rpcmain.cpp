@@ -261,6 +261,8 @@ static const CRPCCommand vRPCCommands[] =
     { "dumpprivkey",            &dumpprivkey,            false,  false },
     { "dumpwallet",             &dumpwallet,             true,   false },
     { "importprivkey",          &importprivkey,          false,  false },
+    { "importaddress",          &importaddress,          false,  false },
+    { "importpubkey",           &importpubkey,           false,  false },
     { "importwallet",           &importwallet,           false,  false },
     { "listunspent",            &listunspent,            false,  false },
     { "getrawtransaction",      &getrawtransaction,      false,  false },
@@ -1223,6 +1225,8 @@ Array RPCConvertValues(const std::string &strMethod, const std::vector<std::stri
     if (strMethod == "signrawtransaction"     && n > 2) ConvertTo<Array>(params[2], true);
     if (strMethod == "getnetworkhashps"       && n > 0) ConvertTo<boost::int64_t>(params[0]);
     if((strMethod == "getaddednodeinfo")      && (n > 0)) ConvertTo<bool>(params[0]);
+    if((strMethod == "importaddress")         && (n > 2)) ConvertTo<bool>(params[2]);
+    if((strMethod == "importpubkey")          && (n > 2)) ConvertTo<bool>(params[2]);
 
     return params;
 }

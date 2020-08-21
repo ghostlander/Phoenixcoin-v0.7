@@ -40,36 +40,56 @@ CPubKey CWallet::GenerateNewKey()
     if (fCompressed)
         SetMinVersion(FEATURE_COMPRPUBKEY);
 
-    if (!AddKey(key))
-        throw std::runtime_error("CWallet::GenerateNewKey() : AddKey failed");
-    return key.GetPubKey();
+    CPubKey pubkey = key.GetPubKey();
+
+    /* Create new metadata */
+    int64 nCreationTime = GetTime();
+    mapKeyMetadata[pubkey.GetID()] = CKeyMetadata(nCreationTime);
+    UpdateTimeFirstKey(nCreationTime);
+
+    if(!AddKey(key))
+      throw(std::runtime_error("CWallet::GenerateNewKey() : AddKey() failed"));
+
+    return(pubkey);
 }
 
-bool CWallet::AddKey(const CKey& key)
-{
-    if (!CCryptoKeyStore::AddKey(key))
-        return false;
-    if (!fFileBacked)
-        return true;
-    if (!IsCrypted())
-        return CWalletDB(strWalletFile).WriteKey(key.GetPubKey(), key.GetPrivKey());
-    return true;
+bool CWallet::AddKey(const CKey &key) {
+    CPubKey pubkey = key.GetPubKey();
+
+    if(!CCryptoKeyStore::AddKey(key))
+      return(false);
+
+    if(!fFileBacked)
+      return(true);
+
+    if(!IsCrypted()) {
+       return(CWalletDB(strWalletFile).WriteKey(pubkey, key.GetPrivKey(),
+         mapKeyMetadata[pubkey.GetID()]));
+    }
+
+    return(true);
 }
 
-bool CWallet::AddCryptedKey(const CPubKey &vchPubKey, const vector<unsigned char> &vchCryptedSecret)
-{
-    if (!CCryptoKeyStore::AddCryptedKey(vchPubKey, vchCryptedSecret))
-        return false;
-    if (!fFileBacked)
-        return true;
+bool CWallet::AddCryptedKey(const CPubKey &vchPubKey, const vector<uchar> &vchCryptedSecret) {
+
+    if(!CCryptoKeyStore::AddCryptedKey(vchPubKey, vchCryptedSecret))
+      return(false);
+
+    if(!fFileBacked)
+      return(true);
+
     {
         LOCK(cs_wallet);
-        if (pwalletdbEncryption)
-            return pwalletdbEncryption->WriteCryptedKey(vchPubKey, vchCryptedSecret);
-        else
-            return CWalletDB(strWalletFile).WriteCryptedKey(vchPubKey, vchCryptedSecret);
+        if(pwalletdbEncryption) {
+            return(pwalletdbEncryption->WriteCryptedKey(vchPubKey, vchCryptedSecret,
+              mapKeyMetadata[vchPubKey.GetID()]));
+        } else {
+            return(CWalletDB(strWalletFile).WriteCryptedKey(vchPubKey,
+              vchCryptedSecret, mapKeyMetadata[vchPubKey.GetID()]));
+        }
     }
-    return false;
+
+    return(false);
 }
 
 bool CWallet::LoadKeyMetadata(const CPubKey &pubkey, const CKeyMetadata &meta) {
@@ -80,13 +100,48 @@ bool CWallet::LoadKeyMetadata(const CPubKey &pubkey, const CKeyMetadata &meta) {
     return(true);
 }
 
-bool CWallet::AddCScript(const CScript& redeemScript)
-{
-    if (!CCryptoKeyStore::AddCScript(redeemScript))
-        return false;
-    if (!fFileBacked)
-        return true;
-    return CWalletDB(strWalletFile).WriteCScript(Hash160(redeemScript), redeemScript);
+bool CWallet::AddCScript(const CScript& redeemScript) {
+
+    if(!CCryptoKeyStore::AddCScript(redeemScript))
+      return(false);
+
+    if(!fFileBacked)
+      return(true);
+
+    return(CWalletDB(strWalletFile).WriteCScript(Hash160(redeemScript), redeemScript));
+}
+
+bool CWallet::AddWatchOnly(const CScript &dest) {
+
+    if(!CCryptoKeyStore::AddWatchOnly(dest))
+      return(false);
+
+    /* No birthday information for watch only keys */
+    UpdateTimeFirstKey();
+
+    if(!fFileBacked)
+      return(true);
+
+    return(CWalletDB(strWalletFile).WriteWatchOnly(dest));
+}
+
+bool CWallet::RemoveWatchOnly(const CScript &dest) {
+
+    LOCK(cs_wallet);
+
+    if(!CCryptoKeyStore::RemoveWatchOnly(dest))
+      return(false);
+
+    if(fFileBacked) {
+        if(!CWalletDB(strWalletFile).EraseWatchOnly(dest))
+          return(false);
+    }
+
+    return(true);
+}
+
+bool CWallet::LoadWatchOnly(const CScript &dest) {
+    return(CCryptoKeyStore::AddWatchOnly(dest));
 }
 
 bool CWallet::Unlock(const SecureString& strWalletPassphrase)
@@ -526,21 +581,19 @@ bool CWallet::EraseFromWallet(uint256 hash)
     return true;
 }
 
+isminetype CWallet::IsMine(const CTxIn &txin) const {
 
-bool CWallet::IsMine(const CTxIn &txin) const
-{
     {
         LOCK(cs_wallet);
         map<uint256, CWalletTx>::const_iterator mi = mapWallet.find(txin.prevout.hash);
-        if (mi != mapWallet.end())
-        {
-            const CWalletTx& prev = (*mi).second;
-            if (txin.prevout.n < prev.vout.size())
-                if (IsMine(prev.vout[txin.prevout.n]))
-                    return true;
+        if(mi != mapWallet.end()) {
+            const CWalletTx &prev = (*mi).second;
+            if(txin.prevout.n < prev.vout.size())
+              return(IsMine(prev.vout[txin.prevout.n]));
         }
     }
-    return false;
+
+    return(MINE_NO);
 }
 
 int64 CWallet::GetDebit(const CTxIn &txin) const
@@ -1001,15 +1054,20 @@ void CWallet::AvailableCoins(vector<COutput> &vCoins, bool fOnlyConfirmed,
             if(pcoin->IsCoinBase() && (pcoin->GetBlocksToMaturity() > 0))
               continue;
 
+            int nDepth = pcoin->GetDepthInMainChain();
+            if(nDepth < 0)
+              continue;
+
             for(i = 0; i < pcoin->vout.size(); i++) {
+                isminetype mine = IsMine(pcoin->vout[i]);
                 if(!(pcoin->IsSpent(i)) &&
-                  IsMine(pcoin->vout[i]) &&
-                  !IsLockedCoin((*it).first, i) &&
+                  (mine != MINE_NO) &&
                   (pcoin->vout[i].nValue >= nMinimumInputValue) &&
                   (!coinControl || !coinControl->HasSelected() || coinControl->IsSelected((*it).first, i))) {
-                      vCoins.push_back(COutput(pcoin, i, pcoin->GetDepthInMainChain()));
+                    vCoins.push_back(COutput(pcoin, i, nDepth, mine == MINE_SPENDABLE));
                 }
             }
+
         }
     }
 }
@@ -1067,8 +1125,11 @@ bool CWallet::SelectCoinsMinConf(int64 nTargetValue, int nConfMine, int nConfThe
 
     random_shuffle(vCoins.begin(), vCoins.end(), GetRandInt);
 
-    BOOST_FOREACH(COutput output, vCoins)
-    {
+    BOOST_FOREACH(COutput output, vCoins) {
+
+        if(!output.fSpendable)
+          continue;
+
         const CWalletTx *pcoin = output.tx;
 
         if (output.nDepth < (pcoin->IsFromMe() ? nConfMine : nConfTheirs))
