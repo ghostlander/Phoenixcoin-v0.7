@@ -1522,3 +1522,16 @@ Value validateaddress(const Array &params, bool fHelp) {
     }
     return ret;
 }
+
+Value resendtx(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 1)) {
+        string msg = "resendtx\n"
+          "Resends unconfirmed wallet transactions.\n";
+        throw(runtime_error(msg));
+    }
+
+    ResendWalletTransactions(true);
+
+    return(Value::null);
+}

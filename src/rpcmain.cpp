@@ -269,6 +269,7 @@ static const CRPCCommand vRPCCommands[] =
     { "signrawtransaction",     &signrawtransaction,     false,  false },
     { "sendrawtransaction",     &sendrawtransaction,     false,  false },
     { "ntptime",                &ntptime,                true,   false },
+    { "resendtx",               &resendtx,               false,  true  },
 };
 
 CRPCTable::CRPCTable()
