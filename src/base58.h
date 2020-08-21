@@ -22,6 +22,18 @@
 #include "key.h"
 #include "script.h"
 
+/* P2PK and P2PKH addresses begin with 'P' */
+const uchar PUBKEY_ADDRESS_PREFIX = 0x38;
+
+/* P2SH addresses begin with 'S' */
+const uchar SCRIPT_ADDRESS_PREFIX = 0x3F;
+
+/* Testnet P2PK and P2PKH addresses begin with 'm' or 'n' */
+const uchar PUBKEY_ADDRESS_TEST_PREFIX = 0x6F;
+
+/* Testnet P2SH addresses begin with 'M' or 'N' */
+const uchar SCRIPT_ADDRESS_TEST_PREFIX = 0x34;
+
 static const char* pszBase58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
 // Encode a byte sequence as a base58-encoded string
@@ -253,10 +265,10 @@ public:
 class CCoinAddress : public CBase58Data {
 public:
     enum {
-        PUBKEY_ADDRESS = 56, /* Phoenixcoin addresses start with P */
-        SCRIPT_ADDRESS = 5,
-        PUBKEY_ADDRESS_TEST = 111,
-        SCRIPT_ADDRESS_TEST = 196,
+        PUBKEY_ADDRESS = PUBKEY_ADDRESS_PREFIX,
+        SCRIPT_ADDRESS = SCRIPT_ADDRESS_PREFIX,
+        PUBKEY_ADDRESS_TEST = PUBKEY_ADDRESS_TEST_PREFIX,
+        SCRIPT_ADDRESS_TEST = SCRIPT_ADDRESS_TEST_PREFIX,
     };
 
     bool Set(const CKeyID &id) {
