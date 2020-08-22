@@ -1537,6 +1537,46 @@ Value validateaddress(const Array &params, bool fHelp) {
 }
 
 
+Value validatepubkey(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "validatepubkey <key>\n"
+          "Returns information about <key>";
+        throw(runtime_error(msg));
+    }
+
+    std::vector<uchar> vchPubKey = ParseHex(params[0].get_str());
+    CPubKey pubKey(vchPubKey);
+
+    bool isValid = pubKey.IsValid();
+    bool isCompressed = pubKey.IsCompressed();
+    CKeyID keyID = pubKey.GetID();
+
+    CCoinAddress address;
+    address.Set(keyID);
+
+    Object ret;
+    ret.push_back(Pair("isvalid", isValid));
+    if(isValid) {
+        CTxDestination dest = address.Get();
+        string currentAddress = address.ToString();
+
+        ret.push_back(Pair("address", currentAddress));
+        isminetype mine = pwalletMain ? IsMine(*pwalletMain, dest) : MINE_NO;
+        ret.push_back(Pair("ismine", mine != MINE_NO));
+        ret.push_back(Pair("iscompressed", isCompressed));
+        if(mine != MINE_NO) {
+            ret.push_back(Pair("watchonly", mine == MINE_WATCH_ONLY));
+            Object detail = boost::apply_visitor(DescribeAddressVisitor(mine), dest);
+            ret.insert(ret.end(), detail.begin(), detail.end());
+        }
+        if(pwalletMain->mapAddressBook.count(dest))
+          ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest]));
+    }
+    return(ret);
+}
+
+
 Value resendtx(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() > 1)) {
