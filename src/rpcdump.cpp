@@ -38,9 +38,10 @@ public:
 
 Value importprivkey(const Array &params, bool fHelp) {
 
-    if(fHelp || (params.size() < 1) || (params.size() > 2)) {
-        string msg =  "importprivkey <key> [label]\n"
-          "Adds a private <key> to your wallet in the format of RPC dumpprivkey";
+    if(fHelp || (params.size() < 1) || (params.size() > 3)) {
+        string msg = "importprivkey <key> [label] [rescan]\n"
+          "Adds a private <key> to your wallet in the format of RPC dumpprivkey.\n"
+          "Block chain re-scanning is on (true) by default.\n";
         throw(runtime_error(msg));
     }
 
@@ -48,6 +49,11 @@ Value importprivkey(const Array &params, bool fHelp) {
     string strLabel = "";
     if(params.size() > 1)
       strLabel = params[1].get_str();
+
+    bool fRescan = true;
+    if(params.size() > 2)
+      fRescan = params[2].get_bool();
+
     CCoinSecret vchSecret;
     bool fGood = vchSecret.SetString(strSecret);
 
@@ -69,11 +75,13 @@ Value importprivkey(const Array &params, bool fHelp) {
 
         pwalletMain->UpdateTimeFirstKey();
 
-        pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
-        pwalletMain->ReacceptWalletTransactions();
+        if(fRescan) {
+            pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
+            pwalletMain->ReacceptWalletTransactions();
+        }
     }
 
-    return Value::null;
+    return(Value::null);
 }
 
 Value importaddress(const Array &params, bool fHelp) {
