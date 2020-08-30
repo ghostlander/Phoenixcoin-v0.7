@@ -113,7 +113,7 @@ Value importaddress(const Array &params, bool fHelp) {
         /* Copy the public key hash */
         std::string strTemp = params[0].get_str().substr(6, 40);
         /* Insert the Base58 prefix */
-        char prefix[1];
+        char prefix[3];
         sprintf(prefix, "%x", fTestNet ? PUBKEY_ADDRESS_TEST_PREFIX : PUBKEY_ADDRESS_PREFIX);
         strTemp.insert(0, prefix);
         /* Convert and encode */
