@@ -444,8 +444,9 @@ QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx)
         case TransactionStatus::Mature:
             return QIcon(":/icons/transaction_confirmed");
         case TransactionStatus::MaturesWarning:
+            return(QIcon(":/icons/transaction_0"));
         case TransactionStatus::NotAccepted:
-            return QIcon(":/icons/transaction_0");
+            return(QIcon(":/icons/transaction_failed"));
         }
     }
     else
@@ -457,7 +458,7 @@ QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx)
             return QColor(64,64,255);
             break;
         case TransactionStatus::Offline:
-            return QColor(192,192,192);
+            return(QIcon(":/icons/transaction_failed"));
         case TransactionStatus::Unconfirmed:
             switch(wtx->status.depth)
             {

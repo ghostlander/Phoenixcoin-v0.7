@@ -84,23 +84,30 @@ public:
         return Erase(std::make_pair(std::string("tx"), hash));
     }
 
-    bool WriteKey(const CPubKey& vchPubKey, const CPrivKey& vchPrivKey)
-    {
+    bool WriteKey(const CPubKey &vchPubKey, const CPrivKey &vchPrivKey, const CKeyMetadata &keyMeta) {
         nWalletDBUpdated++;
-        return Write(std::make_pair(std::string("key"), vchPubKey.Raw()), vchPrivKey, false);
+
+        if(!Write(std::make_pair(std::string("keymeta"), vchPubKey), keyMeta))
+          return(false);
+
+        return(Write(std::make_pair(std::string("key"), vchPubKey.Raw()), vchPrivKey, false));
     }
 
-    bool WriteCryptedKey(const CPubKey& vchPubKey, const std::vector<unsigned char>& vchCryptedSecret, bool fEraseUnencryptedKey = true)
-    {
+    bool WriteCryptedKey(const CPubKey &vchPubKey, const std::vector<uchar> &vchCryptedSecret,
+      const CKeyMetadata &keyMeta) {
         nWalletDBUpdated++;
-        if (!Write(std::make_pair(std::string("ckey"), vchPubKey.Raw()), vchCryptedSecret, false))
-            return false;
-        if (fEraseUnencryptedKey)
-        {
-            Erase(std::make_pair(std::string("key"), vchPubKey.Raw()));
-            Erase(std::make_pair(std::string("wkey"), vchPubKey.Raw()));
-        }
-        return true;
+
+        if(!Write(std::make_pair(std::string("keymeta"), vchPubKey), keyMeta))
+          return(false);
+
+        if(!Write(std::make_pair(std::string("ckey"), vchPubKey.Raw()), vchCryptedSecret, false))
+          return(false);
+
+        /* Erase unencrypted keys */
+        Erase(std::make_pair(std::string("key"), vchPubKey.Raw()));
+        Erase(std::make_pair(std::string("wkey"), vchPubKey.Raw()));
+
+        return(true);
     }
 
     bool WriteMasterKey(unsigned int nID, const CMasterKey& kMasterKey)
@@ -113,6 +120,16 @@ public:
     {
         nWalletDBUpdated++;
         return Write(std::make_pair(std::string("cscript"), hash), redeemScript, false);
+    }
+
+    bool WriteWatchOnly(const CScript &dest) {
+        nWalletDBUpdated++;
+        return(Write(std::make_pair(std::string("watch"), dest), '1'));
+    }
+
+    bool EraseWatchOnly(const CScript &dest) {
+        nWalletDBUpdated++;
+        return(Erase(std::make_pair(std::string("watch"), dest)));
     }
 
     bool WriteBestBlock(const CBlockLocator& locator)

@@ -136,6 +136,8 @@ extern json_spirit::Value ntptime(const json_spirit::Array &params, bool fHelp);
 
 /* in rpcdump.cpp */
 extern json_spirit::Value importprivkey(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value importaddress(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value importpubkey(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value importwallet(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value dumpprivkey(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value dumpwallet(const json_spirit::Array &params, bool fHelp);
@@ -180,6 +182,8 @@ extern json_spirit::Value walletpassphrasechange(const json_spirit::Array &param
 extern json_spirit::Value walletlock(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value encryptwallet(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value validateaddress(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value validatepubkey(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value resendtx(const json_spirit::Array &params, bool fHelp);
 
 /* in rcprawtransaction.cpp */
 extern json_spirit::Value getrawtransaction(const json_spirit::Array &params, bool fHelp);

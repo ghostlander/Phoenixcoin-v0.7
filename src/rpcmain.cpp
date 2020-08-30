@@ -239,6 +239,7 @@ static const CRPCCommand vRPCCommands[] =
     { "walletlock",             &walletlock,             true,   false },
     { "encryptwallet",          &encryptwallet,          false,  false },
     { "validateaddress",        &validateaddress,        true,   false },
+    { "validatepubkey",         &validatepubkey,         true,   false },
     { "getbalance",             &getbalance,             false,  false },
     { "move",                   &movecmd,                false,  false },
     { "sendfrom",               &sendfrom,               false,  false },
@@ -261,6 +262,8 @@ static const CRPCCommand vRPCCommands[] =
     { "dumpprivkey",            &dumpprivkey,            false,  false },
     { "dumpwallet",             &dumpwallet,             true,   false },
     { "importprivkey",          &importprivkey,          false,  false },
+    { "importaddress",          &importaddress,          false,  false },
+    { "importpubkey",           &importpubkey,           false,  false },
     { "importwallet",           &importwallet,           false,  false },
     { "listunspent",            &listunspent,            false,  false },
     { "getrawtransaction",      &getrawtransaction,      false,  false },
@@ -269,6 +272,7 @@ static const CRPCCommand vRPCCommands[] =
     { "signrawtransaction",     &signrawtransaction,     false,  false },
     { "sendrawtransaction",     &sendrawtransaction,     false,  false },
     { "ntptime",                &ntptime,                true,   false },
+    { "resendtx",               &resendtx,               false,  true  },
 };
 
 CRPCTable::CRPCTable()
@@ -1222,6 +1226,8 @@ Array RPCConvertValues(const std::string &strMethod, const std::vector<std::stri
     if (strMethod == "signrawtransaction"     && n > 2) ConvertTo<Array>(params[2], true);
     if (strMethod == "getnetworkhashps"       && n > 0) ConvertTo<boost::int64_t>(params[0]);
     if((strMethod == "getaddednodeinfo")      && (n > 0)) ConvertTo<bool>(params[0]);
+    if((strMethod == "importaddress")         && (n > 2)) ConvertTo<bool>(params[2]);
+    if((strMethod == "importpubkey")          && (n > 2)) ConvertTo<bool>(params[2]);
 
     return params;
 }

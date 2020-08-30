@@ -631,7 +631,7 @@ void CoinControl::updateView() {
             CTxDestination outputAddress;
             QString sAddress = "";
             if(ExtractDestination(out.tx->vout[out.i].scriptPubKey, outputAddress)) {
-                sAddress = CBitcoinAddress(outputAddress).ToString().c_str();
+                sAddress = CCoinAddress(outputAddress).ToString().c_str();
 
                 /* If list mode or change, then show address.
                  * In tree mode, address is not shown again for direct wallet address outputs */

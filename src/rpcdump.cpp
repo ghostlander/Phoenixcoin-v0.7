@@ -38,17 +38,23 @@ public:
 
 Value importprivkey(const Array &params, bool fHelp) {
 
-    if(fHelp || (params.size() < 1) || (params.size() > 2)) {
-        string msg =  "importprivkey <key> [label]\n"
-          "Adds a private <key> to your wallet in the format of RPC dumpprivkey";
+    if(fHelp || (params.size() < 1) || (params.size() > 3)) {
+        string msg = "importprivkey <key> [label] [rescan]\n"
+          "Adds a private <key> to your wallet in the format of RPC dumpprivkey.\n"
+          "Block chain re-scanning is on (true) by default.\n";
         throw(runtime_error(msg));
     }
 
     string strSecret = params[0].get_str();
     string strLabel = "";
-    if (params.size() > 1)
-        strLabel = params[1].get_str();
-    CBitcoinSecret vchSecret;
+    if(params.size() > 1)
+      strLabel = params[1].get_str();
+
+    bool fRescan = true;
+    if(params.size() > 2)
+      fRescan = params[2].get_bool();
+
+    CCoinSecret vchSecret;
     bool fGood = vchSecret.SetString(strSecret);
 
     if (!fGood) throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid private key");
@@ -67,11 +73,143 @@ Value importprivkey(const Array &params, bool fHelp) {
         if (!pwalletMain->AddKey(key))
             throw JSONRPCError(RPC_WALLET_ERROR, "Error adding key to wallet");
 
-        pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
-        pwalletMain->ReacceptWalletTransactions();
+        pwalletMain->UpdateTimeFirstKey();
+
+        if(fRescan) {
+            pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
+            pwalletMain->ReacceptWalletTransactions();
+        }
     }
 
-    return Value::null;
+    return(Value::null);
+}
+
+Value importaddress(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 1) || (params.size() > 3)) {
+        string msg =  "importaddress <address> [label] [rescan]\n"
+        "Adds a watch only (unspendable) address to your wallet.\n"
+        "P2PKH pubkey script in hex may be specified instead of the address.\n"
+        "Block chain re-scanning is off (false) by default.\n";
+        throw(runtime_error(msg));
+    }
+
+    string strLabel = "";
+    if(params.size() > 1)
+      strLabel = params[1].get_str();
+
+    bool fRescan = false;
+    if(params.size() > 2)
+      fRescan = params[2].get_bool();
+
+    CScript script;
+    CCoinAddress addr;
+
+    if(IsHex(params[0].get_str())) {
+        std::vector<uchar> vchScriptPubKey(ParseHex(params[0].get_str()));
+        if(vchScriptPubKey.size() != 25)
+          throw(JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid P2PKH pubkey script"));
+        script = CScript(vchScriptPubKey.begin(), vchScriptPubKey.end());
+        /* Copy the public key hash */
+        std::string strTemp = params[0].get_str().substr(6, 40);
+        /* Insert the Base58 prefix */
+        char prefix[1];
+        sprintf(prefix, "%x", fTestNet ? PUBKEY_ADDRESS_TEST_PREFIX : PUBKEY_ADDRESS_PREFIX);
+        strTemp.insert(0, prefix);
+        /* Convert and encode */
+        std::vector<uchar> vchTemp(ParseHex(strTemp));
+        addr = CCoinAddress(EncodeBase58Check(vchTemp));
+    } else {
+        CKeyID keyID;
+        addr = CCoinAddress(params[0].get_str());
+        if(!addr.GetKeyID(keyID))
+          throw(JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid address"));
+        script = GetScriptForPubKeyHash(keyID);
+    }
+
+    {
+        LOCK2(cs_main, pwalletMain->cs_wallet);
+
+        if(::IsMine(*pwalletMain, script) == MINE_SPENDABLE)
+          throw(JSONRPCError(RPC_WALLET_ERROR, "The private key is already in the wallet"));
+
+        if(pwalletMain->HaveWatchOnly(script))
+          throw(JSONRPCError(RPC_WALLET_ERROR, "The address is being watched already"));
+
+        pwalletMain->MarkDirty();
+
+        if(addr.IsValid())
+          pwalletMain->SetAddressBookName(addr.Get(), strLabel);
+
+        if(!pwalletMain->AddWatchOnly(script))
+          throw(JSONRPCError(RPC_WALLET_ERROR, "Failed to add the address to the wallet"));
+
+        if(fRescan) {
+            pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
+            pwalletMain->ReacceptWalletTransactions();
+        }
+
+    }
+
+    return(Value::null);
+}
+
+Value importpubkey(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() < 1) || (params.size() > 3)) {
+        string msg =  "importpubkey <key> [label] [rescan]\n"
+        "Adds a watch only (unspendable) public key in hex to your wallet.\n"
+        "Block chain re-scanning is off (false) by default.\n";
+        throw(runtime_error(msg));
+    }
+
+    string strLabel = "";
+    if(params.size() > 1)
+      strLabel = params[1].get_str();
+
+    bool fRescan = false;
+    if(params.size() > 2)
+      fRescan = params[2].get_bool();
+
+    CScript script;
+    CCoinAddress addr(params[0].get_str());
+
+    if(!IsHex(params[0].get_str()))
+      throw(JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Hex string expected for public key"));
+
+    CPubKey pubKey(std::vector<uchar> (ParseHex(params[0].get_str())));
+    if(!pubKey.IsValid())
+      throw(JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid public key"));
+
+    CKeyID keyID = pubKey.GetID();
+    addr = CCoinAddress(keyID);
+    script = GetScriptForPubKeyHash(keyID);
+
+    {
+        LOCK2(cs_main, pwalletMain->cs_wallet);
+
+        if(::IsMine(*pwalletMain, script) == MINE_SPENDABLE)
+          throw(JSONRPCError(RPC_WALLET_ERROR, "The private key is already in the wallet"));
+
+        if(pwalletMain->HaveWatchOnly(script))
+          throw(JSONRPCError(RPC_WALLET_ERROR, "The public key is being watched already"));
+
+        pwalletMain->MarkDirty();
+
+        if(addr.IsValid())
+          pwalletMain->SetAddressBookName(addr.Get(), strLabel);
+
+        if(!pwalletMain->AddWatchOnly(script))
+          throw(JSONRPCError(RPC_WALLET_ERROR, "Failed to add the public key to the wallet"));
+
+        if(fRescan) {
+            pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
+            pwalletMain->ReacceptWalletTransactions();
+        }
+
+    }
+
+    return(Value::null);
 }
 
 Value importwallet(const Array &params, bool fHelp) {
@@ -110,17 +248,19 @@ Value dumpprivkey(const Array &params, bool fHelp) {
     }
 
     string strAddress = params[0].get_str();
-    CBitcoinAddress address;
-    if (!address.SetString(strAddress))
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Phoenixcoin address");
+    CCoinAddress address;
+    if(!address.SetString(strAddress))
+      throw(JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Phoenixcoin address"));
     CKeyID keyID;
-    if (!address.GetKeyID(keyID))
-        throw JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to a key");
+    if(!address.GetKeyID(keyID))
+      throw(JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to a key"));
     CSecret vchSecret;
     bool fCompressed;
-    if (!pwalletMain->GetSecret(keyID, vchSecret, fCompressed))
-        throw JSONRPCError(RPC_WALLET_ERROR, "Private key for address " + strAddress + " is not known");
-    return CBitcoinSecret(vchSecret, fCompressed).ToString();
+    if(!pwalletMain->GetSecret(keyID, vchSecret, fCompressed)) {
+        throw(JSONRPCError(RPC_WALLET_ERROR,
+          "Private key for address " + strAddress + " is not known"));
+    }
+    return(CCoinSecret(vchSecret, fCompressed).ToString());
 }
 
 Value dumpwallet(const Array &params, bool fHelp) {
