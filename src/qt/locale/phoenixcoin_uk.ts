@@ -53,7 +53,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-11"/>
-        <source>&amp;New Address</source>
+        <source>&amp;New address</source>
         <translation>&amp;Створити адресу</translation>
     </message>
     <message>
@@ -63,7 +63,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+60"/>
-        <source>&amp;Copy Address</source>
+        <source>&amp;Copy address</source>
         <translation>&amp;Скопіювати адресу</translation>
     </message>
     <message>
@@ -78,7 +78,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Sign &amp;Message</source>
+        <source>&amp;Sign message</source>
         <translation>&amp;Підписати повідомлення</translation>
     </message>
     <message>
@@ -93,8 +93,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Verify Message</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Verify message</source>
+        <translation>&amp;Перевірити повідомлення</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -103,13 +103,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
-        <source>Copy &amp;Label</source>
-        <translation>Скопіювати &amp;мітку</translation>
+        <source>Copy label</source>
+        <translation>Скопіювати мітку</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Редагувати</translation>
+        <source>Rename label</source>
+        <translation>Перейменувати мітку</translation>
     </message>
     <message>
         <location line="+250"/>
