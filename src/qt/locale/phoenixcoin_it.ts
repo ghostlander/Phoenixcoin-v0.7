@@ -53,7 +53,7 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="-11"/>
-        <source>&amp;New Address</source>
+        <source>&amp;New address</source>
         <translation>&amp;Nuovo indirizzo</translation>
     </message>
     <message>
@@ -63,7 +63,7 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="+60"/>
-        <source>&amp;Copy Address</source>
+        <source>&amp;Copy address</source>
         <translation>&amp;Copia l&apos;indirizzo</translation>
     </message>
     <message>
@@ -78,8 +78,8 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="+3"/>
-        <source>Sign &amp;Message</source>
-        <translation>Firma il &amp;messaggio</translation>
+        <source>&amp;Sign message</source>
+        <translation>&amp;Firma il messaggio</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -93,8 +93,8 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Verify Message</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Verify message</source>
+        <translation>&amp;Verifica messaggio</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -103,13 +103,13 @@ Questo prodotto include software sviluppato dal progetto OpenSSL per l&apos;uso 
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
-        <source>Copy &amp;Label</source>
-        <translation>Copia &amp;l&apos;etichetta</translation>
+        <source>Copy label</source>
+        <translation>Copia l&apos;etichetta</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Modifica</translation>
+        <source>Rename label</source>
+        <translation>Rinomina l&apos;etichetta</translation>
     </message>
     <message>
         <location line="+250"/>

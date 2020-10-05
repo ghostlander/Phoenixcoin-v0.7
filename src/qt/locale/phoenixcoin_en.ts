@@ -58,8 +58,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-11"/>
-        <source>&amp;New Address</source>
-        <translation>&amp;New Address</translation>
+        <source>&amp;New address</source>
+        <translation>&amp;New address</translation>
     </message>
     <message>
         <location line="-46"/>
@@ -68,8 +68,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+60"/>
-        <source>&amp;Copy Address</source>
-        <translation>&amp;Copy Address</translation>
+        <source>&amp;Copy address</source>
+        <translation>&amp;Copy address</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -83,8 +83,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Sign &amp;Message</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Sign message</source>
+        <translation>&amp;Sign message</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -98,8 +98,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Verify Message</source>
-        <translation>&amp;Verify Message</translation>
+        <source>&amp;Verify message</source>
+        <translation>&amp;Verify message</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -108,13 +108,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
-        <source>Copy &amp;Label</source>
-        <translation>Copy &amp;Label</translation>
+        <source>Copy label</source>
+        <translation>Copy label</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
+        <source>Rename label</source>
+        <translation>Rename label</translation>
     </message>
     <message>
         <location line="+250"/>

@@ -56,7 +56,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="-11"/>
-        <source>&amp;New Address</source>
+        <source>&amp;New address</source>
         <translation>&amp;Añadir dirección</translation>
     </message>
     <message>
@@ -66,7 +66,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+60"/>
-        <source>&amp;Copy Address</source>
+        <source>&amp;Copy address</source>
         <translation>&amp;Copiar dirección</translation>
     </message>
     <message>
@@ -81,7 +81,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+3"/>
-        <source>Sign &amp;Message</source>
+        <source>&amp;Sign message</source>
         <translation>&amp;Firmar mensaje</translation>
     </message>
     <message>
@@ -96,7 +96,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Verify Message</source>
+        <source>&amp;Verify message</source>
         <translation>&amp;Verificar mensaje</translation>
     </message>
     <message>
@@ -106,13 +106,13 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
-        <source>Copy &amp;Label</source>
-        <translation>Copiar &amp;etiqueta</translation>
+        <source>Copy label</source>
+        <translation>Copiar etiqueta</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Editar</translation>
+        <source>Rename label</source>
+        <translation>Editar etiqueta</translation>
     </message>
     <message>
         <location line="+250"/>

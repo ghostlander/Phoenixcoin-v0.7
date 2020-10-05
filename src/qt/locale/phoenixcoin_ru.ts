@@ -53,7 +53,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-11"/>
-        <source>&amp;New Address</source>
+        <source>&amp;New address</source>
         <translation>&amp;Новый адрес</translation>
     </message>
     <message>
@@ -63,7 +63,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+60"/>
-        <source>&amp;Copy Address</source>
+        <source>&amp;Copy address</source>
         <translation>&amp;Копировать адрес</translation>
     </message>
     <message>
@@ -78,7 +78,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Sign &amp;Message</source>
+        <source>&amp;Sign message</source>
         <translation>&amp;Подписать сообщение</translation>
     </message>
     <message>
@@ -93,7 +93,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Verify Message</source>
+        <source>&amp;Verify message</source>
         <translation>&amp;Проверить сообщение</translation>
     </message>
     <message>
@@ -103,13 +103,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
-        <source>Copy &amp;Label</source>
-        <translation>Копировать &amp;метку</translation>
+        <source>Copy label</source>
+        <translation>Копировать метку</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;Правка</translation>
+        <source>Rename label</source>
+        <translation>Переименовать метку</translation>
     </message>
     <message>
         <location line="+250"/>

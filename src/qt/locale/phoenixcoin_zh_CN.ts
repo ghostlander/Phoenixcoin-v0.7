@@ -53,7 +53,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-11"/>
-        <source>&amp;New Address</source>
+        <source>&amp;New address</source>
         <translation>&amp;新建地址</translation>
     </message>
     <message>
@@ -63,7 +63,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+60"/>
-        <source>&amp;Copy Address</source>
+        <source>&amp;Copy address</source>
         <translation>&amp;复制地址</translation>
     </message>
     <message>
@@ -78,7 +78,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>Sign &amp;Message</source>
+        <source>&amp;Sign message</source>
         <translation>对消息签名</translation>
     </message>
     <message>
@@ -93,7 +93,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Verify Message</source>
+        <source>&amp;Verify message</source>
         <translation>&amp;验证消息</translation>
     </message>
     <message>
@@ -103,13 +103,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
-        <source>Copy &amp;Label</source>
-        <translation>复制 &amp;标签</translation>
+        <source>Copy label</source>
+        <translation>复制 标签</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>&amp;Edit</source>
-        <translation>&amp;编辑</translation>
+        <source>Rename label</source>
+        <translation>编辑 标签</translation>
     </message>
     <message>
         <location line="+250"/>
