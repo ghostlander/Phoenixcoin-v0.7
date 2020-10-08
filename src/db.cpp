@@ -210,7 +210,11 @@ void CDBEnv::CheckpointLSN(std::string strFile)
     dbenv.txn_checkpoint(0, 0, 0);
     if (fMockDb)
         return;
-    dbenv.lsn_reset(strFile.c_str(), 0);
+}
+
+void CDBEnv::lsn_reset(const std::string& strFile)
+{
+    dbenv.lsn_reset(strFile.c_str(),0);
 }
 
 
