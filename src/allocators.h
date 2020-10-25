@@ -6,6 +6,16 @@
 #ifndef ALLOCATORS_H
 #define ALLOCATORS_H
 
+#ifndef BOOST_FUNCTION_OUTPUT_ITERATOR_HPP
+#define BOOST_FUNCTION_OUTPUT_ITERATOR_HPP
+
+// This is a deprecated header left for backward compatibility.
+// Use boost/iterator/function_output_iterator.hpp instead.
+
+#include <boost/iterator/function_output_iterator.hpp>
+
+#endif // BOOST_FUNCTION_OUTPUT_ITERATOR_HPP
+
 #include <string.h>
 #include <boost/thread/mutex.hpp>
 
