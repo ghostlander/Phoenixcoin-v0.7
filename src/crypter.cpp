@@ -21,8 +21,8 @@ bool CCrypter::SetKeyFromPassphrase(const SecureString& strKeyData, const std::v
         i = EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha512(), &chSalt[0],
                            (unsigned char *)&strKeyData[0], strKeyData.size(), nRounds, chKey, chIV);
     if(i != (int)WALLET_CRYPTO_KEY_SIZE) {
-        memset(&chKey, 0, sizeof chKey);
-        memset(&chIV, 0, sizeof chIV);
+        OPENSSL_cleanse(chKey, sizeof(chKey));
+        OPENSSL_cleanse(chIV, sizeof(chIV));
         return(false);
     }
     fKeySet = true;
