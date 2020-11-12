@@ -1661,8 +1661,8 @@ Address: %4
     </message>
     <message>
         <location line="+0"/>
-        <source>Generated</source>
-        <translation>Сгенерированно</translation>
+        <source>generated</source>
+        <translation>сгенерировано</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1746,38 +1746,13 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Generated coins must mature 120 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Сгенерированные монеты должны подождать 120 блоков, прежде чем они могут быть потрачены. Когда Вы сгенерировали этот блок, он был отправлен в сеть для добавления в цепочку блоков. Если данная процедура не удастся, статус изменится на «не подтверждено», и монеты будут недействительны. Это иногда происходит в случае, если другой узел сгенерирует блок на несколько секунд раньше вас.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Debug information</source>
-        <translation>Отладочная информация</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Transaction</source>
-        <translation>Транзакция</translation>
+        <source>Generated coins must mature before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
+        <translation>Сгенерированные монеты должны созреть, прежде чем их можно будет потратить. Когда вы сгенерировали этот блок, он был отправлен в сеть для добавления в цепь блоков. В случае неудачи статус изменится на &#171;не подтверждено&#187;, а монеты будут считаться недействительными. Это иногда происходит, если другой узел сгенерирует блок на несколько секунд раньше вас.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Inputs</source>
         <translation>Входы</translation>
-    </message>
-    <message>
-        <location line="+23"/>
-        <source>Amount</source>
-        <translation>Количество</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>true</source>
-        <translation>истина</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>false</source>
-        <translation>ложь</translation>
     </message>
     <message>
         <location line="-211"/>
