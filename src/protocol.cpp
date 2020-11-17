@@ -21,7 +21,7 @@ static const char* ppszTypeName[] =
 CMessageHeader::CMessageHeader() {
     memcpy(pchMessageStart, ::pchMessageStart, MESSAGE_START_SIZE);
     memset(pchCommand, 0x00, COMMAND_SIZE);
-    nMessageSize = -1;
+    nMessageSize = std::numeric_limits<uint32_t>::max();
     nChecksum = 0;
 }
 

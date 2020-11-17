@@ -237,7 +237,7 @@ public:
         nTxBytes  = 0;
         nRxBytes  = 0;
         nHeaderStart = -1;
-        nMessageStart = -1;
+        nMessageStart = std::numeric_limits<uint32_t>::max();
         addr = addrIn;
         addrName = addrNameIn.empty() ? addr.ToStringIPPort() : addrNameIn;
         nVersion = 0;
@@ -380,7 +380,7 @@ public:
             return;
         vSend.resize(nHeaderStart);
         nHeaderStart = -1;
-        nMessageStart = -1;
+        nMessageStart = std::numeric_limits<uint32_t>::max();
         LEAVE_CRITICAL_SECTION(cs_vSend);
 
         if (fDebug)
@@ -415,7 +415,7 @@ public:
         }
 
         nHeaderStart = -1;
-        nMessageStart = -1;
+        nMessageStart = std::numeric_limits<uint32_t>::max();
         LEAVE_CRITICAL_SECTION(cs_vSend);
     }
 
