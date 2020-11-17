@@ -2579,7 +2579,7 @@ string GetWarnings(string strFor)
         strRPC = "test";
 
     // Misc warnings like out of disk space and clock is wrong
-    if (strMiscWarning != "")
+    if (!strMiscWarning.empty())
     {
         nPriority = 1000;
         strStatusBar = strMiscWarning;

@@ -239,7 +239,7 @@ public:
         nHeaderStart = -1;
         nMessageStart = -1;
         addr = addrIn;
-        addrName = addrNameIn == "" ? addr.ToStringIPPort() : addrNameIn;
+        addrName = addrNameIn.empty() ? addr.ToStringIPPort() : addrNameIn;
         nVersion = 0;
         strSubVer = "";
         fOneShot = false;
