@@ -286,7 +286,7 @@ Value sendtoaddress(const Array &params, bool fHelp) {
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
     string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx);
-    if (strError != "")
+    if (!strError.empty())
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
 
     return wtx.GetHash().GetHex();
@@ -660,7 +660,7 @@ Value sendfrom(const Array &params, bool fHelp) {
 
     // Send
     string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx);
-    if (strError != "")
+    if (!strError.empty())
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
 
     return wtx.GetHash().GetHex();
