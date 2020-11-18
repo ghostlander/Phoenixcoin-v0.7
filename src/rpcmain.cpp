@@ -1102,7 +1102,7 @@ json_spirit::Value CRPCTable::execute(const std::string &strMethod, const json_s
 
 Object CallRPC(const string& strMethod, const Array& params)
 {
-    if (mapArgs["-rpcuser"] == "" && mapArgs["-rpcpassword"].empty())
+    if (mapArgs["-rpcuser"].empty() && mapArgs["-rpcpassword"].empty())
         throw runtime_error(strprintf(
             _("You must set rpcpassword=<password> in the configuration file:\n%s\n"
               "If the file does not exist, create it with owner-readable-only file permissions."),
