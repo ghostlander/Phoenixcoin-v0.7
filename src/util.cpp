@@ -935,7 +935,7 @@ bool WildcardMatch(const string& str, const string& mask)
 static std::string FormatException(std::exception* pex, const char* pszThread)
 {
 #ifdef WINDOWS
-    char pszModule[MAX_PATH] = "";
+    char pszModule[MAX_PATH].clear();
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
     const char *pszModule = "phoenixcoin";
@@ -1010,7 +1010,7 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
     if (mapArgs.count("-datadir")) {
         path = fs::system_complete(mapArgs["-datadir"]);
         if (!fs::is_directory(path)) {
-            path = "";
+            path.clear();
             return path;
         }
     } else {
