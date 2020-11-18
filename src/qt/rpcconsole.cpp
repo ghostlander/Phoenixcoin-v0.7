@@ -165,7 +165,7 @@ void RPCExecutor::request(const QString &command)
 
         // Format result reply
         if (result.type() == json_spirit::null_type)
-            strPrint = "";
+            strPrint.clear();
         else if (result.type() == json_spirit::str_type)
             strPrint = result.get_str();
         else
