@@ -54,7 +54,7 @@ void QRCodeDialog::genCode()
 {
     QString uri = getURI();
 
-    if (uri != "")
+    if (!uri.empty())
     {
         ui->lblQRCode->setText("");
 
