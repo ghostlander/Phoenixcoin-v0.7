@@ -227,50 +227,86 @@ QString TransactionDesc::toHTML(CWallet *wallet, CWalletTx &wtx, int unit) {
 
         /* Extended transaction information */
 
-        {
-            CTxDB txdb("r");
+        uint i;
 
-            strHTML += "<hr><br><b>" + tr("Inputs") + ":</b>";
-            strHTML += "<ul>";
+        strHTML += "<hr><br><b>" + tr("Inputs") + ":</b>";
+        strHTML += "<ul>";
 
-            {
-                LOCK(wallet->cs_wallet);
-                BOOST_FOREACH(const CTxIn &txin, wtx.vin) {
-                    COutPoint prevout = txin.prevout;
+        for(i = 0; i < wtx.vin.size(); i++) {
+            uint256 hash_in, hashBlock_in = 0;
+            const CTxIn &vin = wtx.vin[i];
 
-                    CTransaction prev;
-                    if(txdb.ReadDiskTx(prevout.hash, prev)) {
-                        if(prevout.n < prev.vout.size()) {
-                            strHTML += "<li>";
-                            const CTxOut &vout = prev.vout[prevout.n];
-                            CTxDestination address;
-                            if(ExtractDestination(vout.scriptPubKey, address)) {
-                                if(wallet->mapAddressBook.count(address) &&
-                                  !wallet->mapAddressBook[address].empty()) {
-                                    strHTML += GUIUtil::HtmlEscape(wallet->mapAddressBook[address]);
-                                    /* Qt replaces &ensp; or &emsp; with a single white space */
-                                    strHTML += "&nbsp;&nbsp;";
-                                }
-                                strHTML += QString::fromStdString(CCoinAddress(address).ToString());
-                            }
-                            strHTML += "&nbsp;&nbsp;" + CoinUnits::formatWithUnit(unit, vout.nValue);
-                            if(wallet->IsMine(vout)) strHTML += "&nbsp;&nbsp;" + tr("(mine)");
-                            strHTML += "</li>";
-                        }
-                    } else {
-                        /* Must be a coin base */
-                        strHTML += "<li>" + tr("(generated)") + "</li>";
-                    }
-                }
-
+            hash_in = vin.prevout.hash;
+            CTransaction txPrev;
+            if(!GetTransaction(hash_in, txPrev, hashBlock_in)) {
+                /* Must be a coin base */
+                strHTML += "<li>" + tr("(generated)") + "</li>";
+                continue;
             }
 
-            strHTML += "</ul>";
+            strHTML += "<li>";
+
+            CTxDestination address;
+            if(ExtractDestination(txPrev.vout[vin.prevout.n].scriptPubKey, address)) {
+                if(wallet->mapAddressBook.count(address) &&
+                  !wallet->mapAddressBook[address].empty()) {
+                    strHTML += GUIUtil::HtmlEscape(wallet->mapAddressBook[address]);
+                    /* Qt replaces &ensp; or &emsp; with a single white space */
+                    strHTML += "&nbsp;&nbsp;";
+                }
+                strHTML += QString::fromStdString(CCoinAddress(address).ToString());
+            }
+
+            strHTML += "&nbsp;&nbsp;" + CoinUnits::formatWithUnit(unit,
+              txPrev.vout[vin.prevout.n].nValue);
+
+            if(wallet->IsMine(txPrev.vout[vin.prevout.n]) & MINE_SPENDABLE)
+              strHTML += "&nbsp;&nbsp;" + tr("(mine)");
+
+            if(wallet->IsMine(txPrev.vout[vin.prevout.n]) & MINE_WATCH_ONLY)
+              strHTML += "&nbsp;&nbsp;" + tr("(watch)");
+
+            strHTML += "</li>";
         }
 
+        strHTML += "</ul>";
+
+        strHTML += "<hr><br><b>" + tr("Outputs") + ":</b>";
+        strHTML += "<ul>";
+
+        for(i = 0; i < wtx.vout.size(); i++) {
+            const CTxOut &txout = wtx.vout[i];
+
+            strHTML += "<li>";
+
+            CTxDestination address;
+            if(ExtractDestination(txout.scriptPubKey, address)) {
+                if(wallet->mapAddressBook.count(address) &&
+                  !wallet->mapAddressBook[address].empty()) {
+                    strHTML += GUIUtil::HtmlEscape(wallet->mapAddressBook[address]);
+                    strHTML += "&nbsp;&nbsp;";
+                }
+                strHTML += QString::fromStdString(CCoinAddress(address).ToString());
+            }
+
+            strHTML += "&nbsp;&nbsp;" + CoinUnits::formatWithUnit(unit, txout.nValue);
+
+            if(wallet->IsMine(txout) & MINE_SPENDABLE)
+              strHTML += "&nbsp;&nbsp;" + tr("(mine)");
+
+            if(wallet->IsMine(txout) & MINE_WATCH_ONLY)
+              strHTML += "&nbsp;&nbsp;" + tr("(watch)");
+
+            strHTML += "</li>";
+        }
+
+        strHTML += "</ul>";
+
         if(fDebug) {
-            strHTML += "<br><b>" + tr("Transaction dump") + ":</b><br><br>";
+            strHTML += "<hr><br><b>" + tr("Transaction dump") + ":</b><br><br>";
             strHTML += GUIUtil::HtmlEscape(wtx.ToString(), true);
+        } else {
+            strHTML += "<br>";
         }
 
         strHTML += "</font></html>";
