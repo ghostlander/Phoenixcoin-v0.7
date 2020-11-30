@@ -32,7 +32,7 @@ OSDEFS = -DWINDOWS
 DEFS = -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
 
 CFLAGS += -mthreads -w -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security \
--Wno-unused-parameter -Wno-stringop-truncation $(OSDEFS) $(DEFS) $(INCLUDEPATHS)
+-Wno-unused-parameter $(OSDEFS) $(DEFS) $(INCLUDEPATHS)
 
 ifndef USE_UPNP
  override USE_UPNP = -
