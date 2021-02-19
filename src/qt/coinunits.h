@@ -14,8 +14,11 @@ public:
 
     enum Unit {
         PXC,
+        PXCphi,
         mPXC,
-        uPXC
+        mPXCphi,
+        uPXC,
+        uPXCphi
     };
 
     //! @name Static API
