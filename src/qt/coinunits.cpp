@@ -11,8 +11,11 @@ CoinUnits::CoinUnits(QObject *parent):
 QList<CoinUnits::Unit> CoinUnits::availableUnits() {
     QList<CoinUnits::Unit> unitlist;
     unitlist.append(PXC);
+    unitlist.append(PXCni);
     unitlist.append(mPXC);
+    unitlist.append(mPXCni);
     unitlist.append(uPXC);
+    unitlist.append(uPXCni);
     return(unitlist);
 }
 
@@ -20,8 +23,11 @@ bool CoinUnits::valid(int unit) {
 
     switch(unit) {
         case(PXC):
+        case(PXCni):
         case(mPXC):
+        case(mPXCni):
         case(uPXC):
+        case(uPXCni):
           return(true);
         default:
           return(false);
@@ -32,8 +38,11 @@ QString CoinUnits::name(int unit) {
 
     switch(unit) {
         case(PXC): return(QString("PXC"));
+        case(PXCni): return(QString::fromUtf8("𐀛"));
         case(mPXC): return(QString("mPXC"));
+        case(mPXCni): return(QString::fromUtf8("m𐀛"));
         case(uPXC): return(QString::fromUtf8("μPXC"));
+        case(uPXCni): return(QString::fromUtf8("μ𐀛"));
         default: return(QString("???"));
     }
 }
@@ -41,9 +50,15 @@ QString CoinUnits::name(int unit) {
 QString CoinUnits::description(int unit) {
 
     switch(unit) {
-        case(PXC): return(QString("Phoenixcoins"));
-        case(mPXC): return(QString("Milli-Phoenixcoins (1 / 1,000)"));
-        case(uPXC): return(QString("Micro-Phoenixcoins (1 / 1,000,000)"));
+        case(PXC):
+        case(PXCni):
+            return(QString("Phoenixcoins"));
+        case(mPXC):
+        case(mPXCni):
+            return(QString("Milli-Phoenixcoins (1 / 1,000)"));
+        case(uPXC):
+        case(uPXCni):
+            return(QString("Micro-Phoenixcoins (1 / 1,000,000)"));
         default: return(QString("???"));
     }
 }
@@ -51,9 +66,15 @@ QString CoinUnits::description(int unit) {
 qint64 CoinUnits::factor(int unit) {
 
     switch(unit) {
-        case(PXC): return(100000000);
-        case(mPXC): return(100000);
-        case(uPXC): return(100);
+        case(PXC):
+        case(PXCni):
+            return(100000000);
+        case(mPXC):
+        case(mPXCni):
+            return(100000);
+        case(uPXC):
+        case(uPXCni):
+            return(100);
         default: return(100000000);
     }
 }
@@ -61,9 +82,15 @@ qint64 CoinUnits::factor(int unit) {
 int CoinUnits::amountDigits(int unit) {
 
     switch(unit) {
-        case(PXC): return(8);
-        case(mPXC): return(11);
-        case(uPXC): return(14);
+        case(PXC):
+        case(PXCni):
+            return(8);
+        case(mPXC):
+        case(mPXCni):
+            return(11);
+        case(uPXC):
+        case(uPXCni):
+            return(14);
         default: return(0);
     }
 }
@@ -71,9 +98,15 @@ int CoinUnits::amountDigits(int unit) {
 int CoinUnits::decimals(int unit) {
 
     switch(unit) {
-        case(PXC): return(8);
-        case(mPXC): return(5);
-        case(uPXC): return(2);
+        case(PXC):
+        case(PXCni):
+            return(8);
+        case(mPXC):
+        case(mPXCni):
+            return(5);
+        case(uPXC):
+        case(uPXCni):
+            return(2);
         default: return(0);
     }
 }
