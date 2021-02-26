@@ -5,6 +5,7 @@
 #include "netbase.h"
 
 #include "coinunits.h"
+#include "walletstyles.h"
 #include "monitoreddatamapper.h"
 #include "optionsmodel.h"
 
@@ -82,6 +83,8 @@ OptionsDialog::OptionsDialog(QWidget *parent) :
         }
     }
 
+    ui->style->setModel(new WalletStyles(this));
+
     ui->unit->setModel(new CoinUnits(this));
 
     /* Widget-to-option mapper */
@@ -148,6 +151,7 @@ void OptionsDialog::setMapper()
 
     /* Display */
     mapper->addMapping(ui->lang, OptionsModel::Language);
+    mapper->addMapping(ui->style, OptionsModel::QtStyle);
     mapper->addMapping(ui->unit, OptionsModel::DisplayUnit);
     mapper->addMapping(ui->displayAddresses, OptionsModel::DisplayAddresses);
     mapper->addMapping(ui->coinControlFeatures, OptionsModel::CoinControlFeatures);

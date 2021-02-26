@@ -212,6 +212,7 @@ HEADERS += src/qt/gui.h \
     src/qt/sendcoinsentry.h \
     src/qt/qvalidatedlineedit.h \
     src/qt/coinunits.h \
+    src/qt/walletstyles.h \
     src/qt/qvaluecombobox.h \
     src/qt/askpassphrasedialog.h \
     src/protocol.h \
@@ -283,6 +284,7 @@ SOURCES += src/qt/phoenixcoin.cpp \
     src/qt/sendcoinsentry.cpp \
     src/qt/qvalidatedlineedit.cpp \
     src/qt/coinunits.cpp \
+    src/qt/walletstyles.cpp \
     src/qt/qvaluecombobox.cpp \
     src/qt/askpassphrasedialog.cpp \
     src/protocol.cpp \
