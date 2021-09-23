@@ -452,7 +452,8 @@ Value getreceivedbyaddress(const Array &params, bool fHelp) {
     if(!address.IsValid())
       throw(JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Phoenixcoin address"));
     scriptPubKey.SetDestination(address.Get());
-    if(!IsMine(*pwalletMain, scriptPubKey)) return((double)0.0);
+    if(!IsMine(*pwalletMain, scriptPubKey))
+       return(ValueFromAmount(0));
 
     /* Minimum confirmations */
     int nMinDepth = 1;
@@ -473,7 +474,7 @@ Value getreceivedbyaddress(const Array &params, bool fHelp) {
                     nAmount += txout.nValue;
     }
 
-    return  ValueFromAmount(nAmount);
+    return(ValueFromAmount(nAmount));
 }
 
 
