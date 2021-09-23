@@ -349,7 +349,7 @@ public:
         return sizeof(pn);
     }
 
-    uint64 Get64(int n=0) const
+    uint64 GetLow64(int n=0) const
     {
         return pn[2*n] | (uint64)pn[2*n+1] << 32;
     }
