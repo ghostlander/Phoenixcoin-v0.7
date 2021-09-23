@@ -117,7 +117,7 @@ instance_of_cinit;
 void RandAddSeed() {
     int64 nCounter = GetTimeMicros();
     RAND_add(&nCounter, sizeof(nCounter), 1.5);
-    memset(&nCounter, 0, sizeof(nCounter));
+    OPENSSL_cleanse(&nCounter, sizeof(nCounter));
 }
 
 void RandAddSeedPerfmon()
