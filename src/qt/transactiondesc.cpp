@@ -1,15 +1,15 @@
-#include "transactiondesc.h"
+#include <string>
 
 #include "guiutil.h"
-#include "coinunits.h"
 
-#include "main.h"
-#include "wallet.h"
-#include "db.h"
-#include "ui_interface.h"
 #include "base58.h"
+#include "db.h"
+#include "wallet.h"
+#include "ui_interface.h"
 
-#include <string>
+#include "coinunits.h"
+#include "transactionrecord.h"
+#include "transactiondesc.h"
 
 QString TransactionDesc::FormatTxStatus(const CWalletTx& wtx)
 {

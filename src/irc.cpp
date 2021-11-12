@@ -19,9 +19,6 @@ int nGotIRCAddresses = 0;
 
 void ThreadIRCSeed2(void* parg);
 
-
-
-
 #pragma pack(push, 1)
 struct ircaddr
 {

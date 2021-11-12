@@ -1,14 +1,14 @@
-#include "sendcoinsentry.h"
-#include "ui_sendcoinsentry.h"
+#include <QApplication>
+#include <QClipboard>
+
 #include "guiutil.h"
 #include "coinunits.h"
 #include "addressbookpage.h"
 #include "walletmodel.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
-
-#include <QApplication>
-#include <QClipboard>
+#include "sendcoinsentry.h"
+#include "ui_sendcoinsentry.h"
 
 SendCoinsEntry::SendCoinsEntry(QWidget *parent) :
     QFrame(parent),

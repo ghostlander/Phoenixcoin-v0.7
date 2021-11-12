@@ -6,6 +6,8 @@
 #ifndef DB_H
 #define DB_H
 
+#include <boost/filesystem.hpp>
+
 #include <db_cxx.h>
 
 #include <utility>
@@ -13,7 +15,10 @@
 #include <string>
 #include <vector>
 
-#include "main.h"
+#include "sync.h"
+#include "serialize.h"
+#include "bignum.h"
+#include "uint256.h"
 
 class CAddress;
 class CAddrMan;
@@ -22,9 +27,9 @@ class CDiskBlockIndex;
 class CDiskTxPos;
 class CMasterKey;
 class COutPoint;
+class CTransaction;
 class CTxIndex;
 class CWallet;
-class CWalletTx;
 
 extern unsigned int nWalletDBUpdated;
 

@@ -5,12 +5,9 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#include "clientversion.h"
 #include <string>
 
-//
-// client versioning
-//
+#include "clientversion.h"
 
 static const int CLIENT_VERSION =
                            1000000 * CLIENT_VERSION_MAJOR
@@ -21,10 +18,6 @@ static const int CLIENT_VERSION =
 extern const std::string CLIENT_NAME;
 extern const std::string CLIENT_BUILD;
 extern const std::string CLIENT_DATE;
-
-//
-// network protocol versioning
-//
 
 static const int PROTOCOL_VERSION = 70000;
 static const int MAX_PROTOCOL_VERSION = 79999;

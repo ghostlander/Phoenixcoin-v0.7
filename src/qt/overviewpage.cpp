@@ -1,5 +1,5 @@
-#include "overviewpage.h"
-#include "ui_overviewpage.h"
+#include <QAbstractItemDelegate>
+#include <QPainter>
 
 #include "walletmodel.h"
 #include "coinunits.h"
@@ -8,9 +8,8 @@
 #include "transactionfilterproxy.h"
 #include "guiutil.h"
 #include "guiconstants.h"
-
-#include <QAbstractItemDelegate>
-#include <QPainter>
+#include "overviewpage.h"
+#include "ui_overviewpage.h"
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 6

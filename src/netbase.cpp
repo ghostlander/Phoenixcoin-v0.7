@@ -5,17 +5,17 @@
 
 #include <algorithm>
 
-#include "util.h"
-#include "sync.h"
-#include "compat.h"
-#include "netbase.h"
-
 #ifndef WINDOWS
 #include <sys/fcntl.h>
 #endif
 
-#include "strlcpy.h"
 #include <boost/algorithm/string/case_conv.hpp> // for to_lower()
+
+#include "strlcpy.h"
+#include "compat.h"
+#include "sync.h"
+#include "netbase.h"
+#include "util.h"
 
 using namespace std;
 

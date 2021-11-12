@@ -1,8 +1,11 @@
 #ifndef WALLETMODELTRANSACTION_H
 #define WALLETMODELTRANSACTION_H
 
-#include "walletmodel.h"
+#include <QList>
 
+class CWallet;
+class CWalletTx;
+class CReserveKey;
 class SendCoinsRecipient;
 
 /* Data model for a walletmodel transaction */

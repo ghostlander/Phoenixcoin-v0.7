@@ -4,17 +4,8 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <set>
+#include <list>
 
-#include "util.h"
-#include "init.h"
-#include "sync.h"
-#include "base58.h"
-#include "db.h"
-#include "ntp.h"
-#include "rpcmain.h"
-#include "ui_interface.h"
-
-#undef printf
 #include <boost/asio.hpp>
 #include <boost/asio/ip/v6_only.hpp>
 #if (BOOST_VERSION >= 107100)
@@ -31,14 +22,22 @@
 #include <boost/asio/ssl.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/shared_ptr.hpp>
-#include <list>
 
-#define printf OutputDebugStringF
+#include "base58.h"
+#include "init.h"
+#include "db.h"
+#include "net.h"
+#include "wallet.h"
+#include "util.h"
+#include "main.h"
+#include "rpcmain.h"
 
 using namespace std;
 using namespace boost;
 using namespace boost::asio;
 using namespace json_spirit;
+
+extern CWallet *pwalletMain;
 
 void ThreadRPCServer2(void* parg);
 
@@ -127,6 +126,41 @@ std::string HexBits(unsigned int nBits)
 }
 
 
+uint256 ParseHashV(const Value &v, string strName) {
+    uint256 result;
+    string strHex;
+
+    if(v.type() == str_type)
+      strHex = v.get_str();
+
+    if(!IsHex(strHex))
+      throw(JSONRPCError(RPC_INVALID_PARAMETER, strName + " must be hex string (not '"+strHex+"')"));
+
+    result.SetHex(strHex);
+
+    return(result);
+}
+
+uint256 ParseHashO(const Object &o, string strKey) {
+    return(ParseHashV(find_value(o, strKey), strKey));
+}
+
+vector<uchar> ParseHexV(const Value &v, string strName) {
+    string strHex;
+
+    if(v.type() == str_type)
+      strHex = v.get_str();
+
+    if(!IsHex(strHex))
+      throw(JSONRPCError(RPC_INVALID_PARAMETER, strName+" must be hex string (not '"+strHex+"')"));
+
+    return ParseHex(strHex);
+}
+
+vector<uchar> ParseHexO(const Object& o, string strKey) {
+    return ParseHexV(find_value(o, strKey), strKey);
+}
+
 
 ///
 /// Note: This interface may still be subject to change.
@@ -143,8 +177,10 @@ string CRPCTable::help(string strCommand) const
         // We already filter duplicates, but these deprecated screw up the sort order
         if (strMethod.find("label") != string::npos)
             continue;
-        if (!strCommand.empty() && strMethod != strCommand)
-            continue;
+
+        if(!strCommand.empty() && (strMethod != strCommand))
+          continue;
+
         try
         {
             Array params;
@@ -156,9 +192,11 @@ string CRPCTable::help(string strCommand) const
         {
             // Help text is returned in an exception
             string strHelp = string(e.what());
-            if (strCommand.empty())
-                if (strHelp.find('\n') != string::npos)
+            if(strCommand.empty()) {
+                if(strHelp.find('\n') != string::npos) {
                     strHelp = strHelp.substr(0, strHelp.find('\n'));
+                }
+            }
             strRet += strHelp + "\n";
         }
     }
@@ -172,7 +210,7 @@ Value help(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() > 1)) {
         string msg = "help [command]\n"
-          "Lists all RPC commands or shows help for a particular command";
+          "Lists all RPC commands or shows help for a particular command.";
         throw(runtime_error(msg));
     }
 
@@ -187,9 +225,9 @@ Value help(const Array &params, bool fHelp) {
 Value stop(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() > 1)) {
-        string msg = "stop <detach>\n"
+        string msg = "stop [detach]\n"
           "Stops the Phoenixcoin server.\n"
-          "<detach> is true or false to detach the data base or not.";
+          "[detach] is true or false to detach the data base or not.";
         throw(runtime_error(msg));
     }
 
@@ -366,7 +404,7 @@ static string HTTPReply(int nStatus, const string& strMsg, bool keepalive)
             "HTTP/1.1 %d %s\r\n"
             "Date: %s\r\n"
             "Connection: %s\r\n"
-            "Content-Length: %" PRIszu"\r\n"
+            "Content-Length: %" PRIszu "\r\n"
             "Content-Type: application/json\r\n"
             "Server: pxc-json-rpc/%s\r\n"
             "\r\n"
@@ -420,8 +458,8 @@ int ReadHTTPHeader(std::basic_istream<char>& stream, map<string, string>& mapHea
     return nLen;
 }
 
-int ReadHTTP(std::basic_istream<char>& stream, map<string, string>& mapHeadersRet, string& strMessageRet)
-{
+int ReadHTTP(std::basic_istream<char> &stream, map<string, string> &mapHeadersRet,
+  string &strMessageRet) {
     mapHeadersRet.clear();
     strMessageRet.clear();
 
@@ -766,9 +804,8 @@ void ThreadRPCServer2(void* parg)
     printf("ThreadRPCServer started\n");
 
     strRPCUserColonPass = mapArgs["-rpcuser"] + ":" + mapArgs["-rpcpassword"];
-    if (mapArgs["-rpcpassword"].empty())
-    {
-        unsigned char rand_pwd[32];
+    if(mapArgs["-rpcpassword"].empty()) {
+        uchar rand_pwd[32];
         RAND_bytes(rand_pwd, 32);
         string strWhatAmI = "To use phoenixcoind";
         if (mapArgs.count("-server"))
@@ -1076,9 +1113,8 @@ json_spirit::Value CRPCTable::execute(const std::string &strMethod, const json_s
 
     // Observe safe mode
     string strWarning = GetWarnings("rpc");
-    if (!strWarning.empty() && !GetBoolArg("-disablesafemode") &&
-        !pcmd->okSafeMode)
-        throw JSONRPCError(RPC_FORBIDDEN_BY_SAFE_MODE, string("Safe mode: ") + strWarning);
+    if(!strWarning.empty() && !GetBoolArg("-disablesafemode") && !pcmd->okSafeMode)
+      throw(JSONRPCError(RPC_FORBIDDEN_BY_SAFE_MODE, string("Safe mode: ") + strWarning));
 
     try
     {
@@ -1101,13 +1137,14 @@ json_spirit::Value CRPCTable::execute(const std::string &strMethod, const json_s
 }
 
 
-Object CallRPC(const string& strMethod, const Array& params)
-{
-    if (mapArgs["-rpcuser"].empty() && mapArgs["-rpcpassword"].empty())
-        throw runtime_error(strprintf(
-            _("You must set rpcpassword=<password> in the configuration file:\n%s\n"
-              "If the file does not exist, create it with owner-readable-only file permissions."),
-                GetConfigFile().string().c_str()));
+Object CallRPC(const string &strMethod, const Array &params) {
+
+    if(mapArgs["-rpcuser"].empty() && mapArgs["-rpcpassword"].empty()) {
+        throw(runtime_error(strprintf(
+          _("You must set rpcpassword=<password> in the configuration file:\n%s\n"
+          "If the file does not exist, create it with owner-readable-only file permissions."),
+          GetConfigFile().string().c_str())));
+    }
 
     // Connect to localhost
     bool fUseSSL = GetBoolArg("-rpcssl");
@@ -1277,12 +1314,15 @@ int CommandLineRPC(int argc, char *argv[])
         else
         {
             // Result
-            if (result.type() == null_type)
+            if(result.type() == null_type) {
                 strPrint.clear();
-            else if (result.type() == str_type)
-                strPrint = result.get_str();
-            else
-                strPrint = write_string(result, true);
+            } else {
+                if(result.type() == str_type) {
+                    strPrint = result.get_str();
+                } else {
+                    strPrint = write_string(result, true);
+                }
+            }
         }
     }
     catch (std::exception& e)
@@ -1295,11 +1335,11 @@ int CommandLineRPC(int argc, char *argv[])
         PrintException(NULL, "CommandLineRPC()");
     }
 
-    if (!strPrint.empty())
-    {
-        fprintf((nRet == 0 ? stdout : stderr), "%s\n", strPrint.c_str());
+    if(!strPrint.empty()) {
+        fprintf((!nRet ? stdout : stderr), "%s\n", strPrint.c_str());
     }
-    return nRet;
+
+    return(nRet);
 }
 
 

@@ -1,12 +1,11 @@
-#include "askpassphrasedialog.h"
-#include "ui_askpassphrasedialog.h"
+#include <QMessageBox>
+#include <QKeyEvent>
+#include <QPushButton>
 
 #include "guiconstants.h"
 #include "walletmodel.h"
-
-#include <QMessageBox>
-#include <QPushButton>
-#include <QKeyEvent>
+#include "askpassphrasedialog.h"
+#include "ui_askpassphrasedialog.h"
 
 AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget *parent) :
     QDialog(parent),

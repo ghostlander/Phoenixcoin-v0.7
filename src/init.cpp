@@ -7,33 +7,33 @@
 #include <vector>
 #include <set>
 
-#include "util.h"
-#include "init.h"
-#include "db.h"
-#include "walletdb.h"
-#include "net.h"
-#include "rpcmain.h"
-#include "ui_interface.h"
+#ifndef WINDOWS
+#include <signal.h>
+#endif
+
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
 #include <boost/interprocess/sync/file_lock.hpp>
 #include <boost/algorithm/string/predicate.hpp>
+
 #include <openssl/crypto.h>
 
 #ifdef USE_UPNP
 #include <miniupnpc/miniupnpc.h>
 #endif
 
-#ifndef WINDOWS
-#include <signal.h>
-#endif
+#include "db.h"
+#include "wallet.h"
+#include "util.h"
+#include "rpcmain.h"
+#include "init.h"
 
 using namespace std;
 using namespace boost;
 
-CWallet* pwalletMain;
+CWallet *pwalletMain;
 CClientUIInterface uiInterface;
 
 uint nMsgSleep;
@@ -46,16 +46,14 @@ uint opt_flags = 0;
 // Shutdown
 //
 
-void ExitTimeout(void* parg)
-{
+void ExitTimeout(void *parg) {
 #ifdef WINDOWS
     Sleep(5000);
     ExitProcess(0);
 #endif
 }
 
-void StartShutdown()
-{
+void StartShutdown() {
 #ifdef QT_GUI
     /* Ensure we leave the Qt main loop for a clean GUI exit
      * (Shutdown() is called in phoenixcoin.cpp afterwards) */
@@ -66,8 +64,7 @@ void StartShutdown()
 #endif
 }
 
-void Shutdown(void* parg)
-{
+void Shutdown(void *parg) {
     static CCriticalSection cs_Shutdown;
     static bool fTaken;
 
@@ -113,13 +110,11 @@ void Shutdown(void* parg)
     }
 }
 
-void HandleSIGTERM(int)
-{
+void HandleSIGTERM(int) {
     fRequestShutdown = true;
 }
 
-void HandleSIGHUP(int)
-{
+void HandleSIGHUP(int) {
     fReopenDebugLog = true;
 }
 
@@ -701,7 +696,7 @@ bool AppInit2()
         printf("Shutdown requested. Exiting.\n");
         return false;
     }
-    printf(" block index %15" PRI64d"ms\n", GetTimeMillis() - nStart);
+    printf(" block index %15" PRI64d "ms\n", GetTimeMillis() - nStart);
 
     if (GetBoolArg("-printblockindex") || GetBoolArg("-printblocktree"))
     {
@@ -793,7 +788,7 @@ bool AppInit2()
     }
 
     printf("%s", strErrors.str().c_str());
-    printf(" wallet      %15" PRI64d"ms\n", GetTimeMillis() - nStart);
+    printf(" wallet      %15" PRI64d "ms\n", GetTimeMillis() - nStart);
 
     RegisterWallet(pwalletMain);
 
@@ -813,7 +808,7 @@ bool AppInit2()
         printf("Rescanning last %i blocks (from block %i)...\n", pindexBest->nHeight - pindexRescan->nHeight, pindexRescan->nHeight);
         nStart = GetTimeMillis();
         pwalletMain->ScanForWalletTransactions(pindexRescan, true);
-        printf(" rescan      %15" PRI64d"ms\n", GetTimeMillis() - nStart);
+        printf(" rescan      %15" PRI64d "ms\n", GetTimeMillis() - nStart);
     }
 
     // ********************************************************* Step 9: import blocks
@@ -854,8 +849,8 @@ bool AppInit2()
             printf("Invalid or missing peers.dat; recreating\n");
     }
 
-    printf("Loaded %i addresses from peers.dat  %" PRI64d"ms\n",
-           addrman.size(), GetTimeMillis() - nStart);
+    printf("Loaded %i addresses from peers.dat  %" PRI64d "ms\n",
+      addrman.size(), GetTimeMillis() - nStart);
 
     // ********************************************************* Step 11: start node
 
@@ -865,11 +860,11 @@ bool AppInit2()
     RandAddSeedPerfmon();
 
     //// debug print
-    printf("mapBlockIndex.size() = %" PRIszu"\n",   mapBlockIndex.size());
-    printf("nBestHeight = %d\n",            nBestHeight);
-    printf("setKeyPool.size() = %" PRIszu"\n",      pwalletMain->setKeyPool.size());
-    printf("mapWallet.size() = %" PRIszu"\n",       pwalletMain->mapWallet.size());
-    printf("mapAddressBook.size() = %" PRIszu"\n",  pwalletMain->mapAddressBook.size());
+    printf("mapBlockIndex.size() = %" PRIszu "\n", mapBlockIndex.size());
+    printf("nBestHeight = %d\n", nBestHeight);
+    printf("setKeyPool.size() = %" PRIszu "\n", pwalletMain->setKeyPool.size());
+    printf("mapWallet.size() = %" PRIszu "\n", pwalletMain->mapWallet.size());
+    printf("mapAddressBook.size() = %" PRIszu "\n", pwalletMain->mapAddressBook.size());
 
     if (!NewThread(StartNode, NULL))
         InitError(_("Error: could not start node"));

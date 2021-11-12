@@ -6,11 +6,6 @@
 #ifndef SERIALIZE_H
 #define SERIALIZE_H
 
-#include <boost/type_traits/is_fundamental.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <boost/tuple/tuple_comparison.hpp>
-#include <boost/tuple/tuple_io.hpp>
-
 #include <string>
 #include <algorithm>
 #include <map>
@@ -22,6 +17,11 @@
 #include <cassert>
 #include <cstring>
 #include <cstdio>
+
+#include <boost/type_traits/is_fundamental.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/tuple/tuple_comparison.hpp>
+#include <boost/tuple/tuple_io.hpp>
 
 #include "datatypes.h"
 #include "allocators.h"

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2013 Cozz Lovan <cozzlovan@yahoo.com>
- * Copyright (c) 2014-2019 John Doering <ghostlander@phoenixcoin.org>
+ * Copyright (c) 2014-2021 John Doering <ghostlander@phoenixcoin.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,28 +25,24 @@
  * SUCH DAMAGE.
  */
 
-#include "coincontrol.h"
-#include "ui_coincontrol.h"
-
-#include "init.h"
-#include "coinunits.h"
-#include "walletmodel.h"
-#include "addresstablemodel.h"
-#include "optionsmodel.h"
-#include "guiutil.h"
-
-#include <QApplication>
-#include <QCheckBox>
-#include <QClipboard>
 #include <QColor>
 #include <QCursor>
 #include <QDateTime>
 #include <QDialogButtonBox>
 #include <QFlags>
-#include <QIcon>
 #include <QString>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+
+#include "base58.h"
+
+#include "coinunits.h"
+#include "guiutil.h"
+#include "optionsmodel.h"
+#include "addresstablemodel.h"
+#include "walletmodel.h"
+#include "coincontrol.h"
+#include "ui_coincontrol.h"
 
 using namespace std;
 

@@ -2,6 +2,9 @@
  * Copyright (c) 2018 John Doering <ghostlander@phoenixcoin.org>
  */
 
+#include <string>
+#include <vector>
+
 #ifdef WINDOWS
 #include <winsock2.h>
 #else
@@ -13,13 +16,10 @@
 #include <unistd.h>
 #endif
 
-#include <string>
-#include <vector>
-
-#include "util.h"
 #include "netbase.h"
 #include "net.h"
 #include "ui_interface.h"
+#include "util.h"
 
 using namespace std;
 

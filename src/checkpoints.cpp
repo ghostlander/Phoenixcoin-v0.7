@@ -5,10 +5,10 @@
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <boost/foreach.hpp>
 
+#include "uint256.h"
 #include "checkpoints.h"
 
-#include "main.h"
-#include "uint256.h"
+extern bool fTestNet;
 
 namespace Checkpoints
 {

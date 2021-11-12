@@ -5,15 +5,6 @@
 
 #include <list>
 
-#include "init.h"
-#include "irc.h"
-#include "db.h"
-#include "net.h"
-#include "addrman.h"
-#include "ntp.h"
-#include "strlcpy.h"
-#include "ui_interface.h"
-
 #ifdef WINDOWS
 #include <string.h>
 #endif
@@ -25,12 +16,23 @@
 #include <miniupnpc/upnperrors.h>
 #endif
 
+#include "strlcpy.h"
+#include "init.h"
+#include "irc.h"
+#include "addrman.h"
+#include "ntp.h"
+#include "db.h"
+#include "ui_interface.h"
+#include "main.h"
+#include "net.h"
+
 using namespace std;
 using namespace boost;
 
 static const int MAX_OUTBOUND_CONNECTIONS = 32;
 
 extern uint nMsgSleep;
+extern CWallet *pwalletMain;
 
 void ThreadMessageHandler2(void* parg);
 void ThreadSocketHandler2(void* parg);
@@ -148,9 +150,9 @@ CAddress GetLocalAddress(const CNetAddr *paddrPeer)
     return ret;
 }
 
-bool RecvLine(SOCKET hSocket, string& strLine)
-{
+bool RecvLine(SOCKET hSocket, string &strLine) {
     strLine.clear();
+
     while(true) {
         char c;
         int nBytes = recv(hSocket, &c, 1, 0);
@@ -893,12 +895,13 @@ void ThreadSocketHandler2(void* parg)
                     CDataStream& vRecv = pnode->vRecv;
                     unsigned int nPos = vRecv.size();
 
-                    if (nPos > ReceiveBufferSize()) {
-                        if (!pnode->fDisconnect)
-                            printf("socket recv flood control disconnect (%" PRIszu" bytes)\n", vRecv.size());
+                    if(nPos > ReceiveBufferSize()) {
+                        if(!pnode->fDisconnect) {
+                            printf("socket recv flood control disconnect (%" PRIszu " bytes)\n",
+                              vRecv.size());
+                        }
                         pnode->CloseSocketDisconnect();
-                    }
-                    else {
+                    } else {
                         // typical socket buffer is 8K-64K
                         char pchBuf[0x10000];
                         int nBytes = recv(pnode->hSocket, pchBuf, sizeof(pchBuf), MSG_DONTWAIT);
@@ -1325,8 +1328,8 @@ void DumpAddresses()
     CAddrDB adb;
     adb.Write(addrman);
 
-    printf("Flushed %d addresses to peers.dat  %" PRI64d"ms\n",
-           addrman.size(), GetTimeMillis() - nStart);
+    printf("Flushed %d addresses to peers.dat  %" PRI64d "ms\n",
+      addrman.size(), GetTimeMillis() - nStart);
 }
 
 void ThreadDumpAddress2(void* parg)
@@ -1746,12 +1749,7 @@ void ThreadMessageHandler2(void* parg)
 }
 
 
-
-
-
-
-bool BindListenPort(const CService &addrBind, string& strError)
-{
+bool BindListenPort(const CService &addrBind, string &strError) {
     strError.clear();
     int nOne = 1;
 

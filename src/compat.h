@@ -17,7 +17,7 @@
 #undef _WIN32_WINNT
 #endif
 #define _WIN32_WINNT 0x0501
-#define WIN32_LEAN_AND_MEAN 1
+#define WIN32_LEAN_AND_MEAN
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif

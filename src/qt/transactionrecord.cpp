@@ -1,7 +1,9 @@
-#include "transactionrecord.h"
+#include <QList>
 
-#include "wallet.h"
 #include "base58.h"
+#include "wallet.h"
+
+#include "transactionrecord.h"
 
 /* Return positive answer if transaction should be shown in list.
  */
@@ -228,4 +230,3 @@ std::string TransactionRecord::getTxID()
 {
     return hash.ToString() + strprintf("-%03d", idx);
 }
-

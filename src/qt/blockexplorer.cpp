@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2020 John Doering <ghostlander@phoenixcoin.org>
+ * Copyright (c) 2016-2021 John Doering <ghostlander@phoenixcoin.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,15 +24,16 @@
  * SUCH DAMAGE.
  */
 
-#include "blockexplorer.h"
-#include "ui_blockexplorer.h"
-#include "clientmodel.h"
+#include <QByteArray>
+#include <QString>
+
 #include "base58.h"
 #include "uint256.h"
 #include "main.h"
 
-#include <QByteArray>
-#include <QString>
+#include "clientmodel.h"
+#include "blockexplorer.h"
+#include "ui_blockexplorer.h"
 
 double GetDifficulty(const CBlockIndex *pindex);
 

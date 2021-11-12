@@ -1,11 +1,11 @@
-#include "optionsmodel.h"
-#include "coinunits.h"
-#include "guiutil.h"
+#include <QSettings>
 
 #include "init.h"
-#include "walletdb.h"
+#include "wallet.h"
 
-#include <QSettings>
+#include "guiutil.h"
+#include "coinunits.h"
+#include "optionsmodel.h"
 
 int nQtStyle;
 

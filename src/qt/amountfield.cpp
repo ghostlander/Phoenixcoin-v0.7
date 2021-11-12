@@ -1,17 +1,14 @@
-#include "amountfield.h"
-#include "qvaluecombobox.h"
-#include "coinunits.h"
-#include "guiconstants.h"
-
-#include <QLabel>
-#include <QLineEdit>
-#include <QRegExpValidator>
+#include <QApplication>
 #include <QHBoxLayout>
 #include <QKeyEvent>
 #include <QDoubleSpinBox>
-#include <QComboBox>
-#include <QApplication>
+
 #include <qmath.h>
+
+#include "qvaluecombobox.h"
+#include "coinunits.h"
+#include "guiconstants.h"
+#include "amountfield.h"
 
 AmountField::AmountField(QWidget *parent):
     QWidget(parent),

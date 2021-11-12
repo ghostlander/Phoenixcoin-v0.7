@@ -16,18 +16,18 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
-#include "util.h"
 #include "init.h"
 #include "alert.h"
-#include "db.h"
 #include "checkpoints.h"
-#include "ui_interface.h"
+#include "db.h"
+#include "wallet.h"
+#include "util.h"
 #include "main.h"
 
 using namespace std;
 using namespace boost;
 
-
+extern CWallet *pwalletMain;
 
 //
 // Global state
@@ -200,20 +200,21 @@ bool AddOrphanTx(const CDataStream& vMsg)
     // have been mined or received.
     // 10,000 orphans, each of which is at most 5,000 bytes big is
     // at most 500 megabytes of orphans:
-    if (pvMsg->size() > 5000)
-    {
-        printf("ignoring large orphan tx (size: %" PRIszu", hash: %s)\n", pvMsg->size(), hash.ToString().substr(0,10).c_str());
-        delete pvMsg;
-        return false;
+    if(pvMsg->size() > 5000) {
+        printf("ignoring large orphan tx (size: %" PRIszu ", hash: %s)\n", pvMsg->size(),
+          hash.ToString().substr(0,10).c_str());
+        delete(pvMsg);
+        return(false);
     }
 
     mapOrphanTransactions[hash] = pvMsg;
     BOOST_FOREACH(const CTxIn& txin, tx.vin)
         mapOrphanTransactionsByPrev[txin.prevout.hash].insert(make_pair(hash, pvMsg));
 
-    printf("stored orphan tx %s (mapsz %" PRIszu")\n", hash.ToString().substr(0,10).c_str(),
-        mapOrphanTransactions.size());
-    return true;
+    printf("stored orphan tx %s (mapsz %" PRIszu ")\n", hash.ToString().substr(0,10).c_str(),
+      mapOrphanTransactions.size());
+
+    return(true);
 }
 
 static void EraseOrphanTx(uint256 hash)
@@ -620,9 +621,10 @@ bool CTxMemPool::accept(CTxDB& txdb, CTransaction &tx, bool fCheckInputs,
 
         // Don't accept it if it can't get into a block
         int64 txMinFee = tx.GetMinFee(nSize, true, GMF_RELAY);
-        if(nFees < txMinFee)
-          return(error("CTxMemPool::accept() : not enough fees for tx %s, %" PRI64d " < %" PRI64d,
-            hash.ToString().c_str(), nFees, txMinFee));
+        if(nFees < txMinFee) {
+            return(error("CTxMemPool::accept() : not enough fees for tx %s, " \
+              "%" PRI64d " < %" PRI64d "", hash.ToString().c_str(), nFees, txMinFee));
+        }
 
         // Continuously rate-limit free transactions
         // This mitigates 'penny-flooding' -- sending thousands of free transactions just to
@@ -673,10 +675,10 @@ bool CTxMemPool::accept(CTxDB& txdb, CTransaction &tx, bool fCheckInputs,
     if (ptxOld)
         EraseFromWallets(ptxOld->GetHash());
 
-    printf("CTxMemPool::accept() : accepted %s (poolsz %" PRIszu")\n",
-           hash.ToString().substr(0,10).c_str(),
-           mapTx.size());
-    return true;
+    printf("CTxMemPool::accept() : accepted %s (poolsz %" PRIszu ")\n",
+      hash.ToString().substr(0,10).c_str(), mapTx.size());
+
+    return(true);
 }
 
 bool CTransaction::AcceptToMemoryPool(CTxDB& txdb, bool fCheckInputs, bool* pfMissingInputs)
@@ -1336,7 +1338,11 @@ bool CTransaction::FetchInputs(CTxDB& txdb, const map<uint256, CTxIndex>& mapTes
             // Revisit this if/when transaction replacement is implemented and allows
             // adding inputs:
             fInvalid = true;
-            return DoS(100, error("FetchInputs() : %s prevout.n out of range %d %" PRIszu" %" PRIszu" prev tx %s\n%s", GetHash().ToString().substr(0,10).c_str(), prevout.n, txPrev.vout.size(), txindex.vSpent.size(), prevout.hash.ToString().substr(0,10).c_str(), txPrev.ToString().c_str()));
+            return(DoS(100, error("FetchInputs() : %s prevout.n out of range %d " \
+              "%" PRIszu " %" PRIszu " prev tx %s\n%s",
+              GetHash().ToString().substr(0,10).c_str(), prevout.n, txPrev.vout.size(),
+              txindex.vSpent.size(), prevout.hash.ToString().substr(0,10).c_str(),
+              txPrev.ToString().c_str())));
         }
     }
 
@@ -1404,8 +1410,14 @@ bool CTransaction::ConnectInputs(MapPrevTx inputs,
             CTxIndex& txindex = inputs[prevout.hash].first;
             CTransaction& txPrev = inputs[prevout.hash].second;
 
-            if (prevout.n >= txPrev.vout.size() || prevout.n >= txindex.vSpent.size())
-                return DoS(100, error("ConnectInputs() : %s prevout.n out of range %d %" PRIszu" %" PRIszu" prev tx %s\n%s", GetHash().ToString().substr(0,10).c_str(), prevout.n, txPrev.vout.size(), txindex.vSpent.size(), prevout.hash.ToString().substr(0,10).c_str(), txPrev.ToString().c_str()));
+            if((prevout.n >= txPrev.vout.size()) || (prevout.n >= txindex.vSpent.size())) {
+                return(DoS(100,
+                  error("ConnectInputs() : %s prevout.n out of range %d " \
+                  "%" PRIszu " %" PRIszu " prev tx %s\n%s",
+                  GetHash().ToString().substr(0,10).c_str(), prevout.n, txPrev.vout.size(),
+                  txindex.vSpent.size(), prevout.hash.ToString().substr(0,10).c_str(),
+                  txPrev.ToString().c_str())));
+            }
 
             // If prev is coinbase, check that it's matured
             if (txPrev.IsCoinBase())
@@ -1634,7 +1646,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     }
 
     if(vtx[0].GetValueOut() > GetProofOfWorkReward(pindex->nHeight, nFees)) {
-        return(error("ConnectBlock() : coin base pays too much (actual=%" PRI64d" vs limit=%" PRI64d")",
+        return(error("ConnectBlock() : coin base pays too much (actual=%" PRI64d " vs limit=%" PRI64d ")",
           vtx[0].GetValueOut(), GetProofOfWorkReward(pindex->nHeight, nFees)));
     }
 
@@ -1694,8 +1706,12 @@ bool static Reorganize(CTxDB& txdb, CBlockIndex* pindexNew)
         vConnect.push_back(pindex);
     reverse(vConnect.begin(), vConnect.end());
 
-    printf("REORGANIZE: Disconnect %" PRIszu" blocks; %s..%s\n", vDisconnect.size(), pfork->GetBlockHash().ToString().substr(0,20).c_str(), pindexBest->GetBlockHash().ToString().substr(0,20).c_str());
-    printf("REORGANIZE: Connect %" PRIszu" blocks; %s..%s\n", vConnect.size(), pfork->GetBlockHash().ToString().substr(0,20).c_str(), pindexNew->GetBlockHash().ToString().substr(0,20).c_str());
+    printf("REORGANIZE: Disconnect %" PRIszu " blocks; %s..%s\n",
+      vDisconnect.size(), pfork->GetBlockHash().ToString().substr(0,20).c_str(),
+      pindexBest->GetBlockHash().ToString().substr(0,20).c_str());
+    printf("REORGANIZE: Connect %" PRIszu " blocks; %s..%s\n",
+      vConnect.size(), pfork->GetBlockHash().ToString().substr(0,20).c_str(),
+      pindexNew->GetBlockHash().ToString().substr(0,20).c_str());
 
     // Disconnect shorter branch
     vector<CTransaction> vResurrect;
@@ -1822,8 +1838,8 @@ bool CBlock::SetBestChain(CTxDB& txdb, CBlockIndex* pindexNew)
             pindexIntermediate = pindexIntermediate->pprev;
         }
 
-        if (!vpindexSecondary.empty())
-            printf("Postponing %" PRIszu" reconnects\n", vpindexSecondary.size());
+        if(!vpindexSecondary.empty())
+          printf("Postponing %" PRIszu " reconnects\n", vpindexSecondary.size());
 
         // Switch to new best branch
         if (!Reorganize(txdb, pindexIntermediate))
@@ -2469,7 +2485,7 @@ void PrintBlockTree()
         // print item
         CBlock block;
         block.ReadFromDisk(pindex);
-        printf("%d (%u,%u) %s  %s  tx %" PRIszu"",
+        printf("%d (%u,%u) %s  %s  tx %" PRIszu "",
           pindex->nHeight, pindex->nFile, pindex->nBlockPos,
           block.GetHash().ToString().substr(0,20).c_str(),
           DateTimeStrFormat(block.GetBlockTime()).c_str(),
@@ -2550,8 +2566,10 @@ bool LoadExternalBlockFile(FILE* fileIn)
                    __PRETTY_FUNCTION__);
         }
     }
-    printf("Loaded %i blocks from external file in %" PRI64d"ms\n", nLoaded, GetTimeMillis() - nStart);
-    return nLoaded > 0;
+    printf("Loaded %i blocks from external file in %" PRI64d "ms\n",
+      nLoaded, GetTimeMillis() - nStart);
+
+    return(nLoaded > 0);
 }
 
 
@@ -2658,8 +2676,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 {
     static map<CService, CPubKey> mapReuseKey;
     RandAddSeedPerfmon();
-    if (fDebug)
-        printf("received: %s (%" PRIszu" bytes)\n", strCommand.c_str(), vRecv.size());
+
+    if(fDebug)
+      printf("received: %s (%" PRIszu " bytes)\n", strCommand.c_str(), vRecv.size());
+
     if (mapArgs.count("-dropmessagestest") && GetRand(atoi(mapArgs["-dropmessagestest"])) == 0)
     {
         printf("dropmessagestest DROPPING RECV MESSAGE\n");
@@ -2850,10 +2870,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     {
         vector<CInv> vInv;
         vRecv >> vInv;
-        if (vInv.size() > MAX_INV_SZ)
-        {
+        if(vInv.size() > MAX_INV_SZ) {
             pfrom->Misbehaving(20);
-            return error("message inv size() = %" PRIszu"", vInv.size());
+            return(error("message inv size() = %" PRIszu "", vInv.size()));
         }
 
         // find last block in inv vector
@@ -2900,14 +2919,13 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     {
         vector<CInv> vInv;
         vRecv >> vInv;
-        if (vInv.size() > MAX_INV_SZ)
-        {
+        if(vInv.size() > MAX_INV_SZ) {
             pfrom->Misbehaving(20);
-            return error("message getdata size() = %" PRIszu"", vInv.size());
+            return(error("message getdata size() = %" PRIszu "", vInv.size()));
         }
 
-        if (fDebugNet || (vInv.size() != 1))
-            printf("received getdata (%" PRIszu" invsz)\n", vInv.size());
+        if(fDebugNet || (vInv.size() != 1))
+          printf("received getdata (%" PRIszu " invsz)\n", vInv.size());
 
         BOOST_FOREACH(const CInv& inv, vInv)
         {
@@ -3853,7 +3871,7 @@ CBlock *CreateNewBlock(CReserveKey &reservekey) {
 
         nLastBlockTx = nBlockTx;
         nLastBlockSize = nBlockSize;
-        printf("CreateNewBlock(): total size %" PRI64u"\n", nBlockSize);
+        printf("CreateNewBlock(): total size %" PRI64u "\n", nBlockSize);
 
     pblock->vtx[0].vout[0].nValue = GetProofOfWorkReward(pindexPrev->nHeight + 1, nFees);
 

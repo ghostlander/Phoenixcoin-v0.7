@@ -4,9 +4,9 @@
 
 #include <algorithm>
 
-#include "util.h"
 #include "netbase.h"
 #include "protocol.h"
+#include "util.h"
 #include "addrman.h"
 
 using namespace std;

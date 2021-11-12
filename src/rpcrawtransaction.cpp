@@ -3,28 +3,27 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <boost/assign/list_of.hpp>
-
 #include <map>
 #include <string>
 #include <vector>
 #include <set>
 
-#include "init.h"
-#include "main.h"
+#include <boost/assign/list_of.hpp>
+
 #include "base58.h"
 #include "db.h"
 #include "wallet.h"
-#include "net.h"
 #include "rpcmain.h"
+#include "main.h"
+
+extern CWallet *pwalletMain;
 
 using namespace std;
 using namespace boost;
 using namespace boost::assign;
 using namespace json_spirit;
 
-void ScriptPubKeyToJSON(const CScript& scriptPubKey, Object& out)
-{
+void ScriptPubKeyToJSON(const CScript &scriptPubKey, Object &out) {
     txnouttype type;
     vector<CTxDestination> addresses;
     int nRequired;
@@ -109,6 +108,7 @@ Value getrawtransaction(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() < 1) || (params.size() > 2)) {
         string msg = "getrawtransaction <txid> [verbose]\n"
+          "Retrieves data of transaction <txid> from the block chain.\n"
           "If [verbose] is zero, returns a string containing serialised hex data for <txid>.\n"
           "If [verbose] is non-zero, returns an object with information about <txid>.";
         throw(runtime_error(msg));
@@ -144,10 +144,10 @@ Value listunspent(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() > 3)) {
         string msg = "listunspent [minconf=1] [maxconf=9999999]  [\"address\",...]\n"
-          "Returns array of unspent transaction outputs\n"
-          "with between minconf and maxconf (inclusive) confirmations.\n"
+          "Reports unspent transaction outputs\n"
+          "with minconf to maxconf (inclusive) confirmations.\n"
           "Optionally filtered to only include txouts paid to specified addresses.\n"
-          "Results are an array of Objects, each of which has:\n"
+          "Results are an array of objects, each of which has:\n"
           "{txid, vout, scriptPubKey, amount, confirmations}";
         throw(runtime_error(msg));
     }
@@ -211,16 +211,41 @@ Value listunspent(const Array &params, bool fHelp) {
 }
 
 
+Value decodescript(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "decodescript <data>\n"
+          "Decodes hex encoded script <data>.";
+        throw(runtime_error(msg));
+    }
+
+    RPCTypeCheck(params, list_of(str_type));
+
+    Object r;
+    CScript script;
+    if (params[0].get_str().size() > 0){
+        vector<unsigned char> scriptData(ParseHexV(params[0], "argument"));
+        script = CScript(scriptData.begin(), scriptData.end());
+    } else {
+        /* Empty scripts are valid */
+    }
+    ScriptPubKeyToJSON(script, r);
+
+    r.push_back(Pair("p2sh", CCoinAddress(script.GetID()).ToString()));
+    return(r);
+}
+
+
 Value createrawtransaction(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() != 2)) {
         string msg = "createrawtransaction [{\"txid\":txid,\"vout\":n},...] {address:amount,...}\n"
           "Creates a transaction spending inputs formatted in an array of\n"
           "objects each comprising of a transaction ID and output index,\n"
-          "to given addresses in amounts specified.\n"
+          "to addresses provided in amounts specified.\n"
           "Returns a serialised hex encoded raw transaction.\n"
-          "Note that the transaction's inputs are not signed, and\n"
-          "it is not stored in the wallet or transmitted to the network.";
+          "The transaction inputs are not signed and not stored\n"
+          "in the wallet or transmitted to the network.";
         throw(runtime_error(msg));
     }
 
@@ -284,9 +309,9 @@ Value createrawtransaction(const Array &params, bool fHelp) {
 Value decoderawtransaction(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() != 1)) {
-        string msg = "decoderawtransaction <string>\n"
-          "Decodes a hex string of raw transaction data and\n"
-          "returns a JSON object of formatted data of this transaction.";
+        string msg = "decoderawtransaction <data>\n"
+          "Decodes raw hexadecimal transaction <data> provided and\n"
+          "returns an object with formatted transaction data.";
         throw(runtime_error(msg));
     }
 
@@ -312,8 +337,8 @@ Value decoderawtransaction(const Array &params, bool fHelp) {
 Value signrawtransaction(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() < 1) || (params.size() > 4)) {
-        string msg = "signrawtransaction <string> [{\"txid\":txid,\"vout\":n,\"scriptPubKey\":hex},...] [<privatekey1>,...] [sighashtype=\"ALL\"]\n"
-          "Signs inputs of a serialised hex encoded raw transaction in the <string>.\n"
+        string msg = "signrawtransaction <data> [{\"txid\":txid,\"vout\":n,\"scriptPubKey\":hex},...] [<privatekey1>,...] [sighashtype=\"ALL\"]\n"
+          "Signs inputs of a raw transaction provided as hexadecimal <data>.\n"
           "The second argument is an optional array of previous transaction outputs that\n"
           "this transaction depends on, which may not yet be in the block chain.\n"
           "The third argument is an optional array of base58 encoded private\n"
@@ -503,8 +528,9 @@ Value signrawtransaction(const Array &params, bool fHelp) {
 Value sendrawtransaction(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() < 1) || (params.size() > 1)) {
-        string msg = "sendrawtransaction <string>\n"
-          "Submits a serialised hex encoded raw transaction to the local node and network";
+        string msg = "sendrawtransaction <data>\n"
+          "Submits a serialised raw transaction provided as hexadecimal <data>\n"
+          "to the local node and network.";
         throw(runtime_error(msg));
     }
 

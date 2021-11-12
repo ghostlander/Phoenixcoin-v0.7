@@ -2,12 +2,11 @@
 #define WALLETMODEL_H
 
 #include <QObject>
+
 #include <vector>
 #include <map>
 
 #include "allocators.h" /* for SecureString */
-#include "wallet.h"
-#include "walletmodeltransaction.h"
 
 class OptionsModel;
 class AddressTableModel;

@@ -1,5 +1,7 @@
-#include "optionsdialog.h"
-#include "ui_optionsdialog.h"
+#include <QDir>
+#include <QIntValidator>
+#include <QLocale>
+#include <QMessageBox>
 
 #include "compat.h"
 #include "netbase.h"
@@ -8,13 +10,8 @@
 #include "walletstyles.h"
 #include "monitoreddatamapper.h"
 #include "optionsmodel.h"
-
-#include <QDir>
-#include <QIntValidator>
-#include <QLocale>
-#include <QMessageBox>
-#include <QRegExp>
-#include <QRegExpValidator>
+#include "optionsdialog.h"
+#include "ui_optionsdialog.h"
 
 OptionsDialog::OptionsDialog(QWidget *parent) :
     QDialog(parent),

@@ -3,16 +3,15 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "util.h"
-#include "netbase.h"
-#include "protocol.h"
-
 #ifndef WINDOWS
-# include <arpa/inet.h>
+#include <arpa/inet.h>
 #endif
 
-static const char* ppszTypeName[] =
-{
+#include "netbase.h"
+#include "util.h"
+#include "protocol.h"
+
+static const char *ppszTypeName[] = {
     "ERROR",
     "tx",
     "block",

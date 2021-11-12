@@ -1,9 +1,8 @@
-#include "transactiondescdialog.h"
-#include "ui_transactiondescdialog.h"
+#include <QModelIndex>
 
 #include "transactiontablemodel.h"
-
-#include <QModelIndex>
+#include "transactiondescdialog.h"
+#include "ui_transactiondescdialog.h"
 
 TransactionDescDialog::TransactionDescDialog(const QModelIndex &idx, QWidget *parent) :
     QDialog(parent),

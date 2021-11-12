@@ -13,7 +13,8 @@
 #include <stdexcept>
 #include <vector>
 
-#include "util.h"
+#include "uint256.h"
+#include "serialize.h"
 
 /** Errors thrown by the bignum class */
 class bignum_error : public std::runtime_error {

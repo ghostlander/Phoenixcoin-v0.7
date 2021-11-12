@@ -10,9 +10,10 @@
 #include <vector>
 #include <set>
 
-#include "uint256.h"
-#include "util.h"
+#include "datatypes.h"
+#include "serialize.h"
 
+class uint256;
 class CNode;
 
 /** Alerts are for notifying old versions if they become too obsolete and

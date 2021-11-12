@@ -1,28 +1,33 @@
 /*
  * W.J. van der Laan 2011-2012
  */
-#include "gui.h"
-#include "clientmodel.h"
-#include "walletmodel.h"
-#include "optionsmodel.h"
-#include "guiutil.h"
-#include "guiconstants.h"
-
-#include "init.h"
-#include "ui_interface.h"
-#include "qtipcserver.h"
 
 #include <QApplication>
 #include <QMessageBox>
-#if (QT_VERSION < 0x050000)
-#include <QTextCodec>
-#endif
 #include <QLocale>
 #include <QTranslator>
 #include <QSplashScreen>
 #include <QLibraryInfo>
-#if defined(PHOENIXCOIN_NEED_QT_PLUGINS) && !defined(_PHOENIXCOIN_QT_PLUGINS_INCLUDED)
-#define _PHOENIXCOIN_QT_PLUGINS_INCLUDED
+
+#if (QT_VERSION < 0x050000)
+#include <QTextCodec>
+#endif
+
+#include "init.h"
+#include "ui_interface.h"
+#include "util.h"
+#include "main.h"
+
+#include "gui.h"
+#include "guiutil.h"
+#include "guiconstants.h"
+#include "qtipcserver.h"
+#include "clientmodel.h"
+#include "walletmodel.h"
+#include "optionsmodel.h"
+
+#if defined(NEED_QT_PLUGINS) && !defined(_QT_PLUGINS_INCLUDED)
+#define _QT_PLUGINS_INCLUDED
 #define __INSURE__
 #include <QtPlugin>
 Q_IMPORT_PLUGIN(qcncodecs)
@@ -31,6 +36,8 @@ Q_IMPORT_PLUGIN(qtwcodecs)
 Q_IMPORT_PLUGIN(qkrcodecs)
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 #endif
+
+extern CWallet *pwalletMain;
 
 // Need a global reference for the notifications to find the GUI
 static GUI *guiref;

@@ -1,24 +1,22 @@
-#include "rpcconsole.h"
-#include "ui_rpcconsole.h"
-
-#include "clientmodel.h"
-#include "guiutil.h"
-
-#include "datatypes.h"
-#include "rpcmain.h"
-
 #include <QTime>
-#include <QTimer>
 #include <QThread>
-#include <QTextEdit>
 #include <QKeyEvent>
+#include <QScrollBar>
 
 #if (QT_VERSION < 0x050000)
 #include <QUrl>
 #endif
-#include <QScrollBar>
 
 #include <openssl/crypto.h>
+
+#ifndef Q_MOC_RUN
+#include "rpcmain.h"
+#endif
+
+#include "clientmodel.h"
+#include "guiutil.h"
+#include "rpcconsole.h"
+#include "ui_rpcconsole.h"
 
 // TODO: make it possible to filter out categories (esp debug messages when implemented)
 // TODO: receive errors and debug messages through ClientModel
@@ -164,12 +162,15 @@ void RPCExecutor::request(const QString &command)
             RPCConvertValues(args[0], std::vector<std::string>(args.begin() + 1, args.end())));
 
         // Format result reply
-        if (result.type() == json_spirit::null_type)
+        if(result.type() == json_spirit::null_type) {
             strPrint.clear();
-        else if (result.type() == json_spirit::str_type)
-            strPrint = result.get_str();
-        else
-            strPrint = write_string(result, true);
+        } else {
+            if(result.type() == json_spirit::str_type) {
+                strPrint = result.get_str();
+            } else {
+                strPrint = write_string(result, true);
+            }
+        }
 
         emit reply(RPCConsole::CMD_REPLY, QString::fromStdString(strPrint));
     }

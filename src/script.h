@@ -11,8 +11,9 @@
 
 #include <boost/foreach.hpp>
 
-#include "keystore.h"
 #include "bignum.h"
+#include "keystore.h"
+#include "util.h"
 
 class CTransaction;
 

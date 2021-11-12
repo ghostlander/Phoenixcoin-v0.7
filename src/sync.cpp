@@ -7,10 +7,10 @@
 #include <string>
 #include <vector>
 
-#include "util.h"
-#include "sync.h"
-
 #include <boost/foreach.hpp>
+
+#include "sync.h"
+#include "util.h"
 
 #ifdef DEBUG_LOCKCONTENTION
 void PrintLockContention(const char* pszName, const char* pszFile, int nLine)

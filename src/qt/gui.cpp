@@ -5,46 +5,17 @@
  * The Bitcoin Developers 2011-2012
  */
 
-#include "gui.h"
-#include "transactiontablemodel.h"
-#include "addressbookpage.h"
-#include "sendcoinsdialog.h"
-#include "signverifymessagedialog.h"
-#include "optionsdialog.h"
-#include "aboutdialog.h"
-#include "clientmodel.h"
-#include "walletmodel.h"
-#include "editaddressdialog.h"
-#include "optionsmodel.h"
-#include "transactiondescdialog.h"
-#include "addresstablemodel.h"
-#include "transactionview.h"
-#include "overviewpage.h"
-#include "coinunits.h"
-#include "guiconstants.h"
-#include "askpassphrasedialog.h"
-#include "notificator.h"
-#include "guiutil.h"
-#include "rpcconsole.h"
-#include "blockexplorer.h"
-
-#ifdef Q_OS_MAC
-#include "macdockiconhandler.h"
-#endif
+#include <iostream>
 
 #include <QApplication>
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QMenu>
 #include <QIcon>
-#include <QTabWidget>
 #include <QVBoxLayout>
 #include <QToolBar>
 #include <QStatusBar>
 #include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QLocale>
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QStackedWidget>
@@ -52,8 +23,6 @@
 #include <QFileDialog>
 #include <QTimer>
 #include <QDragEnterEvent>
-#include <QMimeData>
-#include <QStyle>
 
 #if (QT_VERSION < 0x050000)
 #include <QUrl>
@@ -63,7 +32,34 @@
 #include <QStandardPaths>
 #endif
 
-#include <iostream>
+#include "util.h"
+
+#include "coinunits.h"
+#include "overviewpage.h"
+#include "notificator.h"
+#include "rpcconsole.h"
+#include "blockexplorer.h"
+#include "addressbookpage.h"
+#include "transactionview.h"
+#include "aboutdialog.h"
+#include "optionsdialog.h"
+#include "sendcoinsdialog.h"
+#include "editaddressdialog.h"
+#include "askpassphrasedialog.h"
+#include "transactiondescdialog.h"
+#include "signverifymessagedialog.h"
+#include "optionsmodel.h"
+#include "clientmodel.h"
+#include "walletmodel.h"
+#include "addresstablemodel.h"
+#include "transactiontablemodel.h"
+#include "guiconstants.h"
+#include "guiutil.h"
+#include "gui.h"
+
+#ifdef Q_OS_MAC
+#include "macdockiconhandler.h"
+#endif
 
 GUI::GUI(QWidget *parent):
     QMainWindow(parent),

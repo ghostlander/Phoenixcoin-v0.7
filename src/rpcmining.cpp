@@ -8,19 +8,21 @@
 #include <string>
 #include <vector>
 
-#include "init.h"
-#include "db.h"
-#include "main.h"
+#include "wallet.h"
 #include "rpcmain.h"
+#include "main.h"
 
 using namespace json_spirit;
 using namespace std;
+
+extern CWallet *pwalletMain;
+
 
 Value getgenerate(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() != 0)) {
         string msg = "getgenerate\n"
-          "Returns execution state of the internal proof-of-work miner";
+          "Displays execution state of the internal proof-of-work miner.";
         throw(runtime_error(msg));
     }
 
@@ -32,7 +34,7 @@ Value setgenerate(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() < 1) || (params.size() > 2)) {
         string msg = "setgenerate <state> [genproclimit]\n"
-          "Sets execution state of the internal proof-of-work miner.\n"
+          "Sets execution <state> of the internal proof-of-work miner.\n"
           "<state> is true or false to set mining on or off respectively.\n"
           "[genproclimit] defines the maximum number of mining threads, -1 is unlimited.";
         throw(runtime_error(msg));
@@ -60,7 +62,7 @@ Value gethashespersec(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() != 0)) {
         string msg = "gethashespersec\n"
-          "Returns hash rate of the internal proof-of-work miner";
+          "Displays hash rate of the internal proof-of-work miner.";
         throw(runtime_error(msg));
     }
 
@@ -70,11 +72,42 @@ Value gethashespersec(const Array &params, bool fHelp) {
 }
 
 
+Value getnetworkhashps(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 1)) {
+        string msg = "getnetworkhashps [blocks]\n"
+          "Estimates network hashes per second based on the last 30 proof-of-work blocks.\n"
+          "Pass in [blocks] to override the default value.";
+        throw(runtime_error(msg));
+    }
+
+    int nRange = params.size() > 0 ? params[0].get_int() : 30;
+
+    /* The genesis block only */
+    if(!pindexBest) return(0);
+    if(!pindexBest->pprev) return(0);
+
+    /* Range limit */
+    if(nRange <= 0) nRange = 30;
+
+    // If look-up is larger than block chain, then set it to the maximum allowed
+    if(nRange > pindexBest->nHeight) nRange = pindexBest->nHeight;
+
+    CBlockIndex *pindexPrev = pindexBest;
+    for(int i = 0; i < nRange; i++) pindexPrev = pindexPrev->pprev;
+
+    double timeDiff = pindexBest->GetBlockTime() - pindexPrev->GetBlockTime();
+    double timePerBlock = timeDiff / nRange;
+
+    return((int64_t)(((double)GetDifficulty() * pow(2.0, 32)) / timePerBlock));
+}
+
+
 Value getmininginfo(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() != 0)) {
        string msg = "getmininginfo\n"
-         "Returns information related to mining";
+         "Displays mining related information.";
         throw(runtime_error(msg));
     }
 
@@ -188,10 +221,10 @@ Value getwork(const Array &params, bool fHelp) {
 
 #if 0
         /* Dump block data sent */
-        uint i;
+        uint t;
         printf("Block data 80 bytes Tx: ");
-        for(i = 0; i < 80; i++)
-          printf("%02X", ((uchar *) &pdata[0])[i]);
+        for(t = 0; t < 80; t++)
+          printf("%02X", ((uchar *) &pdata[0])[t]);
         printf("\n");
 #endif
 
@@ -210,11 +243,11 @@ Value getwork(const Array &params, bool fHelp) {
 
 #if 0
         /* Dump block data received */
-        uint i, size;
+        uint r, size;
         size = (uint)vchData.size();
         printf("Block data %u bytes Rx: ", size);
-        for(i = 0; i < size; i++)
-          printf("%02X", ((uchar *) &vchData[0])[i]);
+        for(r = 0; r < size; r++)
+          printf("%02X", ((uchar *) &vchData[0])[r]);
         printf("\n");
 #endif
 
@@ -229,14 +262,14 @@ Value getwork(const Array &params, bool fHelp) {
         /* Pick up the block contents saved previously */
         if(!mapNewBlock.count(pdata->hashMerkleRoot))
           return(false);
-        CBlock* pblock = mapNewBlock[pdata->hashMerkleRoot].first;
+        CBlock *pblock = mapNewBlock[pdata->hashMerkleRoot].first;
 
         /* Replace with the data received */
         pblock->nTime = pdata->nTime;
         pblock->nNonce = pdata->nNonce;
         pblock->vtx[0].vin[0].scriptSig = mapNewBlock[pdata->hashMerkleRoot].second;
 
-        /* Re-build the merkle root */
+        /* Rebuild the merkle root */
         pblock->hashMerkleRoot = pblock->BuildMerkleTree();
 
         /* Verify the resulting hash against target */
@@ -249,7 +282,7 @@ Value getblocktemplate(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() > 1)) {
         string msg = "getblocktemplate [params]\n"
-          "Returns data required to construct a block to work on:\n"
+          "Retrieves data required to construct a block to work on:\n"
           "  \"version\" : block version\n"
           "  \"previousblockhash\" : hash of the current best block\n"
           "  \"transactions\" : contents of transactions to be included in the next block\n"
@@ -337,8 +370,7 @@ Value getblocktemplate(const Array &params, bool fHelp) {
         uint256 txHash = tx.GetHash();
         setTxIndex[txHash] = i++;
 
-        if (tx.IsCoinBase())
-            continue;
+        if(tx.IsCoinBase()) continue;
 
         Object entry;
 
@@ -391,7 +423,7 @@ Value getblocktemplate(const Array &params, bool fHelp) {
     result.push_back(Pair("coinbaseaux", aux));
     result.push_back(Pair("coinbasevalue", (int64_t)pblock->vtx[0].vout[0].nValue));
     result.push_back(Pair("target", hashTarget.GetHex()));
-    result.push_back(Pair("mintime", (int64_t)pindexPrev->GetMedianTimePast()+1));
+    result.push_back(Pair("mintime", (int64_t)(pindexPrev->GetMedianTimePast() + BLOCK_LIMITER_TIME + 1)));
     result.push_back(Pair("mutable", aMutable));
     result.push_back(Pair("noncerange", "00000000ffffffff"));
     result.push_back(Pair("sigoplimit", (int64_t)MAX_BLOCK_SIGOPS));
@@ -408,8 +440,8 @@ Value submitblock(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() < 1) || (params.size() > 2)) {
         string msg = "submitblock <data> [workid]\n"
-          "Attempts to submit a new block to the network.\n"
-          "[workid] parameter is optional and ignored.\n";
+          "Attempts to submit hexadecimal <data> of a new block to the network.\n"
+          "[workid] parameter is optional and ignored.";
         throw(runtime_error(msg));
     }
 
@@ -426,11 +458,11 @@ Value submitblock(const Array &params, bool fHelp) {
     if(!ProcessBlock(NULL, &block)) {
 #if 0
         /* Dump block data received */
-        uint i, size;
+        uint r, size;
         size = (uint)blockData.size();
         printf("Block data %u bytes Rx: ", size);
-        for(i = 0; i < size; i++)
-          printf("%02X", ((uchar *) &blockData[0])[i]);
+        for(r = 0; r < size; r++)
+          printf("%02X", ((uchar *) &blockData[0])[r]);
         printf("\n");
 #endif
         return("rejected");

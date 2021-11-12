@@ -6,11 +6,12 @@
 #ifndef UINT256_H
 #define UINT256_H
 
+#include <string>
+#include <vector>
+
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
-#include <string>
-#include <vector>
 
 #include "datatypes.h"
 
