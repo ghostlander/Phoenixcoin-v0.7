@@ -665,9 +665,9 @@ inline const CBigNum operator+(const CBigNum &a, const CBigNum &b) {
 inline const CBigNum operator-(const CBigNum &a, const CBigNum &b) {
     CBigNum r;
 #if (OPENSSL_VERSION_NUMBER < 0x10100000L)
-    if(!BN_add(&r, &a, &b))
+    if(!BN_sub(&r, &a, &b))
 #else
-    if(!BN_add(r.get(), a.cget(), b.cget()))
+    if(!BN_sub(r.get(), a.cget(), b.cget()))
 #endif
       throw(bignum_error("CBigNum::operator- : BN_sub() failed"));
     return(r);
