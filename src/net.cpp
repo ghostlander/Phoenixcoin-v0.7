@@ -62,6 +62,7 @@ static map<CNetAddr, LocalServiceInfo> mapLocalHost;
 static bool vfReachable[NET_MAX] = {};
 static bool vfLimited[NET_MAX] = {};
 static CNode* pnodeLocalHost = NULL;
+CAddress addrSeenByPeer(CService("0.0.0.0", 0), nLocalServices);
 uint64 nLocalHostNonce = 0;
 boost::array<int, THREAD_MAX> vnThreadsRunning;
 static std::vector<SOCKET> vhListenSocket;
@@ -312,126 +313,162 @@ bool IsReachable(const CNetAddr& addr)
     return vfReachable[net] && !vfLimited[net];
 }
 
-bool GetMyExternalIP2(const CService& addrConnect, const char* pszGet, const char* pszKeyword, CNetAddr& ipRet)
-{
+
+bool GetMyExternalIP2(const CService &addrConnect, const char *pszGet,
+  CService &addrRet) {
     SOCKET hSocket;
-    if (!ConnectSocket(addrConnect, hSocket))
-        return error("GetMyExternalIP() : connection to %s failed", addrConnect.ToString().c_str());
+    bool fChunked = false;
+
+    if(!ConnectSocket(addrConnect, hSocket)) {
+        printf("GetMyExternalIP() : connection to %s failed",
+          addrConnect.ToString().c_str());
+        return(false);
+    }
 
     send(hSocket, pszGet, strlen(pszGet), MSG_NOSIGNAL);
 
+    /* Every line of HTTP datagram is \r\n terminated.
+     * Starts with headers followed by an empty line separator,
+     * then by payload with the last line double terminated \r\n\r\n */
+
     string strLine;
-    while (RecvLine(hSocket, strLine))
-    {
-        if (strLine.empty()) // HTTP response is separated from headers by blank line
-        {
-            while(true) {
-                if (!RecvLine(hSocket, strLine))
-                {
-                    closesocket(hSocket);
-                    return false;
-                }
-                if (pszKeyword == NULL)
-                    break;
-                if (strLine.find(pszKeyword) != string::npos)
-                {
-                    strLine = strLine.substr(strLine.find(pszKeyword) + strlen(pszKeyword));
-                    break;
-                }
-            }
+
+    /* Parse the header */
+    while(RecvLine(hSocket, strLine)) {
+
+        /* "Transfer-Encoding: chunked" header suggests the line after
+         * the separator is chunk size with payload in the following line */
+        if(strLine.find("chunked") != string::npos) fChunked = true;
+
+        /* The separator */
+        if(strLine.empty()) break;
+
+    }
+
+    /* The line after the separator */
+    if(!RecvLine(hSocket, strLine)) {
+        closesocket(hSocket);
+        return(false);
+    }
+
+    if(fChunked) {
+        /* One more line */
+        if(!RecvLine(hSocket, strLine)) {
             closesocket(hSocket);
-            if (strLine.find("<") != string::npos)
-                strLine = strLine.substr(0, strLine.find("<"));
-            strLine = strLine.substr(strspn(strLine.c_str(), " \t\n\r"));
-            while (strLine.size() > 0 && isspace(strLine[strLine.size()-1]))
-                strLine.resize(strLine.size()-1);
-            CService addr(strLine,0,true);
-            printf("GetMyExternalIP() received [%s] %s\n", strLine.c_str(), addr.ToString().c_str());
-            if (!addr.IsValid() || !addr.IsRoutable())
-                return false;
-            ipRet.SetIP(addr);
-            return true;
+            return(false);
         }
     }
+
     closesocket(hSocket);
-    return error("GetMyExternalIP() : connection closed");
+
+    /* The line may contain HTML tags, text and special characters
+     * in addition to the IP address, but hopefully no additional digits;
+     * although it doesn't make much sense to detect IPv6 this way,
+     * both IPv4 and public IPv6 addresses start with a numeric character
+     * and alphabetic characters of IPv6 addresses must be in lowercase
+     * according to RFC 5952 */
+
+    /* Remove everything before the IP address */
+    strLine = strLine.substr(strcspn(strLine.c_str(), "0123456789"));
+
+    /* Remove everything after the IP address */
+    strLine = strLine.substr(0, strspn(strLine.c_str(), "0123456789abcdef.:"));
+
+    printf("GetMyExternalIP() received [%s] from %s\n",
+      strLine.c_str(), addrConnect.ToString().c_str());
+
+    CService addr(strLine, 0, true);
+
+    if(!addr.IsValid() || !addr.IsRoutable())
+      return(false);
+
+    addrRet = addr;
+
+    return(true);
 }
 
-// We now get our external IP from the IRC server first and only use this as a backup
-bool GetMyExternalIP(CNetAddr& ipRet)
-{
-    CService addrConnect;
-    const char* pszGet;
-    const char* pszKeyword;
+/* External HTTP IPv4 finder;
+ * called if detection through IRC failed or was disabled */
+bool GetMyExternalIP(CNetAddr &ipRet) {
+    CService addrConnect, addrRet;
+    const char *pszGet;
+    bool addrValid = false;
+    uint i;
 
-    for (int nLookup = 0; nLookup <= 1; nLookup++)
-    for (int nHost = 1; nHost <= 2; nHost++)
-    {
-        // We should be phasing out our use of sites like these.  If we need
-        // replacements, we should ask for volunteers to put this simple
-        // php file on their web server that prints the client IP:
-        //  <?php echo $_SERVER["REMOTE_ADDR"]; ?>
-        if (nHost == 1)
-        {
-            addrConnect = CService("91.198.22.70",80); // checkip.dyndns.org
+    for(i = 0; i < 4; i++) {
 
-            if (nLookup == 1)
-            {
-                CService addrIP("checkip.dyndns.org", 80, true);
-                if (addrIP.IsValid())
-                    addrConnect = addrIP;
-            }
+        /* Public IP detectors, plain HTTP;
+         * something like <?php echo $_SERVER["REMOTE_ADDR"]; ?> is enough */
 
-            pszGet = "GET / HTTP/1.1\r\n"
-                     "Host: checkip.dyndns.org\r\n"
-                     "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\r\n"
-                     "Connection: close\r\n"
-                     "\r\n";
+       switch(i) {
 
-            pszKeyword = "Address:";
+            case(0):
+                addrConnect = CService("phoenixcoin.org", 80, true);
+                pszGet = "GET /ip/index.php HTTP/1.1\r\n"
+                  "Host: phoenixcoin.org\r\n"
+                  "User-Agent: Phoenixcoin\r\n"
+                  "Connection: close\r\n\r\n";
+                if(addrConnect.IsValid()) {
+                    addrValid = GetMyExternalIP2(addrConnect, pszGet, addrRet);
+                }
+                break;
+
+            case(1):
+                addrConnect = CService("orbitcoin.org", 80, true);
+                pszGet = "GET /ip/index.php HTTP/1.1\r\n"
+                  "Host: orbitcoin.org\r\n"
+                  "User-Agent: Phoenixcoin\r\n"
+                  "Connection: close\r\n\r\n";
+                if(addrConnect.IsValid()) {
+                    addrValid = GetMyExternalIP2(addrConnect, pszGet, addrRet);
+                }
+                break;
+
+            case(2):
+                addrConnect = CService("ifconfig.me", 80, true);
+                pszGet = "GET /ip HTTP/1.1\r\n"
+                  "Host: ifconfig.me\r\n"
+                  "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\r\n"
+                  "Connection: close\r\n\r\n";
+                if(addrConnect.IsValid()) {
+                    addrValid = GetMyExternalIP2(addrConnect, pszGet, addrRet);
+                }
+                break;
+
+            case(3):
+                addrConnect = CService("checkip.dyndns.org", 80, true);
+                pszGet = "GET / HTTP/1.1\r\n"
+                  "Host: checkip.dyndns.org\r\n"
+                  "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\r\n"
+                  "Connection: close\r\n\r\n";
+                if(addrConnect.IsValid()) {
+                    addrValid = GetMyExternalIP2(addrConnect, pszGet, addrRet);
+                }
+                break;
+
         }
-        else if (nHost == 2)
-        {
-            addrConnect = CService("74.208.43.192", 80); // www.showmyip.com
 
-            if (nLookup == 1)
-            {
-                CService addrIP("www.showmyip.com", 80, true);
-                if (addrIP.IsValid())
-                    addrConnect = addrIP;
-            }
-
-            pszGet = "GET /simple/ HTTP/1.1\r\n"
-                     "Host: www.showmyip.com\r\n"
-                     "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\r\n"
-                     "Connection: close\r\n"
-                     "\r\n";
-
-            pszKeyword = NULL; // Returns just IP address
+        if(addrValid) {
+            addrSeenByPeer = CAddress(addrRet, 0);
+            ipRet.SetIP(addrRet);
+            return(true);
         }
 
-        if (GetMyExternalIP2(addrConnect, pszGet, pszKeyword, ipRet))
-            return true;
     }
 
-    return false;
+    return(false);
 }
 
-void ThreadGetMyExternalIP(void* parg)
-{
-    // Make this thread recognisable as the external IP detection thread
+void ThreadGetMyExternalIP(void *parg) {
+
     RenameThread("pxc-ext-ip");
 
     CNetAddr addrLocalHost;
-    if (GetMyExternalIP(addrLocalHost))
-    {
+    if(GetMyExternalIP(addrLocalHost)) {
         printf("GetMyExternalIP() returned %s\n", addrLocalHost.ToStringIP().c_str());
         AddLocal(addrLocalHost, LOCAL_HTTP);
     }
 }
-
-
-
 
 
 void AddressCurrentlyConnected(const CService& addr)
@@ -1909,9 +1946,10 @@ static void Discover()
     }
 #endif
 
-    // Don't use external IPv4 discovery, when -onlynet="IPv6"
-    if (!IsLimited(NET_IPV4))
-        NewThread(ThreadGetMyExternalIP, NULL);
+    /* External HTTP service to report our IPv4 address;
+     * no need to call if operating in IPv6 only mode */
+    if(!IsLimited(NET_IPV4))
+      NewThread(ThreadGetMyExternalIP, NULL);
 }
 
 void StartNode(void* parg)
