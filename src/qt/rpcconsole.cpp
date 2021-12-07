@@ -7,7 +7,10 @@
 #include <QUrl>
 #endif
 
-#include <openssl/crypto.h>
+#include <openssl/crypto.h>  /* for SSLEAY_VERSION */
+#include <boost/version.hpp>  /* for BOOST_VERSION */
+
+#include "db.h"  /* for DbEnv::version() */
 
 #ifndef Q_MOC_RUN
 #include "rpcmain.h"
@@ -211,8 +214,17 @@ RPCConsole::RPCConsole(QWidget *parent) :
 
     connect(ui->clearButton, SIGNAL(clicked()), this, SLOT(clear()));
 
-    // set OpenSSL version label
-    ui->openSSLVersion->setText(SSLeay_version(SSLEAY_VERSION));
+    /* Display OpenSSL version and release date */
+    ui->versionOpenSSL->setText(SSLeay_version(SSLEAY_VERSION));
+
+    /* Display BerkeleyDB version and release date */
+    ui->versionBDB->setText(DbEnv::version(0, 0, 0));
+
+    /* Display Boost version */
+    char chVersionBoost[64];
+    sprintf(chVersionBoost, "Boost v%d.%d.%d",
+      BOOST_VERSION / 100000, (BOOST_VERSION / 100) % 1000, BOOST_VERSION % 100);
+    ui->versionBoost->setText(chVersionBoost);
 
     startExecutor();
 
@@ -278,7 +290,6 @@ void RPCConsole::setClientModel(ClientModel *model)
 
         // Provide initial values
         ui->clientVersion->setText(model->formatFullVersion());
-        ui->clientName->setText(model->clientName());
         ui->buildDate->setText(model->formatBuildDate());
         ui->startupTime->setText(model->formatClientStartupTime());
 

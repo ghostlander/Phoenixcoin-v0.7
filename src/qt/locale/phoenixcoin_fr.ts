@@ -1100,11 +1100,6 @@ Adresse : %4
 <context>
     <name>RPCConsole</name>
     <message>
-        <location filename="../forms/rpcconsole.ui" line="+46"/>
-        <source>Client name</source>
-        <translation>Nom du client</translation>
-    </message>
-    <message>
         <location line="+10"/>
         <location line="+23"/>
         <location line="+26"/>
@@ -1130,8 +1125,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+68"/>
-        <source>Using OpenSSL version</source>
-        <translation>Version d&apos;OpenSSL utilisée</translation>
+        <source>using</source>
+        <translation>avec l'aide de</translation>
     </message>
     <message>
         <location line="+49"/>
