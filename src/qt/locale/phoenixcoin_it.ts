@@ -751,7 +751,7 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>command-line options</source>
+        <source>command line options</source>
         <translation>opzioni riga di comando</translation>
     </message>
     <message>
@@ -1182,12 +1182,12 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Command-line options</source>
+        <source>Command line options</source>
         <translation>opzioni riga di comando</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</source>
+        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command line options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

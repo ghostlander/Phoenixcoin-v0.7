@@ -96,7 +96,7 @@ namespace GUIUtil {
     bool GetStartOnSystemStartup();
     bool SetStartOnSystemStartup(bool fAutoStart);
 
-    /* Help message for Phoenixcoin-Qt, shown with --help */
+    /* Help message for the Qt GUI shown with --help */
     class HelpMessageBox : public QMessageBox {
         Q_OBJECT
 

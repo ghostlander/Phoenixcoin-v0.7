@@ -425,7 +425,7 @@ HelpMessageBox::HelpMessageBox(QWidget *parent) :
     header = tr("Phoenixcoin-Qt") + " " + tr("version") + " " +
       QString::fromStdString(FormatFullVersion()) + "\n\n" +
       tr("Usage:") + "\n" +
-      "  phoenixcoin-qt [" + tr("command-line options") + "]                     " + "\n";
+      "  phoenixcoin-qt [" + tr("command line options") + "]                     " + "\n";
 
     coreOptions = QString::fromStdString(HelpMessage());
 

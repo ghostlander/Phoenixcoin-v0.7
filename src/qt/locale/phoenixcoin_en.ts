@@ -755,8 +755,8 @@ Address: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>command-line options</source>
-        <translation>command-line options</translation>
+        <source>command line options</source>
+        <translation>command line options</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1185,13 +1185,13 @@ Address: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Command-line options</source>
-        <translation>Command-line options</translation>
+        <source>Command line options</source>
+        <translation>Command line options</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</source>
-        <translation>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</translation>
+        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command line options.</source>
+        <translation>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command line options.</translation>
     </message>
     <message>
         <location line="+3"/>

@@ -750,7 +750,7 @@ Adresse : %4
     </message>
     <message>
         <location line="+1"/>
-        <source>command-line options</source>
+        <source>command line options</source>
         <translation>options de ligne de commande</translation>
     </message>
     <message>
@@ -1180,12 +1180,12 @@ Adresse : %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Command-line options</source>
+        <source>Command line options</source>
         <translation>Options de ligne de commande</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</source>
+        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command line options.</source>
         <translation>Afficher le message d&apos;aide de Phoenixcoin-Qt pour obtenir la liste des options de ligne de commande disponibles pour Phoenixcoin.</translation>
     </message>
     <message>

@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
     // Install global event filter that makes sure that long tooltips can be word-wrapped
     app.installEventFilter(new GUIUtil::ToolTipToRichTextFilter(TOOLTIP_WRAP_THRESHOLD, &app));
 
-    // Command-line options take precedence:
+    // Command line options take precedence:
     ParseParameters(argc, argv);
 
     // ... then phoenixcoin.conf:
@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
     uiInterface.QueueShutdown.connect(QueueShutdown);
     uiInterface.Translate.connect(Translate);
 
-    // Show help message immediately after parsing command-line options (for "-lang") and setting locale,
+    // Show help message immediately after parsing command line options (for "-lang") and setting locale,
     // but before showing splash screen.
     if (mapArgs.count("-?") || mapArgs.count("--help"))
     {

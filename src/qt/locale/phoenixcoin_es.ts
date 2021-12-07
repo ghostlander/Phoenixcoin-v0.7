@@ -753,7 +753,7 @@ Dirección: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>command-line options</source>
+        <source>command line options</source>
         <translation>opciones de la línea de órdenes</translation>
     </message>
     <message>
@@ -1183,12 +1183,12 @@ Dirección: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Command-line options</source>
+        <source>Command line options</source>
         <translation>Opciones de la línea de órdenes</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</source>
+        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command line options.</source>
         <translation>Mostrar el mensaje de ayuda de Phoenixcoin-Qt que enumera las opciones disponibles de línea de órdenes para Phoenixcoin.</translation>
     </message>
     <message>
