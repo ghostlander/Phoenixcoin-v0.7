@@ -4,10 +4,10 @@
 
 #include <vector>
 
-#include "util.h"
-#include "net.h"
-#include "rpcmain.h"
 #include "ntp.h"
+#include "net.h"
+#include "util.h"
+#include "rpcmain.h"
 
 using namespace json_spirit;
 using namespace std;
@@ -17,7 +17,7 @@ Value getconnectioncount(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() != 0)) {
         string msg = "getconnectioncount\n"
-          "Returns the number of connections to other nodes";
+          "Displays the number of connections to other nodes.";
         throw(runtime_error(msg));
     }
 
@@ -39,11 +39,12 @@ static void CopyNodeStats(std::vector<CNodeStats>& vstats)
     }
 }
 
+
 Value getpeerinfo(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() != 0)) {
         string msg = "getpeerinfo\n"
-          "Returns data about each connected network node";
+          "Displays data about each connected network node.";
         throw(runtime_error(msg));
     }
 
@@ -56,7 +57,7 @@ Value getpeerinfo(const Array &params, bool fHelp) {
         Object obj;
 
         obj.push_back(Pair("addr", stats.addrName));
-        obj.push_back(Pair("services", strprintf("%08" PRI64x, stats.nServices)));
+        obj.push_back(Pair("services", strprintf("%016" PRI64x "", stats.nServices)));
         obj.push_back(Pair("lastsend", DateTimeStrFormat(stats.nLastSend)));
         obj.push_back(Pair("lastrecv", DateTimeStrFormat(stats.nLastRecv)));
         obj.push_back(Pair("conntime", DateTimeStrFormat(stats.nTimeConnected)));
@@ -90,7 +91,7 @@ Value addnode(const Array &params, bool fHelp) {
     if(fHelp || (params.size() != 2) ||
       ((strCommand != "onetry") && (strCommand != "add") && (strCommand != "remove"))) {
         string msg = "addnode <node:port> <add|remove|onetry>\n"
-          "Attempts to add or remove a node from the list or try a connection to the node once";
+          "Attempts to add or remove a node from the list or try a connection to the node once.";
         throw(runtime_error(msg));
     }
 
@@ -126,9 +127,9 @@ Value getaddednodeinfo(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() < 1) || (params.size() > 2)) {
         string msg = "getaddednodeinfo <extinfo> [node:port]\n"
-          "Returns information about the given added node or all added nodes\n"
-          "<extinfo> is true or false to provide extended information or not\n"
-          "Note that one try addnodes are not listed.\n";
+          "Displays information on the particular added node or all added nodes.\n"
+          "<extinfo> is true or false to provide extended information or not to.\n"
+          "One try addnodes are not listed.\n";
         throw(runtime_error(msg));
     }
 
@@ -209,8 +210,8 @@ Value getnettotals(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() > 0)) {
         string msg = "getnettotals\n"
-          "Returns information about network traffic including bytes received,\n"
-          "bytes transmitted and current time";
+          "Displays network traffic related information\n"
+          "including bytes received, bytes transmitted and current time.";
         throw(runtime_error(msg));
     }
 
@@ -228,7 +229,7 @@ Value ntptime(const Array &params, bool fHelp) {
 
     if(fHelp || (params.size() > 1)) {
         string msg = "ntptime [server]\n"
-          "Returns current time from a specific or random NTP server";
+          "Displays current time received from a specific or random NTP server.";
         throw(runtime_error(msg));
     }
 

@@ -1,12 +1,9 @@
-#include "coinunits.h"
-
 #include <QStringList>
 
+#include "coinunits.h"
+
 CoinUnits::CoinUnits(QObject *parent):
-        QAbstractListModel(parent),
-        unitlist(availableUnits())
-{
-}
+    QAbstractListModel(parent), unitlist(availableUnits()) { }
 
 QList<CoinUnits::Unit> CoinUnits::availableUnits() {
     QList<CoinUnits::Unit> unitlist;

@@ -1,24 +1,25 @@
-#include "rpcconsole.h"
-#include "ui_rpcconsole.h"
-
-#include "clientmodel.h"
-#include "guiutil.h"
-
-#include "datatypes.h"
-#include "rpcmain.h"
-
 #include <QTime>
-#include <QTimer>
 #include <QThread>
-#include <QTextEdit>
 #include <QKeyEvent>
+#include <QScrollBar>
 
 #if (QT_VERSION < 0x050000)
 #include <QUrl>
 #endif
-#include <QScrollBar>
 
-#include <openssl/crypto.h>
+#include <openssl/crypto.h>  /* for SSLEAY_VERSION */
+#include <boost/version.hpp>  /* for BOOST_VERSION */
+
+#include "db.h"  /* for DbEnv::version() */
+
+#ifndef Q_MOC_RUN
+#include "rpcmain.h"
+#endif
+
+#include "clientmodel.h"
+#include "guiutil.h"
+#include "rpcconsole.h"
+#include "ui_rpcconsole.h"
 
 // TODO: make it possible to filter out categories (esp debug messages when implemented)
 // TODO: receive errors and debug messages through ClientModel
@@ -164,12 +165,15 @@ void RPCExecutor::request(const QString &command)
             RPCConvertValues(args[0], std::vector<std::string>(args.begin() + 1, args.end())));
 
         // Format result reply
-        if (result.type() == json_spirit::null_type)
+        if(result.type() == json_spirit::null_type) {
             strPrint.clear();
-        else if (result.type() == json_spirit::str_type)
-            strPrint = result.get_str();
-        else
-            strPrint = write_string(result, true);
+        } else {
+            if(result.type() == json_spirit::str_type) {
+                strPrint = result.get_str();
+            } else {
+                strPrint = write_string(result, true);
+            }
+        }
 
         emit reply(RPCConsole::CMD_REPLY, QString::fromStdString(strPrint));
     }
@@ -210,8 +214,17 @@ RPCConsole::RPCConsole(QWidget *parent) :
 
     connect(ui->clearButton, SIGNAL(clicked()), this, SLOT(clear()));
 
-    // set OpenSSL version label
-    ui->openSSLVersion->setText(SSLeay_version(SSLEAY_VERSION));
+    /* Display OpenSSL version and release date */
+    ui->versionOpenSSL->setText(SSLeay_version(SSLEAY_VERSION));
+
+    /* Display BerkeleyDB version and release date */
+    ui->versionBDB->setText(DbEnv::version(0, 0, 0));
+
+    /* Display Boost version */
+    char chVersionBoost[64];
+    sprintf(chVersionBoost, "Boost v%d.%d.%d",
+      BOOST_VERSION / 100000, (BOOST_VERSION / 100) % 1000, BOOST_VERSION % 100);
+    ui->versionBoost->setText(chVersionBoost);
 
     startExecutor();
 
@@ -277,7 +290,6 @@ void RPCConsole::setClientModel(ClientModel *model)
 
         // Provide initial values
         ui->clientVersion->setText(model->formatFullVersion());
-        ui->clientName->setText(model->clientName());
         ui->buildDate->setText(model->formatBuildDate());
         ui->startupTime->setText(model->formatClientStartupTime());
 

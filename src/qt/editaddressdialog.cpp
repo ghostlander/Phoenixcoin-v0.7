@@ -1,10 +1,10 @@
-#include "editaddressdialog.h"
-#include "ui_editaddressdialog.h"
-#include "addresstablemodel.h"
-#include "guiutil.h"
-
 #include <QDataWidgetMapper>
 #include <QMessageBox>
+
+#include "addresstablemodel.h"
+#include "guiutil.h"
+#include "editaddressdialog.h"
+#include "ui_editaddressdialog.h"
 
 EditAddressDialog::EditAddressDialog(Mode mode, QWidget *parent) :
     QDialog(parent),

@@ -6,8 +6,6 @@
 #ifndef WALLET_H
 #define WALLET_H
 
-#include <stdlib.h>
-
 #include <string>
 #include <algorithm>
 #include <map>
@@ -16,13 +14,15 @@
 #include <vector>
 #include <set>
 
-#include "main.h"
+#include <stdlib.h>
+
+#include "sync.h"
 #include "key.h"
 #include "keystore.h"
 #include "script.h"
 #include "ui_interface.h"
-#include "util.h"
 #include "walletdb.h"
+#include "main.h"
 
 class CAccountingEntry;
 class CWalletTx;

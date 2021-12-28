@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+#include "compat.h"
 #include "serialize.h"
 
 extern int nConnectTimeout;

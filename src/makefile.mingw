@@ -9,21 +9,21 @@ CC = gcc
 CFLAGS = -O2 -fomit-frame-pointer
 
 INCLUDEPATHS= \
- -I"/home/Administrator/boost-1.70" \
+ -I"/home/Administrator/boost-1.77" \
  -I"/home/Administrator/db-5.3.28/build_unix" \
  -I"/home/Administrator/openssl-1.0.2u/include"
 
 LIBPATHS= \
- -L"/home/Administrator/boost-1.70/stage/lib" \
+ -L"/home/Administrator/boost-1.77/stage/lib" \
  -L"/home/Administrator/db-5.3.28/build_unix" \
  -L"/home/Administrator/openssl-1.0.2u"
 
 LIBS= \
- -l boost_system-mgw49-mt-x64-1_70 \
- -l boost_filesystem-mgw49-mt-x64-1_70 \
- -l boost_program_options-mgw49-mt-x64-1_70 \
- -l boost_thread-mgw49-mt-x64-1_70 \
- -l boost_chrono-mgw49-mt-x64-1_70 \
+ -l boost_system-mgw49-mt-x64-1_77 \
+ -l boost_filesystem-mgw49-mt-x64-1_77 \
+ -l boost_program_options-mgw49-mt-x64-1_77 \
+ -l boost_thread-mgw49-mt-x64-1_77 \
+ -l boost_chrono-mgw49-mt-x64-1_77 \
  -l db_cxx \
  -l ssl \
  -l crypto

@@ -16,14 +16,14 @@ QT_END_NAMESPACE
 
 class SendCoinsRecipient;
 
-/* Utility functions used by the Phoenixcoin Qt UI */
+/* Utility functions used by the Qt GUI */
 namespace GUIUtil {
 
     // Create human-readable string from date
     QString dateTimeStr(const QDateTime &datetime);
     QString dateTimeStr(qint64 nTime);
 
-    /* Render Phoenixcoin addresses in the monospace font */
+    /* Render addresses in the monospace font */
     QFont AddressFont();
 
     // Set up widgets for address and amounts
@@ -96,7 +96,7 @@ namespace GUIUtil {
     bool GetStartOnSystemStartup();
     bool SetStartOnSystemStartup(bool fAutoStart);
 
-    /* Help message for Phoenixcoin-Qt, shown with --help */
+    /* Help message for the Qt GUI shown with --help */
     class HelpMessageBox : public QMessageBox {
         Q_OBJECT
 
@@ -115,6 +115,6 @@ namespace GUIUtil {
         QString uiOptions;
     };
 
-} // namespace GUIUtil
+}
 
 #endif /* GUIUTIL_H */

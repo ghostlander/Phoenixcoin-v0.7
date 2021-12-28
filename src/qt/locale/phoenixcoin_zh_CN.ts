@@ -744,7 +744,7 @@ Address: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>command-line options</source>
+        <source>command line options</source>
         <translation>命令行选项</translation>
     </message>
     <message>
@@ -1095,11 +1095,6 @@ Address: %4
 <context>
     <name>RPCConsole</name>
     <message>
-        <location filename="../forms/rpcconsole.ui" line="+46"/>
-        <source>Client name</source>
-        <translation>客户端名称</translation>
-    </message>
-    <message>
         <location line="+10"/>
         <location line="+23"/>
         <location line="+26"/>
@@ -1125,8 +1120,8 @@ Address: %4
     </message>
     <message>
         <location line="+68"/>
-        <source>Using OpenSSL version</source>
-        <translation>使用OpenSSL版本</translation>
+        <source>using</source>
+        <translation>借助</translation>
     </message>
     <message>
         <location line="+49"/>
@@ -1175,12 +1170,12 @@ Address: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Command-line options</source>
+        <source>Command line options</source>
         <translation>命令行选项</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</source>
+        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command line options.</source>
         <translation>显示Phoenixcoin命令行选项帮助信息</translation>
     </message>
     <message>

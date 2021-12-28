@@ -1,16 +1,18 @@
-#include "walletmodel.h"
+#include <vector>
+#include <map>
+
+#include <QSet>
+#include <QTimer>
+
+#include "base58.h"
+#include "wallet.h"
+
 #include "guiconstants.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
 #include "transactiontablemodel.h"
-
-#include "ui_interface.h"
-#include "wallet.h"
-#include "walletdb.h" /* for cloneWallet() */
-#include "base58.h"
-
-#include <QSet>
-#include <QTimer>
+#include "walletmodel.h"
+#include "walletmodeltransaction.h"
 
 WalletModel::WalletModel(CWallet *wallet, OptionsModel *optionsModel, QObject *parent) :
     QObject(parent), wallet(wallet), optionsModel(optionsModel), addressTableModel(0),

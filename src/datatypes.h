@@ -34,19 +34,19 @@ typedef unsigned long long int  uint64;  /* uint64_t */
 #if defined(_MSC_VER) || defined(__MSVCRT__)
 /* (s)size_t and ptrdiff_t have the same size specifier in MSVC:
  * http://msdn.microsoft.com/en-us/library/tcxf1dw6%28v=vs.100%29.aspx */
-#define PRIszx    "Ix"
-#define PRIszu    "Iu"
 #define PRIszd    "Id"
-#define PRIpdx    "Ix"
-#define PRIpdu    "Iu"
+#define PRIszu    "Iu"
+#define PRIszx    "Ix"
 #define PRIpdd    "Id"
+#define PRIpdu    "Iu"
+#define PRIpdx    "Ix"
 #else /* C99 standard */
-#define PRIszx    "zx"
-#define PRIszu    "zu"
 #define PRIszd    "zd"
-#define PRIpdx    "tx"
-#define PRIpdu    "tu"
+#define PRIszu    "zu"
+#define PRIszx    "zx"
 #define PRIpdd    "td"
+#define PRIpdu    "tu"
+#define PRIpdx    "tx"
 #endif /* _MSC_VER */
 
 #endif /* DATATYPES_H */

@@ -1,11 +1,11 @@
-#include "optionsmodel.h"
-#include "coinunits.h"
-#include "guiutil.h"
+#include <QSettings>
 
 #include "init.h"
-#include "walletdb.h"
+#include "wallet.h"
 
-#include <QSettings>
+#include "guiutil.h"
+#include "coinunits.h"
+#include "optionsmodel.h"
 
 int nQtStyle;
 
@@ -52,8 +52,8 @@ void OptionsModel::Init()
     language = settings.value("language", "").toString();
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
 
-    /* These are shared with the Phoenixcoin core; we want
-     * command-line options to override the GUI settings */
+    /* These are shared with the wallet core; we want
+     * command line options to override the GUI settings */
     if (settings.contains("fUseUPnP"))
         SoftSetBoolArg("-upnp", settings.value("fUseUPnP").toBool());
     if (settings.contains("addrProxy") && settings.value("fUseProxy").toBool())

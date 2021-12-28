@@ -750,7 +750,7 @@ Adresse : %4
     </message>
     <message>
         <location line="+1"/>
-        <source>command-line options</source>
+        <source>command line options</source>
         <translation>options de ligne de commande</translation>
     </message>
     <message>
@@ -1100,11 +1100,6 @@ Adresse : %4
 <context>
     <name>RPCConsole</name>
     <message>
-        <location filename="../forms/rpcconsole.ui" line="+46"/>
-        <source>Client name</source>
-        <translation>Nom du client</translation>
-    </message>
-    <message>
         <location line="+10"/>
         <location line="+23"/>
         <location line="+26"/>
@@ -1130,8 +1125,8 @@ Adresse : %4
     </message>
     <message>
         <location line="+68"/>
-        <source>Using OpenSSL version</source>
-        <translation>Version d&apos;OpenSSL utilisée</translation>
+        <source>using</source>
+        <translation>avec l'aide de</translation>
     </message>
     <message>
         <location line="+49"/>
@@ -1180,12 +1175,12 @@ Adresse : %4
     </message>
     <message>
         <location line="+16"/>
-        <source>Command-line options</source>
+        <source>Command line options</source>
         <translation>Options de ligne de commande</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command-line options.</source>
+        <source>Show the Phoenixcoin-Qt help message to get a list with possible Phoenixcoin command line options.</source>
         <translation>Afficher le message d&apos;aide de Phoenixcoin-Qt pour obtenir la liste des options de ligne de commande disponibles pour Phoenixcoin.</translation>
     </message>
     <message>

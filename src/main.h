@@ -18,6 +18,7 @@
 #include "sync.h"
 #include "net.h"
 #include "script.h"
+
 #include "neoscrypt.h"
 
 class CWallet;
@@ -222,209 +223,199 @@ public:
 };
 
 
-
 /** An inpoint - a combination of a transaction and an index n into its vin */
-class CInPoint
-{
+class CInPoint {
 public:
-    CTransaction* ptx;
-    unsigned int n;
+    CTransaction *ptx;
+    uint n;
 
     CInPoint() { SetNull(); }
-    CInPoint(CTransaction* ptxIn, unsigned int nIn) { ptx = ptxIn; n = nIn; }
+    CInPoint(CTransaction *ptxIn, uint nIn) { ptx = ptxIn; n = nIn; }
     void SetNull() { ptx = NULL; n = std::numeric_limits<uint32_t>::max(); }
-    bool IsNull() const { return (ptx == NULL && n == std::numeric_limits<uint32_t>::max()); }
+    bool IsNull() const {
+        return(!ptx && (n == std::numeric_limits<uint32_t>::max()));
+    }
 };
-
 
 
 /** An outpoint - a combination of a transaction hash and an index n into its vout */
-class COutPoint
-{
+class COutPoint {
 public:
     uint256 hash;
-    unsigned int n;
+    uint n;
 
     COutPoint() { SetNull(); }
-    COutPoint(uint256 hashIn, unsigned int nIn) { hash = hashIn; n = nIn; }
+    COutPoint(uint256 hashIn, uint nIn) { hash = hashIn; n = nIn; }
     IMPLEMENT_SERIALIZE( READWRITE(FLATDATA(*this)); )
     void SetNull() { hash = 0; n = std::numeric_limits<uint32_t>::max(); }
-    bool IsNull() const { return (hash == 0 && n == std::numeric_limits<uint32_t>::max()); }
-
-    friend bool operator<(const COutPoint& a, const COutPoint& b)
-    {
-        return (a.hash < b.hash || (a.hash == b.hash && a.n < b.n));
+    bool IsNull() const {
+        return(!hash && (n == std::numeric_limits<uint32_t>::max()));
     }
 
-    friend bool operator==(const COutPoint& a, const COutPoint& b)
-    {
-        return (a.hash == b.hash && a.n == b.n);
+    friend bool operator<(const COutPoint &a, const COutPoint &b) {
+        return((a.hash < b.hash) || (a.hash == b.hash && a.n < b.n));
     }
 
-    friend bool operator!=(const COutPoint& a, const COutPoint& b)
-    {
-        return !(a == b);
+    friend bool operator==(const COutPoint &a, const COutPoint &b) {
+        return((a.hash == b.hash) && (a.n == b.n));
     }
 
-    std::string ToString() const
-    {
-        return strprintf("COutPoint(%s, %u)", hash.ToString().substr(0,10).c_str(), n);
+    friend bool operator!=(const COutPoint &a, const COutPoint &b) {
+        return(!(a == b));
     }
 
-    void print() const
-    {
+    std::string ToString() const {
+        return(strprintf("COutPoint(%s, %u)", hash.ToString().substr(0,10).c_str(), n));
+    }
+
+    void print() const {
         printf("%s\n", ToString().c_str());
     }
 };
-
-
 
 
 /** An input of a transaction.  It contains the location of the previous
  * transaction's output that it claims and a signature that matches the
  * output's public key.
  */
-class CTxIn
-{
+class CTxIn {
 public:
     COutPoint prevout;
     CScript scriptSig;
-    unsigned int nSequence;
+    uint nSequence;
 
-    CTxIn()
-    {
-        nSequence = std::numeric_limits<unsigned int>::max();
+    CTxIn() {
+        nSequence = std::numeric_limits<uint>::max();
     }
 
-    explicit CTxIn(COutPoint prevoutIn, CScript scriptSigIn=CScript(), unsigned int nSequenceIn=std::numeric_limits<unsigned int>::max())
-    {
+    explicit CTxIn(COutPoint prevoutIn, CScript scriptSigIn=CScript(),
+      uint nSequenceIn=std::numeric_limits<uint>::max()) {
         prevout = prevoutIn;
         scriptSig = scriptSigIn;
         nSequence = nSequenceIn;
     }
 
-    CTxIn(uint256 hashPrevTx, unsigned int nOut, CScript scriptSigIn=CScript(), unsigned int nSequenceIn=std::numeric_limits<unsigned int>::max())
-    {
+    CTxIn(uint256 hashPrevTx, uint nOut, CScript scriptSigIn=CScript(),
+      uint nSequenceIn=std::numeric_limits<uint>::max()) {
         prevout = COutPoint(hashPrevTx, nOut);
         scriptSig = scriptSigIn;
         nSequence = nSequenceIn;
     }
 
-    IMPLEMENT_SERIALIZE
-    (
+    IMPLEMENT_SERIALIZE(
         READWRITE(prevout);
         READWRITE(scriptSig);
         READWRITE(nSequence);
     )
 
-    bool IsFinal() const
-    {
-        return (nSequence == std::numeric_limits<unsigned int>::max());
+    bool IsFinal() const {
+        return(nSequence == std::numeric_limits<uint>::max());
     }
 
-    friend bool operator==(const CTxIn& a, const CTxIn& b)
-    {
-        return (a.prevout   == b.prevout &&
-                a.scriptSig == b.scriptSig &&
-                a.nSequence == b.nSequence);
+    friend bool operator==(const CTxIn &a, const CTxIn &b) {
+        return((a.prevout == b.prevout) && (a.scriptSig == b.scriptSig) &&
+          (a.nSequence == b.nSequence));
     }
 
-    friend bool operator!=(const CTxIn& a, const CTxIn& b)
-    {
-        return !(a == b);
+    friend bool operator!=(const CTxIn &a, const CTxIn &b) {
+        return(!(a == b));
     }
 
-    std::string ToString() const
-    {
+    std::string ToStringShort() const {
+        return(strprintf(" %s %d", prevout.hash.ToString().c_str(), prevout.n));
+    }
+
+    std::string ToString() const {
         std::string str;
         str += "CTxIn(";
         str += prevout.ToString();
-        if (prevout.IsNull())
-            str += strprintf(", coinbase %s", HexStr(scriptSig).c_str());
-        else
-            str += strprintf(", scriptSig=%s", scriptSig.ToString().substr(0,24).c_str());
-        if (nSequence != std::numeric_limits<unsigned int>::max())
+        if(prevout.IsNull()) {
+            str += strprintf(", coin base %s", HexStr(scriptSig).c_str());
+        } else {
+            str += strprintf(", scriptSig=%s",
+              scriptSig.ToString().substr(0,24).c_str());
+        }
+        if(nSequence != std::numeric_limits<uint>::max()) {
             str += strprintf(", nSequence=%u", nSequence);
+        }
         str += ")";
-        return str;
+        return(str);
     }
 
-    void print() const
-    {
+    void print() const {
         printf("%s\n", ToString().c_str());
     }
 };
-
-
 
 
 /** An output of a transaction.  It contains the public key that the next input
  * must be able to sign with to claim it.
  */
-class CTxOut
-{
+class CTxOut {
 public:
     int64 nValue;
     CScript scriptPubKey;
 
-    CTxOut()
-    {
+    CTxOut() {
         SetNull();
     }
 
-    CTxOut(int64 nValueIn, CScript scriptPubKeyIn)
-    {
+    CTxOut(int64 nValueIn, CScript scriptPubKeyIn) {
         nValue = nValueIn;
         scriptPubKey = scriptPubKeyIn;
     }
 
-    IMPLEMENT_SERIALIZE
-    (
+    IMPLEMENT_SERIALIZE(
         READWRITE(nValue);
         READWRITE(scriptPubKey);
     )
 
-    void SetNull()
-    {
+    void SetNull() {
         nValue = -1;
         scriptPubKey.clear();
     }
 
-    bool IsNull()
-    {
-        return (nValue == -1);
+    bool IsNull() const {
+        return(nValue == -1);
     }
 
-    uint256 GetHash() const
-    {
-        return SerializeHash(*this);
+    void SetEmpty() {
+        nValue = 0;
+        scriptPubKey.clear();
     }
 
-    friend bool operator==(const CTxOut& a, const CTxOut& b)
-    {
-        return (a.nValue       == b.nValue &&
-                a.scriptPubKey == b.scriptPubKey);
+    bool IsEmpty() const {
+        return(!nValue && scriptPubKey.empty());
     }
 
-    friend bool operator!=(const CTxOut& a, const CTxOut& b)
-    {
-        return !(a == b);
+    uint256 GetHash() const {
+        return(SerializeHash(*this));
     }
 
-    std::string ToString() const
-    {
-        if (scriptPubKey.size() < 6)
-            return "CTxOut(error)";
-        return strprintf("CTxOut(nValue=%" PRI64d".%08" PRI64d", scriptPubKey=%s)", nValue / COIN, nValue % COIN, scriptPubKey.ToString().substr(0,30).c_str());
+    friend bool operator==(const CTxOut &a, const CTxOut &b) {
+        return((a.nValue == b.nValue) && (a.scriptPubKey == b.scriptPubKey));
     }
 
-    void print() const
-    {
+    friend bool operator!=(const CTxOut &a, const CTxOut &b) {
+        return(!(a == b));
+    }
+
+    std::string ToStringShort() const {
+        return(strprintf(" out %s %s", FormatMoney(nValue).c_str(),
+          scriptPubKey.ToString().substr(0, 10).c_str()));
+    }
+
+    std::string ToString() const {
+        if(IsEmpty()) return("CTxOut(empty)");
+        if(scriptPubKey.size() < 6) return("CTxOut(error)");
+        return(strprintf("CTxOut(nValue=%s, scriptPubKey=%s)",
+          FormatMoney(nValue).c_str(), scriptPubKey.ToString().c_str()));
+    }
+
+    void print() const {
         printf("%s\n", ToString().c_str());
     }
 };
-
-
 
 
 enum GetMinFee_mode
@@ -636,15 +627,12 @@ public:
     }
 
 
-    std::string ToString() const
-    {
+    std::string ToString() const {
         std::string str;
-        str += strprintf("CTransaction(hash=%s, ver=%d, vin.size=%" PRIszu", vout.size=%" PRIszu", nLockTime=%u)\n",
-            GetHash().ToString().substr(0,10).c_str(),
-            nVersion,
-            vin.size(),
-            vout.size(),
-            nLockTime);
+        str += strprintf("CTransaction(hash=%s, ver=%d, vin.size=%" PRIszu ", " \
+          "vout.size=%" PRIszu ", nLockTime=%u)\n",
+          GetHash().ToString().substr(0,10).c_str(), nVersion, vin.size(),
+          vout.size(), nLockTime);
         for (unsigned int i = 0; i < vin.size(); i++)
             str += "    " + vin[i].ToString() + "\n";
         for (unsigned int i = 0; i < vout.size(); i++)
@@ -1053,15 +1041,13 @@ public:
 
 
 
-    void print() const
-    {
-        printf("CBlock(hash=%s, ver=%d, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%" PRIszu")\n",
-            GetHash().ToString().substr(0,20).c_str(),
-            nVersion,
-            hashPrevBlock.ToString().substr(0,20).c_str(),
-            hashMerkleRoot.ToString().substr(0,10).c_str(),
-            nTime, nBits, nNonce,
-            vtx.size());
+    void print() const {
+        printf("CBlock(hash=%s, ver=%d, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, " \
+          "nBits=%08x, nNonce=%u, vtx=%" PRIszu ")\n",
+          GetHash().ToString().substr(0,20).c_str(), nVersion,
+          hashPrevBlock.ToString().substr(0,20).c_str(),
+          hashMerkleRoot.ToString().substr(0,10).c_str(),
+          nTime, nBits, nNonce, vtx.size());
         for (unsigned int i = 0; i < vtx.size(); i++)
         {
             printf("  ");

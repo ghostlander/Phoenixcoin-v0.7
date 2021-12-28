@@ -14,17 +14,18 @@
 #include <vector>
 #include <set>
 
-#include <boost/array.hpp>
-#include <boost/foreach.hpp>
-
 #ifndef WINDOWS
 #include <arpa/inet.h>
 #endif
+
+#include <boost/array.hpp>
+#include <boost/foreach.hpp>
 
 #include "mruset.h"
 #include "netbase.h"
 #include "protocol.h"
 #include "addrman.h"
+#include "util.h"
 
 #include <openssl/rand.h>
 
@@ -33,14 +34,12 @@ class CNode;
 class CBlockIndex;
 extern int nBestHeight;
 
-
-
 inline unsigned int ReceiveBufferSize() { return 1000*GetArg("-maxreceivebuffer", 5*1000); }
 inline unsigned int SendBufferSize() { return 1000*GetArg("-maxsendbuffer", 1*1000); }
 
 void AddOneShot(std::string strDest);
 bool RecvLine(SOCKET hSocket, std::string& strLine);
-bool GetMyExternalIP(CNetAddr& ipRet);
+bool GetMyExternalIP(CNetAddr &ipRet);
 void AddressCurrentlyConnected(const CService& addr);
 CNode* FindNode(const CNetAddr& ip);
 CNode* FindNode(const CService& ip);
@@ -58,7 +57,7 @@ enum
     LOCAL_BIND,   // address explicit bound to
     LOCAL_UPNP,   // address reported by UPnP
     LOCAL_IRC,    // address reported by IRC (deprecated)
-    LOCAL_HTTP,   // address reported by whatismyip.com and similar
+    LOCAL_HTTP,   /* address reported by external HTTP service */
     LOCAL_MANUAL, // address explicitly specified (-externalip=)
 
     LOCAL_MAX
@@ -125,6 +124,7 @@ extern bool fDiscover;
 extern bool fUseUPnP;
 extern uint64 nLocalServices;
 extern uint64 nLocalHostNonce;
+extern CAddress addrSeenByPeer;
 extern boost::array<int, THREAD_MAX> vnThreadsRunning;
 extern CAddrMan addrman;
 
@@ -345,8 +345,10 @@ public:
         // We're using mapAskFor as a priority queue,
         // the key is the earliest time the request can be sent
         int64& nRequestTime = mapAlreadyAskedFor[inv];
-        if (fDebugNet)
-            printf("askfor %s   %" PRI64d" (%s)\n", inv.ToString().c_str(), nRequestTime, DateTimeStrFormat("%H:%M:%S", nRequestTime/1000000).c_str());
+        if(fDebugNet) {
+            printf("askfor %s   %" PRI64d " (%s)\n", inv.ToString().c_str(), nRequestTime,
+              DateTimeStrFormat("%H:%M:%S", nRequestTime / 1000000).c_str());
+        }
 
         // Make sure not to reuse time indexes to keep things in the same order
         int64 nNow = (GetTime() - 1) * 1000000;

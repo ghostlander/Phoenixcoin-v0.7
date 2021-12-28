@@ -11,6 +11,8 @@
 #include <QString>
 #include <QTreeWidgetItem>
 
+#include "wallet.h"
+
 namespace Ui {
     class CoinControl;
 }

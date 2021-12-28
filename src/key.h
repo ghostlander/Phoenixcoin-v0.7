@@ -10,14 +10,13 @@
 #include <string>
 #include <vector>
 
-#include "allocators.h"
-#include "serialize.h"
-#include "uint256.h"
-#include "util.h"
-
 #if (OPENSSL_VERSION_NUMBER < 0x10100000L)
 #include <openssl/ec.h> // for EC_KEY definition
 #endif
+
+#include "allocators.h"
+#include "serialize.h"
+#include "util.h"
 
 // secp160k1
 // const unsigned int PRIVATE_KEY_SIZE = 192;

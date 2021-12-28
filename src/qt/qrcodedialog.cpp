@@ -1,17 +1,17 @@
-#include "qrcodedialog.h"
-#include "ui_qrcodedialog.h"
-
-#include "coinunits.h"
-#include "guiconstants.h"
-#include "guiutil.h"
-#include "optionsmodel.h"
-
 #include <QPixmap>
+
 #if (QT_VERSION < 0x050000)
 #include <QUrl>
 #endif
 
 #include <qrencode.h>
+
+#include "coinunits.h"
+#include "guiconstants.h"
+#include "guiutil.h"
+#include "optionsmodel.h"
+#include "qrcodedialog.h"
+#include "ui_qrcodedialog.h"
 
 QRCodeDialog::QRCodeDialog(const QString &addr, const QString &label, bool enableReq, QWidget *parent) :
     QDialog(parent),
@@ -54,8 +54,7 @@ void QRCodeDialog::genCode()
 {
     QString uri = getURI();
 
-    if (!uri.empty())
-    {
+    if(!uri.empty()) {
         ui->lblQRCode->setText("");
 
         QRcode *code = QRcode_encodeString(uri.toUtf8().constData(), 0, QR_ECLEVEL_L, QR_MODE_8, 1);

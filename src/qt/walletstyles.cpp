@@ -1,7 +1,5 @@
 #include "walletstyles.h"
 
-#include <QStringList>
-
 WalletStyles::WalletStyles(QObject *parent):
     QAbstractListModel(parent), style_list(availableStyles()) { }
 

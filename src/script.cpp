@@ -3,27 +3,28 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <boost/foreach.hpp>
-#include <boost/tuple/tuple.hpp>
-
 #include <map>
 #include <utility>
 #include <set>
 
-using namespace std;
-using namespace boost;
+#include <boost/foreach.hpp>
+#include <boost/tuple/tuple.hpp>
 
-#include "script.h"
-#include "keystore.h"
+#include "sync.h"
 #include "bignum.h"
+#include "keystore.h"
 #include "key.h"
 #include "util.h"
 #include "main.h"
-#include "sync.h"
+#include "script.h"
 
-bool CheckSig(vector<unsigned char> vchSig, vector<unsigned char> vchPubKey, CScript scriptCode, const CTransaction& txTo, unsigned int nIn, int nHashType);
+using namespace std;
+using namespace boost;
 
-typedef vector<unsigned char> valtype;
+bool CheckSig(vector<uchar> vchSig, vector<uchar> vchPubKey, CScript scriptCode,
+  const CTransaction &txTo, uint nIn, int nHashType);
+
+typedef vector<uchar> valtype;
 static const valtype vchFalse(0);
 static const valtype vchZero(0);
 static const valtype vchTrue(1, 1);

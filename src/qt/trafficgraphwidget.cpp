@@ -1,12 +1,12 @@
-#include "trafficgraphwidget.h"
-#include "clientmodel.h"
+#include <cmath>
 
 #include <QPainter>
 #include <QPainterPath>
 #include <QColor>
 #include <QTimer>
 
-#include <cmath>
+#include "clientmodel.h"
+#include "trafficgraphwidget.h"
 
 #define DESIRED_SAMPLES 600
 

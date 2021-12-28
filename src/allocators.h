@@ -6,33 +6,23 @@
 #ifndef ALLOCATORS_H
 #define ALLOCATORS_H
 
-#include <string.h>
-#include <boost/thread/mutex.hpp>
-#include <openssl/crypto.h> // for OPENSSL_cleanse()
-
 #include <map>
 #include <utility>
 #include <string>
 #include <memory>
 
-#ifdef WINDOWS
-#ifdef _WIN32_WINNT
-#undef _WIN32_WINNT
-#endif
-#define _WIN32_WINNT 0x0501
-#define WIN32_LEAN_AND_MEAN 1
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
-#include <windows.h>
-// This is used to attempt to keep keying material out of swap
-// Note that VirtualLock does not provide this as a guarantee on Windows,
-// but, in practice, memory that has been VirtualLock'd almost never gets written to
-// the pagefile except in rare circumstances where memory is extremely low.
-#else
+#include <string.h>
+
+#include <boost/thread/mutex.hpp>
+
+#include <openssl/crypto.h>  /* for OPENSSL_cleanse() */
+
+#include "compat.h"
+
+#ifndef WINDOWS
 #include <sys/mman.h>
-#include <limits.h> // for PAGESIZE
-#include <unistd.h> // for sysconf
+#include <limits.h>  /* for PAGESIZE */
+#include <unistd.h>  /* for PAGESIZE through sysconf() */
 #endif
 
 /**
@@ -120,19 +110,20 @@ private:
 };
 
 /** Determine system page size in bytes */
-static inline size_t GetSystemPageSize()
-{
+static inline size_t GetSystemPageSize() {
     size_t page_size;
-#ifdef WINDOWS
+#if defined(WINDOWS)
     SYSTEM_INFO sSysInfo;
     GetSystemInfo(&sSysInfo);
     page_size = sSysInfo.dwPageSize;
-#elif defined(PAGESIZE) // defined in limits.h
+#elif defined(PAGESIZE)
+    /* Should be defined in limits.h */
     page_size = PAGESIZE;
-#else // assume some POSIX OS
+#else
+    /* Try sysconf() otherwise */
     page_size = sysconf(_SC_PAGESIZE);
 #endif
-    return page_size;
+    return(page_size);
 }
 
 /**
@@ -204,19 +195,15 @@ struct secure_allocator : public std::allocator<T>
     template<typename _Other> struct rebind
     { typedef secure_allocator<_Other> other; };
 
-    T* allocate(std::size_t n, const void *hint = 0)
-    {
+    T* allocate(std::size_t n, const void *hint = 0) {
         T *p;
         p = std::allocator<T>::allocate(n, hint);
-        if (p != NULL)
-            LockedPageManager::instance.LockRange(p, sizeof(T) * n);
-        return p;
+        if(p) LockedPageManager::instance.LockRange(p, sizeof(T) * n);
+        return(p);
     }
 
-    void deallocate(T* p, std::size_t n)
-    {
-        if (p != NULL)
-        {
+    void deallocate(T* p, std::size_t n) {
+        if(p) {
             OPENSSL_cleanse(p, sizeof(T) * n);
             LockedPageManager::instance.UnlockRange(p, sizeof(T) * n);
         }
@@ -248,10 +235,8 @@ struct zero_after_free_allocator : public std::allocator<T>
     template<typename _Other> struct rebind
     { typedef zero_after_free_allocator<_Other> other; };
 
-    void deallocate(T* p, std::size_t n)
-    {
-        if (p != NULL)
-            OPENSSL_cleanse(p, sizeof(T) * n);
+    void deallocate(T *p, std::size_t n) {
+        if(p) OPENSSL_cleanse(p, sizeof(T) * n);
         std::allocator<T>::deallocate(p, n);
     }
 };

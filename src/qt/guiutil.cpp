@@ -1,8 +1,11 @@
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
+
 #include <QDateTime>
 #include <QDoubleValidator>
 #include <QFont>
 #include <QLineEdit>
-#include <QTextDocument> // For Qt::escape
+#include <QTextDocument>
 #include <QAbstractItemView>
 #include <QApplication>
 #include <QClipboard>
@@ -18,16 +21,13 @@
 #include <QStandardPaths>
 #endif
 
-#include <boost/filesystem.hpp>
-#include <boost/filesystem/fstream.hpp>
-
+#include "init.h"  /* for HelpMessage() */
 #include "util.h"
-#include "init.h"
 
-#include "guiutil.h"
+#include "coinunits.h"
 #include "addressvalidator.h"
 #include "walletmodel.h"
-#include "coinunits.h"
+#include "guiutil.h"
 
 #ifdef WINDOWS
 #include <shellapi.h>
@@ -426,7 +426,7 @@ HelpMessageBox::HelpMessageBox(QWidget *parent) :
     header = tr("Phoenixcoin-Qt") + " " + tr("version") + " " +
       QString::fromStdString(FormatFullVersion()) + "\n\n" +
       tr("Usage:") + "\n" +
-      "  phoenixcoin-qt [" + tr("command-line options") + "]                     " + "\n";
+      "  phoenixcoin-qt [" + tr("command line options") + "]                     " + "\n";
 
     coreOptions = QString::fromStdString(HelpMessage());
 

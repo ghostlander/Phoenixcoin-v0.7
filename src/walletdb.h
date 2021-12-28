@@ -12,11 +12,11 @@
 #include <vector>
 
 #include "db.h"
-#include "base58.h"
 
-class CKeyPool;
 class CAccount;
 class CAccountingEntry;
+class CKeyPool;
+class CWalletTx;
 
 /** Error statuses for the wallet database */
 enum DBErrors

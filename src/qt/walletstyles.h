@@ -2,6 +2,8 @@
 #define WALLETSTYLES_H
 
 #include <QString>
+#include <QList>
+#include <QObject>
 #include <QAbstractListModel>
 
 /* Wallet style definitions and descriptions */

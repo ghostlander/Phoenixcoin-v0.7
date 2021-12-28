@@ -1,28 +1,33 @@
 /*
  * W.J. van der Laan 2011-2012
  */
-#include "gui.h"
-#include "clientmodel.h"
-#include "walletmodel.h"
-#include "optionsmodel.h"
-#include "guiutil.h"
-#include "guiconstants.h"
-
-#include "init.h"
-#include "ui_interface.h"
-#include "qtipcserver.h"
 
 #include <QApplication>
 #include <QMessageBox>
-#if (QT_VERSION < 0x050000)
-#include <QTextCodec>
-#endif
 #include <QLocale>
 #include <QTranslator>
 #include <QSplashScreen>
 #include <QLibraryInfo>
-#if defined(PHOENIXCOIN_NEED_QT_PLUGINS) && !defined(_PHOENIXCOIN_QT_PLUGINS_INCLUDED)
-#define _PHOENIXCOIN_QT_PLUGINS_INCLUDED
+
+#if (QT_VERSION < 0x050000)
+#include <QTextCodec>
+#endif
+
+#include "init.h"
+#include "ui_interface.h"
+#include "util.h"
+#include "main.h"
+
+#include "gui.h"
+#include "guiutil.h"
+#include "guiconstants.h"
+#include "qtipcserver.h"
+#include "clientmodel.h"
+#include "walletmodel.h"
+#include "optionsmodel.h"
+
+#if defined(NEED_QT_PLUGINS) && !defined(_QT_PLUGINS_INCLUDED)
+#define _QT_PLUGINS_INCLUDED
 #define __INSURE__
 #include <QtPlugin>
 Q_IMPORT_PLUGIN(qcncodecs)
@@ -31,6 +36,8 @@ Q_IMPORT_PLUGIN(qtwcodecs)
 Q_IMPORT_PLUGIN(qkrcodecs)
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 #endif
+
+extern CWallet *pwalletMain;
 
 // Need a global reference for the notifications to find the GUI
 static GUI *guiref;
@@ -128,7 +135,7 @@ int main(int argc, char *argv[])
     // Install global event filter that makes sure that long tooltips can be word-wrapped
     app.installEventFilter(new GUIUtil::ToolTipToRichTextFilter(TOOLTIP_WRAP_THRESHOLD, &app));
 
-    // Command-line options take precedence:
+    // Command line options take precedence:
     ParseParameters(argc, argv);
 
     // ... then phoenixcoin.conf:
@@ -191,7 +198,7 @@ int main(int argc, char *argv[])
     uiInterface.QueueShutdown.connect(QueueShutdown);
     uiInterface.Translate.connect(Translate);
 
-    // Show help message immediately after parsing command-line options (for "-lang") and setting locale,
+    // Show help message immediately after parsing command line options (for "-lang") and setting locale,
     // but before showing splash screen.
     if (mapArgs.count("-?") || mapArgs.count("--help"))
     {

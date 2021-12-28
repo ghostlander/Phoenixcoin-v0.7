@@ -1,8 +1,7 @@
-
-#include "macdockiconhandler.h"
-
 #include <QMenu>
 #include <QWidget>
+
+#include "macdockiconhandler.h"
 
 extern void qt_mac_set_dock_menu(QMenu*);
 
