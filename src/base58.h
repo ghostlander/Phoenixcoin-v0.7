@@ -214,7 +214,9 @@ public:
     }
 
     std::string ToString() const {
-        std::vector<unsigned char> vch(1, nVersion);
+        std::vector<unsigned char> vch;
+        vch.resize(1, nVersion);
+        vch.shrink_to_fit();
         vch.insert(vch.end(), vchData.begin(), vchData.end());
         return EncodeBase58Check(vch);
     }
