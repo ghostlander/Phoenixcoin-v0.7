@@ -1,0 +1,179 @@
+# Copyright (c) 2009-2010 Satoshi Nakamoto
+# Copyright (c) 2022 John Doering
+# Distributed under the MIT/X11 software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+USE_UPNP:=0
+USE_IPV6:=1
+
+CC = gcc
+CXX = g++
+LD := $(CXX)
+
+# Optimisation flags
+OPT = -pipe -O2 -fomit-frame-pointer -fno-stack-protector -pthread
+
+# Warnings
+WARN = -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
+-Wno-ignored-qualifiers
+
+# Additionals and overrides
+override CFLAGS := $(OPT) $(WARN) $(CFLAGS)
+override CXXFLAGS := $(OPT) $(WARN) $(CXXFLAGS)
+
+LDFLAGS = -Wl,-O2 -Wl,-s
+
+DEPSDIR = /usr/local
+
+BOOST_LIB_SUFFIX =
+BOOST_INCLUDE_PATH =
+BOOST_LIB_PATH =
+
+BDB_LIB_SUFFIX =
+BDB_INCLUDE_PATH =
+BDB_LIB_PATH =
+
+OPENSSL_LIB_SUFFIX =
+OPENSSL_INCLUDE_PATH =
+OPENSSL_LIB_PATH =
+
+DEFS = -DBOOST_SPIRIT_THREADSAFE
+
+TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
+
+INCS = $(addprefix -I,$(CURDIR) $(CURDIR)/obj \
+$(BOOST_INCLUDE_PATH) $(BDB_INCLUDE_PATH) $(OPENSSL_INCLUDE_PATH))
+
+LIBS = -L$(DEPSDIR)/lib \
+$(addprefix -L,$(BOOST_LIB_PATH) $(BDB_LIB_PATH) $(OPENSSL_LIB_PATH))
+
+ifdef DYNAMIC
+LIBS += \
+    -l:libboost_system.so$(BOOST_LIB_SUFFIX) \
+    -l:libboost_filesystem.so$(BOOST_LIB_SUFFIX) \
+    -l:libboost_program_options.so$(BOOST_LIB_SUFFIX) \
+    -l:libboost_thread.so$(BOOST_LIB_SUFFIX) \
+    -l:libboost_chrono.so$(BOOST_LIB_SUFFIX) \
+    -l:libdb_cxx.so$(BDB_LIB_SUFFIX) \
+    -l:libssl.so$(OPENSSL_LIB_SUFFIX) \
+    -l:libcrypto.so$(OPENSSL_LIB_SUFFIX)
+TESTDEFS += -DBOOST_TEST_DYN_LINK
+TESTLIBS += -l:libboost_unit_test_framework.so$(BOOST_LIB_SUFFIX)
+else ifdef STATIC
+LIBS += \
+    -l:libboost_system$(BOOST_LIB_SUFFIX).a \
+    -l:libboost_filesystem$(BOOST_LIB_SUFFIX).a \
+    -l:libboost_program_options$(BOOST_LIB_SUFFIX).a \
+    -l:libboost_thread$(BOOST_LIB_SUFFIX).a \
+    -l:libboost_chrono$(BOOST_LIB_SUFFIX).a \
+    -l:libdb_cxx$(BDB_LIB_SUFFIX).a \
+    -l:libssl$(OPENSSL_LIB_SUFFIX).a \
+    -l:libcrypto$(OPENSSL_LIB_SUFFIX).a
+TESTLIBS += -l:libboost_unit_test_framework$(BOOST_LIB_SUFFIX).a
+else
+LIBS += \
+    -lboost_system$(BOOST_LIB_SUFFIX) \
+    -lboost_filesystem$(BOOST_LIB_SUFFIX) \
+    -lboost_program_options$(BOOST_LIB_SUFFIX) \
+    -lboost_thread$(BOOST_LIB_SUFFIX) \
+    -lboost_chrono$(BOOST_LIB_SUFFIX) \
+    -ldb_cxx$(BDB_LIB_SUFFIX) \
+    -lssl$(OPENSSL_LIB_SUFFIX) \
+    -lcrypto$(OPENSSL_LIB_SUFFIX)
+endif
+
+ifndef USE_UPNP
+ override USE_UPNP = -
+endif
+ifneq (${USE_UPNP}, -)
+ LIBS += -lminiupnpc
+ DEFS += -DUSE_UPNP=$(USE_UPNP)
+endif
+
+ifneq (${USE_IPV6}, -)
+ DEFS += -DUSE_IPV6=$(USE_IPV6)
+endif
+
+ifeq (${STATIC}, all)
+ LIBS += -Wl,-Bstatic
+endif
+
+LIBS += -lz -ldl -lpthread -lrt
+
+OBJS = \
+    obj/addrman.o \
+    obj/alert.o \
+    obj/checkpoints.o \
+    obj/crypter.o \
+    obj/db.o \
+    obj/init.o \
+    obj/irc.o \
+    obj/key.o \
+    obj/keystore.o \
+    obj/main.o \
+    obj/net.o \
+    obj/netbase.o \
+    obj/noui.o \
+    obj/ntp.o \
+    obj/protocol.o \
+    obj/rpcblockchain.o \
+    obj/rpcdump.o \
+    obj/rpcmain.o \
+    obj/rpcmining.o \
+    obj/rpcnet.o \
+    obj/rpcrawtransaction.o \
+    obj/rpcwallet.o \
+    obj/script.o \
+    obj/sync.o \
+    obj/util.o \
+    obj/version.o \
+    obj/wallet.o \
+    obj/walletdb.o \
+    obj/neoscrypt.o \
+    obj/neoscrypt_asm.o
+
+all: phoenixcoind
+
+# Auto-generated dependencies
+-include obj/*.P
+
+obj/build.h: FORCE
+	/bin/sh ../share/genbuild.sh obj/build.h
+
+version.cpp: obj/build.h
+
+DEFS += -DHAVE_BUILD_INFO
+
+obj/%.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) $(DEFS) $(INCS) -MMD -MF $(@:%.o=%.d) -o $@ $<
+	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
+	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
+	  rm -f $(@:%.o=%.d)
+
+obj/neoscrypt.o: neoscrypt.c
+	$(CC) $(CFLAGS) -DNEOSCRYPT_SHA256 -DNEOSCRYPT_ASM -DNEOSCRYPT_OPT -c -o $@ $^
+
+obj/neoscrypt_asm.o: neoscrypt_asm.S
+	$(CC) -c -DNEOSCRYPT_SHA256 -DNEOSCRYPT_ASM -DNEOSCRYPT_OPT -o $@ $^
+
+phoenixcoind: $(OBJS:obj/%=obj/%)
+	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
+
+obj-test/%.o: test/%.cpp
+	$(CXX) -c $(CXXFLAGS) $(DEFS) $(TESTDEFS) $(INCS) -MMD -MF $(@:%.o=%.d) -o $@ $<
+	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
+	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
+	  rm -f $(@:%.o=%.d)
+
+test_phoenixcoin: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS) $(TESTLIBS)
+
+clean:
+	-rm -f obj/*.o obj/*.d obj/*.P obj/build.h
+	-rm -f phoenixcoind test_phoenixcoin
+
+FORCE:
