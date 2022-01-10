@@ -149,7 +149,7 @@ contains(NEED_QT_PLUGINS, 1) {
 }
 
 QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security \
-    -Wno-unused-parameter
+    -Wno-unused-parameter -Wno-deprecated-declarations
 
 # Input
 DEPENDPATH += src src/json src/qt
