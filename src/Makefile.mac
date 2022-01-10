@@ -1,0 +1,136 @@
+# Copyright (c) 2009-2010 Satoshi Nakamoto
+# Copyright (c) 2022 John Doering
+# Distributed under the MIT/X11 software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+USE_UPNP:=0
+USE_IPV6:=1
+
+CC = gcc
+CXX = g++
+LD := $(CXX)
+
+# Optimisation flags
+OPT = -pipe -arch x86_64 -O2 -fomit-frame-pointer -pthread -mdynamic-no-pic \
+-mmacosx-version-min=10.5 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+
+# Warnings
+WARN = -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter
+
+# Additionals and overrides
+override CFLAGS := $(OPT) $(WARN) $(CFLAGS)
+override CXXFLAGS := $(OPT) $(WARN) $(CXXFLAGS)
+
+LDFLAGS = -dead_strip
+
+DEPSDIR = /usr/local/amd64
+
+BOOST_LIB_SUFFIX =
+BOOST_INCLUDE_PATH =
+BOOST_LIB_PATH =
+
+BDB_LIB_SUFFIX =
+BDB_INCLUDE_PATH =
+BDB_LIB_PATH =
+
+OPENSSL_LIB_SUFFIX =
+OPENSSL_INCLUDE_PATH =
+OPENSSL_LIB_PATH =
+
+DEFS = -DMSG_NOSIGNAL=0 -DBOOST_SPIRIT_THREADSAFE
+
+INCS = $(addprefix -I,$(CURDIR) $(CURDIR)/obj $(DEPSDIR)/include \
+$(BOOST_INCLUDE_PATH) $(BDB_INCLUDE_PATH) $(OPENSSL_INCLUDE_PATH))
+
+LIBS = -L$(DEPSDIR)/lib \
+$(addprefix -L,$(BOOST_LIB_PATH) $(BDB_LIB_PATH) $(OPENSSL_LIB_PATH))
+
+LIBS += \
+    -lboost_system$(BOOST_LIB_SUFFIX) \
+    -lboost_filesystem$(BOOST_LIB_SUFFIX) \
+    -lboost_program_options$(BOOST_LIB_SUFFIX) \
+    -lboost_thread$(BOOST_LIB_SUFFIX) \
+    -lboost_chrono$(BOOST_LIB_SUFFIX) \
+    -ldb_cxx$(BDB_LIB_SUFFIX) \
+    -lssl$(OPENSSL_LIB_SUFFIX) \
+    -lcrypto$(OPENSSL_LIB_SUFFIX)
+
+ifndef USE_UPNP
+ override USE_UPNP = -
+endif
+ifneq (${USE_UPNP}, -)
+ LIBS += -lminiupnpc
+ DEFS += -DUSE_UPNP=$(USE_UPNP)
+endif
+
+ifneq (${USE_IPV6}, -)
+ DEFS += -DUSE_IPV6=$(USE_IPV6)
+endif
+
+LIBS += -lz
+
+OBJS = \
+    obj/addrman.o \
+    obj/alert.o \
+    obj/checkpoints.o \
+    obj/crypter.o \
+    obj/db.o \
+    obj/init.o \
+    obj/irc.o \
+    obj/key.o \
+    obj/keystore.o \
+    obj/main.o \
+    obj/net.o \
+    obj/netbase.o \
+    obj/noui.o \
+    obj/ntp.o \
+    obj/protocol.o \
+    obj/rpcblockchain.o \
+    obj/rpcdump.o \
+    obj/rpcmain.o \
+    obj/rpcmining.o \
+    obj/rpcnet.o \
+    obj/rpcrawtransaction.o \
+    obj/rpcwallet.o \
+    obj/script.o \
+    obj/sync.o \
+    obj/util.o \
+    obj/version.o \
+    obj/wallet.o \
+    obj/walletdb.o \
+    obj/neoscrypt.o \
+    obj/neoscrypt_asm.o
+
+all: phoenixcoind
+
+# Auto-generated dependencies
+-include obj/*.P
+
+obj/build.h: FORCE
+	/bin/sh ../share/genbuild.sh obj/build.h
+
+version.cpp: obj/build.h
+
+DEFS += -DHAVE_BUILD_INFO
+
+obj/%.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) $(DEFS) $(INCS) -MMD -MF $(@:%.o=%.d) -o $@ $<
+	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
+	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
+	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
+	  rm -f $(@:%.o=%.d)
+
+obj/neoscrypt.o: neoscrypt.c
+	$(CC) $(CFLAGS) -DNEOSCRYPT_SHA256 -DNEOSCRYPT_ASM -DNEOSCRYPT_OPT -c -o $@ $^
+
+obj/neoscrypt_asm.o: neoscrypt_asm.S
+	$(CC) -c -DNEOSCRYPT_MOVQ_FIX -DNEOSCRYPT_SHA256 -DNEOSCRYPT_ASM -DNEOSCRYPT_OPT -o $@ $^
+
+phoenixcoind: $(OBJS:obj/%=obj/%)
+	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+clean:
+	-rm -f obj/*.o obj/*.d obj/*.P obj/build.h
+	-rm -f phoenixcoind
+
+FORCE:

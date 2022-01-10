@@ -9,8 +9,7 @@
 
 #include <openssl/crypto.h>  /* for SSLEAY_VERSION */
 #include <boost/version.hpp>  /* for BOOST_VERSION */
-
-#include "db.h"  /* for DbEnv::version() */
+#include <db_cxx.h>  /* for DbEnv::version() */
 
 #ifndef Q_MOC_RUN
 #include "rpcmain.h"
