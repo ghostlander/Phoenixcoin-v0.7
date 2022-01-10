@@ -15,7 +15,7 @@ OPT = -pipe -O2 -fomit-frame-pointer -fno-stack-protector -pthread
 
 # Warnings
 WARN = -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
--Wno-ignored-qualifiers
+-Wno-ignored-qualifiers -Wno-deprecated-declarations
 
 # Additionals and overrides
 override CFLAGS := $(OPT) $(WARN) $(CFLAGS)
