@@ -141,6 +141,12 @@ extern json_spirit::Value getrawmempool(const json_spirit::Array &params, bool f
 extern json_spirit::Value getblockhash(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value getblock(const json_spirit::Array &params, bool fHelp);
 
+/* in rpccrypto.cpp */
+extern json_spirit::Value encryptmessage(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value decryptmessage(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value encryptdata(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value decryptdata(const json_spirit::Array &params, bool fHelp);
+
 /* in rpcdump.cpp */
 extern json_spirit::Value importprivkey(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value importaddress(const json_spirit::Array &params, bool fHelp);

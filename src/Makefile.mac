@@ -86,6 +86,7 @@ OBJS = \
     obj/ntp.o \
     obj/protocol.o \
     obj/rpcblockchain.o \
+    obj/rpccrypto.o \
     obj/rpcdump.o \
     obj/rpcmain.o \
     obj/rpcmining.o \
@@ -99,7 +100,10 @@ OBJS = \
     obj/wallet.o \
     obj/walletdb.o \
     obj/neoscrypt.o \
-    obj/neoscrypt_asm.o
+    obj/neoscrypt_asm.o \
+    obj/ecies.o \
+    obj/kdf.o \
+    obj/secure.o
 
 all: phoenixcoind
 
@@ -125,6 +129,15 @@ obj/neoscrypt.o: neoscrypt.c
 
 obj/neoscrypt_asm.o: neoscrypt_asm.S
 	$(CC) -c -DNEOSCRYPT_MOVQ_FIX -DNEOSCRYPT_SHA256 -DNEOSCRYPT_ASM -DNEOSCRYPT_OPT -o $@ $^
+
+obj/ecies.o: ecies/ecies.c
+	$(CC) $(CFLAGS) $(addprefix -I,$(CURDIR)/ecies $(DEPSDIR)/include $(OPENSSL_INCLUDE_PATH)) -c -o $@ $^
+
+obj/secure.o: ecies/secure.c
+	$(CC) $(CFLAGS) $(addprefix -I,$(CURDIR)/ecies $(DEPSDIR)/include $(OPENSSL_INCLUDE_PATH)) -c -o $@ $^
+
+obj/kdf.o: ecies/kdf.c
+	$(CC) $(CFLAGS) $(addprefix -I,$(CURDIR)/ecies $(DEPSDIR)/include $(OPENSSL_INCLUDE_PATH)) -c -o $@ $^
 
 phoenixcoind: $(OBJS:obj/%=obj/%)
 	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)
