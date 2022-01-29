@@ -440,14 +440,14 @@ void CKey::EncryptData(const std::vector<uchar> &plaindata, std::vector<uchar> &
     cryptex = ecies_encrypt(ctx, (uchar *) &plaindata[0], plaindata.size(), error);
 
     if(!cryptex) {
-        free(ctx);
+        delete ctx;
         throw(key_error(std::string("Error in encryption: ") + error));
     }
 
     encdata.resize(secure_data_sum_length(cryptex));
     memcpy(&encdata[0], secure_key_data(cryptex), encdata.size());
     secure_free(cryptex);
-    free(ctx);
+    delete ctx;
 }
 
 void CKey::DecryptData(const std::vector<uchar> &encdata, std::vector<uchar> &plaindata) {
@@ -474,7 +474,7 @@ void CKey::DecryptData(const std::vector<uchar> &encdata, std::vector<uchar> &pl
     decrypted = ecies_decrypt(ctx, cryptex, &length, error);
 
     secure_free(cryptex);
-    free(ctx);
+    delete ctx;
 
     if(!decrypted) {
       throw(key_error(std::string("Error in decryption: ") + error));
