@@ -12,6 +12,7 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QThread>
+#include <QLocale>
 
 #if (QT_VERSION < 0x050000)
 #include <QUrl>
@@ -38,7 +39,7 @@ namespace GUIUtil {
 
 QString dateTimeStr(const QDateTime &date)
 {
-    return date.date().toString(Qt::SystemLocaleShortDate) + QString(" ") + date.toString("hh:mm");
+    return QLocale::system().toString(date.date(), QLocale::ShortFormat) + QString(" ") + date.toString("hh:mm");
 }
 
 QString dateTimeStr(qint64 nTime)
