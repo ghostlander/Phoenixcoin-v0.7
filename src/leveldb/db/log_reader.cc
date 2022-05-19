@@ -224,10 +224,10 @@ unsigned int Reader::ReadPhysicalRecord(Slice* result) {
     }
 
     // Parse the header
-    const char* header = buffer_.data();
-    const uint32_t a = static_cast<uint32_t>(header[4]) & 0xff;
-    const uint32_t b = static_cast<uint32_t>(header[5]) & 0xff;
-    const unsigned int type = header[6];
+    const char *header = buffer_.data();
+    const uint32_t a = (uint32_t)(header[4] & 0xFF);
+    const uint32_t b = (uint32_t)(header[5] & 0xFF);
+    const uint32_t type = header[6];
     const uint32_t length = a | (b << 8);
     if (kHeaderSize + length > buffer_.size()) {
       size_t drop_size = buffer_.size();

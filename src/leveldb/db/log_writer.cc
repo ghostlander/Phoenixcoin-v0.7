@@ -14,7 +14,7 @@ namespace log {
 
 static void InitTypeCrc(uint32_t* type_crc) {
   for (int i = 0; i <= kMaxRecordType; i++) {
-    char t = static_cast<char>(i);
+    char t = (char)i;
     type_crc[i] = crc32c::Value(&t, 1);
   }
 }
@@ -87,9 +87,9 @@ Status Writer::EmitPhysicalRecord(RecordType t, const char* ptr, size_t n) {
 
   // Format the header
   char buf[kHeaderSize];
-  buf[4] = static_cast<char>(n & 0xff);
-  buf[5] = static_cast<char>(n >> 8);
-  buf[6] = static_cast<char>(t);
+  buf[4] = (char)(n & 0xFF);
+  buf[5] = (char)(n >> 8);
+  buf[6] = (char)t;
 
   // Compute the crc of the record type and the payload.
   uint32_t crc = crc32c::Extend(type_crc_[t], ptr, n);
