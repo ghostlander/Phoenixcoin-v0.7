@@ -334,12 +334,10 @@ class Benchmark {
             FLAGS_value_size,
             static_cast<int>(FLAGS_value_size * FLAGS_compression_ratio + 0.5));
     fprintf(stdout, "Entries:    %d\n", num_);
-    fprintf(stdout, "RawSize:    %.1f MB (estimated)\n",
-            ((static_cast<int64_t>(kKeySize + FLAGS_value_size) * num_)
-             / 1048576.0));
-    fprintf(stdout, "FileSize:   %.1f MB (estimated)\n",
-            (((kKeySize + FLAGS_value_size * FLAGS_compression_ratio) * num_)
-             / 1048576.0));
+    fprintf(stdout, "RawSize:    %.2f MB (estimated)\n",
+      (double)((kKeySize + FLAGS_value_size) * num_) / 1048576.0);
+    fprintf(stdout, "FileSize:   %.2f MB (estimated)\n",
+      (double)((kKeySize + FLAGS_value_size * FLAGS_compression_ratio) * num_) / 1048576.0);
     PrintWarnings();
     fprintf(stdout, "------------------------------------------------\n");
   }
@@ -643,7 +641,7 @@ class Benchmark {
       bytes += size;
     }
     // Print so result is not dead
-    fprintf(stderr, "... crc=0x%x\r", static_cast<unsigned int>(crc));
+    fprintf(stderr, "... crc=0x%x\r", crc);
 
     thread->stats.AddBytes(bytes);
     thread->stats.AddMessage(label);
