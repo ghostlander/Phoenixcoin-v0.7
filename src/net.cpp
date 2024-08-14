@@ -1100,7 +1100,7 @@ void ThreadMapPort2(void* parg)
     int r;
 
 #if (MINIUPNPC_API_VERSION >= 18)
-    r = UPNP_GetValidIGD(devlist, &urls, &data, lanaddr, sizeof(lanaddr), nullptr, 0);
+    r = UPNP_GetValidIGD(devlist, &urls, &data, lanaddr, sizeof(lanaddr), NULL, 0);
 #else
     r = UPNP_GetValidIGD(devlist, &urls, &data, lanaddr, sizeof(lanaddr));
 #endif
