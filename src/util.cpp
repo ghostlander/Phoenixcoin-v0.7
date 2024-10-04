@@ -1058,7 +1058,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
 boost::filesystem::path GetPidFile() {
     boost::filesystem::path pathPidFile(GetArg("-pid", "phoenixcoind.pid"));
-    if(!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
+    if(!pathPidFile.is_absolute()) pathPidFile = GetDataDir() / pathPidFile;
     return(pathPidFile);
 }
 
