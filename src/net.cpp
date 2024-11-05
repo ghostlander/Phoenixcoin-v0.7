@@ -16,7 +16,6 @@
 #include <miniupnpc/upnperrors.h>
 #endif
 
-#include "strlcpy.h"
 #include "init.h"
 #include "irc.h"
 #include "addrman.h"
