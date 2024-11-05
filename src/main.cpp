@@ -2241,9 +2241,8 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
 
 
 
-bool CheckDiskSpace(uint64 nAdditionalBytes)
-{
-    uint64 nFreeBytesAvailable = filesystem::space(GetDataDir()).available;
+bool CheckDiskSpace(uint64 nAdditionalBytes) {
+    uint64 nFreeBytesAvailable = boost::filesystem::space(GetDataDir()).available;
 
     // Check for nMinDiskSpace bytes (currently 50MB)
     if (nFreeBytesAvailable < nMinDiskSpace + nAdditionalBytes)
@@ -2260,8 +2259,7 @@ bool CheckDiskSpace(uint64 nAdditionalBytes)
     return true;
 }
 
-static filesystem::path BlockFilePath(unsigned int nFile)
-{
+static boost::filesystem::path BlockFilePath(unsigned int nFile) {
     string strBlockFn = strprintf("blk%04u.dat", nFile);
     return GetDataDir() / strBlockFn;
 }

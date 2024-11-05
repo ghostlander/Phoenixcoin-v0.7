@@ -1022,7 +1022,11 @@ boost::filesystem::path GetConfigFile() {
     fs::path pathConfigFile;
     if(mapArgs.count("-conf")) pathConfigFile = fs::path(mapArgs["-conf"]);
     else pathConfigFile = fs::path("phoenixcoin.conf");
+#if (BOOST_VERSION >= 105000)
     if(!pathConfigFile.is_absolute()) {
+#else
+    if(!pathConfigFile.is_complete()) {
+#endif
         if(!GetBoolArg("-testnet", false))
           pathConfigFile = GetDataDir(false) / pathConfigFile;
         else
@@ -1058,7 +1062,11 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
 boost::filesystem::path GetPidFile() {
     boost::filesystem::path pathPidFile(GetArg("-pid", "phoenixcoind.pid"));
+#if (BOOST_VERSION >= 105000)
+    if(!pathPidFile.is_absolute()) pathPidFile = GetDataDir() / pathPidFile;
+#else
     if(!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
+#endif
     return(pathPidFile);
 }
 
