@@ -1098,7 +1098,20 @@ void ThreadMapPort2(void* parg)
     struct IGDdatas data;
     int r;
 
+#if (MINIUPNPC_API_VERSION >= 18)
+    r = UPNP_GetValidIGD(devlist, &urls, &data, lanaddr, sizeof(lanaddr), NULL, 0);
+#else
     r = UPNP_GetValidIGD(devlist, &urls, &data, lanaddr, sizeof(lanaddr));
+#endif
+
+/* Possible return values:
+ *  -1 = internal error;
+ *   0 = no IGD (Internet Gateway Device) found;
+ *   1 = a valid connected IGD has been found;
+ *   2 = a valid connected IGD has been found, but its IP address is reserved (non-routable);
+ *   3 = a valid IGD has been found, but reported as not connected;
+ *   4 = a UPnP device has been found, but not recognised as an IGD. */
+
     if (r == 1)
     {
         if (fDiscover) {
