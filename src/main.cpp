@@ -81,6 +81,7 @@ int64 nMinimumInputValue = TX_DUST;
  * 0xFE and ASCII 'P' 'X' 'C' mapped into extended characters */
 uchar pchMessageStart[4] = { 0xFE, 0xD0, 0xD8, 0xC3 };
 
+extern enum Checkpoints::CPMode CheckpointsMode;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -912,6 +913,15 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
     while (mapOrphanBlocks.count(pblock->hashPrevBlock))
         pblock = mapOrphanBlocks[pblock->hashPrevBlock];
     return pblock->GetHash();
+}
+
+/* Find the parent block needed by a given orphan block */
+uint256 WantedByOrphan(const CBlock *pblockOrphan) {
+
+    while(mapOrphanBlocks.count(pblockOrphan->hashPrevBlock)) {
+        pblockOrphan = mapOrphanBlocks[pblockOrphan->hashPrevBlock];
+    }
+    return(pblockOrphan->hashPrevBlock);
 }
 
 int64 GetProofOfWorkReward(int nHeight, int64 nFees) {
@@ -2097,14 +2107,33 @@ bool CBlock::AcceptBlock()
 
     }
 
-    // Check that all transactions are finalized
-    BOOST_FOREACH(const CTransaction& tx, vtx)
-        if (!tx.IsFinal(nHeight, GetBlockTime()))
-            return DoS(10, error("AcceptBlock() : contains a non-final transaction"));
+    /* Check that all transactions are final */
+    BOOST_FOREACH(const CTransaction &tx, vtx) {
+        if(!tx.IsFinal(nHeight, GetBlockTime())) {
+            return(DoS(10, error("AcceptBlock() : contains a non-final transaction")));
+        }
+    }
 
-    // Check that the block chain matches the known block chain up to a checkpoint
-    if (!Checkpoints::CheckBlock(nHeight, hash))
-        return DoS(100, error("AcceptBlock() : rejected by checkpoint lock-in at %d", nHeight));
+    /* Check against hardcoded checkpoints */
+    if(!Checkpoints::CheckHardened(nHeight, hash)) {
+        return(DoS(100, error("AcceptBlock(): rejected by a hardened checkpoint at height %d", nHeight)));
+    }
+
+    /* Check against advanced (synchronised) checkpoints */
+    if(!IsInitialBlockDownload()) {
+        bool cpSatisfies = Checkpoints::CheckSync(hash, pindexPrev);
+
+        /* Failed blocks are rejected in strict mode */
+        if((CheckpointsMode == Checkpoints::STRICT) && !cpSatisfies) {
+            return(error("AcceptBlock(): block %s height %d rejected by advanced checkpointing",
+              hash.ToString().substr(0,20).c_str(), nHeight));
+        }
+
+        /* Failed blocks are accepted in advisory mode with a warning issued */
+        if((CheckpointsMode == Checkpoints::ADVISORY) && !cpSatisfies) {
+            strMiscWarning = _("WARNING: failed against advanced checkpointing!");
+        }
+    }
 
 #if (0)
     // Reject block.nVersion=1 blocks when 95% (75% on testnet) of the network has upgraded:
@@ -2140,17 +2169,23 @@ bool CBlock::AcceptBlock()
     if (!AddToBlockIndex(nFile, nBlockPos))
         return error("AcceptBlock() : AddToBlockIndex failed");
 
-    // Relay inventory, but don't relay old inventory during initial block download
+    /* Relay inventory, but don't relay old inventory during initial block download */
     int nBlockEstimate = Checkpoints::GetTotalBlocksEstimate();
-    if (hashBestChain == hash)
-    {
+    if(hashBestChain == hash) {
         LOCK(cs_vNodes);
-        BOOST_FOREACH(CNode* pnode, vNodes)
-            if (nBestHeight > (pnode->nStartingHeight != -1 ? pnode->nStartingHeight - 2000 : nBlockEstimate))
+        BOOST_FOREACH(CNode *pnode, vNodes) {
+            if(nBestHeight > (pnode->nStartingHeight !=
+              -1 ? pnode->nStartingHeight - 2000 : nBlockEstimate)) {
                 pnode->PushInventory(CInv(MSG_BLOCK, hash));
+            }
+        }
     }
 
-    return true;
+    /* Process a pending sync checkpoint;
+     * disabled during initial block download to accelerate processing speed */
+    if(!IsInitialBlockDownload()) Checkpoints::AcceptPendingSyncCheckpoint();
+
+    return(true);
 }
 
 bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned int nRequired, unsigned int nToCheck)
@@ -2165,18 +2200,26 @@ bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, uns
     return (nFound >= nRequired);
 }
 
-bool ProcessBlock(CNode* pfrom, CBlock* pblock)
-{
-    // Check for duplicate
+bool ProcessBlock(CNode *pfrom, CBlock *pblock) {
     uint256 hash = pblock->GetHash();
-    if (mapBlockIndex.count(hash))
-        return error("ProcessBlock() : already have block %d %s", mapBlockIndex[hash]->nHeight, hash.ToString().substr(0,20).c_str());
-    if (mapOrphanBlocks.count(hash))
-        return error("ProcessBlock() : already have block (orphan) %s", hash.ToString().substr(0,20).c_str());
 
-    // Preliminary checks
-    if (!pblock->CheckBlock())
-        return error("ProcessBlock() : CheckBlock FAILED");
+    /* Duplicate block check */
+    if(mapBlockIndex.count(hash)) {
+        return error("ProcessBlock() : block %s height %d have already",
+          hash.ToString().substr(0,20).c_str(), mapBlockIndex[hash]->nHeight);
+    }
+    if(mapOrphanBlocks.count(hash)) {
+        return error("ProcessBlock() : orphan block %s have already",
+          hash.ToString().substr(0,20).c_str());
+    }
+
+    /* Ask for a pending sync checkpoint, if any */
+    if(pfrom && !IsInitialBlockDownload())
+      Checkpoints::AskForPendingSyncCheckpoint(pfrom);
+
+    /* Basic block integrity checks including PoW target */
+    if(!pblock->CheckBlock())
+      return(error("ProcessBlock() : CheckBlock() FAILED"));
 
     CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint(mapBlockIndex);
     if (pcheckpoint && pblock->hashPrevBlock != hashBestChain)
@@ -2190,21 +2233,23 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
 
     }
 
-    // If we don't already have its previous block, shunt it off to holding area until we get it
-    if (!mapBlockIndex.count(pblock->hashPrevBlock))
-    {
+    /* Accept an orphan block as long as there is a node to request preceding blocks from */
+    if(!mapBlockIndex.count(pblock->hashPrevBlock)) {
         printf("ProcessBlock: ORPHAN BLOCK, prev=%s\n", pblock->hashPrevBlock.ToString().substr(0,20).c_str());
 
-        // Accept orphans as long as there is a node to request its parents from
-        if (pfrom) {
-            CBlock* pblock2 = new CBlock(*pblock);
+        if(pfrom) {
+            CBlock *pblock2 = new CBlock(*pblock);
             mapOrphanBlocks.insert(make_pair(hash, pblock2));
             mapOrphanBlocksByPrev.insert(make_pair(pblock2->hashPrevBlock, pblock2));
 
-            // Ask this guy to fill in what we're missing
             pfrom->PushGetBlocks(pindexBest, GetOrphanRoot(pblock2));
+            /* Ask directly just in case */
+            if(!IsInitialBlockDownload())
+              pfrom->AskFor(CInv(MSG_BLOCK, WantedByOrphan(pblock2)));
+
         }
-        return true;
+
+        return(true);
     }
 
     // Store to disk
@@ -2231,7 +2276,13 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
     }
 
     printf("ProcessBlock: ACCEPTED\n");
-    return true;
+
+    /* Checkpoint master sends a new sync checkpoint
+     * according to the depth specified by -checkpointdepth */
+    if(pfrom && !CSyncCheckpoint::strMasterPrivKey.empty())
+      Checkpoints::SendSyncCheckpoint(Checkpoints::AutoSelectSyncCheckpoint());
+
+    return(true);
 }
 
 
@@ -2427,11 +2478,46 @@ bool LoadBlockIndex(bool fAllowNew) {
         uint nFile;
         uint nBlockPos;
         if(!block.WriteToDisk(nFile, nBlockPos))
-          return(error("LoadBlockIndex() : failed to write the genesis block to disk"));
+          return(error("LoadBlockIndex(): failed to write the genesis block to disk"));
         if(!block.AddToBlockIndex(nFile, nBlockPos))
-          return(error("LoadBlockIndex() : failed to add the genesis block to the block index"));
+          return(error("LoadBlockIndex(): failed to add the genesis block to the block index"));
+
+        /* Initialise sync checkpointing */
+        if(!Checkpoints::WriteSyncCheckpoint(hashGenesisBlock))
+          return(error("LoadBlockIndex(): failed to initialise advanced checkpointing"));
 
     }
+
+    /* Verify the master public key and reset sync checkpointing if changed */
+    std::string strPubKey = "";
+    std::string strMasterPubKey = fTestNet ? CSyncCheckpoint::strTestPubKey : CSyncCheckpoint::strMainPubKey;
+
+#if 0
+    if(!pblocktree->ReadCheckpointPubKey(strPubKey) || (strPubKey != strMasterPubKey)) {
+
+        {
+            LOCK(Checkpoints::cs_hashSyncCheckpoint);
+            if(!pblocktree->WriteCheckpointPubKey(strMasterPubKey))
+              return(error("LoadBlockIndex(): failed to write the new checkpoint master key to the data base"));
+        }
+
+        if(!Checkpoints::ResetSyncCheckpoint())
+          return(error("LoadBlockIndex(): failed to reset advanced checkpointing"));
+    }
+#else
+    CTxDB txdbs;
+    if(!txdbs.ReadCheckpointPubKey(strPubKey) || (strPubKey != strMasterPubKey)) {
+        txdbs.TxnBegin();
+        if(!txdbs.WriteCheckpointPubKey(strMasterPubKey))
+          return(error("LoadBlockIndex(): failed to write the new checkpoint master key to the data base"));
+        if(!txdbs.TxnCommit())
+          return(error("LoadBlockIndex(): failed to commit the new checkpoint master key to the data base"));
+
+        if(!Checkpoints::ResetSyncCheckpoint())
+          return(error("LoadBlockIndex(): failed to reset advanced checkpointing"));
+    }
+    txdbs.Close();
+#endif
 
     return(true);
 }
@@ -2601,11 +2687,19 @@ string GetWarnings(string strFor)
         strStatusBar = strMiscWarning;
     }
 
-    // Longer invalid proof-of-work chain
-    if (pindexBest && bnBestInvalidWork > bnBestChainWork + pindexBest->GetBlockWork() * 6)
-    {
-        nPriority = 2000;
-        strStatusBar = strRPC = _("Warning: Displayed transactions may not be correct! You may need to upgrade, or other nodes may need to upgrade.");
+    /* Don't enter safe mode if the last received sync checkpoint is too old;
+     * display a warning in STRICT mode only */
+    if((CheckpointsMode == Checkpoints::STRICT) &&
+      Checkpoints::IsSyncCheckpointTooOld(60 * 60 * 24 * 10) &&
+      !fTestNet && !IsInitialBlockDownload()) {
+        nPriority = 100;
+        strStatusBar = _("WARNING: Advanced checkpoint is too old. Please notify the developers.");
+    }
+
+    /* Enter safe mode if an invalid sync checkpoint has been detected */
+    if(Checkpoints::hashInvalidCheckpoint != 0) {
+        nPriority = 3000;
+        strStatusBar = strRPC = _("WARNING: Inconsistent advanced checkpoint found! Please notify the developers.");
     }
 
     // Alerts
@@ -2783,6 +2877,13 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                 item.second.RelayTo(pfrom);
         }
 
+        /* Relay sync checkpoints */
+        {
+            LOCK(Checkpoints::cs_hashSyncCheckpoint);
+            if(!Checkpoints::checkpointMessage.IsNull())
+              Checkpoints::checkpointMessage.RelayTo(pfrom);
+        }
+
         pfrom->fSuccessfullyConnected = true;
 
         printf("received version message from %s, version %d, blocks=%d, us=%s, them=%s\n",
@@ -2790,8 +2891,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
           addrMe.ToString().c_str(), addrFrom.ToString().c_str());
 
         cPeerBlockCounts.input(pfrom->nStartingHeight);
-    }
 
+        /* Check for a pending sync checkpoint, if any */
+        if(!IsInitialBlockDownload()) Checkpoints::AskForPendingSyncCheckpoint(pfrom);
+    }
 
     else if (pfrom->nVersion == 0)
     {
@@ -3266,6 +3369,27 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                 // a different signature key, etc.
                 pfrom->Misbehaving(10);
             }
+        }
+    }
+
+
+    /* Sync checkpoint */
+    else if(strCommand == "checkpoint") {
+
+        if(pfrom->fDisconnect) {
+            printf("advanced checkpoint received from a disconnected peer %s of version %i; ignoring\n",
+              pfrom->addr.ToString().c_str(), pfrom->nVersion);
+            return(false);
+        }
+
+        CSyncCheckpoint checkpoint;
+        vRecv >> checkpoint;
+
+        if(checkpoint.ProcessSyncCheckpoint(pfrom)) {
+            /* Relay to connected nodes */
+            pfrom->hashCheckpointKnown = checkpoint.hashCheckpoint;
+            LOCK(cs_vNodes);
+            BOOST_FOREACH(CNode *pnode, vNodes) checkpoint.RelayTo(pnode);
         }
     }
 

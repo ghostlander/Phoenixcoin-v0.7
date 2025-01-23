@@ -140,6 +140,8 @@ extern json_spirit::Value settxfee(const json_spirit::Array &params, bool fHelp)
 extern json_spirit::Value getrawmempool(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value getblockhash(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value getblock(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value getcheckpoint(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value sendcheckpoint(const json_spirit::Array &params, bool fHelp);
 
 /* in rpccrypto.cpp */
 extern json_spirit::Value encryptmessage(const json_spirit::Array &params, bool fHelp);
@@ -216,5 +218,6 @@ extern json_spirit::Value encryptwallet(const json_spirit::Array &params, bool f
 extern json_spirit::Value validateaddress(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value validatepubkey(const json_spirit::Array &params, bool fHelp);
 extern json_spirit::Value resendtx(const json_spirit::Array &params, bool fHelp);
+extern json_spirit::Value makekeypair(const json_spirit::Array &params, bool fHelp);
 
 #endif /* RPCMAIN_H */

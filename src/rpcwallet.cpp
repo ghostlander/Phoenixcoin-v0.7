@@ -1635,3 +1635,25 @@ Value resendtx(const Array &params, bool fHelp) {
 
     return(Value::null);
 }
+
+
+Value makekeypair(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() > 0)) {
+        string msg = "makekeypair\n"
+          "Generates a pair of public and private keys.\n";
+        throw(runtime_error(msg));
+    }
+
+    CKey key;
+    key.MakeNewKey(false);
+
+    CPrivKey vchPrivKey = key.GetPrivKey();
+
+    Object result;
+    result.push_back(Pair("privkey",
+      HexStr<CPrivKey::iterator>(vchPrivKey.begin(), vchPrivKey.end())));
+    result.push_back(Pair("pubkey", HexStr(key.GetPubKey().Raw())));
+
+    return(result);
+}

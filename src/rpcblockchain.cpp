@@ -6,11 +6,14 @@
 #include <string>
 #include <vector>
 
+#include "checkpoints.h"
 #include "main.h"
 #include "rpcmain.h"
 
 using namespace json_spirit;
 using namespace std;
+
+extern enum Checkpoints::CPMode CheckpointsMode;
 
 double GetDifficulty(const CBlockIndex *blockindex) {
 
@@ -165,4 +168,77 @@ Value getblock(const Array &params, bool fHelp) {
     block.ReadFromDisk(pblockindex, true);
 
     return(blockToJSON(block, pblockindex));
+}
+
+
+Value getcheckpoint(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 0)) {
+        string msg = "getcheckpoint\n"
+          "Displays info on the last advanced checkpoint.";
+        throw(runtime_error(msg));
+    }
+
+    Object result;
+    CBlockIndex *pindexCheckpoint;
+
+    result.push_back(Pair("advcheckpoint", Checkpoints::hashSyncCheckpoint.ToString().c_str()));
+    pindexCheckpoint = mapBlockIndex[Checkpoints::hashSyncCheckpoint];
+    result.push_back(Pair("height", pindexCheckpoint->nHeight));
+    result.push_back(Pair("timestamp", DateTimeStrFormat(pindexCheckpoint->GetBlockTime()).c_str()));
+
+    if(CheckpointsMode == Checkpoints::STRICT)
+      result.push_back(Pair("policy", "strict"));
+
+    if(CheckpointsMode == Checkpoints::ADVISORY)
+      result.push_back(Pair("policy", "advisory"));
+
+    if(CheckpointsMode == Checkpoints::PERMISSIVE)
+      result.push_back(Pair("policy", "permissive"));
+
+    if(mapArgs.count("-checkpointkey"))
+      result.push_back(Pair("checkpointmaster", true));
+
+    return(result);
+}
+
+
+Value sendcheckpoint(const Array &params, bool fHelp) {
+
+    if(fHelp || (params.size() != 1)) {
+        string msg = "sendcheckpoint\n"
+          "Produces and sends an advanced checkpoint manually.";
+        throw(runtime_error(msg));
+    }
+
+    if(!mapArgs.count("-checkpointkey") || CSyncCheckpoint::strMasterPrivKey.empty())
+      throw(runtime_error("No master private key present, please set it up first."));
+
+    std::string strHash = params[0].get_str();
+    uint256 hash(strHash);
+
+    if(!Checkpoints::SendSyncCheckpoint(hash))
+      throw(runtime_error("Failed to send an advanced checkpoint."));
+
+    Object result;
+    CBlockIndex *pindexCheckpoint;
+
+    result.push_back(Pair("advcheckpoint", Checkpoints::hashSyncCheckpoint.ToString().c_str()));
+    pindexCheckpoint = mapBlockIndex[Checkpoints::hashSyncCheckpoint];
+    result.push_back(Pair("height", pindexCheckpoint->nHeight));
+    result.push_back(Pair("timestamp", DateTimeStrFormat(pindexCheckpoint->GetBlockTime()).c_str()));
+
+    if(CheckpointsMode == Checkpoints::STRICT)
+      result.push_back(Pair("policy", "strict"));
+
+    if(CheckpointsMode == Checkpoints::ADVISORY)
+      result.push_back(Pair("policy", "advisory"));
+
+    if(CheckpointsMode == Checkpoints::PERMISSIVE)
+      result.push_back(Pair("policy", "permissive"));
+
+    if(mapArgs.count("-checkpointkey"))
+      result.push_back(Pair("checkpointmaster", true));
+
+    return(result);
 }

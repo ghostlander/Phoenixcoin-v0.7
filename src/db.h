@@ -350,6 +350,12 @@ public:
     bool ReadBestInvalidWork(CBigNum& bnBestInvalidWork);
     bool WriteBestInvalidWork(CBigNum bnBestInvalidWork);
     bool LoadBlockIndex();
+
+    /* Calls related to sync checkpoints */
+    bool ReadSyncCheckpoint(uint256 &hashCheckpoint);
+    bool WriteSyncCheckpoint(uint256 hashCheckpoint);
+    bool ReadCheckpointPubKey(std::string &strPubKey);
+    bool WriteCheckpointPubKey(const std::string &strPubKey);
 private:
     bool LoadBlockIndexGuts();
 };

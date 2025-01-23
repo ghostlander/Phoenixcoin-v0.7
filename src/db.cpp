@@ -15,6 +15,7 @@
 
 #include "util.h"
 #include "main.h"
+#include "checkpoints.h" /* for hashSyncCheckpoint */
 #include "db.h"
 
 using namespace std;
@@ -573,6 +574,22 @@ bool CTxDB::WriteBestInvalidWork(CBigNum bnBestInvalidWork)
     return Write(string("bnBestInvalidWork"), bnBestInvalidWork);
 }
 
+bool CTxDB::ReadSyncCheckpoint(uint256 &hashCheckpoint) {
+    return(Read(string("hashSyncCheckpoint"), hashCheckpoint));
+}
+
+bool CTxDB::WriteSyncCheckpoint(uint256 hashCheckpoint) {
+    return(Write(string("hashSyncCheckpoint"), hashCheckpoint));
+}
+
+bool CTxDB::ReadCheckpointPubKey(string &strPubKey) {
+    return(Read(string("strCheckpointPubKey"), strPubKey));
+}
+
+bool CTxDB::WriteCheckpointPubKey(const string &strPubKey) {
+    return(Write(string("strCheckpointPubKey"), strPubKey));
+}
+
 CBlockIndex static * InsertBlockIndex(uint256 hash)
 {
     if (hash == 0)
@@ -631,6 +648,14 @@ bool CTxDB::LoadBlockIndex()
     printf("LoadBlockIndex(): hashBestChain=%s  height=%d  date=%s\n",
       hashBestChain.ToString().substr(0,20).c_str(), nBestHeight,
       DateTimeStrFormat("%x %H:%M:%S", pindexBest->GetBlockTime()).c_str());
+
+    /* Load sync checkpoint */
+    if(!ReadSyncCheckpoint(Checkpoints::hashSyncCheckpoint)) {
+        printf("LoadBlockIndex(): advanced checkpoint cannot be read\n");
+    } else {
+        printf("LoadBlockIndex(): advanced checkpoint is %s\n",
+          Checkpoints::hashSyncCheckpoint.ToString().c_str());
+    }
 
     // Load bnBestInvalidWork, OK if it doesn't exist
     ReadBestInvalidWork(bnBestInvalidWork);

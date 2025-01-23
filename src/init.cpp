@@ -27,6 +27,7 @@
 #endif
 
 #include "db.h"
+#include "checkpoints.h"
 #include "wallet.h"
 #include "util.h"
 #include "rpcmain.h"
@@ -39,6 +40,7 @@ CWallet *pwalletMain;
 CClientUIInterface uiInterface;
 
 uint nMsgSleep;
+enum Checkpoints::CPMode CheckpointsMode;
 
 /* Assembly level processor optimisation features */
 uint opt_flags = 0;
@@ -374,6 +376,12 @@ bool AppInit2()
     fTestNet = GetBoolArg("-testnet");
     if(fTestNet) SoftSetBoolArg("-irc", true);
 
+    CheckpointsMode = Checkpoints::STRICT;
+    std::string strCpMode = GetArg("-cppolicy", "strict");
+    if(strCpMode == "strict") CheckpointsMode = Checkpoints::STRICT;
+    if(strCpMode == "advisory") CheckpointsMode = Checkpoints::ADVISORY;
+    if(strCpMode == "permissive") CheckpointsMode = Checkpoints::PERMISSIVE;
+
     if (mapArgs.count("-bind")) {
         // when specifying an explicit binding address, you want to listen on it
         // even when -connect or -proxy is specified
@@ -660,6 +668,12 @@ bool AppInit2()
                 return InitError(strprintf(_("Cannot resolve -externalip address: '%s'"), strAddr.c_str()));
             AddLocal(CService(strAddr, GetListenPort(), fNameLookup), LOCAL_MANUAL);
         }
+    }
+
+    /* Setting up the private key for sync checkpoints on the master node */ 
+    if(mapArgs.count("-checkpointkey")) {
+        if(!Checkpoints::SetCheckpointPrivKey(GetArg("-checkpointkey", "")))
+          InitError(_("Unable to sign an advanced checkpoint, incorrect master key?\n"));
     }
 
     BOOST_FOREACH(string strDest, mapMultiArgs["-seednode"])
