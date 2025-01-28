@@ -1,6 +1,6 @@
 // Copyright (c) 2012 Pieter Wuille
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Distributed under the MIT/X11 software licence, see the accompanying
+// file LICENCE or http://opensource.org/license/mit
 
 #include <algorithm>
 

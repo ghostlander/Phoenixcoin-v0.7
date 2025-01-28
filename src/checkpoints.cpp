@@ -1,8 +1,8 @@
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2012-2013 PPCoin developers
 // Copyright (c) 2013-2025 Phoenixcoin Developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Distributed under the MIT/X11 software licence, see the accompanying
+// file LICENCE or http://opensource.org/license/mit
 
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <boost/foreach.hpp>
