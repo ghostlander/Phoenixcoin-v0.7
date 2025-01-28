@@ -28,9 +28,9 @@ LDFLAGS = -Wl,-O2 -Wl,-s -Wl,--dynamicbase -Wl,--nxcompat -static -static-libgcc
 # May break MinGW64
 #LDFLAGS += -Wl,--large-address-aware
 
-BOOST_LIB_SUFFIX = -mgw49-mt-x64-1_78
-BOOST_INCLUDE_PATH = /home/Administrator/boost-1.78
-BOOST_LIB_PATH = /home/Administrator/boost-1.78/stage/lib
+BOOST_LIB_SUFFIX = -mgw49-mt-x64-1_81
+BOOST_INCLUDE_PATH = /home/Administrator/boost-1.81
+BOOST_LIB_PATH = /home/Administrator/boost-1.81/stage/lib
 
 BDB_LIB_SUFFIX =
 BDB_INCLUDE_PATH= /home/Administrator/db-5.3.28/build_unix

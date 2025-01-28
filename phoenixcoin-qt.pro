@@ -19,9 +19,9 @@ greaterThan(QT_MAJOR_VERSION, 4): {
 # Dependency library locations can be customized with:
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
-win32:BOOST_LIB_SUFFIX=-mgw49-mt-x64-1_77
-win32:BOOST_INCLUDE_PATH="/home/Administrator/boost-1.77"
-win32:BOOST_LIB_PATH="/home/Administrator/boost-1.77/stage/lib"
+win32:BOOST_LIB_SUFFIX=-mgw49-mt-x64-1_81
+win32:BOOST_INCLUDE_PATH="/home/Administrator/boost-1.81"
+win32:BOOST_LIB_PATH="/home/Administrator/boost-1.81/stage/lib"
 win32:BDB_INCLUDE_PATH="/home/Administrator/db-5.3.28/build_unix"
 win32:BDB_LIB_PATH="/home/Administrator/db-5.3.28/build_unix"
 win32:OPENSSL_INCLUDE_PATH="/home/Administrator/openssl-1.0.2u/include"
