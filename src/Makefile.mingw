@@ -62,9 +62,11 @@ ifndef USE_UPNP
  override USE_UPNP = -
 endif
 ifneq (${USE_UPNP}, -)
- INCS += -I/home/Administrator
- LIBS += -L/home/Administrator/miniupnpc -lminiupnpc -liphlpapi
- DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
+# Directory with the headers "include" should be renamed or copied to "miniupnpc"
+ INCS += -I/home/Administrator/miniupnpc-2.3.0
+ LIBS += -L/home/Administrator/miniupnpc-2.3.0 -lminiupnpc -liphlpapi
+# Remove -DMINIUPNP_STATICLIB if linking against a shared library
+ DEFS += -DMINIUPNP_STATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif
 
 ifneq (${USE_IPV6}, -)

@@ -26,8 +26,9 @@ win32:BDB_INCLUDE_PATH="/home/Administrator/db-5.3.28/build_unix"
 win32:BDB_LIB_PATH="/home/Administrator/db-5.3.28/build_unix"
 win32:OPENSSL_INCLUDE_PATH="/home/Administrator/openssl-1.0.2u/include"
 win32:OPENSSL_LIB_PATH="/home/Administrator/openssl-1.0.2u"
-win32:MINIUPNPC_INCLUDE_PATH="/home/Administrator"
-win32:MINIUPNPC_LIB_PATH="/home/Administrator/miniupnpc"
+# Directory with the headers "include" should be renamed or copied to "miniupnpc"
+win32:MINIUPNPC_INCLUDE_PATH="/home/Administrator/miniupnpc-2.3.0"
+win32:MINIUPNPC_LIB_PATH="/home/Administrator/miniupnpc-2.3.0"
 
 macx:BOOST_LIB_SUFFIX=-mt-x64
 
@@ -103,9 +104,11 @@ contains(USE_UPNP, -) {
     count(USE_UPNP, 0) {
         USE_UPNP=1
     }
-    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
+    DEFINES += USE_UPNP=$$USE_UPNP
     INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
     LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+# Remove MINIUPNP_STATICLIB if linking against a shared library
+    win32:DEFINES += MINIUPNP_STATICLIB
     win32:LIBS += -liphlpapi
 }
 
