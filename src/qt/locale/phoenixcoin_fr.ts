@@ -1130,7 +1130,7 @@ Adresse : %4
     </message>
     <message>
         <location line="+49"/>
-        <source>Startup time</source>
+        <source>Launch date</source>
         <translation>Date de démarrage</translation>
     </message>
     <message>

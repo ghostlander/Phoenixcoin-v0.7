@@ -1136,8 +1136,8 @@ Adres: %4
     </message>
     <message>
         <location line="+49"/>
-        <source>Startup time</source>
-        <translation>Czas uruchomienia</translation>
+        <source>Launch date</source>
+        <translation>Data uruchomienia</translation>
     </message>
     <message>
         <location line="+29"/>

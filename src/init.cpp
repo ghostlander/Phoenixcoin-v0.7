@@ -40,6 +40,7 @@ CWallet *pwalletMain;
 CClientUIInterface uiInterface;
 
 uint nMsgSleep;
+std::string strClientLaunchDateTime;
 enum Checkpoints::CPMode CheckpointsMode;
 
 /* Assembly level processor optimisation features */
@@ -515,7 +516,9 @@ bool AppInit2()
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
 
-    printf("Phoenixcoin %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
+    strClientLaunchDateTime = DateTimeStrFormat(GetTime());
+
+    printf("Phoenixcoin %s (%s)\n", FormatFullVersion().c_str(), CLIENT_BUILD_DATE_TIME.c_str());
     printf("Using OpenSSL release: %s\n", SSLeay_version(SSLEAY_VERSION));
     printf("Using BerkeleyDB release: %s\n", DbEnv::version(0, 0, 0));
     printf("Using Boost v%d.%d.%d\n",
@@ -524,7 +527,7 @@ bool AppInit2()
     printf("Using miniUPnP Client v%s API v%d\n", MINIUPNPC_VERSION, MINIUPNPC_API_VERSION);
 #endif
     if(!fLogTimestamps)
-      printf("Launch time: %s\n", DateTimeStrFormat(GetTime()).c_str());
+      printf("Launch date: %s\n", strClientLaunchDateTime.c_str());
     printf("The default data directory is %s\n", GetDefaultDataDir().string().c_str());
     printf("Set up for a data directory of %s\n", strDataDir.c_str());
     std::ostringstream strErrors;

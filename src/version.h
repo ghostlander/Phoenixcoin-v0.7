@@ -16,8 +16,8 @@ static const int CLIENT_VERSION =
                          +       1 * CLIENT_VERSION_BUILD;
 
 extern const std::string CLIENT_NAME;
-extern const std::string CLIENT_BUILD;
-extern const std::string CLIENT_DATE;
+extern const std::string CLIENT_BUILD_VERSION;
+extern const std::string CLIENT_BUILD_DATE_TIME;
 
 static const int PROTOCOL_VERSION = 70000;
 static const int MAX_PROTOCOL_VERSION = 79999;

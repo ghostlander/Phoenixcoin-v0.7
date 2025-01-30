@@ -289,8 +289,8 @@ void RPCConsole::setClientModel(ClientModel *model)
 
         // Provide initial values
         ui->clientVersion->setText(model->formatFullVersion());
-        ui->buildDate->setText(model->formatBuildDate());
-        ui->startupTime->setText(model->formatClientStartupTime());
+        ui->buildDateTime->setText(model->formatBuildDateTime());
+        ui->launchDateTime->setText(model->formatLaunchDateTime());
 
         setNumConnections(model->getNumConnections());
         ui->isTestNet->setChecked(model->isTestNet());

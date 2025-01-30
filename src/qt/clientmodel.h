@@ -44,9 +44,9 @@ public:
     QString getStatusBarWarnings() const;
 
     QString formatFullVersion() const;
-    QString formatBuildDate() const;
+    QString formatBuildDateTime() const;
+    QString formatLaunchDateTime() const;
     QString clientName() const;
-    QString formatClientStartupTime() const;
 
 private:
     OptionsModel *optionsModel;

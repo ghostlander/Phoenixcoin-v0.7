@@ -1132,8 +1132,8 @@ Indirizzo: %4
     </message>
     <message>
         <location line="+49"/>
-        <source>Startup time</source>
-        <translation>Tempo di avvio</translation>
+        <source>Launch date</source>
+        <translation>Data di avvio</translation>
     </message>
     <message>
         <location line="+29"/>

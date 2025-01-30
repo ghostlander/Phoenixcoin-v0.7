@@ -13,4 +13,6 @@ void Shutdown(void *parg);
 bool AppInit2();
 std::string HelpMessage();
 
+extern std::string strClientLaunchDateTime;
+
 #endif /* INIT_H */

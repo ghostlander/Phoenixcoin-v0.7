@@ -804,7 +804,7 @@ bool ExportWallet(CWallet *pwallet, const string &strDst) {
 
     /* Produce output */
     file << strprintf("# Wallet export created by Phoenixcoin %s (%s)\n",
-      CLIENT_BUILD.c_str(), CLIENT_DATE.c_str());
+      CLIENT_BUILD_VERSION.c_str(), CLIENT_BUILD_DATE_TIME.c_str());
     file << strprintf("# * Created on %s\n", EncodeDumpTime(GetTime()).c_str());
     file << strprintf("# * The best block at the creation time was %i (%s),\n",
       nBestHeight, hashBestChain.ToString().c_str());

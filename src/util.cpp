@@ -1264,9 +1264,8 @@ string FormatVersion(int nVersion) {
       (nVersion / 10000) % 100, (nVersion / 100) % 100, nVersion % 100));
 }
 
-string FormatFullVersion()
-{
-    return CLIENT_BUILD;
+string FormatFullVersion() {
+    return(CLIENT_BUILD_VERSION);
 }
 
 // Format the subversion field according to BIP 14 spec (https://en.bitcoin.it/wiki/BIP_0014)

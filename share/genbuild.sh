@@ -28,8 +28,9 @@ else
     NEWINFO="// No build information available"
 fi
 
-# only update build.h if necessary
-if [ "$INFO" != "$NEWINFO" ]; then
-    echo "$NEWINFO" >"$FILE"
-    echo "#define BUILD_DATE \"$TIME\"" >>"$FILE"
-fi
+# Current date and time in UTC
+DATE_TIME="$(date -u +"%d-%b-%Y %H:%M:%S %Z")"
+
+# Generate build.h
+echo "$NEWINFO" >"$FILE"
+echo "#define BUILD_DATE \"$DATE_TIME\"" >>"$FILE"
