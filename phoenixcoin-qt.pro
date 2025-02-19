@@ -166,7 +166,7 @@ QMAKE_EXTRA_TARGETS += genleveldb
 }
 
 QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security \
-    -Wno-unused-parameter -Wno-deprecated-declarations
+    -Wno-unused-parameter
 
 # Input
 DEPENDPATH += src src/json src/qt
