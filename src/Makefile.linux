@@ -94,12 +94,6 @@ ifneq (${USE_IPV6}, -)
  DEFS += -DUSE_IPV6=$(USE_IPV6)
 endif
 
-LIBS += $(CURDIR)/leveldb/libleveldb.a
-LIBS += $(CURDIR)/leveldb/libmemenv.a
-LIBS += $(CURDIR)/leveldb/libsnappy.a
-INCS += $(addprefix -I,$(CURDIR)/leveldb/include)
-INCS += $(addprefix -I,$(CURDIR)/leveldb/helpers)
-
 ifeq (${STATIC}, all)
  LIBS += -Wl,-Bstatic
 endif
@@ -107,7 +101,6 @@ endif
 LIBS += -lz -ldl -lpthread -lrt
 
 OBJS = \
-    obj/leveldb.o \
     obj/addrman.o \
     obj/alert.o \
     obj/checkpoints.o \
@@ -144,11 +137,6 @@ OBJS = \
     obj/secure.o
 
 all: phoenixcoind
-
-leveldb/libleveldb.a:
-	@echo "Building LevelDB ..."; cd leveldb; make -f Makefile.posix; cd ..;
-
-obj/leveldb.o: leveldb/libleveldb.a leveldb/libmemenv.a leveldb/libsnappy.a
 
 # Auto-generated dependencies
 -include obj/*.P
@@ -198,7 +186,6 @@ test_phoenixcoin: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS) $(TESTLIBS)
 
 clean:
-	-rm -f leveldb/obj/*.o leveldb/libleveldb.a leveldb/libmemenv.a leveldb/libsnappy.a
 	-rm -f obj/*.o obj/*.d obj/*.P obj/build.h
 	-rm -f phoenixcoind test_phoenixcoin
 

@@ -137,23 +137,6 @@ contains(NEED_QT_PLUGINS, 1) {
     QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
 }
 
-INCLUDEPATH += src/leveldb/include src/leveldb/helpers
-LIBS += -Lsrc/leveldb -lleveldb -lmemenv -lsnappy
-!win32 {
-    # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
-    genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE -fno-builtin-memcmp\" libleveldb.a libmemenv.a libsnappy.a
-    # Gross ugly hack that depends on qmake internals, unfortunately there is no other way to do it.
-    QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) clean
-} else {
-    LIBS += -lshlwapi
-    genleveldb.commands = cd $$PWD/src/leveldb; $(MAKE) -f Makefile.mingw
-    QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a
-    QMAKE_CLEAN += $$PWD/src/leveldb/libmemenv.a
-    QMAKE_CLEAN += $$PWD/src/leveldb/libsnappy.a
-    QMAKE_CLEAN += $$PWD/src/leveldb/obj/*.o
-}
-PRE_TARGETDEPS += genleveldb
-QMAKE_EXTRA_TARGETS += genleveldb
 
 # regenerate src/build.h
 !win32|contains(USE_BUILD_INFO, 1) {
@@ -195,7 +178,6 @@ HEADERS += src/qt/gui.h \
     src/net.h \
     src/key.h \
     src/db.h \
-    src/leveldb.h \
     src/walletdb.h \
     src/script.h \
     src/init.h \
@@ -276,7 +258,6 @@ SOURCES += src/qt/phoenixcoin.cpp \
     src/checkpoints.cpp \
     src/addrman.cpp \
     src/db.cpp \
-    src/leveldb.cpp \
     src/walletdb.cpp \
     src/qt/clientmodel.cpp \
     src/qt/guiutil.cpp \
